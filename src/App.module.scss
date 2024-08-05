@@ -40,6 +40,21 @@
   padding: 2em;
 }
 
+.box {
+  position: relative;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+
+  &.yellow {
+    @include bg-yellow;
+  }
+
+  &.blue {
+    @include bg-blue;
+  }
+}
+
 .read-the-docs {
   color: #888;
 }
