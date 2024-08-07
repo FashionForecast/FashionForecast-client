@@ -3,7 +3,6 @@
     "stylelint-config-standard-scss",
     "stylelint-config-recess-order"
   ],
-  "plugins": ["stylelint-scss"],
   "ignoreFiles": ["src/index.scss"],
   "rules": {
     "at-rule-no-unknown": null,
