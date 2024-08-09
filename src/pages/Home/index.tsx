@@ -4,7 +4,7 @@ import useAppSelector from '@/hooks/useAppSelector';
 import { decrement, increment } from '@/redux/slice/EXAMPLE_counterSlice';
 import { Button } from '@mui/material';
 
-export default function Home() {
+const Home = () => {
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
 
@@ -31,4 +31,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;
