@@ -4,7 +4,8 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './routes.tsx';
 import TanstackQueryProvider from './contexts/TanstackQueryProvider.tsx';
 import ReduxProvider from './contexts/ReduxProvider.tsx';
-import './index.css';
+import './styles/normalize.css';
+import './styles/reset.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
