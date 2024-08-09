@@ -1,5 +1,6 @@
 {
-  "extends": ["stylelint-config-recess-order"],
+  "extends": ["stylelint-config-standard", "stylelint-config-recess-order"],
+  "customSyntax": "postcss-styled-syntax",
   "ignoreFiles": [""],
   "rules": {
     "at-rule-no-unknown": null,
