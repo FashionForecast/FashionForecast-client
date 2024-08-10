@@ -4295,7 +4295,6 @@ packages:
       esbuild: 0.21.5
       postcss: 8.4.41
       rollup: 4.20.0
-      sass: 1.77.8
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
