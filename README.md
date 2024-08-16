@@ -65,7 +65,11 @@ src
   │          EXAMPLE_counterSlice.ts
   │
   ├─ service
-  │
+  |     weather.ts
+  |
+  ├─ types
+  │     weather.ts
+  |
   ├─ utils
   │
   └─styles
