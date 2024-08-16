@@ -2,11 +2,17 @@ import ExampleText from '@/components/EXAMPLE_TEXT';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import useAppSelector from '@/hooks/useAppSelector';
 import { decrement, increment } from '@/redux/slice/EXAMPLE_counterSlice';
+import { getWeather } from '@/service/weather';
 import { Button } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
+  const { data } = useQuery({
+    queryKey: ['weather'],
+    queryFn: getWeather,
+  });
 
   return (
     <div>
@@ -29,6 +35,14 @@ const Home = () => {
           Decrement
         </Button>
       </div>
+      {data &&
+        data.data.map((v, i) => (
+          <div key={i}>
+            <span>
+              날짜: {v.fcstDate}, 시간: {v.fcstTime} 온도: {v.tmp}
+            </span>
+          </div>
+        ))}
     </div>
   );
 };
