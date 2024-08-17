@@ -1,6 +1,14 @@
 const xlsx = require('xlsx');
 const fs = require('fs');
 
+/**
+ * 파일 생성 명령어: pnpm region
+ *
+ * 위경도 엑셀 파일은 아래 링크의 참고 문서에서 가져왔습니다.
+ * script 폴더에 '위경도.xlsx' 파일을 넣어주세요.
+ * @link https://www.data.go.kr/data/15084084/openapi.do
+ */
+
 const workbook = xlsx.readFile('./script/위경도.xlsx');
 const sheetName = workbook.SheetNames[0];
 const sheet = workbook.Sheets[sheetName];
