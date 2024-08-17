@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 const Home = () => {
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
-  const { data } = useQuery({
+  const { data, isError } = useQuery({
     queryKey: ['weather'],
     queryFn: getWeather,
   });
@@ -35,14 +35,14 @@ const Home = () => {
           Decrement
         </Button>
       </div>
-      {data &&
-        data.data.map((v, i) => (
-          <div key={i}>
-            <span>
-              날짜: {v.fcstDate}, 시간: {v.fcstTime} 온도: {v.tmp}
-            </span>
-          </div>
-        ))}
+      {isError && <span>날씨를 조회하지 못함</span>}
+      {data?.data.map((v, i) => (
+        <div key={i}>
+          <span>
+            날짜: {v.fcstDate}, 시간: {v.fcstTime} 온도: {v.tmp}
+          </span>
+        </div>
+      ))}
     </div>
   );
 };
