@@ -23,8 +23,8 @@ for (const v of data) {
 
   const obj = {
     region: `${v['1단계']} ${v['2단계']}`,
-    nx: v['경도(시)'],
-    ny: v['위도(시)'],
+    nx: v['위도(시)'],
+    ny: v['경도(시)'],
   };
 
   regions.push(obj);
