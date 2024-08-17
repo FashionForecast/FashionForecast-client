@@ -39,7 +39,8 @@ const Home = () => {
       {data?.data.map((v, i) => (
         <div key={i}>
           <span>
-            날짜: {v.fcstDate}, 시간: {v.fcstTime} 온도: {v.tmp}
+            날짜: {v.fcstDate}, 시간: {v.fcstTime} 온도: {v.tmp} 강수확률:
+            {v.pop} 강수량: {v.pcp}
           </span>
         </div>
       ))}

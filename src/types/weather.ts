@@ -5,6 +5,8 @@ export type WeatherResponse = {
     tmp: string;
     reh: string;
     wsd: string;
+    pop: string;
+    pcp: string;
     rainType: string;
     skyStatus: string;
     nx: number;
