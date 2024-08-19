@@ -10,7 +10,9 @@ import * as S from './style';
 const Search = () => {
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
-  const matchItems = regions.filter((v) => v.region.includes(keyword));
+  const matchItems = keyword
+    ? regions.filter((v) => v.region.includes(keyword))
+    : [];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -45,11 +47,11 @@ const Search = () => {
         </Toolbar>
       </S.Header>
 
-      <ol>
+      <S.RegionList>
         {matchItems.map((item) => (
           <RegionItem key={item.region} keyword={keyword} {...item} />
         ))}
-      </ol>
+      </S.RegionList>
     </>
   );
 };

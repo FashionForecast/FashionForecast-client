@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { AppBar, IconButton, TextField } from '@mui/material';
+import { AppBar, IconButton, List, TextField } from '@mui/material';
 
 export const Header = styled(AppBar)`
   position: fixed;
@@ -37,4 +37,13 @@ export const CancleButton = styled.button`
   padding: 0;
   border-radius: 50%;
   transform: translateY(-50%);
+`;
+
+export const RegionList = styled(List)`
+  padding: 0;
+  margin-top: 56px;
+
+  @media (min-width: 600px) {
+    margin-top: 64px;
+  }
 `;
