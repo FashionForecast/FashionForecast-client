@@ -4,9 +4,11 @@
   "ignoreFiles": [""],
   "rules": {
     "at-rule-no-unknown": null,
-    "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+    "selector-class-pattern": "^([a-zA-Z][a-zA-Z0-9]*)(-[a-zA-Z0-9]+)*$",
     "keyframes-name-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
     "max-nesting-depth": 3,
-    "no-descending-specificity": null
+    "no-descending-specificity": null,
+    "media-feature-range-notation": "prefix",
+    "color-named": "never"
   }
 }
