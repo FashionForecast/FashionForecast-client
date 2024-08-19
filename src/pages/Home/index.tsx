@@ -1,4 +1,3 @@
-import ExampleText from '@/components/EXAMPLE_TEXT';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import useAppSelector from '@/hooks/useAppSelector';
 import { decrement, increment } from '@/redux/slice/EXAMPLE_counterSlice';
@@ -25,7 +24,7 @@ const Home = () => {
         >
           Increment
         </Button>
-        <ExampleText>{count}</ExampleText>
+        <span>{count}</span>
         <Button
           variant='contained'
           color='warning'
