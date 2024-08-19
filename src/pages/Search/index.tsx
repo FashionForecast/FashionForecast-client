@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import regions from '@/assets/region.json';
 import RegionItem from './components/RegionItem';
+import CancelIcon from '@/components/icon/Cancel';
 
 const Search = () => {
   const [keyword, setKeyword] = useState('');
@@ -15,6 +16,10 @@ const Search = () => {
     setKeyword(e.target.value);
   };
 
+  const handleKeywordResetClick = () => {
+    setKeyword('');
+  };
+
   return (
     <div>
       <div>
@@ -22,7 +27,14 @@ const Search = () => {
           <ArrowIcon />
         </IconButton>
 
-        <TextField variant='filled' value={keyword} onChange={handleChange} />
+        <div>
+          <TextField variant='filled' value={keyword} onChange={handleChange} />
+          {keyword && (
+            <button type='button' onClick={handleKeywordResetClick}>
+              <CancelIcon />
+            </button>
+          )}
+        </div>
       </div>
 
       <ol>
