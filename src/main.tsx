@@ -8,15 +8,18 @@ import './styles/normalize.css';
 import './styles/reset.css';
 import './styles/font.css';
 import MuiThemeProvider from './contexts/MuiThemeProvider.tsx';
+import EmotionThemeProvider from './contexts/EmotionThemeProvider.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MuiThemeProvider>
-      <ReduxProvider>
-        <TanstackQueryProvider>
-          <RouterProvider router={router} />
-        </TanstackQueryProvider>
-      </ReduxProvider>
+      <EmotionThemeProvider>
+        <ReduxProvider>
+          <TanstackQueryProvider>
+            <RouterProvider router={router} />
+          </TanstackQueryProvider>
+        </ReduxProvider>
+      </EmotionThemeProvider>
     </MuiThemeProvider>
   </React.StrictMode>
 );
