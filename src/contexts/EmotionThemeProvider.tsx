@@ -1,6 +1,11 @@
 import { theme } from '@/styles/theme';
 import { ThemeProvider } from '@emotion/react';
 
+/**
+ * Emotion Theming
+ * @link https://emotion.sh/docs/theming
+ */
+
 type EmotionThemeProviderProps = {
   children: React.ReactNode;
 };

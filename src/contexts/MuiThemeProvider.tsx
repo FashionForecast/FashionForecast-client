@@ -1,5 +1,10 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 
+/**
+ * MUI Theming
+ * @link https://mui.com/material-ui/customization/theming/
+ */
+
 const theme = createTheme({
   typography: {
     fontFamily:
