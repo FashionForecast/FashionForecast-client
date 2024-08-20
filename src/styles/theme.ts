@@ -1,4 +1,5 @@
 import { colors } from './colors';
+import { typo } from './typo';
 
 export const theme = {
   colors: {
@@ -16,6 +17,7 @@ export const theme = {
     green: colors.green,
     white: colors.white,
   },
+  typo,
 };
 
 export type ThemeType = typeof theme;
