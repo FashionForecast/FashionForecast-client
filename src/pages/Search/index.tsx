@@ -1,14 +1,15 @@
 import ArrowIcon from '@/components/icon/Arrow';
 import { Toolbar } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import regions from '@/assets/region.json';
 import RegionItem from './components/RegionItem';
 import CancelIcon from '@/components/icon/Cancel';
 import * as S from './style';
 
 const Search = () => {
-  const [keyword, setKeyword] = useState('');
+  const location = useLocation();
+  const [keyword, setKeyword] = useState(location.state.region || '');
   const navigate = useNavigate();
   const matchItems = keyword
     ? regions.filter((v) => v.region.includes(keyword))

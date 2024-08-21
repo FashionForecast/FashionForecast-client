@@ -20,11 +20,28 @@ const Home = () => {
     queryFn: getWeather,
   });
 
+  const handleRegionClick = (region: string) => {
+    setRegions((prev) => {
+      if (prev[0].region === region) {
+        return prev;
+      }
+
+      const list = [...prev];
+      const targetIndex = list.findIndex((v) => v.region === region);
+
+      [list[0], list[targetIndex]] = [list[targetIndex], list[0]];
+
+      localStorage.setItem(MY_REGIONS, JSON.stringify(list));
+
+      return list;
+    });
+  };
+
   return (
     <div>
       홈
       <div>
-        <RegionSelector regions={regions} />
+        <RegionSelector regions={regions} onRegionClick={handleRegionClick} />
         <Button
           variant='contained'
           aria-label='Increment value'
