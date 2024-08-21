@@ -1,4 +1,4 @@
-import LocationIcon from '@/components/icon/location';
+import LocationIcon from '@/components/icon/Location';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './RegionButton.style';
