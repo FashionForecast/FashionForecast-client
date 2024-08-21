@@ -8,6 +8,7 @@ import CancelIcon from '@/components/icon/Cancel';
 import * as S from './style';
 import { Region } from '@/types/region';
 import { MY_REGIONS } from '@/constants/localStorage/key';
+import TrashCan from '@/components/icon/TrashCan';
 
 type SearchLocationState = {
   state?: {
@@ -90,16 +91,17 @@ const Search = () => {
       </S.RegionList>
 
       {matchItems.length === 1 && isSaved && (
-        <div>
+        <S.Aside>
           <Button
             variant='outlined'
             color='error'
             size='large'
             onClick={handleDeleteRegionClick}
+            fullWidth
           >
-            이 위치 삭제하기
+            <TrashCan /> 이 위치 삭제하기
           </Button>
-        </div>
+        </S.Aside>
       )}
     </>
   );
