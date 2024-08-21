@@ -7,9 +7,15 @@ import RegionItem from './components/RegionItem';
 import CancelIcon from '@/components/icon/Cancel';
 import * as S from './style';
 
+type SearchLocationState = {
+  state?: {
+    region: string;
+  };
+};
+
 const Search = () => {
-  const location = useLocation();
-  const [keyword, setKeyword] = useState(location.state.region || '');
+  const { state }: SearchLocationState = useLocation();
+  const [keyword, setKeyword] = useState(state?.region || '');
   const navigate = useNavigate();
   const matchItems = keyword
     ? regions.filter((v) => v.region.includes(keyword))

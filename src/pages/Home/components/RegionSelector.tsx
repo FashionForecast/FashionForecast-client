@@ -2,6 +2,7 @@ import PlusIcon from '@/components/icon/Plus';
 import { Chip } from '@mui/material';
 import RegionButton from './RegionButton';
 import { Region } from '@/types/region';
+import { Link } from 'react-router-dom';
 
 type LocationSelectorProps = {
   regions: Region[];
@@ -19,7 +20,10 @@ const RegionSelector = ({ regions, onRegionClick }: LocationSelectorProps) => {
           onRegionClick={onRegionClick}
         />
       ))}
-      <Chip variant='outlined' icon={<PlusIcon />} />
+
+      <Link to={'/search'}>
+        <Chip variant='outlined' icon={<PlusIcon />} />
+      </Link>
     </div>
   );
 };
