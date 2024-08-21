@@ -20,8 +20,13 @@ export const InputWrapper = styled.div`
 `;
 
 export const Input = styled(TextField)`
+  & .MuiInputBase-root::before {
+    border-bottom-color: ${({ theme }) => theme.colors.blueGrey.A42};
+  }
+
   & input {
     padding: 6px 36px 6px 12px;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 `;
 
