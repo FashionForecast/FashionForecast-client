@@ -2,19 +2,17 @@ import CheckIcon from '@/components/icon/Check';
 import * as S from './RegionItem.style';
 import { IconButton } from '@mui/material';
 import { MY_REGIONS } from '@/constants/localStorage/key';
+import { Region } from '@/types/region';
 
-type RegionItemProps = {
-  region: string;
+type RegionItemProps = Region & {
   keyword: string;
-  nx: number;
-  ny: number;
 };
 
 //TODO: alert 제거
 const RegionItem = ({ region, keyword, nx, ny }: RegionItemProps) => {
   const [before, match, after] = splitText(region, keyword);
   const handleSaveClick = () => {
-    const saved: Omit<RegionItemProps, 'keyword'>[] = JSON.parse(
+    const saved: Region[] = JSON.parse(
       localStorage.getItem(MY_REGIONS) ?? '[]'
     );
 
