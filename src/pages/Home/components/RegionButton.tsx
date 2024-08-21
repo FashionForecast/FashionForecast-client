@@ -1,7 +1,7 @@
 import LocationIcon from '@/components/icon/location';
-import { Chip } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as S from './RegionButton.style';
 
 type LocationButtonProps = {
   region: string;
@@ -44,17 +44,17 @@ const RegionButton = ({
   };
 
   return (
-    <button
+    <S.Button
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
     >
-      <Chip
+      <S.LocationChip
         label={region}
         variant={isSelected ? 'filled' : 'outlined'}
         icon={isSelected ? <LocationIcon /> : undefined}
       />
-    </button>
+    </S.Button>
   );
 };
 
