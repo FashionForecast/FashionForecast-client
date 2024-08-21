@@ -3,6 +3,16 @@
   margin: 0;
 }
 
+/*
+ font: typography/body1 스타일
+ color: text/primary 스타일
+ */
+html {
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  color: rgba(50, 57, 65, 0.87);
+}
+
 body {
   width: 100%;
   background-color: #f1f3f5;
