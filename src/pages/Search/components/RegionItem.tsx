@@ -6,30 +6,34 @@ import { Region } from '@/types/region';
 
 type RegionItemProps = Region & {
   keyword: string;
+  myRegions: Region[];
+  setNewMyRegions: (newRegions: Region[]) => void;
 };
 
 //TODO: alert 제거
-const RegionItem = ({ region, keyword, nx, ny }: RegionItemProps) => {
+const RegionItem = ({
+  region,
+  keyword,
+  nx,
+  ny,
+  myRegions,
+  setNewMyRegions,
+}: RegionItemProps) => {
   const [before, match, after] = splitText(region, keyword);
   const handleSaveClick = () => {
-    const saved: Region[] = JSON.parse(
-      localStorage.getItem(MY_REGIONS) ?? '[]'
-    );
-
-    if (saved.some((item) => item.region === region)) {
+    if (myRegions.some((item) => item.region === region)) {
       alert('해당 지역이 이미 저장되어 있습니다.');
       return;
     }
 
-    if (saved.length >= 3) {
+    if (myRegions.length >= 3) {
       alert('3개 이상 저장할 수 없습니다.');
       return;
     }
 
-    localStorage.setItem(
-      MY_REGIONS,
-      JSON.stringify([...saved, { region, nx, ny }])
-    );
+    const addRegion = [...myRegions, { region, nx, ny }];
+    setNewMyRegions(addRegion);
+    localStorage.setItem(MY_REGIONS, JSON.stringify(addRegion));
     alert(`${region} 지역을 저장했습니다.`);
   };
 
