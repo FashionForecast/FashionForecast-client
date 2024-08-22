@@ -20,8 +20,13 @@ export const InputWrapper = styled.div`
 `;
 
 export const Input = styled(TextField)`
+  & .MuiInputBase-root::before {
+    border-bottom-color: ${({ theme }) => theme.colors.blueGrey.A42};
+  }
+
   & input {
     padding: 6px 36px 6px 12px;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 `;
 
@@ -45,5 +50,19 @@ export const RegionList = styled(List)`
 
   @media (min-width: 600px) {
     margin-top: 64px;
+  }
+`;
+
+export const Aside = styled.aside`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 58px;
+  padding: 8px 16px;
+  border-top: 1px solid ${(props) => props.theme.colors.blueGrey[300]};
+
+  & svg {
+    margin-right: 13px;
   }
 `;

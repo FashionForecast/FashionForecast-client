@@ -4,8 +4,15 @@ import { decrement, increment } from '@/redux/slice/EXAMPLE_counterSlice';
 import { getWeather } from '@/service/weather';
 import { Button } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import RegionSelector from './components/RegionSelector';
+import { useState } from 'react';
+import { Region } from '@/types/region';
+import { MY_REGIONS } from '@/constants/localStorage/key';
 
 const Home = () => {
+  const [regions, setRegions] = useState<Region[]>(
+    JSON.parse(localStorage.getItem(MY_REGIONS) || '[]')
+  );
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
   const { data, isError } = useQuery({
@@ -13,10 +20,28 @@ const Home = () => {
     queryFn: getWeather,
   });
 
+  const handleRegionClick = (region: string) => {
+    setRegions((prev) => {
+      if (prev[0].region === region) {
+        return prev;
+      }
+
+      const list = [...prev];
+      const targetIndex = list.findIndex((v) => v.region === region);
+
+      [list[0], list[targetIndex]] = [list[targetIndex], list[0]];
+
+      localStorage.setItem(MY_REGIONS, JSON.stringify(list));
+
+      return list;
+    });
+  };
+
   return (
     <div>
       홈
       <div>
+        <RegionSelector regions={regions} onRegionClick={handleRegionClick} />
         <Button
           variant='contained'
           aria-label='Increment value'

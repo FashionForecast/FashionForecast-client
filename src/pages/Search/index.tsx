@@ -1,18 +1,38 @@
 import ArrowIcon from '@/components/icon/Arrow';
-import { Toolbar } from '@mui/material';
+import { Button, Toolbar } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import regions from '@/assets/region.json';
 import RegionItem from './components/RegionItem';
 import CancelIcon from '@/components/icon/Cancel';
 import * as S from './style';
+import { Region } from '@/types/region';
+import { MY_REGIONS } from '@/constants/localStorage/key';
+import TrashCan from '@/components/icon/TrashCan';
+
+type SearchLocationState = {
+  state?: {
+    region: string;
+  };
+};
 
 const Search = () => {
-  const [keyword, setKeyword] = useState('');
-  const navigate = useNavigate();
+  const { state }: SearchLocationState = useLocation();
+  const [keyword, setKeyword] = useState(state?.region || '');
+  const [myRegions, setMyRegions] = useState<Region[]>(
+    JSON.parse(localStorage.getItem(MY_REGIONS) || '[]')
+  );
+
+  const isSaved = myRegions.some(
+    (v) => keyword !== '' && v.region.includes(keyword)
+  );
   const matchItems = keyword
     ? regions.filter((v) => v.region.includes(keyword))
     : [];
+
+  const setNewMyRegions = (newRegions: Region[]) => {
+    setMyRegions(newRegions);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -22,13 +42,24 @@ const Search = () => {
     setKeyword('');
   };
 
+  const handleDeleteRegionClick = () => {
+    setMyRegions((prev) => {
+      const filtered = prev.filter((v) => v.region !== matchItems[0].region);
+      localStorage.setItem(MY_REGIONS, JSON.stringify(filtered));
+
+      return filtered;
+    });
+  };
+
   return (
     <>
       <S.Header color='inherit' elevation={0}>
         <Toolbar>
-          <S.GoBackButton onClick={() => navigate(-1)} size='large'>
-            <ArrowIcon />
-          </S.GoBackButton>
+          <Link to={'/'}>
+            <S.GoBackButton size='large'>
+              <ArrowIcon />
+            </S.GoBackButton>
+          </Link>
 
           <S.InputWrapper>
             <S.Input
@@ -49,9 +80,29 @@ const Search = () => {
 
       <S.RegionList>
         {matchItems.map((item) => (
-          <RegionItem key={item.region} keyword={keyword} {...item} />
+          <RegionItem
+            key={item.region}
+            keyword={keyword}
+            myRegions={myRegions}
+            setNewMyRegions={setNewMyRegions}
+            {...item}
+          />
         ))}
       </S.RegionList>
+
+      {matchItems.length === 1 && isSaved && (
+        <S.Aside>
+          <Button
+            variant='outlined'
+            color='error'
+            size='large'
+            onClick={handleDeleteRegionClick}
+            fullWidth
+          >
+            <TrashCan /> 이 위치 삭제하기
+          </Button>
+        </S.Aside>
+      )}
     </>
   );
 };
