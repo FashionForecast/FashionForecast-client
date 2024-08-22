@@ -23,6 +23,15 @@ const Search = () => {
     setKeyword('');
   };
 
+  const handleDeleteRegionClick = () => {
+    setMyRegions((prev) => {
+      const filtered = prev.filter((v) => v.region !== matchItems[0].region);
+      localStorage.setItem(MY_REGIONS, JSON.stringify(filtered));
+
+      return filtered;
+    });
+  };
+
   return (
     <S.SearchWrapper>
       <SearchHeader
@@ -37,7 +46,13 @@ const Search = () => {
 
       <C.RegionList>
         {matchItems.map((item) => (
-          <RegionItem key={item.region} keyword={keyword} {...item} />
+          <RegionItem
+            key={item.region}
+            keyword={keyword}
+            myRegions={myRegions}
+            setNewMyRegions={setNewMyRegions}
+            {...item}
+          />
         ))}
       </C.RegionList>
     </S.SearchWrapper>

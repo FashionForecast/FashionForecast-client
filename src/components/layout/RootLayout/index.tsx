@@ -54,3 +54,14 @@ export default function RootLayout() {
     </S.Main>
   );
 }
+
+function setDefaultRegion() {
+  const saved = localStorage.getItem(MY_REGIONS);
+
+  if (!saved) {
+    localStorage.setItem(
+      MY_REGIONS,
+      JSON.stringify([{ region: '서울특별시 종로구', nx: 37, ny: 126 }])
+    );
+  }
+}
