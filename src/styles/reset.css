@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/*
+ font: typography/body1 스타일
+ color: text/primary 스타일
+ */
+html {
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  color: rgba(50, 57, 65, 0.87);
+}
+
+body {
+  width: 100%;
+  background-color: #f1f3f5;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+h1 {
+  margin: 0;
+}
+
+a,
+button {
+  cursor: pointer;
+  border: none;
+}
+
+ul,
+ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
