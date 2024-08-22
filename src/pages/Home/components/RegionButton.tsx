@@ -14,41 +14,29 @@ const RegionButton = ({
   isSelected = false,
   onRegionClick,
 }: LocationButtonProps) => {
-  const [pressTimer, setPressTimer] = useState<NodeJS.Timeout | null>(null);
-  const [isLongPress, setIsLongPress] = useState(false);
+  const [clickStartTime, setClickStartTime] = useState(0);
   const navigate = useNavigate();
-
-  const handlePointerDown = () => {
-    const timer: ReturnType<typeof setTimeout> = setTimeout(() => {
-      if (isSelected) return;
-      setIsLongPress(true);
-      navigate('/search', { state: { region } });
-    }, 1000);
-
-    setPressTimer(timer);
-    setIsLongPress(false);
-  };
 
   const handlePointerUp = () => {
     if (isSelected) return;
 
-    if (pressTimer) {
-      clearTimeout(pressTimer);
+    const clickDuration = Date.now() - clickStartTime;
 
-      if (!isLongPress) {
-        onRegionClick(region);
-      }
-
-      setPressTimer(null);
+    if (clickDuration < 1000) {
+      onRegionClick(region); // 숏클릭
+    } else {
+      navigate('/search', { state: { region } }); // 롱클릭
     }
   };
 
+  const handlePointerDown = () => {
+    if (isSelected) return;
+
+    setClickStartTime(Date.now());
+  };
+
   return (
-    <S.Button
-      onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
-      onPointerLeave={handlePointerUp}
-    >
+    <S.Button onPointerUp={handlePointerUp} onPointerDown={handlePointerDown}>
       <S.LocationChip
         label={region}
         variant={isSelected ? 'filled' : 'outlined'}
