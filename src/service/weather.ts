@@ -1,12 +1,9 @@
 import { WeatherResponse } from '@/types/weather';
 
 export async function getWeather(): Promise<WeatherResponse> {
-
-
-
   const offset = 1000 * 60 * 60 * 9;
-  const KTCnow = new Date((new Date()).getTime() + offset)
-  const now = (KTCnow.toISOString()).slice(0, -5);
+  const KTCnow = new Date(new Date().getTime() + offset);
+  const now = KTCnow.toISOString().slice(0, -5);
 
   try {
     const res = await fetch(
