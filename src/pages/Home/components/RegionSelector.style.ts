@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { Chip } from '@mui/material';
+import { Chip, css } from '@mui/material';
 import { Link } from 'react-router-dom';
+import forwordPropOption from '@/utils/emotionForwordPropOption.ts';
 
 export const Section = styled.section`
   position: relative;
@@ -16,11 +17,13 @@ export const Section = styled.section`
     display: none;
   }
 
-  scrollbar-width: none; /* 파이어폭스 */
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 `;
 
-export const LinkWrap = styled(Link)`
+export const LinkWrap = styled(Link, forwordPropOption)<{
+  $isScrollActive: boolean;
+}>`
   position: sticky;
   right: 0;
   display: inline-block;
@@ -28,15 +31,23 @@ export const LinkWrap = styled(Link)`
   height: 32px;
   background-color: ${(props) => props.theme.colors.white};
 
-  &::after {
-    position: absolute;
-    top: 0;
-    left: -16px;
-    width: 16px;
-    height: 100%;
-    content: '';
-    background: linear-gradient(270deg, #fff 0%, rgb(255 255 255 / 0%) 100%);
-  }
+  ${({ $isScrollActive }) =>
+    $isScrollActive &&
+    css`
+      &::after {
+        position: absolute;
+        top: 0;
+        left: -16px;
+        width: 16px;
+        height: 100%;
+        content: '';
+        background: linear-gradient(
+          270deg,
+          #fff 0%,
+          rgb(255 255 255 / 0%) 100%
+        );
+      }
+    `}
 
   &::before {
     position: absolute;
