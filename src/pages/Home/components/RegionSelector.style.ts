@@ -1,7 +1,7 @@
+import forwardPropOption from '@/utils/emotionForwardPropOption';
 import styled from '@emotion/styled';
 import { Chip, css } from '@mui/material';
 import { Link } from 'react-router-dom';
-import forwordPropOption from '@/utils/emotionForwordPropOption.ts';
 
 export const Section = styled.section`
   position: relative;
@@ -21,7 +21,7 @@ export const Section = styled.section`
   -ms-overflow-style: none;
 `;
 
-export const LinkWrap = styled(Link, forwordPropOption)<{
+export const LinkWrap = styled(Link, forwardPropOption)<{
   $isScrollActive: boolean;
 }>`
   position: sticky;
