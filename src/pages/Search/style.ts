@@ -1,12 +1,13 @@
+import CustomAppBar from '@/components/CustomAppBar';
 import styled from '@emotion/styled';
-import { AppBar, IconButton, List, TextField } from '@mui/material';
+import { IconButton, List } from '@mui/material';
 
-export const Header = styled(AppBar)`
+const AppBar = styled(CustomAppBar)`
   position: fixed;
   top: 0;
   left: 50%;
   max-width: 768px;
-  border-bottom: 1px solid #b2becc;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.blueGrey[300]};
   transform: translateX(-50%);
 `;
 
@@ -17,17 +18,6 @@ export const GoBackButton = styled(IconButton)`
 export const InputWrapper = styled.div`
   position: relative;
   width: 100%;
-`;
-
-export const Input = styled(TextField)`
-  & .MuiInputBase-root::before {
-    border-bottom-color: ${({ theme }) => theme.colors.blueGrey.A42};
-  }
-
-  & input {
-    padding: 6px 36px 6px 12px;
-    color: ${({ theme }) => theme.colors.text.primary};
-  }
 `;
 
 export const CancleButton = styled.button`
@@ -66,3 +56,15 @@ export const Aside = styled.aside`
     margin-right: 13px;
   }
 `;
+
+export const S = {
+  InputWrapper,
+  CancleButton,
+  Aside,
+};
+
+export const C = {
+  AppBar,
+  GoBackButton,
+  RegionList,
+};

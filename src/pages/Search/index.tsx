@@ -1,14 +1,16 @@
 import ArrowIcon from '@/components/icon/Arrow';
-import { Button, Toolbar } from '@mui/material';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import regions from '@/assets/region.json';
 import RegionItem from './components/RegionItem';
 import CancelIcon from '@/components/icon/Cancel';
-import * as S from './style';
+import { C, S } from './style';
 import { Region } from '@/types/region';
 import { MY_REGIONS } from '@/constants/localStorage/key';
 import TrashCan from '@/components/icon/TrashCan';
+import CustomToolbar from '@/components/CustomToolBar';
+import CustomTextField from '@/components/CustomTextField';
 
 type SearchLocationState = {
   state?: {
@@ -53,16 +55,16 @@ const Search = () => {
 
   return (
     <>
-      <S.Header color='inherit' elevation={0}>
-        <Toolbar>
+      <C.AppBar>
+        <CustomToolbar>
           <Link to={'/'}>
-            <S.GoBackButton size='large'>
+            <C.GoBackButton size='large'>
               <ArrowIcon />
-            </S.GoBackButton>
+            </C.GoBackButton>
           </Link>
 
           <S.InputWrapper>
-            <S.Input
+            <CustomTextField
               variant='filled'
               value={keyword}
               onChange={handleChange}
@@ -75,10 +77,10 @@ const Search = () => {
               </S.CancleButton>
             )}
           </S.InputWrapper>
-        </Toolbar>
-      </S.Header>
+        </CustomToolbar>
+      </C.AppBar>
 
-      <S.RegionList>
+      <C.RegionList>
         {matchItems.map((item) => (
           <RegionItem
             key={item.region}
@@ -88,7 +90,7 @@ const Search = () => {
             {...item}
           />
         ))}
-      </S.RegionList>
+      </C.RegionList>
 
       {matchItems.length === 1 && isSaved && (
         <S.Aside>
