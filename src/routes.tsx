@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import RootLayout from './components/layout/RootLayout';
 import Search from './pages/Search';
-import WeatherTimeline from './pages/Home/components/weather/WeatherTimeline';
 import WeatherCard from './pages/Home/components/weather/WeatherCard';
 export const router = createBrowserRouter([
   {
@@ -15,7 +14,6 @@ export const router = createBrowserRouter([
         path: '/search',
         element: <Search />,
       },
-      { path : '/weathertimeline', element: <WeatherTimeline />},
       { path : '/weathercard', element: <WeatherCard />},
     ],
   },
