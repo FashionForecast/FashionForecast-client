@@ -1,10 +1,11 @@
 import { getWeather } from '@/service/weather';
-import { Card, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import handlePoP from './HandlePop';
-import handlePcP from './HandlePcp';
-import handleWeather from './HandleWeather';
+import HandlePcP from './HandlePcp';
+import HandleWeather from './HandleWeather';
+import * as S from './CardSummary.style';
+
 
 
 
@@ -35,7 +36,7 @@ const WeatherCard = () => {
 
     //현재 시간의 날씨를 가져오기
     const nowWeather = weather
-    const WeatherImage = handleWeather(nowWeather);
+    const { weatherText, weatherIcon } = HandleWeather(nowWeather);
 
     //현재 시간의 강수확률 가져오기
     const nowPop = data?.['data'][0].pop;
@@ -45,7 +46,7 @@ const WeatherCard = () => {
 
     //현재 시간의 강수량 가져오기
     const nowPcp = data?.['data'][0].pcp;
-    const PcpImage = handlePcP(nowPcp);
+    const {PcpText, PcpIcon} = HandlePcP(nowPcp);
 
 
 
@@ -53,14 +54,25 @@ const WeatherCard = () => {
     return (
         <div>
             {isError && <div>날씨 정보를 불러오는데 실패했습니다.</div>}
-            <Card>
-                <Paper>
-                    현재 날씨 : {WeatherImage} 강수확률 : {PopImage}  강수량 : {PcpImage}
+            <S.WeatherCardWrapper elevation={0}>
+                <S.CardContent>
+                    <S.WeatherIcon>{weatherIcon}</S.WeatherIcon>
+                    <S.WeatherHeader>{weatherText}</S.WeatherHeader>
+                    <S.WeatherSubheader>날씨</S.WeatherSubheader>
+                </S.CardContent>
+                <S.CardContent>
+                    <S.WeatherIcon>{PopImage}</S.WeatherIcon>
+                    <S.WeatherHeader>{nowPop}%</S.WeatherHeader>
+                    <S.WeatherSubheader>강수확률</S.WeatherSubheader>
+                </S.CardContent>
+                <S.CardContent>
+                    <S.WeatherIcon>{PcpIcon}</S.WeatherIcon>
+                    <S.WeatherHeader>{PcpText}</S.WeatherHeader>
+                    <S.WeatherSubheader>강수량</S.WeatherSubheader>
+                </S.CardContent>
+            </S.WeatherCardWrapper>
 
-                </Paper>
-
-
-            </Card>
+            
         </div>
     );
 
