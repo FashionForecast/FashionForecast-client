@@ -1,7 +1,7 @@
 import PlusIcon from '@/components/icon/Plus';
 import RegionButton from './RegionButton';
 import { Region } from '@/types/region';
-import * as S from './RegionSelector.style';
+import { C, S } from './RegionSelector.style';
 import { useEffect, useRef, useState } from 'react';
 
 type LocationSelectorProps = {
@@ -32,9 +32,9 @@ const RegionSelector = ({ regions, onRegionClick }: LocationSelectorProps) => {
         />
       ))}
 
-      <S.LinkWrap to={'/search'} $isScrollActive={isScrollActive}>
-        <S.PlusChip variant='outlined' label={<PlusIcon />} />
-      </S.LinkWrap>
+      <C.Link to={'/search'} $isScrollActive={isScrollActive}>
+        <C.PlusChip variant='outlined' label={<PlusIcon />} />
+      </C.Link>
     </S.Section>
   );
 };
