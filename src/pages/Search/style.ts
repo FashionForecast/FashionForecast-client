@@ -11,16 +11,16 @@ const AppBar = styled(CustomAppBar)`
   transform: translateX(-50%);
 `;
 
-export const GoBackButton = styled(IconButton)`
+const GoBackButton = styled(IconButton)`
   margin-right: 16px;
 `;
 
-export const InputWrapper = styled.div`
+const InputWrapper = styled.div`
   position: relative;
   width: 100%;
 `;
 
-export const CancleButton = styled.button`
+const CancleButton = styled.button`
   position: absolute;
   top: 50%;
   right: 12px;
@@ -34,7 +34,7 @@ export const CancleButton = styled.button`
   transform: translateY(-50%);
 `;
 
-export const RegionList = styled(List)`
+const RegionList = styled(List)`
   padding: 0;
   margin-top: 56px;
 
@@ -43,7 +43,7 @@ export const RegionList = styled(List)`
   }
 `;
 
-export const Aside = styled.aside`
+const Aside = styled.aside`
   position: absolute;
   bottom: 0;
   left: 0;
