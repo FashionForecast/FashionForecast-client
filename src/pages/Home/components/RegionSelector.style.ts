@@ -1,9 +1,9 @@
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import styled from '@emotion/styled';
 import { Chip, css } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link as LinkBase } from 'react-router-dom';
 
-export const Section = styled.section`
+const Section = styled.section`
   position: relative;
   display: flex;
   gap: 8px;
@@ -21,7 +21,7 @@ export const Section = styled.section`
   -ms-overflow-style: none;
 `;
 
-export const LinkWrap = styled(Link, forwardPropOption)<{
+const Link = styled(LinkBase, forwardPropOption)<{
   $isScrollActive: boolean;
 }>`
   position: sticky;
@@ -60,7 +60,7 @@ export const LinkWrap = styled(Link, forwardPropOption)<{
   }
 `;
 
-export const PlusChip = styled(Chip)`
+const PlusChip = styled(Chip)`
   position: relative;
   width: 32px;
   height: 32px;
@@ -72,3 +72,12 @@ export const PlusChip = styled(Chip)`
     justify-content: center;
   }
 `;
+
+export const C = {
+  Link,
+  PlusChip,
+};
+
+export const S = {
+  Section,
+};
