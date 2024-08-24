@@ -1,9 +1,24 @@
 import { Outlet } from 'react-router-dom';
 import * as S from './style';
-
 import { MY_REGIONS } from '@/constants/localStorage/key';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { guestLogin } from '@/service/login';
 
 export default function RootLayout() {
+  const { mutate: guestLoginMutate } = useMutation({
+    mutationFn: guestLogin,
+    onSuccess: (data) => localStorage.setItem('uuid', data.data.uuid),
+  });
+
+  useEffect(() => {
+    const uuidGuest = localStorage.getItem('uuid');
+
+    if (!uuidGuest) {
+      guestLoginMutate();
+    }
+  }, [guestLoginMutate]);
+
   setDefaultRegion();
 
   return (
