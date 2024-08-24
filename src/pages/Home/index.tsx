@@ -5,7 +5,7 @@ import { getWeather } from '@/service/weather';
 import { Button } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import RegionSelector from './components/RegionSelector';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Region } from '@/types/region';
 import { MY_REGIONS } from '@/constants/localStorage/key';
 
@@ -36,6 +36,31 @@ const Home = () => {
       return list;
     });
   };
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // 위치 권한이 허용된 경우
+          console.log(position);
+
+          alert('위도, 경도를 받아옴');
+          console.log('Latitude:', position.coords.latitude);
+          console.log('Longitude:', position.coords.longitude);
+        },
+        (error) => {
+          // 위치 권한이 거부되거나 오류가 발생한 경우
+
+          alert(`오류가 발생함: [${error.code}] [${error.message}]`);
+          console.error('Error code:', error.code);
+          console.error('Error message:', error.message);
+        }
+      );
+    } else {
+      alert('Geolocation 지원하지 않는 브라우저');
+      console.log('Geolocation is not supported by this browser.');
+    }
+  }, []);
 
   return (
     <div>
