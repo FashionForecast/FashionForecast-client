@@ -1,5 +1,5 @@
 import CheckIcon from '@/components/icon/Check';
-import * as S from './RegionItem.style';
+import { C } from './RegionItem.style';
 import { IconButton } from '@mui/material';
 import { MY_REGIONS } from '@/constants/localStorage/key';
 import { Region } from '@/types/region';
@@ -38,7 +38,7 @@ const RegionItem = ({
   };
 
   return (
-    <S.Item divider onClick={handleSaveClick}>
+    <C.Item divider onClick={handleSaveClick}>
       <span>
         {before}
         <strong>{match}</strong>
@@ -48,7 +48,7 @@ const RegionItem = ({
       <IconButton>
         <CheckIcon />
       </IconButton>
-    </S.Item>
+    </C.Item>
   );
 };
 

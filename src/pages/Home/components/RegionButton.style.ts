@@ -11,3 +11,7 @@ export const LocationChip = styled(Chip)`
     padding-left: 8px;
   }
 `;
+
+export const C = { LocationChip };
+
+export const S = { Button };
