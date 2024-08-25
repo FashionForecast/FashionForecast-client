@@ -1,9 +1,8 @@
 import { getWeather } from '@/service/weather';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 import handlePoP from './HandlePop';
 import HandlePcP from './HandlePcp';
-import HandleWeather from './HandleWeather';
+import HandleTemp from './HandleTemp';
 import * as S from './CardSummary.style';
 
 
@@ -16,37 +15,20 @@ const WeatherCard = () => {
         queryFn: getWeather,
       });
 
-    const [weather, setWeather] = useState<string | ''>('');
 
-    useEffect(() => {
-        if (data) {
-            const handleRainType = (rainType: string) => {
-              if (rainType === 'NONE') {
-                  setWeather(data['data'][0].skyStatus);
-              } else {
-                  setWeather(data['data'][0].rainType);
-              }}
-    
-              
-              handleRainType(data['data'][0].rainType);
-            }
-            
-    }, [data]);
+    //대표 기온 가져오기
+    const typicalTemp = data?.data.extremumTmp ?? 0;
+    const TempImage = HandleTemp(typicalTemp);
 
-
-    //현재 시간의 날씨를 가져오기
-    const nowWeather = weather
-    const { weatherText, weatherIcon } = HandleWeather(nowWeather);
-
-    //현재 시간의 강수확률 가져오기
-    const nowPop = data?.['data'][0].pop;
-    const PopImage = handlePoP(Number(nowPop));
+    //외출 시간의 최대 강수확률 가져오기
+    const maxPop = data?.data.maximumPop ?? 0;
+    const PopImage = handlePoP(maxPop);
 
     
 
-    //현재 시간의 강수량 가져오기
-    const nowPcp = data?.['data'][0].pcp;
-    const {PcpText, PcpIcon} = HandlePcP(nowPcp);
+    //외출 시간의 강수량 가져오기
+    const maxPcp = data?.data.maximumPcp ?? 0;
+    const PcpImage = HandlePcP(maxPcp);
 
 
 
@@ -54,23 +36,29 @@ const WeatherCard = () => {
     return (
         <div>
             {isError && <div>날씨 정보를 불러오는데 실패했습니다.</div>}
-            <S.WeatherCardWrapper elevation={0}>
-                <S.CardContent>
-                    <S.WeatherIcon>{weatherIcon}</S.WeatherIcon>
-                    <S.WeatherHeader>{weatherText}</S.WeatherHeader>
-                    <S.WeatherSubheader>날씨</S.WeatherSubheader>
-                </S.CardContent>
-                <S.CardContent>
-                    <S.WeatherIcon>{PopImage}</S.WeatherIcon>
-                    <S.WeatherHeader>{nowPop}%</S.WeatherHeader>
-                    <S.WeatherSubheader>강수확률</S.WeatherSubheader>
-                </S.CardContent>
-                <S.CardContent>
-                    <S.WeatherIcon>{PcpIcon}</S.WeatherIcon>
-                    <S.WeatherHeader>{PcpText}</S.WeatherHeader>
-                    <S.WeatherSubheader>강수량</S.WeatherSubheader>
-                </S.CardContent>
-            </S.WeatherCardWrapper>
+            <S.WeatherCard>
+                <S.WeatherCardWrapper>
+                    <S.SubTitle>외출할 때 꼭 필요한 날씨 정보</S.SubTitle>
+                    <S.CardContent>
+                        <S.CardHeader>
+                            <S.WeatherIcon>{TempImage}</S.WeatherIcon>
+                            <S.WeatherHeader>{typicalTemp}°C</S.WeatherHeader>
+                            <S.WeatherSubheader>기온</S.WeatherSubheader>
+                        </S.CardHeader>
+                        <S.CardHeader>
+                            <S.WeatherIcon>{PopImage}</S.WeatherIcon>
+                            <S.WeatherHeader>{maxPop}%</S.WeatherHeader>
+                            <S.WeatherSubheader>강수확률</S.WeatherSubheader>
+                        </S.CardHeader>
+                        <S.CardHeader>
+                            <S.WeatherIcon>{PcpImage}</S.WeatherIcon>
+                            <S.WeatherHeader>{maxPcp}mm</S.WeatherHeader>
+                            <S.WeatherSubheader>강수량</S.WeatherSubheader>
+                        </S.CardHeader>
+                    </S.CardContent>
+        
+                </S.WeatherCardWrapper>
+            </S.WeatherCard>
 
             
         </div>
