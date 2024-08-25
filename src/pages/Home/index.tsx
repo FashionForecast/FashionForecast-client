@@ -8,6 +8,7 @@ import RegionSelector from './components/RegionSelector';
 import { useState } from 'react';
 import { Region } from '@/types/region';
 import { MY_REGIONS } from '@/constants/localStorage/key';
+import WeatherCard from './components/weather/WeatherCard';
 
 const Home = () => {
   const [regions, setRegions] = useState<Region[]>(
@@ -68,6 +69,7 @@ const Home = () => {
           </span>
         </div>
       ))}
+    <WeatherCard />
     </div>
   );
 };
