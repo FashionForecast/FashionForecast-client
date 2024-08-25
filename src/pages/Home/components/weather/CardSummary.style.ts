@@ -1,33 +1,49 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
-import {  Avatar, Paper } from '@mui/material';
+import {  Avatar, Card, Paper } from '@mui/material';
+import { typo } from '@/styles/typo';
 
-//paper
+export const WeatherCard = styled(Card)`
+    border: none;
+    box-shadow: none;
+    `
 
 export const WeatherCardWrapper = styled(Paper)`
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
     justify-content: space-between;
     width: 100%;
-    padding: 16px 32px;
-    background-color: ${colors.blueGrey[100]};
+    padding: 16px;
+    background-color: #fff;
     border-radius: 16px;
-    elevation: 0;
+    box-shadow: none;
+
 `
 export const CardContent = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 33.3333%;
+    width: 100%;
     height: 100%;
     padding: 8px 0;
-    border-right: 1px solid #f1f1f1;
 
     &:last-child {
         border-right: none;
     }
 `
+
+export const CardHeader = styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    `
 
 
 
@@ -41,21 +57,22 @@ export const WeatherIcon = styled(Avatar)`
 `
 
 export const WeatherHeader = styled.div`
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
+    ${typo['body-1']};
     color: ${colors.blueGrey[900]};
-    text-align: center;
-    letter-spacing: 0.15px;
-    opacity: 0.87;    
+    opacity: 0.87;
 
 
 `
 
 export const WeatherSubheader = styled.div`
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
+    ${typo['body-2']};
     color: ${colors.blueGrey[900]};
     opacity: 0.6;
+`
+export const SubTitle = styled.div`
+    display: flex;
+    align-items: flex-start;
+    ${typo['subtitle-2']};
+    color: ${colors.blueGrey[900]};
+    opacity: 0.87;
 `
