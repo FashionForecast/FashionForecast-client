@@ -5,24 +5,28 @@ import regions from '@/assets/region.json';
 /** 사용자의 현재 위치를 설정하는 hook */
 const useGeolocation = () => {
   const [geolocation, setGeolocation] = useState<null | Region>(null);
+  const [isProcessing, setIsProcessing] = useState(true);
   const setUserGeolocation = (region: Region) => setGeolocation(region);
+  const setProcessEnd = () => setIsProcessing(false);
 
-  //TODO: alert 및 console.log 제거
+  //TODO: alert 제거
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => geolocationSuccess(position, setUserGeolocation),
-        geolocationSuccessError,
+        (position) =>
+          geolocationSuccess(position, setUserGeolocation, setProcessEnd),
+        (error) => geolocationSuccessError(error, setProcessEnd),
         {
           enableHighAccuracy: true,
         }
       );
     } else {
       alert('위치 권한을 사용할 수 없는 브라우저 입니다.');
+      setProcessEnd();
     }
   }, []);
 
-  return { geolocation };
+  return { geolocation, isProcessing };
 };
 
 export default useGeolocation;
@@ -30,7 +34,8 @@ export default useGeolocation;
 /** 사용자의 위치를 특정하는 함수 */
 function geolocationSuccess(
   position: GeolocationPosition,
-  setUserGeolocation: (region: Region) => void
+  setUserGeolocation: (region: Region) => void,
+  setProcessEnd: () => void
 ) {
   let closestRegion = '';
   let minDistance = Number.MAX_SAFE_INTEGER;
@@ -53,13 +58,16 @@ function geolocationSuccess(
   });
 
   setUserGeolocation({ region: closestRegion, nx, ny });
+  setProcessEnd();
 }
 
 /** geolocation 오류를 처리하는 함수 */
-function geolocationSuccessError(error: GeolocationPositionError) {
+function geolocationSuccessError(
+  error: GeolocationPositionError,
+  setProcessEnd: () => void
+) {
   alert(`위치 권한이 거부되었거나 오류가 발생했습니다. [${error.code}]`);
-  console.error('Error code:', error.code);
-  console.error('Error message:', error.message);
+  setProcessEnd();
 }
 
 /** 위도, 경도를 이용한 두 지점 사이의 거리 계산 함수 (Haversine formula) */

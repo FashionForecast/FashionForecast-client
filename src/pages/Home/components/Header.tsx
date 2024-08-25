@@ -17,9 +17,10 @@ const DEFAULT_REGION = {
 
 type HeaderProps = {
   geolocation: Region | null;
+  isProcessing: boolean;
 };
 
-const Header = ({ geolocation }: HeaderProps) => {
+const Header = ({ geolocation, isProcessing }: HeaderProps) => {
   return (
     <CustomAppBar position='relative'>
       <CustomPaper>
@@ -27,13 +28,18 @@ const Header = ({ geolocation }: HeaderProps) => {
           <IconButton>
             <PlusIcon />
           </IconButton>
-          <CustomButton
-            startIcon={geolocation?.region && <LocationIcon />}
-            endIcon={<TriangleIcon />}
-            fullWidth
-          >
-            {geolocation?.region || DEFAULT_REGION.region}
-          </CustomButton>
+
+          {isProcessing && <CustomButton fullWidth />}
+          {!isProcessing && (
+            <CustomButton
+              startIcon={geolocation?.region && <LocationIcon />}
+              endIcon={<TriangleIcon />}
+              fullWidth
+            >
+              {geolocation?.region || DEFAULT_REGION.region}
+            </CustomButton>
+          )}
+
           <IconButton>
             <AccountIcon />
           </IconButton>
