@@ -20,6 +20,7 @@ export async function getWeather(
       }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
     );
     const json = await res.json();
+    console.log(json);
 
     if (!res.ok) {
       throw new Error(`${json.code}: ${json.message}`);
