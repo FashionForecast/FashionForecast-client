@@ -10,41 +10,34 @@ import Pop80 from '@/components/icon/Pop/Pop_80.svg';
 import Pop90 from '@/components/icon/Pop/Pop_90.svg';
 import Pop100 from '@/components/icon/Pop/Pop_100.svg';
 
-const handlePoP = (nowPop: number) => {
-    if (nowPop === 0) {
-        return <img src={Pop0}
-                    style={{width:'24px', height:'24px'}} alt='0%' />;
-    } else if (nowPop === 10) {
-        return <img src={Pop10} 
-        style={{width:'24px', height:'24px'}} alt='10%' />;
-    } else if (nowPop === 20) {
-        return <img src={Pop20} 
-        style={{width:'24px', height:'24px'}} alt='20%' />;
-    } else if (nowPop === 30) {
-        return <img src={Pop30} 
-        style={{width:'24px', height:'24px'}} alt='30%' />;
-    } else if (nowPop === 40) {
-        return <img src={Pop40} 
-        style={{width:'24px', height:'24px'}} alt='40%' />;
-    } else if (nowPop === 50) {
-        return <img src={Pop50} 
-        style={{width:'24px', height:'24px'}} alt='50%' />;
-    } else if (nowPop === 60) {
-        return <img src={Pop60} 
-        style={{width:'24px', height:'24px'}} alt='60%' />;
-    } else if (nowPop === 70) {
-        return <img src={Pop70} 
-        style={{width:'24px', height:'24px'}} alt='70%' />;
-    } else if (nowPop === 80) {
-        return <img src={Pop80} 
-        style={{width:'24px', height:'24px'}} alt='80%' />;
-    } else if (nowPop === 90) {
-        return <img src={Pop90} 
-        style={{width:'24px', height:'24px'}} alt='90%' />;
-    } else if (nowPop === 100) {
-        return <img src={Pop100} 
-        style={{width:'24px', height:'24px'}} alt='100%' />;
+const handlePoP = (maxPop: number) => {
+    let PopIcon = null;
+
+    if (maxPop === 0) {
+        PopIcon = <img src={Pop0} alt='0%' />;
+
+    } else if (maxPop === 10) {
+        PopIcon = <img src={Pop10} alt='10%' />;
+    } else if (maxPop === 20) {
+        PopIcon = <img src={Pop20} alt='20%' />;
+    } else if (maxPop === 30) {
+        PopIcon = <img src={Pop30} alt='30%' />;
+    } else if (maxPop === 40) {
+        PopIcon = <img src={Pop40} alt='40%' />;
+    } else if (maxPop === 50) {
+        PopIcon = <img src={Pop50} alt='50%' />;
+    } else if (maxPop === 60) {
+        PopIcon = <img src={Pop60} alt='60%' />;
+    } else if (maxPop === 70) {
+        PopIcon = <img src={Pop70} alt='70%' />;
+    } else if (maxPop === 80) {
+        PopIcon = <img src={Pop80} alt='80%' />;
+    } else if (maxPop === 90) {
+        PopIcon = <img src={Pop90} alt='90%' />;
+    } else if (maxPop === 100) {
+        PopIcon = <img src={Pop100} alt='100%' />;
     }
 
+    return PopIcon ;
 }
 export default handlePoP;
