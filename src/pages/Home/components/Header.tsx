@@ -1,14 +1,15 @@
-import CustomAppBar from '@/components/CustomAppBar';
 import CustomPaper from '@/components/CustomPaper';
 import CustomToolbar from '@/components/CustomToolBar';
 import AccountIcon from '@/components/icon/Account';
 import LocationIcon from '@/components/icon/Location';
 import PlusIcon from '@/components/icon/Plus';
 import TriangleIcon from '@/components/icon/Triangle';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { useEffect, useState } from 'react';
 import regions from '@/assets/region.json';
 import { Region } from '@/types/region';
+import CustomAppBar from '@/components/CustomAppBar';
+import CustomButton from '@/components/CustomButton';
 
 const DEFAULT_REGION = {
   region: '서울특별시 종로구',
@@ -36,18 +37,19 @@ const Header = () => {
   }, []);
 
   return (
-    <CustomAppBar>
+    <CustomAppBar position='relative'>
       <CustomPaper>
         <CustomToolbar>
           <IconButton>
             <PlusIcon />
           </IconButton>
-          <Button
+          <CustomButton
             startIcon={geolocation?.region && <LocationIcon />}
             endIcon={<TriangleIcon />}
+            fullWidth
           >
             {geolocation?.region || DEFAULT_REGION.region}
-          </Button>
+          </CustomButton>
           <IconButton>
             <AccountIcon />
           </IconButton>
