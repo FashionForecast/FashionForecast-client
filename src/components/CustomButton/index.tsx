@@ -4,11 +4,12 @@ import styled from '@emotion/styled';
 type MuiButtonProps = React.ComponentProps<typeof MuiButton>;
 
 type CustomButtonProps = MuiButtonProps & {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const CustomButton = ({ children, ...rest }: CustomButtonProps) => {
-  return <ButtonBase {...rest}>{children}</ButtonBase>;
+  if (children) return <ButtonBase {...rest}>{children}</ButtonBase>;
+  return <ButtonBase {...rest} />;
 };
 
 export default CustomButton;
