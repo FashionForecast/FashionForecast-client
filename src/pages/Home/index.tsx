@@ -8,6 +8,7 @@ import RegionSelector from './components/RegionSelector';
 import { useState } from 'react';
 import { Region } from '@/types/region';
 import { MY_REGIONS } from '@/constants/localStorage/key';
+import Header from './components/Header';
 
 const Home = () => {
   const [regions, setRegions] = useState<Region[]>(
@@ -39,7 +40,7 @@ const Home = () => {
 
   return (
     <div>
-      홈
+      <Header />
       <div>
         <RegionSelector regions={regions} onRegionClick={handleRegionClick} />
         <Button
