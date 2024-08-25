@@ -14,7 +14,7 @@ export async function getWeather(): Promise<WeatherResponse> {
       `${
         import.meta.env.VITE_SERVER_URL
         //Todo: StartDateTime과 EndDateTime Timeselector로 받아오기
-      }/weather/forecast?nowDateTime=${now}&startDateTime=2024-08-26T00:00:00&endDateTime=2024-08-26T08:00:00&nx=60&ny=127`
+      }/weather/forecast?nowDateTime=${now}&startDateTime=2024-08-26T07:00:00&endDateTime=2024-08-26T13:00:00&nx=60&ny=127`
     );
     const json = await res.json();
     console.log(json);
