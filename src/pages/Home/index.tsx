@@ -5,10 +5,8 @@ import { getWeather } from '@/service/weather';
 import { Button } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import Header from './components/Header';
-import useGeolocation from './components/hooks/useGeolocation';
 
 const Home = () => {
-  const { geolocation, isProcessing } = useGeolocation();
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
   const { data, isError } = useQuery({
@@ -18,7 +16,8 @@ const Home = () => {
 
   return (
     <div>
-      <Header geolocation={geolocation} isProcessing={isProcessing} />
+      <Header />
+
       <div>
         <Button
           variant='contained'
