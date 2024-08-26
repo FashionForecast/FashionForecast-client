@@ -2,16 +2,25 @@ import CheckIcon from '@/components/icon/Check';
 import { C } from './RegionItem.style';
 import { IconButton } from '@mui/material';
 import { Region } from '@/types/region';
+import useAppDispatch from '@/hooks/useAppDispatch';
+import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
+import { useNavigate } from 'react-router-dom';
 
 type RegionItemProps = Region & {
   keyword: string;
 };
 
-const RegionItem = ({ region, keyword }: RegionItemProps) => {
+const RegionItem = ({ region, keyword, nx, ny }: RegionItemProps) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const parts = splitText(region, keyword);
+  const handleClick = () => {
+    dispatch(currentRegionActions.setCurrentRegion({ region, nx, ny }));
+    navigate('/');
+  };
 
   return (
-    <C.Item divider>
+    <C.Item divider onClick={handleClick}>
       <span>
         {parts.map((part, index) =>
           part === keyword ? <strong key={index}>{part}</strong> : part
