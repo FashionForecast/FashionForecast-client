@@ -1,7 +1,5 @@
 import DClear from '@/components/icon/Weather/DayClear.svg';
 import DPartlyCloudy from '@/components/icon/Weather/DayPartlyCloudy.svg';
-import NClear from '@/components/icon/Weather/NightClear.svg';
-import NPartlyCloudy from '@/components/icon/Weather/NightPartlyCloudy.svg';
 import Cloudy from '@/components/icon/Weather/Cloudy.svg';
 import Rain from '@/components/icon/Weather/Rain.svg';
 import Raindrop from '@/components/icon/Weather/Raindrop.svg';
@@ -12,9 +10,8 @@ import RDSnowDrifting from '@/components/icon/Weather/RDSnowDrifting.svg';
 import SnowDrifting from '@/components/icon/Weather/SnowDrifting.svg';
 
 
-
-
-//시간 조건 필요
+//WeatherTimeline에 사용 예정
+//Todo: style 제거 예정
 
 const handleWeather = (nowWeather: string) => {
     if (nowWeather === 'CLEAR') {
