@@ -1,17 +1,14 @@
-import ArrowIcon from '@/components/icon/Arrow';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import regions from '@/assets/region.json';
 import RegionItem from './components/RegionItem';
-import CancelIcon from '@/components/icon/Cancel';
 import { C, S } from './style';
 import { Region } from '@/types/region';
 import { MY_REGIONS } from '@/constants/localStorage/key';
 import TrashCan from '@/components/icon/TrashCan';
-import CustomToolbar from '@/components/CustomToolBar';
-import CustomTextField from '@/components/CustomTextField';
-import CustomPaper from '@/components/CustomPaper';
+
+import SearchHeader from './components/SearchHeader';
 
 type SearchLocationState = {
   state?: {
@@ -39,7 +36,7 @@ const Search = () => {
     setMyRegions(newRegions);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
@@ -58,32 +55,11 @@ const Search = () => {
 
   return (
     <>
-      <C.AppBar>
-        <CustomPaper>
-          <CustomToolbar>
-            <Link to={'/'}>
-              <C.GoBackButton size='large'>
-                <ArrowIcon />
-              </C.GoBackButton>
-            </Link>
-
-            <S.InputWrapper>
-              <CustomTextField
-                variant='filled'
-                value={keyword}
-                onChange={handleChange}
-                fullWidth
-                size='small'
-              />
-              {keyword && (
-                <S.CancleButton type='button' onClick={handleKeywordResetClick}>
-                  <CancelIcon />
-                </S.CancleButton>
-              )}
-            </S.InputWrapper>
-          </CustomToolbar>
-        </CustomPaper>
-      </C.AppBar>
+      <SearchHeader
+        keyword={keyword}
+        onInputChange={handleInputChange}
+        onKeywordResetClick={handleKeywordResetClick}
+      />
 
       <C.RegionList>
         {matchItems.map((item) => (
