@@ -40,7 +40,7 @@ const Header = () => {
           {!isProcessing && (
             <C.SearchLink to={'/search'}>
               <CustomButton
-                startIcon={geolocation?.isGPS && <LocationIcon />}
+                startIcon={currentRegion?.isGPS && <LocationIcon />}
                 endIcon={<TriangleIcon />}
                 fullWidth
               >
