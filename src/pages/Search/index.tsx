@@ -11,6 +11,7 @@ import TrashCan from '@/components/icon/TrashCan';
 import SearchHeader from './components/SearchHeader';
 import LocationIcon from '@/components/icon/Location';
 import CustomButton from '@/components/CustomButton';
+import RecentSearchList from './components/RecentSearch';
 
 type SearchLocationState = {
   state?: {
@@ -74,6 +75,8 @@ const Search = () => {
           현재 위치로 설정하기
         </CustomButton>
       </S.regionSetButtonWrapper>
+
+      {!keyword && <RecentSearchList />}
 
       <C.RegionList>
         {matchItems.map((item) => (
