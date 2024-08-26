@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import handlePoP from './HandlePop';
 import HandlePcP from './HandlePcp';
 import HandleTemp from './HandleTemp';
-import * as S from './CardSummary.style';
+import {C,S} from './CardSummary.style'
 
 
 
@@ -36,29 +36,28 @@ const WeatherCard = () => {
     return (
         <div>
             {isError && <div>날씨 정보를 불러오는데 실패했습니다.</div>}
-            <S.WeatherCard>
-                <S.WeatherCardWrapper>
+            <C.WeatherCard>
+                <C.CustomPaper>
                     <S.SubTitle>외출할 때 꼭 필요한 날씨 정보</S.SubTitle>
-                    <S.CardContent>
-                        <S.CardHeader>
-                            <S.WeatherIcon>{TempImage}</S.WeatherIcon>
-                            <S.WeatherHeader>{typicalTemp}°C</S.WeatherHeader>
-                            <S.WeatherSubheader>기온</S.WeatherSubheader>
-                        </S.CardHeader>
-                        <S.CardHeader>
-                            <S.WeatherIcon>{PopImage}</S.WeatherIcon>
-                            <S.WeatherHeader>{maxPop}%</S.WeatherHeader>
-                            <S.WeatherSubheader>강수확률</S.WeatherSubheader>
-                        </S.CardHeader>
-                        <S.CardHeader>
-                            <S.WeatherIcon>{PcpImage}</S.WeatherIcon>
-                            <S.WeatherHeader>{maxPcp}mm</S.WeatherHeader>
-                            <S.WeatherSubheader>강수량</S.WeatherSubheader>
-                        </S.CardHeader>
-                    </S.CardContent>
-        
-                </S.WeatherCardWrapper>
-            </S.WeatherCard>
+                    <S.CustomCardContent>
+                        <S.CustomCardHeader>
+                            <C.Icon>{TempImage}</C.Icon>
+                            <S.Header>{typicalTemp}°C</S.Header>
+                            <S.Subheader>기온</S.Subheader>
+                        </S.CustomCardHeader>
+                        <S.CustomCardHeader>
+                            <C.Icon>{PopImage}</C.Icon>
+                            <S.Header>{maxPop}%</S.Header>
+                            <S.Subheader>강수확률</S.Subheader>
+                        </S.CustomCardHeader>
+                        <S.CustomCardHeader>
+                            <C.Icon>{PcpImage}</C.Icon>
+                            <S.Header>{maxPcp}mm</S.Header>
+                            <S.Subheader>강수량</S.Subheader>
+                        </S.CustomCardHeader>
+                    </S.CustomCardContent>       
+                </C.CustomPaper>
+            </C.WeatherCard>
 
             
         </div>

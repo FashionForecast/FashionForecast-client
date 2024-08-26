@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
-import {  Avatar, Card, Paper } from '@mui/material';
+import {  Avatar, Card, CardContent, Paper } from '@mui/material';
 import { typo } from '@/styles/typo';
 
 export const WeatherCard = styled(Card)`
@@ -8,7 +8,7 @@ export const WeatherCard = styled(Card)`
     box-shadow: none;
     `
 
-export const WeatherCardWrapper = styled(Paper)`
+export const CustomPaper = styled(Paper)`
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -21,7 +21,7 @@ export const WeatherCardWrapper = styled(Paper)`
     box-shadow: none;
 
 `
-export const CardContent = styled.div`
+export const CustomCardContent = styled(CardContent)`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -30,12 +30,9 @@ export const CardContent = styled.div`
     height: 100%;
     padding: 8px 0;
 
-    &:last-child {
-        border-right: none;
-    }
 `
 
-export const CardHeader = styled.div`
+export const CustomCardHeader = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -47,7 +44,7 @@ export const CardHeader = styled.div`
 
 
 
-export const WeatherIcon = styled(Avatar)`
+export const Icon = styled(Avatar)`
     align-items: center;
     justify-content: center;
     width: 40px;
@@ -56,7 +53,7 @@ export const WeatherIcon = styled(Avatar)`
     background-color: #fff;
 `
 
-export const WeatherHeader = styled.div`
+export const Header = styled.div`
     ${typo['body-1']};
     color: ${colors.blueGrey[900]};
     opacity: 0.87;
@@ -64,7 +61,7 @@ export const WeatherHeader = styled.div`
 
 `
 
-export const WeatherSubheader = styled.div`
+export const Subheader = styled.div`
     ${typo['body-2']};
     color: ${colors.blueGrey[900]};
     opacity: 0.6;
@@ -76,3 +73,17 @@ export const SubTitle = styled.div`
     color: ${colors.blueGrey[900]};
     opacity: 0.87;
 `
+
+export const C = {
+    WeatherCard,
+    CustomPaper,
+    Icon
+  };
+
+export const S = {
+    CustomCardContent,
+    CustomCardHeader,
+    Header,
+    Subheader,
+    SubTitle
+}
