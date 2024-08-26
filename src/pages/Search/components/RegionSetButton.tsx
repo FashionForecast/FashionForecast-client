@@ -3,10 +3,10 @@ import LocationIcon from '@/components/icon/Location';
 import { S } from './RegionSetButton.style';
 import useAppSelector from '@/hooks/useAppSelector';
 import useAppDispatch from '@/hooks/useAppDispatch';
-import useGeolocation from '@/pages/Home/components/hooks/useGeolocation';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 import { useNavigate } from 'react-router-dom';
 import { MY_REGION } from '@/constants/localStorage/key';
+import useGeolocation from '@/hooks/useGeolocation';
 
 const RegionSetButton = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);

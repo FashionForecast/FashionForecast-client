@@ -10,7 +10,7 @@ import CustomButton from '@/components/CustomButton';
 import { C } from './Header.style';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useEffect } from 'react';
-import useGeolocation from './hooks/useGeolocation';
+import useGeolocation from '../../../hooks/useGeolocation';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 
