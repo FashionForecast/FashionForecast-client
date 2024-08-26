@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
 import {  Avatar, Card, CardContent, Paper } from '@mui/material';
-import { typo } from '@/styles/typo';
 
 export const WeatherCard = styled(Card)`
     border: none;
@@ -54,7 +53,7 @@ export const Icon = styled(Avatar)`
 `
 
 export const Header = styled.div`
-    ${typo['body-1']};
+    ${({theme}) => theme.typo['body-1']};
     color: ${colors.blueGrey[900]};
     opacity: 0.87;
 
@@ -62,14 +61,14 @@ export const Header = styled.div`
 `
 
 export const Subheader = styled.div`
-    ${typo['body-2']};
+    ${({theme}) => theme.typo['body-2']}
     color: ${colors.blueGrey[900]};
     opacity: 0.6;
 `
 export const SubTitle = styled.div`
     display: flex;
     align-items: flex-start;
-    ${typo['subtitle-2']};
+    ${({theme}) => theme.typo['subtitle-2']};
     color: ${colors.blueGrey[900]};
     opacity: 0.87;
 `
