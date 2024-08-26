@@ -30,7 +30,9 @@ const Search = () => {
     (v) => keyword !== '' && v.region.includes(keyword)
   );
   const matchItems = keyword
-    ? regions.filter((v) => v.region.includes(keyword))
+    ? regions.filter((v) =>
+        v.region.split(' ').some((v) => v.startsWith(keyword))
+      )
     : [];
 
   const setNewMyRegions = (newRegions: Region[]) => {

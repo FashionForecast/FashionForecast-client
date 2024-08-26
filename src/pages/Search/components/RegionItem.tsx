@@ -19,7 +19,7 @@ const RegionItem = ({
   myRegions,
   setNewMyRegions,
 }: RegionItemProps) => {
-  const [before, match, after] = splitText(region, keyword);
+  const parts = splitText(region, keyword);
   const handleSaveClick = () => {
     if (myRegions.some((item) => item.region === region)) {
       alert('해당 지역이 이미 저장되어 있습니다.');
@@ -40,9 +40,9 @@ const RegionItem = ({
   return (
     <C.Item divider onClick={handleSaveClick}>
       <span>
-        {before}
-        <strong>{match}</strong>
-        {after}
+        {parts.map((part, index) =>
+          part === keyword ? <strong key={index}>{part}</strong> : part
+        )}
       </span>
 
       <IconButton>
@@ -55,10 +55,31 @@ const RegionItem = ({
 export default RegionItem;
 
 function splitText(region: string, keyword: string) {
-  const index = region.indexOf(keyword);
+  const parts = [];
+  let currentIndex = 0;
 
-  const before = region.slice(0, index);
-  const after = region.slice(index + keyword.length);
+  while (currentIndex < region.length) {
+    const index = region.indexOf(keyword, currentIndex);
+    let isFirstPartOfWord = false;
 
-  return [before, keyword, after];
+    if (index === 0 || region[index - 1] === ' ') isFirstPartOfWord = true;
+
+    if (index === -1) {
+      parts.push(region.slice(currentIndex));
+      break;
+    }
+
+    if (index !== currentIndex) {
+      const indexEnd = isFirstPartOfWord ? index : index + 1;
+      parts.push(region.slice(currentIndex, indexEnd));
+    }
+
+    if (isFirstPartOfWord) {
+      parts.push(keyword);
+    }
+
+    currentIndex = index + keyword.length;
+  }
+
+  return parts;
 }
