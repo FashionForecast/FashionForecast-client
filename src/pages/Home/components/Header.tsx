@@ -19,11 +19,14 @@ const Header = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
   const dispatch = useAppDispatch();
 
+  // 사용자의 현재 지역 설정
   useEffect(() => {
+    if (currentRegion) return;
+
     if (!isProcessing) {
       dispatch(currentRegionActions.setCurrentRegion(geolocation));
     }
-  }, [dispatch, geolocation, isProcessing]);
+  }, [dispatch, geolocation, isProcessing, currentRegion]);
 
   return (
     <CustomAppBar position='relative'>

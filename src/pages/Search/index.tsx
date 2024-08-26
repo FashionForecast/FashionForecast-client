@@ -1,23 +1,13 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import regions from '@/assets/region.json';
 import RegionItem from './components/RegionItem';
 import { C, S } from './style';
-
 import SearchHeader from './components/SearchHeader';
-import LocationIcon from '@/components/icon/Location';
-import CustomButton from '@/components/CustomButton';
 import RecentSearchList from './components/RecentSearch';
-
-type SearchLocationState = {
-  state?: {
-    region: string;
-  };
-};
+import RegionSetButton from './components/RegionSetButton';
 
 const Search = () => {
-  const { state }: SearchLocationState = useLocation();
-  const [keyword, setKeyword] = useState(state?.region || '');
+  const [keyword, setKeyword] = useState('');
 
   const matchItems = keyword
     ? regions.filter((v) =>
@@ -41,17 +31,7 @@ const Search = () => {
         onKeywordResetClick={handleKeywordResetClick}
       />
 
-      <S.regionSetButtonWrapper>
-        <CustomButton
-          variant='outlined'
-          color='inherit'
-          size='large'
-          fullWidth
-          startIcon={<LocationIcon />}
-        >
-          현재 위치로 설정하기
-        </CustomButton>
-      </S.regionSetButtonWrapper>
+      <RegionSetButton />
 
       {!keyword && <RecentSearchList />}
 
