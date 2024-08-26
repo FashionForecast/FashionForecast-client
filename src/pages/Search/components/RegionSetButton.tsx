@@ -5,16 +5,21 @@ import useAppSelector from '@/hooks/useAppSelector';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import useGeolocation from '@/pages/Home/components/hooks/useGeolocation';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
+import { useNavigate } from 'react-router-dom';
+import { MY_REGION } from '@/constants/localStorage/key';
 
 const RegionSetButton = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { geolocation, isProcessing } = useGeolocation();
 
   //TODO: alert 제거
   const handleClick = () => {
     if (!isProcessing) {
       dispatch(currentRegionActions.setCurrentRegion(geolocation));
+      localStorage.removeItem(MY_REGION);
+      navigate('/');
     }
 
     if (!geolocation) {

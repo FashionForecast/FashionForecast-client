@@ -5,6 +5,7 @@ import { Region } from '@/types/region';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 import { useNavigate } from 'react-router-dom';
+import { MY_REGION } from '@/constants/localStorage/key';
 
 type RegionItemProps = Region & {
   keyword: string;
@@ -15,7 +16,9 @@ const RegionItem = ({ region, keyword, nx, ny }: RegionItemProps) => {
   const navigate = useNavigate();
   const parts = splitText(region, keyword);
   const handleClick = () => {
-    dispatch(currentRegionActions.setCurrentRegion({ region, nx, ny }));
+    const regionData = { region, nx, ny };
+    dispatch(currentRegionActions.setCurrentRegion(regionData));
+    localStorage.setItem(MY_REGION, JSON.stringify(regionData));
     navigate('/');
   };
 
