@@ -21,17 +21,13 @@ const RegionSetButton = () => {
       localStorage.removeItem(MY_REGION);
       navigate('/');
     }
-
-    if (!geolocation) {
-      alert('현재 위치를 가져오지 못했습니다.');
-    }
   };
 
   return (
     <S.Wrapper>
       <CustomButton
         variant='outlined'
-        disabled={currentRegion?.isGPS}
+        disabled={currentRegion?.isGPS || !geolocation}
         color='inherit'
         size='large'
         fullWidth
