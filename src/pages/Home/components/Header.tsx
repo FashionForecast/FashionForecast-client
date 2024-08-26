@@ -8,6 +8,7 @@ import { IconButton } from '@mui/material';
 import CustomAppBar from '@/components/CustomAppBar';
 import CustomButton from '@/components/CustomButton';
 import { Region } from '@/types/region';
+import { C } from './Header.style';
 
 const DEFAULT_REGION = {
   region: '서울특별시 종로구',
@@ -31,13 +32,15 @@ const Header = ({ geolocation, isProcessing }: HeaderProps) => {
 
           {isProcessing && <CustomButton fullWidth />}
           {!isProcessing && (
-            <CustomButton
-              startIcon={geolocation?.region && <LocationIcon />}
-              endIcon={<TriangleIcon />}
-              fullWidth
-            >
-              {geolocation?.region || DEFAULT_REGION.region}
-            </CustomButton>
+            <C.SearchLink to={'/search'}>
+              <CustomButton
+                startIcon={geolocation?.region && <LocationIcon />}
+                endIcon={<TriangleIcon />}
+                fullWidth
+              >
+                {geolocation?.region || DEFAULT_REGION.region}
+              </CustomButton>
+            </C.SearchLink>
           )}
 
           <IconButton>
