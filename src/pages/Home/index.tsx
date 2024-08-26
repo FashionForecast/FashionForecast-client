@@ -8,8 +8,10 @@ import RegionSelector from './components/RegionSelector';
 import { useState } from 'react';
 import { Region } from '@/types/region';
 import { MY_REGIONS } from '@/constants/localStorage/key';
+import WeatherCard from './components/weather/WeatherCard';
 import Header from './components/Header';
 import useGeolocation from './components/hooks/useGeolocation';
+
 
 const Home = () => {
   const { geolocation, isProcessing } = useGeolocation();
@@ -63,7 +65,7 @@ const Home = () => {
         </Button>
       </div>
       {isError && <span>날씨를 조회하지 못함</span>}
-      {data?.data.map((v, i) => (
+      {data?.data.forecasts.map((v, i) => (
         <div key={i}>
           <span>
             날짜: {v.fcstDate}, 시간: {v.fcstTime} 온도: {v.tmp} 강수확률:
@@ -71,6 +73,7 @@ const Home = () => {
           </span>
         </div>
       ))}
+    <WeatherCard />
     </div>
   );
 };
