@@ -9,6 +9,8 @@ import { MY_REGIONS } from '@/constants/localStorage/key';
 import TrashCan from '@/components/icon/TrashCan';
 
 import SearchHeader from './components/SearchHeader';
+import LocationIcon from '@/components/icon/Location';
+import CustomButton from '@/components/CustomButton';
 
 type SearchLocationState = {
   state?: {
@@ -54,12 +56,24 @@ const Search = () => {
   };
 
   return (
-    <>
+    <S.SearchWrapper>
       <SearchHeader
         keyword={keyword}
         onInputChange={handleInputChange}
         onKeywordResetClick={handleKeywordResetClick}
       />
+
+      <S.regionSetButtonWrapper>
+        <CustomButton
+          variant='outlined'
+          color='inherit'
+          size='large'
+          fullWidth
+          startIcon={<LocationIcon />}
+        >
+          현재 위치로 설정하기
+        </CustomButton>
+      </S.regionSetButtonWrapper>
 
       <C.RegionList>
         {matchItems.map((item) => (
@@ -86,7 +100,7 @@ const Search = () => {
           </Button>
         </S.Aside>
       )}
-    </>
+    </S.SearchWrapper>
   );
 };
 
