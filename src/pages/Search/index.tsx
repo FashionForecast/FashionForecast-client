@@ -11,6 +11,7 @@ import { MY_REGIONS } from '@/constants/localStorage/key';
 import TrashCan from '@/components/icon/TrashCan';
 import CustomToolbar from '@/components/CustomToolBar';
 import CustomTextField from '@/components/CustomTextField';
+import CustomPaper from '@/components/CustomPaper';
 
 type SearchLocationState = {
   state?: {
@@ -56,28 +57,30 @@ const Search = () => {
   return (
     <>
       <C.AppBar>
-        <CustomToolbar>
-          <Link to={'/'}>
-            <C.GoBackButton size='large'>
-              <ArrowIcon />
-            </C.GoBackButton>
-          </Link>
+        <CustomPaper>
+          <CustomToolbar>
+            <Link to={'/'}>
+              <C.GoBackButton size='large'>
+                <ArrowIcon />
+              </C.GoBackButton>
+            </Link>
 
-          <S.InputWrapper>
-            <CustomTextField
-              variant='filled'
-              value={keyword}
-              onChange={handleChange}
-              fullWidth
-              size='small'
-            />
-            {keyword && (
-              <S.CancleButton type='button' onClick={handleKeywordResetClick}>
-                <CancelIcon />
-              </S.CancleButton>
-            )}
-          </S.InputWrapper>
-        </CustomToolbar>
+            <S.InputWrapper>
+              <CustomTextField
+                variant='filled'
+                value={keyword}
+                onChange={handleChange}
+                fullWidth
+                size='small'
+              />
+              {keyword && (
+                <S.CancleButton type='button' onClick={handleKeywordResetClick}>
+                  <CancelIcon />
+                </S.CancleButton>
+              )}
+            </S.InputWrapper>
+          </CustomToolbar>
+        </CustomPaper>
       </C.AppBar>
 
       <C.RegionList>

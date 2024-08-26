@@ -8,8 +8,11 @@ import RegionSelector from './components/RegionSelector';
 import { useState } from 'react';
 import { Region } from '@/types/region';
 import { MY_REGIONS } from '@/constants/localStorage/key';
+import Header from './components/Header';
+import useGeolocation from './components/hooks/useGeolocation';
 
 const Home = () => {
+  const { geolocation, isProcessing } = useGeolocation();
   const [regions, setRegions] = useState<Region[]>(
     JSON.parse(localStorage.getItem(MY_REGIONS) || '[]')
   );
@@ -39,7 +42,7 @@ const Home = () => {
 
   return (
     <div>
-      홈
+      <Header geolocation={geolocation} isProcessing={isProcessing} />
       <div>
         <RegionSelector regions={regions} onRegionClick={handleRegionClick} />
         <Button
