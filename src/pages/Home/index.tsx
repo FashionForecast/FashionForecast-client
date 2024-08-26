@@ -48,7 +48,12 @@ const Home = () => {
           </span>
         </div>
       ))}
-      <WeatherCard />
+
+      <WeatherCard
+        extremumTmp={data?.data.extremumTmp}
+        maximumPop={data?.data.maximumPop}
+        maximumPcp={data?.data.maximumPcp}
+      />
     </div>
   );
 };
