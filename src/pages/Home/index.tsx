@@ -8,11 +8,13 @@ import WeatherCard from './components/weather/WeatherCard';
 import Header from './components/Header';
 
 const Home = () => {
+  const currentRegion = useAppSelector((state) => state.currentRegion.value);
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
   const { data, isError } = useQuery({
-    queryKey: ['weather'],
-    queryFn: getWeather,
+    queryKey: ['weather', currentRegion?.region],
+    queryFn: () => getWeather(currentRegion?.nx, currentRegion?.ny),
+    enabled: !!currentRegion,
   });
 
   return (
