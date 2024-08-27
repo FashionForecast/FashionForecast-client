@@ -1,10 +1,10 @@
+import weatherCoordinateList from '@/assets/weatherRegionCoordinates';
 import { WeatherResponse } from '@/types/weather';
 
 export async function getWeather(
-  nx?: number,
-  ny?: number
+  region?: string
 ): Promise<WeatherResponse | null> {
-  if (!nx || !ny) return null;
+  if (!region) return null;
 
   const offset = 1000 * 60 * 60 * 9;
   const KTCnow = new Date(new Date().getTime() + offset);
@@ -12,16 +12,14 @@ export async function getWeather(
     new Date().setHours(23, 0, 0, 0) + offset
   ).toISOString();
   const now = KTCnow.toISOString().slice(0, -5);
-
-  nx = Math.floor(nx);
-  ny = Math.floor(ny);
+  const { weatherNx, weatherNy } = weatherCoordinateList[region];
 
   try {
     const res = await fetch(
       `${
         import.meta.env.VITE_SERVER_URL
         //Todo: StartDateTime과 EndDateTime Timeselector로 받아오기
-      }/weather/forecast?nowDateTime=${now}&startDateTime=${now}&endDateTime=${endDateTime}&nx=${nx}&ny=${ny}`
+      }/weather/forecast?nowDateTime=${now}&startDateTime=${now}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
     );
     const json = await res.json();
 

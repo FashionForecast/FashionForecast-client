@@ -8,7 +8,7 @@ const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
   const { data, isError } = useQuery({
     queryKey: ['weather', currentRegion?.region],
-    queryFn: () => getWeather(currentRegion?.nx, currentRegion?.ny),
+    queryFn: () => getWeather(currentRegion?.region),
     enabled: !!currentRegion,
   });
 
