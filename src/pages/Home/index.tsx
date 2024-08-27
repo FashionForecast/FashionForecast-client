@@ -1,69 +1,21 @@
-import useAppDispatch from '@/hooks/useAppDispatch';
 import useAppSelector from '@/hooks/useAppSelector';
-import { decrement, increment } from '@/redux/slice/EXAMPLE_counterSlice';
 import { getWeather } from '@/service/weather';
-import { Button } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import RegionSelector from './components/RegionSelector';
-import { useState } from 'react';
-import { Region } from '@/types/region';
-import { MY_REGIONS } from '@/constants/localStorage/key';
 import WeatherCard from './components/weather/WeatherCard';
 import Header from './components/Header';
-import useGeolocation from './components/hooks/useGeolocation';
-
 
 const Home = () => {
-  const { geolocation, isProcessing } = useGeolocation();
-  const [regions, setRegions] = useState<Region[]>(
-    JSON.parse(localStorage.getItem(MY_REGIONS) || '[]')
-  );
-  const count = useAppSelector((state) => state.counter.value);
-  const dispatch = useAppDispatch();
+  const currentRegion = useAppSelector((state) => state.currentRegion.value);
   const { data, isError } = useQuery({
-    queryKey: ['weather'],
-    queryFn: getWeather,
+    queryKey: ['weather', currentRegion?.region],
+    queryFn: () => getWeather(currentRegion?.region),
+    enabled: !!currentRegion,
   });
-
-  const handleRegionClick = (region: string) => {
-    setRegions((prev) => {
-      if (prev[0].region === region) {
-        return prev;
-      }
-
-      const list = [...prev];
-      const targetIndex = list.findIndex((v) => v.region === region);
-
-      [list[0], list[targetIndex]] = [list[targetIndex], list[0]];
-
-      localStorage.setItem(MY_REGIONS, JSON.stringify(list));
-
-      return list;
-    });
-  };
 
   return (
     <div>
-      <Header geolocation={geolocation} isProcessing={isProcessing} />
-      <div>
-        <RegionSelector regions={regions} onRegionClick={handleRegionClick} />
-        <Button
-          variant='contained'
-          aria-label='Increment value'
-          onClick={() => dispatch(increment())}
-        >
-          Increment
-        </Button>
-        <span>{count}</span>
-        <Button
-          variant='contained'
-          color='warning'
-          aria-label='Decrement value'
-          onClick={() => dispatch(decrement())}
-        >
-          Decrement
-        </Button>
-      </div>
+      <Header />
+
       {isError && <span>날씨를 조회하지 못함</span>}
       {data?.data.forecasts.map((v, i) => (
         <div key={i}>
@@ -73,7 +25,12 @@ const Home = () => {
           </span>
         </div>
       ))}
-    <WeatherCard />
+
+      <WeatherCard
+        extremumTmp={data?.data.extremumTmp}
+        maximumPop={data?.data.maximumPop}
+        maximumPcp={data?.data.maximumPcp}
+      />
     </div>
   );
 };

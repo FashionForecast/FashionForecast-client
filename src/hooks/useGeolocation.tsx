@@ -1,12 +1,15 @@
-import { Region } from '@/types/region';
+import { UserCurrentRegion } from '@/types/region';
 import { useEffect, useState } from 'react';
 import regions from '@/assets/region.json';
 
 /** 사용자의 현재 위치를 설정하는 hook */
 const useGeolocation = () => {
-  const [geolocation, setGeolocation] = useState<null | Region>(null);
+  const [geolocation, setGeolocation] = useState<null | UserCurrentRegion>(
+    null
+  );
   const [isProcessing, setIsProcessing] = useState(true);
-  const setUserGeolocation = (region: Region) => setGeolocation(region);
+  const setUserGeolocation = (region: UserCurrentRegion) =>
+    setGeolocation(region);
   const setProcessEnd = () => setIsProcessing(false);
 
   //TODO: alert 제거
@@ -34,7 +37,7 @@ export default useGeolocation;
 /** 사용자의 위치를 특정하는 함수 */
 function geolocationSuccess(
   position: GeolocationPosition,
-  setUserGeolocation: (region: Region) => void,
+  setUserGeolocation: (region: UserCurrentRegion) => void,
   setProcessEnd: () => void
 ) {
   let closestRegion = '';
@@ -57,7 +60,7 @@ function geolocationSuccess(
     }
   });
 
-  setUserGeolocation({ region: closestRegion, nx, ny });
+  setUserGeolocation({ region: closestRegion, nx, ny, isGPS: true });
   setProcessEnd();
 }
 

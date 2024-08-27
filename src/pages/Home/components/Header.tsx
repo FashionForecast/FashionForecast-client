@@ -7,20 +7,27 @@ import TriangleIcon from '@/components/icon/Triangle';
 import { IconButton } from '@mui/material';
 import CustomAppBar from '@/components/CustomAppBar';
 import CustomButton from '@/components/CustomButton';
-import { Region } from '@/types/region';
+import { C } from './Header.style';
+import useAppSelector from '@/hooks/useAppSelector';
+import { useEffect } from 'react';
+import useGeolocation from '../../../hooks/useGeolocation';
+import useAppDispatch from '@/hooks/useAppDispatch';
+import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 
-const DEFAULT_REGION = {
-  region: '서울특별시 종로구',
-  nx: 37,
-  ny: 126,
-};
+const Header = () => {
+  const { geolocation, isProcessing } = useGeolocation();
+  const currentRegion = useAppSelector((state) => state.currentRegion.value);
+  const dispatch = useAppDispatch();
 
-type HeaderProps = {
-  geolocation: Region | null;
-  isProcessing: boolean;
-};
+  // 사용자의 현재 지역 설정
+  useEffect(() => {
+    if (currentRegion) return;
 
-const Header = ({ geolocation, isProcessing }: HeaderProps) => {
+    if (!isProcessing) {
+      dispatch(currentRegionActions.setCurrentRegion(geolocation));
+    }
+  }, [dispatch, geolocation, isProcessing, currentRegion]);
+
   return (
     <CustomAppBar position='relative'>
       <CustomPaper>
@@ -31,13 +38,15 @@ const Header = ({ geolocation, isProcessing }: HeaderProps) => {
 
           {isProcessing && <CustomButton fullWidth />}
           {!isProcessing && (
-            <CustomButton
-              startIcon={geolocation?.region && <LocationIcon />}
-              endIcon={<TriangleIcon />}
-              fullWidth
-            >
-              {geolocation?.region || DEFAULT_REGION.region}
-            </CustomButton>
+            <C.SearchLink to={'/search'}>
+              <CustomButton
+                startIcon={currentRegion?.isGPS && <LocationIcon />}
+                endIcon={<TriangleIcon />}
+                fullWidth
+              >
+                {currentRegion?.region}
+              </CustomButton>
+            </C.SearchLink>
           )}
 
           <IconButton>

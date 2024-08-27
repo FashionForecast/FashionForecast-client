@@ -1,48 +1,33 @@
 import CheckIcon from '@/components/icon/Check';
 import { C } from './RegionItem.style';
 import { IconButton } from '@mui/material';
-import { MY_REGIONS } from '@/constants/localStorage/key';
 import { Region } from '@/types/region';
+import useAppDispatch from '@/hooks/useAppDispatch';
+import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
+import { useNavigate } from 'react-router-dom';
+import { MY_REGION } from '@/constants/localStorage/key';
 
 type RegionItemProps = Region & {
   keyword: string;
-  myRegions: Region[];
-  setNewMyRegions: (newRegions: Region[]) => void;
 };
 
-//TODO: alert 제거
-const RegionItem = ({
-  region,
-  keyword,
-  nx,
-  ny,
-  myRegions,
-  setNewMyRegions,
-}: RegionItemProps) => {
-  const [before, match, after] = splitText(region, keyword);
-  const handleSaveClick = () => {
-    if (myRegions.some((item) => item.region === region)) {
-      alert('해당 지역이 이미 저장되어 있습니다.');
-      return;
-    }
-
-    if (myRegions.length >= 3) {
-      alert('3개 이상 저장할 수 없습니다.');
-      return;
-    }
-
-    const addRegion = [...myRegions, { region, nx, ny }];
-    setNewMyRegions(addRegion);
-    localStorage.setItem(MY_REGIONS, JSON.stringify(addRegion));
-    alert(`${region} 지역을 저장했습니다.`);
+const RegionItem = ({ region, keyword, nx, ny }: RegionItemProps) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const parts = splitText(region, keyword);
+  const handleClick = () => {
+    const regionData = { region, nx, ny };
+    dispatch(currentRegionActions.setCurrentRegion(regionData));
+    localStorage.setItem(MY_REGION, JSON.stringify(regionData));
+    navigate('/');
   };
 
   return (
-    <C.Item divider onClick={handleSaveClick}>
+    <C.Item divider onClick={handleClick}>
       <span>
-        {before}
-        <strong>{match}</strong>
-        {after}
+        {parts.map((part, index) =>
+          part === keyword ? <strong key={index}>{part}</strong> : part
+        )}
       </span>
 
       <IconButton>
@@ -55,10 +40,31 @@ const RegionItem = ({
 export default RegionItem;
 
 function splitText(region: string, keyword: string) {
-  const index = region.indexOf(keyword);
+  const parts = [];
+  let currentIndex = 0;
 
-  const before = region.slice(0, index);
-  const after = region.slice(index + keyword.length);
+  while (currentIndex < region.length) {
+    const index = region.indexOf(keyword, currentIndex);
+    let isFirstPartOfWord = false;
 
-  return [before, keyword, after];
+    if (index === 0 || region[index - 1] === ' ') isFirstPartOfWord = true;
+
+    if (index === -1) {
+      parts.push(region.slice(currentIndex));
+      break;
+    }
+
+    if (index !== currentIndex) {
+      const indexEnd = isFirstPartOfWord ? index : index + 1;
+      parts.push(region.slice(currentIndex, indexEnd));
+    }
+
+    if (isFirstPartOfWord) {
+      parts.push(keyword);
+    }
+
+    currentIndex = index + keyword.length;
+  }
+
+  return parts;
 }
