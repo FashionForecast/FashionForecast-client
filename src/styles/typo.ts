@@ -4,7 +4,8 @@ export const typo = {
   h6: getTypoStyle(20, 24, 0.15, 500),
   'body-1': getTypoStyle(16, 24, 0.15),
   'body-2': getTypoStyle(14, 20.02, 0.17),
-  'subtitle-2': getTypoStyle(14,21.98, 0.1, 500),
+  'subtitle-1': getTypoStyle(16, 28, 0.15, 400),
+  'subtitle-2': getTypoStyle(14, 21.98, 0.1, 500),
 } as const;
 
 function getTypoStyle(
