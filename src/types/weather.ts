@@ -2,10 +2,10 @@ export type WeatherResponse = {
   data: {
     season: string;
     extremumTmp: number;
+    maxMinTmpDiff: number;
     maximumPop: number;
     maximumPcp: number;
     forecasts: Array<{
-
       fcstDate: string;
       fcstTime: string;
       tmp: number;
@@ -17,8 +17,7 @@ export type WeatherResponse = {
       skyStatus: string;
       nx: number;
       ny: number;
-    }>
-  
+    }>;
   };
   message: string;
   status: number;
