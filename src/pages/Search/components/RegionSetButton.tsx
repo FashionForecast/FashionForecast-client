@@ -31,7 +31,13 @@ const RegionSetButton = () => {
         color='inherit'
         size='large'
         fullWidth
-        startIcon={<LocationIcon />}
+        startIcon={
+          <LocationIcon
+            color={
+              currentRegion?.isGPS || !geolocation ? 'disabled' : 'default'
+            }
+          />
+        }
         onClick={handleClick}
       >
         현재 위치로 설정하기
