@@ -1,26 +1,27 @@
-import meteorologicalCoordinateList from '@/assets/meteorologicalRegionCoordinates';
-import { SelectedTime } from '@/pages/Home';
-import { WeatherResponseData } from '@/types/weather';
-import { dateToISO, KSTDate } from '@/utils/date';
+import weatherCoordinateList from '@/assets/weatherRegionCoordinates';
+import { WeatherResponse } from '@/types/weather';
 
 export async function getWeather(
-  selectedTime: SelectedTime,
-  region: string
-): Promise<WeatherResponseData> {
-  const nowDateTime = dateToISO(KSTDate());
-  const startDateTime = convertToTime(selectedTime.day, selectedTime.start);
-  const endDateTime = convertToTime(selectedTime.day, selectedTime.end);
+  region?: string
+): Promise<WeatherResponse | null> {
+  if (!region) return null;
 
-  const { weatherNx, weatherNy } = meteorologicalCoordinateList[region];
+  const offset = 1000 * 60 * 60 * 9;
+  const KTCnow = new Date(new Date().getTime() + offset);
+  const endDateTime = new Date(
+    new Date().setHours(23, 0, 0, 0) + offset
+  ).toISOString();
+  const now = KTCnow.toISOString().slice(0, -5);
+  const { weatherNx, weatherNy } = weatherCoordinateList[region];
 
   try {
     const res = await fetch(
       `${
-        import.meta.env.VITE_API_BASE_URL
-      }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
+        import.meta.env.VITE_SERVER_URL
+        //Todo: StartDateTime과 EndDateTime Timeselector로 받아오기
+      }/weather/forecast?nowDateTime=${now}&startDateTime=${now}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
     );
     const json = await res.json();
-    console.log(json);
 
     if (!res.ok) {
       throw new Error(`${json.code}: ${json.message}`);
@@ -30,23 +31,4 @@ export async function getWeather(
   } catch (error) {
     throw new Error(error as string);
   }
-}
-
-function convertToTime(day: SelectedTime['day'], time: string) {
-  const date = KSTDate();
-  let hour = parseInt(time.slice(3, 5), 10);
-
-  if (time.includes('오후') && hour < 12) {
-    hour = hour + 12;
-  }
-
-  if (day === '내일') {
-    date.setDate(date.getDate() + 1);
-  }
-
-  date.setHours(hour);
-  date.setMinutes(0);
-  date.setSeconds(0);
-
-  return dateToISO(date);
 }

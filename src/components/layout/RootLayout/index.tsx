@@ -17,6 +17,7 @@ export default function RootLayout() {
     mutationFn: guestLogin,
     onSuccess: (data) => localStorage.setItem(GUEST_UUID, data.data.uuid),
   });
+  const dispatch = useAppDispatch();
 
   // 게스트의 uuid를 저장
   useEffect(() => {
@@ -53,15 +54,4 @@ export default function RootLayout() {
       <A2hsSnackbar />
     </S.Main>
   );
-}
-
-function setDefaultRegion() {
-  const saved = localStorage.getItem(MY_REGIONS);
-
-  if (!saved) {
-    localStorage.setItem(
-      MY_REGIONS,
-      JSON.stringify([{ region: '서울특별시 종로구', nx: 37, ny: 126 }])
-    );
-  }
 }

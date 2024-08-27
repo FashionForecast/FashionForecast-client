@@ -1,4 +1,3 @@
-import CustomAppBar from '@/components/CustomAppBar';
 import styled from '@emotion/styled';
 import { List } from '@mui/material';
 
