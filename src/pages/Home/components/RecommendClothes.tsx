@@ -1,6 +1,8 @@
 import { getDefaultClothes } from '@/service/clothes';
 import { WeatherResponse } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
+import { C, S } from './RecommendClothes.style';
+import clothesImage from '@/assets/clothesImage/반팔티.svg';
 
 export type ClothesForWeather = Pick<
   WeatherResponse['data'],
@@ -19,14 +21,17 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
 
   if (isError) return <div>추천 옷 오류가 발생했습니다.</div>;
   return (
-    <section>
+    <S.Section>
       {data?.data.map(({ name, outfitType }) => (
-        <div key={name}>
-          <h4>{outfitType}</h4>
-          <span>{name}</span>
-        </div>
+        <C.ClothesCard elevation={0} key={name}>
+          <S.Image src={clothesImage} alt={name} />
+          <div>
+            <h4>{outfitType}</h4>
+            <C.Chip label={name} size='small' />
+          </div>
+        </C.ClothesCard>
       ))}
-    </section>
+    </S.Section>
   );
 };
 
