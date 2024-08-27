@@ -3,6 +3,7 @@ import { WeatherResponse } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { C, S } from './RecommendClothes.style';
 import clothesImage from '@/assets/clothesImage/반팔티.svg';
+import { OutfitType } from '@/types/clothes';
 
 export type ClothesForWeather = Pick<
   WeatherResponse['data'],
@@ -26,7 +27,7 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
         <C.ClothesCard elevation={0} key={name}>
           <S.Image src={clothesImage} alt={name} />
           <div>
-            <h4>{outfitType}</h4>
+            <h4>{outFitName[outfitType]}</h4>
             <C.Chip label={name} size='small' />
           </div>
         </C.ClothesCard>
@@ -36,3 +37,13 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
 };
 
 export default RecommendClothes;
+
+const outFitName: Record<OutfitType, string> = {
+  OUTER: '외투',
+  TOP: '상의',
+  BOTTOM: '하의',
+  ETC: '기타 악세사리',
+  BASIC_UMBRELLA: '장우산',
+  FOLDING_UMBRELLA: '접이식 우산',
+  LAYERED: '겉옷',
+};

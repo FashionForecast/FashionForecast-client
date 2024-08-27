@@ -1,4 +1,4 @@
-type Outfit =
+export type OutfitType =
   | 'OUTER'
   | 'TOP'
   | 'BOTTOM'
@@ -10,7 +10,7 @@ type Outfit =
 export type ClothesResponse = {
   data: Array<{
     name: 'string';
-    outfitType: Outfit;
+    outfitType: OutfitType;
   }>;
   message: string;
   status: number;
