@@ -55,3 +55,33 @@ export async function registerSearchWord(region: string) {
     throw new Error(error as string);
   }
 }
+
+type RegionName = {
+  city: string;
+  district: string;
+};
+export async function deleteSearchWord({ city, district }: RegionName) {
+  try {
+    const uuid = localStorage.getItem(GUEST_UUID);
+    const res = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/search/${uuid}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ city, district }),
+      }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
