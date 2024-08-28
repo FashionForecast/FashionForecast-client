@@ -1,8 +1,9 @@
+import CustomToggleButton from '@/components/CustomToggleButton';
 import styled from '@emotion/styled';
 import { Card, Chip as ChipBase } from '@mui/material';
 
 const Section = styled.section`
-  padding: 0 16px;
+  padding: 0 16px 16px;
 `;
 
 const ClothesCard = styled(Card)`
@@ -37,9 +38,24 @@ const Chip = styled(ChipBase)`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
+const ToggleButon = styled(CustomToggleButton)`
+  height: 40px;
+
+  &:first-of-type {
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+  }
+
+  &:last-of-type {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+`;
+
 export const C = {
   ClothesCard,
   Chip,
+  ToggleButon,
 };
 
 export const S = { Section, Image, ChipWrapper };

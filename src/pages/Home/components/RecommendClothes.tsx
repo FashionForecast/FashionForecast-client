@@ -6,7 +6,6 @@ import clothesImage from '@/assets/clothesImage/반팔티.svg';
 import { OutfitType } from '@/types/clothes';
 import { ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
-import CustomToggleButton from '@/components/CustomToggleButton';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -59,13 +58,13 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
         value={tempCondition}
         onChange={handleTempConditionChange}
       >
-        <CustomToggleButton value={COOL} disabled={weather.extremumTmp < 5}>
+        <C.ToggleButon value={COOL} disabled={weather.extremumTmp < 5}>
           시원하게
-        </CustomToggleButton>
-        <CustomToggleButton value={NORMAL}>적당하게</CustomToggleButton>
-        <CustomToggleButton value={WARM} disabled={weather.extremumTmp >= 28}>
+        </C.ToggleButon>
+        <C.ToggleButon value={NORMAL}>적당하게</C.ToggleButon>
+        <C.ToggleButon value={WARM} disabled={weather.extremumTmp >= 28}>
           따뜻하게
-        </CustomToggleButton>
+        </C.ToggleButon>
       </ToggleButtonGroup>
     </S.Section>
   );
