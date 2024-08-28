@@ -4,6 +4,13 @@ import { useQuery } from '@tanstack/react-query';
 import { C, S } from './RecommendClothes.style';
 import clothesImage from '@/assets/clothesImage/반팔티.svg';
 import { OutfitType } from '@/types/clothes';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { useState } from 'react';
+
+const COOL = 'COOL',
+  NORMAL = 'NORMAL',
+  WARM = 'WARM';
+export type TempCondition = typeof COOL | typeof NORMAL | typeof WARM;
 
 export type ClothesForWeather = Pick<
   WeatherResponse['data'],
@@ -15,10 +22,19 @@ type RecommendClothesProps = {
 };
 
 const RecommendClothes = ({ weather }: RecommendClothesProps) => {
+  const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
   const { data, isError } = useQuery({
-    queryKey: ['clothes'],
-    queryFn: () => getDefaultClothes(weather),
+    queryKey: ['clothes', tempCondition],
+    queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
   });
+
+  const handleTempConditionChange = (
+    _e: React.MouseEvent<HTMLElement>,
+    condition: TempCondition
+  ) => {
+    if (!condition) return;
+    setTempCondition(condition);
+  };
 
   if (isError) return <div>추천 옷 오류가 발생했습니다.</div>;
   return (
@@ -32,6 +48,20 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
           </div>
         </C.ClothesCard>
       ))}
+      <ToggleButtonGroup
+        fullWidth
+        exclusive
+        value={tempCondition}
+        onChange={handleTempConditionChange}
+      >
+        <ToggleButton value={COOL} disabled={weather.extremumTmp < 5}>
+          시원하게
+        </ToggleButton>
+        <ToggleButton value={NORMAL}>적당하게</ToggleButton>
+        <ToggleButton value={WARM} disabled={weather.extremumTmp >= 28}>
+          따듯하게
+        </ToggleButton>
+      </ToggleButtonGroup>
     </S.Section>
   );
 };
