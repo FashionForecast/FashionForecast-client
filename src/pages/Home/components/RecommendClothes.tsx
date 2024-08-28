@@ -39,12 +39,14 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   if (isError) return <div>추천 옷 오류가 발생했습니다.</div>;
   return (
     <S.Section>
-      {data?.data.map(({ name, outfitType }) => (
-        <C.ClothesCard elevation={0} key={name}>
-          <S.Image src={clothesImage} alt={name} />
+      {data?.data.map(({ names, outfitType }) => (
+        <C.ClothesCard elevation={0} key={outfitType}>
+          <S.Image src={clothesImage} alt={outFitName[outfitType]} />
           <div>
             <h4>{outFitName[outfitType]}</h4>
-            <C.Chip label={name} size='small' />
+            {names.map((name) => (
+              <C.Chip key={name} label={name} size='small' />
+            ))}
           </div>
         </C.ClothesCard>
       ))}

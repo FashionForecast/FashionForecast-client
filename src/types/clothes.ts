@@ -9,7 +9,7 @@ export type OutfitType =
 
 export type ClothesResponse = {
   data: Array<{
-    name: 'string';
+    names: Array<string>;
     outfitType: OutfitType;
   }>;
   message: string;
