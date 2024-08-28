@@ -33,7 +33,7 @@ const Search = () => {
 
       <RegionSetButton />
 
-      {!keyword && <RecentSearchList />}
+      {!keyword && <RecentSearchList regions={regions} />}
 
       <C.RegionList>
         {matchItems.map((item) => (
