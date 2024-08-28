@@ -4,8 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { C, S } from './RecommendClothes.style';
 import clothesImage from '@/assets/clothesImage/반팔티.svg';
 import { OutfitType } from '@/types/clothes';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
+import CustomToggleButton from '@/components/CustomToggleButton';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -58,13 +59,13 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
         value={tempCondition}
         onChange={handleTempConditionChange}
       >
-        <ToggleButton value={COOL} disabled={weather.extremumTmp < 5}>
+        <CustomToggleButton value={COOL} disabled={weather.extremumTmp < 5}>
           시원하게
-        </ToggleButton>
-        <ToggleButton value={NORMAL}>적당하게</ToggleButton>
-        <ToggleButton value={WARM} disabled={weather.extremumTmp >= 28}>
-          따듯하게
-        </ToggleButton>
+        </CustomToggleButton>
+        <CustomToggleButton value={NORMAL}>적당하게</CustomToggleButton>
+        <CustomToggleButton value={WARM} disabled={weather.extremumTmp >= 28}>
+          따뜻하게
+        </CustomToggleButton>
       </ToggleButtonGroup>
     </S.Section>
   );

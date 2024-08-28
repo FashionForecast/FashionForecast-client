@@ -6,9 +6,16 @@ export const theme = {
     text: {
       primary: colors.blueGrey['A87'],
       secondary: colors.blueGrey['A60'],
+      disabled: colors.blueGrey['A38'],
     },
     info: {
       main: colors.blue['600'],
+    },
+    primary: {
+      main: colors.blueGrey['600'],
+    },
+    primaryState: {
+      hover: colors.blueGrey['A04'],
     },
     blueGrey: colors.blueGrey,
     red: colors.red,
