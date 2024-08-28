@@ -28,3 +28,30 @@ export async function getRecentSearch(): Promise<RecentSearchData> {
     throw new Error(error as string);
   }
 }
+
+export async function registerSearchWord(region: string) {
+  try {
+    const uuid = localStorage.getItem(GUEST_UUID);
+    const [city, district] = region.split(' ');
+    const res = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/search/${uuid}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ city, district }),
+      }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
+
+    return json;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}

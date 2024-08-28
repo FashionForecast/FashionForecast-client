@@ -18,7 +18,7 @@ const RecentSearchList = () => {
       <C.RecentList>
         {data.map((search) => (
           <C.Item divider key={`${search.city} ${search.district}`}>
-            ${search.city} ${search.district}
+            {search.city} {search.district}
             <IconButton>
               <CloseIcon />
             </IconButton>
