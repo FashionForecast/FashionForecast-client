@@ -6,6 +6,7 @@ import clothesImage from '@/assets/clothesImage/반팔티.svg';
 import { OutfitType } from '@/types/clothes';
 import { ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
+import useAppSelector from '@/hooks/useAppSelector';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -23,8 +24,9 @@ type RecommendClothesProps = {
 
 const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
+  const currentRegion = useAppSelector((state) => state.currentRegion.value);
   const { data, isError } = useQuery({
-    queryKey: ['clothes', tempCondition],
+    queryKey: ['clothes', tempCondition, currentRegion?.region],
     queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
   });
 
