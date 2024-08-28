@@ -8,7 +8,6 @@ const Section = styled.section`
 const ClothesCard = styled(Card)`
   display: flex;
   align-items: center;
-  height: 96px;
   padding: 16px;
   margin-bottom: 16px;
   background-color: ${({ theme }) => theme.colors.blue[500]};
@@ -16,6 +15,7 @@ const ClothesCard = styled(Card)`
 
   & h4 {
     ${({ theme }) => theme.typo['subtitle-1']}
+    margin-bottom: 8px;
     color: ${({ theme }) => theme.colors.white};
   }
 `;
@@ -24,6 +24,12 @@ const Image = styled.img`
   width: 72px;
   height: 100%;
   margin-right: 16px;
+`;
+
+const ChipWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 `;
 
 const Chip = styled(ChipBase)`
@@ -36,4 +42,4 @@ export const C = {
   Chip,
 };
 
-export const S = { Section, Image };
+export const S = { Section, Image, ChipWrapper };

@@ -44,9 +44,11 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
           <S.Image src={clothesImage} alt={outFitName[outfitType]} />
           <div>
             <h4>{outFitName[outfitType]}</h4>
-            {names.map((name) => (
-              <C.Chip key={name} label={name} size='small' />
-            ))}
+            <S.ChipWrapper>
+              {names.map((name) => (
+                <C.Chip key={name} label={name} size='small' />
+              ))}
+            </S.ChipWrapper>
           </div>
         </C.ClothesCard>
       ))}
