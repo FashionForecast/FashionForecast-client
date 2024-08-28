@@ -3,6 +3,7 @@ import { getWeather } from '@/service/weather';
 import { useQuery } from '@tanstack/react-query';
 import WeatherCard from './components/weather/WeatherCard';
 import Header from './components/Header';
+import RecommendClothes from './components/RecommendClothes';
 
 const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
@@ -15,6 +16,17 @@ const Home = () => {
   return (
     <div>
       <Header />
+
+      {data && (
+        <RecommendClothes
+          weather={{
+            extremumTmp: data.data.extremumTmp,
+            maxMinTmpDiff: data.data.maxMinTmpDiff,
+            maximumPop: data.data.maximumPop,
+            maximumPcp: data.data.maximumPcp,
+          }}
+        />
+      )}
 
       {isError && <span>날씨를 조회하지 못함</span>}
       {data?.data.forecasts.map((v, i) => (
