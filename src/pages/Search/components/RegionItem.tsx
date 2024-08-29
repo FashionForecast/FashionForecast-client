@@ -6,6 +6,8 @@ import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 import { useNavigate } from 'react-router-dom';
 import { MY_REGION } from '@/constants/localStorage/key';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { registerSearchWord } from '@/service/search';
 
 type RegionItemProps = Region & {
   keyword: string;
@@ -14,12 +16,22 @@ type RegionItemProps = Region & {
 const RegionItem = ({ region, keyword, nx, ny }: RegionItemProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: registerSearchWord,
+  });
+
   const parts = splitText(region, keyword);
   const handleClick = () => {
     const regionData = { region, nx, ny };
     dispatch(currentRegionActions.setCurrentRegion(regionData));
     localStorage.setItem(MY_REGION, JSON.stringify(regionData));
-    navigate('/');
+    mutate(region, {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['recentSearch'] });
+        navigate('/');
+      },
+    });
   };
 
   return (
