@@ -11,38 +11,42 @@ export async function getWeather(
 ): Promise<WeatherResponse | null> {
   if (!region) return null;
 
-  const currentUTC = new Date();
+  //currentKST = 현재 KST 시간
+  const currentKST = new Date();
   const offset = 1000 * 60 * 60 * 9;
 
-  const currentKST = new Date(currentUTC.getTime() + offset);
-  const currentKSTString = currentKST.toISOString().slice(0, -5);
+  //currentKST 에 9시간 더한 후 toISOString 변환
+  const currentKSTString = new Date(currentKST.getTime() + offset);
+  const nowDateTime = currentKSTString.toISOString().slice(0, -5);
 
-  const finalStartTime = getCurrentKST();
-  // endOfTodayKST = 당일 오전 8시(toISOString 변환을 위함)
-  const endOfTodayKST = new Date(currentKST.setHours(8, 0, 0, 0));
+  const defaultStartTime = getCurrentKST();
+
+  //endOfTodayKST 당일 오후 11시로 세팅
+  const endOfTodayKST = currentKST.setHours(23, 0, 0, 0);
+  //endOfTodayKST 에 9시간 더한 후 toISOString 변환
+  const endOfTodayKSTString = new Date(
+    new Date(endOfTodayKST).getTime() + offset
+  )
+    .toISOString()
+    .slice(0, -5);
 
   let finalEndTime;
-  //endOFTodayUTC = 당일 오후 11시
-  const endOfTodayUTC = new Date(endOfTodayKST.getTime() - offset);
-  console.log('endOfTodayUTC', endOfTodayUTC);
-  const endOfTodayKSTString = endOfTodayKST.toISOString().slice(0, -5);
-
-  console.log('endOfTodayKSTString', endOfTodayKSTString);
-
-  if (currentUTC.getTime() + 1000 * 60 * 60 * 8 > endOfTodayUTC.getTime()) {
+  // 현재시간에 8시간 더한 값이 오늘 23시를 넘어가면 오늘 23시로 세팅
+  if (
+    currentKSTString.getTime() + 1000 * 60 * 60 * 8 >
+    new Date(endOfTodayKST).getTime()
+  ) {
     finalEndTime = endOfTodayKSTString;
   } else {
-    finalEndTime = new Date(currentUTC.getTime() + 1000 * 60 * 60 * 8)
+    finalEndTime = new Date(currentKSTString.getTime() + 1000 * 60 * 60 * 8)
       .toISOString()
       .slice(0, -5);
   }
 
-  console.log('2', endOfTodayUTC.toISOString().slice(0, -5));
-
   // 사용자가 입력한 시작, 종료 시간이 있으면 그 시간을 사용하고, 없으면 기본 시작, 종료 시간을 사용
   const startDateTime = startTime
     ? formatToISOString(selectedDay, startTime)
-    : finalStartTime;
+    : defaultStartTime;
   const endDateTime = endTime
     ? formatToISOString(selectedDay, endTime)
     : finalEndTime;
@@ -53,7 +57,7 @@ export async function getWeather(
     const res = await fetch(
       `${
         import.meta.env.VITE_SERVER_URL
-      }/weather/forecast?nowDateTime=${currentKSTString}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
+      }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
     );
     const json = await res.json();
 

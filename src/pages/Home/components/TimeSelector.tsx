@@ -10,8 +10,9 @@ interface TimeSelectorProps {
 }
 
 // 현재 시간 이후의 시간 리스트를 생성하는 함수
-const getAvailableTimes = (currentHour: number) => {
-  return Array.from({ length: 24 - currentHour }, (_, i) => {
+const getAvailableTimes = (showAll: boolean, currentHour: number) => {
+  const hours = showAll ? 24 : 24 - currentHour;
+  return Array.from({ length: hours }, (_, i) => {
     const hour = (currentHour + i) % 24;
     const period = hour < 12 ? '오전' : '오후';
     const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
@@ -22,7 +23,9 @@ const getAvailableTimes = (currentHour: number) => {
 function TimeSelector({ onSubmit }: TimeSelectorProps) {
   const defaultTime = getCurrentKST();
   const currentHour = new Date(defaultTime).getHours();
-  const availableTimes = getAvailableTimes(currentHour);
+  const [showAllTimes, setShowAllTimes] = useState<boolean>(false);
+
+  const availableTimes = getAvailableTimes(showAllTimes, currentHour);
   const defaultEndTimeIndex = Math.min(availableTimes.length - 1, 8);
 
   const [startTime, setStartTime] = useState<string>(availableTimes[0]);
@@ -40,6 +43,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
 
   useEffect(() => {
     setIsButtonDisabled(startTime === endTime);
+    setShowAllTimes(selectedDay === '내일');
   }, [selectedDay, startTime, endTime]);
 
   return (
