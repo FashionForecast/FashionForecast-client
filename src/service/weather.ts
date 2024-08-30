@@ -1,6 +1,7 @@
 import weatherCoordinateList from '@/assets/weatherRegionCoordinates';
 import { WeatherResponse } from '@/types/weather';
 import formatToISOString from '@/utils/formatToISOString';
+import getCurrentKST from '@/utils/time';
 
 export async function getWeather(
   region?: string,
@@ -16,22 +17,32 @@ export async function getWeather(
   const currentKST = new Date(currentUTC.getTime() + offset);
   const currentKSTString = currentKST.toISOString().slice(0, -5);
 
-  //오늘 날짜의 끝 23시로 설정
-  const endOfTodayKST = new Date(currentKST.getTime() + offset);
-  endOfTodayKST.setHours(23, 0, 0, 0);
+  const finalStartTime = getCurrentKST();
+  // endOfTodayKST = 당일 오전 8시(toISOString 변환을 위함)
+  const endOfTodayKST = new Date(currentKST.setHours(8, 0, 0, 0));
 
-  //종료 시간 설정: 현재 시간 + 8시간 또는 오늘 23시 중 더 이른 것
+  let finalEndTime;
+  //endOFTodayUTC = 당일 오후 11시
+  const endOfTodayUTC = new Date(endOfTodayKST.getTime() - offset);
+  console.log('endOfTodayUTC', endOfTodayUTC);
+  const endOfTodayKSTString = endOfTodayKST.toISOString().slice(0, -5);
 
-  const finalEndTime = new Date(
-    Math.min(currentKST.getTime() + 1000 * 60 * 60 * 8, endOfTodayKST.getTime())
-  )
-    .toISOString()
-    .slice(0, -5);
+  console.log('endOfTodayKSTString', endOfTodayKSTString);
+
+  if (currentUTC.getTime() + 1000 * 60 * 60 * 8 > endOfTodayUTC.getTime()) {
+    finalEndTime = endOfTodayKSTString;
+  } else {
+    finalEndTime = new Date(currentUTC.getTime() + 1000 * 60 * 60 * 8)
+      .toISOString()
+      .slice(0, -5);
+  }
+
+  console.log('2', endOfTodayUTC.toISOString().slice(0, -5));
 
   // 사용자가 입력한 시작, 종료 시간이 있으면 그 시간을 사용하고, 없으면 기본 시작, 종료 시간을 사용
   const startDateTime = startTime
     ? formatToISOString(selectedDay, startTime)
-    : currentKSTString;
+    : finalStartTime;
   const endDateTime = endTime
     ? formatToISOString(selectedDay, endTime)
     : finalEndTime;
