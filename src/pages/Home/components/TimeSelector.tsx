@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import getCurrentKST from '@/utils/time';
 import { C, S } from './TimeSelector.style';
-import { ListItem, ListItemText, Icon } from '@mui/material';
+import { ListItem, Icon } from '@mui/material';
 import CheckIcon from '@/components/icon/Check';
 import HyphenIcon from '@/components/icon/Hyphen/index';
 
@@ -55,11 +55,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
         <S.DayScroll>
           <C.ItemList>
             {day.map((day) => (
-              <ListItem
-                key={day}
-                selected={selectedDay === day}
-                onClick={() => setSelectedDay(day)}
-              >
+              <ListItem key={day} onClick={() => setSelectedDay(day)}>
                 <C.ItemText primary={day} />
               </ListItem>
             ))}
@@ -70,12 +66,8 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
         <S.TimeScroll>
           <C.ItemList>
             {availableTimes.map((time) => (
-              <ListItem
-                key={time}
-                selected={startTime === time}
-                onClick={() => setStartTime(time)}
-              >
-                <ListItemText primary={time} />
+              <ListItem key={time} onClick={() => setStartTime(time)}>
+                <C.ItemText primary={time} />
               </ListItem>
             ))}
           </C.ItemList>
@@ -90,11 +82,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
             {availableTimes
               .slice(availableTimes.indexOf(startTime))
               .map((time) => (
-                <ListItem
-                  key={time}
-                  selected={endTime === time}
-                  onClick={() => setEndTime(time)}
-                >
+                <ListItem key={time} onClick={() => setEndTime(time)}>
                   <C.ItemText primary={time} />
                 </ListItem>
               ))}
