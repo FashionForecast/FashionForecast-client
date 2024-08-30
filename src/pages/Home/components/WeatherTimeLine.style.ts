@@ -14,7 +14,7 @@ const Item = styled.li`
   width: 100%;
   margin-bottom: 16px;
 
-  &::after {
+  &::before {
     position: absolute;
     top: -18px;
     left: calc(50% - 1px);
