@@ -1,21 +1,26 @@
 import DayImage from '@/assets/weatherIconImage/DayImages';
 import NightImage from '@/assets/weatherIconImage/NightImages';
 import { RainType, SkyStatus, WeatherResponse } from '@/types/weather';
+import { S } from './WeatherTimeLine.style';
 
 type WeatherTimeLimeProps = Pick<WeatherResponse['data'], 'forecasts'>;
 
 const WeatherTimeLine = ({ forecasts }: WeatherTimeLimeProps) => {
   return (
-    <ol>
+    <S.List>
       {forecasts.map((v, i) => (
-        <li key={i}>
-          <time>{timeFormatting(v.fcstTime)}</time>
-          <div>{getWeatherImage(v.fcstTime, v.skyStatus, v.rainType)}</div>
-          <span>{v.tmp}°C</span>
-          {Number(v.pop) > 0 && <span>{v.pop}%</span>}
-        </li>
+        <S.Item key={i}>
+          <S.Time>{timeFormatting(v.fcstTime)}</S.Time>
+          <S.ImageWrap>
+            {getWeatherImage(v.fcstTime, v.skyStatus, v.rainType)}
+          </S.ImageWrap>
+          <S.TepPopWrap>
+            <S.Tmp>{v.tmp}°C</S.Tmp>
+            {Number(v.pop) > 0 && <S.Pop>{v.pop}%</S.Pop>}
+          </S.TepPopWrap>
+        </S.Item>
       ))}
-    </ol>
+    </S.List>
   );
 };
 
