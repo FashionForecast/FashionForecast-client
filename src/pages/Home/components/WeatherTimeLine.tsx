@@ -29,12 +29,12 @@ export default WeatherTimeLine;
 function timeFormatting(fcstTime: string) {
   let hour = fcstTime.slice(0, 2);
   const numHour = Number(hour);
-  const AMPM = numHour < 12 ? 'AM' : 'PM';
+  const AMPM = numHour < 12 ? '오전' : '오후';
 
   if (numHour === 0) hour = '12';
   else if (numHour >= 13) hour = (numHour - 12).toString().padStart(2, '0');
 
-  return `${hour} ${AMPM}`;
+  return `${AMPM} ${hour}시`;
 }
 
 function getWeatherImage(
