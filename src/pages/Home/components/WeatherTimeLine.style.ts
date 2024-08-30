@@ -5,6 +5,7 @@ const List = styled.ol`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: 18px;
 `;
 
 const Item = styled.li`

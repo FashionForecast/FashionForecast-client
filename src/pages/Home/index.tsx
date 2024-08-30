@@ -7,6 +7,7 @@ import RecommendClothes from './components/RecommendClothes';
 import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
 import WeatherTimeLine from './components/WeatherTimeLine';
+import { S } from './style';
 
 const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
@@ -54,13 +55,15 @@ const Home = () => {
         />
       )}
 
-      <WeatherCard
-        extremumTmp={data?.data.extremumTmp}
-        maximumPop={data?.data.maximumPop}
-        maximumPcp={data?.data.maximumPcp}
-      />
+      <S.WeatehrWrap>
+        <WeatherCard
+          extremumTmp={data?.data.extremumTmp}
+          maximumPop={data?.data.maximumPop}
+          maximumPcp={data?.data.maximumPcp}
+        />
 
-      {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
+        {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
+      </S.WeatehrWrap>
 
       <TimeSelector onSubmit={handleTimeSelectorSubmit} />
     </div>

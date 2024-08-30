@@ -17,6 +17,9 @@ export const theme = {
     primaryState: {
       hover: colors.blueGrey['A04'],
     },
+    elevation: {
+      outlined: colors.blueGrey['300'],
+    },
     blueGrey: colors.blueGrey,
     red: colors.red,
     orange: colors.orange,
