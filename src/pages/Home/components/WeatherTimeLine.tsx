@@ -12,7 +12,7 @@ const WeatherTimeLine = ({ forecasts }: WeatherTimeLimeProps) => {
           <time>{timeFormatting(v.fcstTime)}</time>
           <div>{getWeatherImage(v.fcstTime, v.skyStatus, v.rainType)}</div>
           <span>{v.tmp}°C</span>
-          <span>{v.pop}%</span>
+          {Number(v.pop) > 0 && <span>{v.pop}%</span>}
         </li>
       ))}
     </ol>
