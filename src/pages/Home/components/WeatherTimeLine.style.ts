@@ -36,7 +36,7 @@ const ImageWrap = styled.div`
   margin: 0 16px;
 `;
 
-const TepPopWrap = styled.div`
+const TmpPopWrap = styled.div`
   display: flex;
   width: 100%;
 `;
@@ -60,4 +60,4 @@ const Pop = styled.div`
   }
 `;
 
-export const S = { List, Item, Time, ImageWrap, TepPopWrap, Tmp, Pop };
+export const S = { List, Item, Time, ImageWrap, TmpPopWrap, Tmp, Pop };
