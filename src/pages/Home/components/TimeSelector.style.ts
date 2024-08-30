@@ -11,7 +11,7 @@ export const Floating = styled(Snackbar)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: none;
+  max-width: 100%;
   padding: 0 16px;
   margin: 0;
   border: 1px 0 0 0;
@@ -70,20 +70,33 @@ export const ItemText = styled(ListItemText)`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 
   .MuiTypography-root {
-    font-size: 14px; /* 원하는 폰트 크기로 설정 */
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 600px) {
+    .MuiTypography-root {
+      font-size: 12px; /* 원하는 폰트 크기로 설정 */
+      line-height: 1;
+    }
   }
 `;
 
 export const ItemList = styled(List)`
   padding: 0; /* List의 기본 패딩 제거 */
 
-  .MuiTypography-root {
-    font-size: 14px; /* 원하는 폰트 크기로 설정 */
+  .MuiListItem-root {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
   }
 `;
 
