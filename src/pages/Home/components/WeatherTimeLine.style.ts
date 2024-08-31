@@ -41,11 +41,6 @@ const TmpPopWrap = styled.div`
   width: 100%;
 `;
 
-const Tmp = styled.div`
-  width: 100%;
-  max-width: 46px;
-`;
-
 const Pop = styled.div`
   display: flex;
   width: 100%;
@@ -60,4 +55,4 @@ const Pop = styled.div`
   }
 `;
 
-export const S = { List, Item, Time, ImageWrap, TmpPopWrap, Tmp, Pop };
+export const S = { List, Item, Time, ImageWrap, TmpPopWrap, Pop };
