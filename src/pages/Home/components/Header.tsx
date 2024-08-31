@@ -1,7 +1,6 @@
 import CustomToolbar from '@/components/CustomToolBar';
 import AccountIcon from '@/components/icon/Account';
 import LocationIcon from '@/components/icon/Location';
-import PlusIcon from '@/components/icon/Plus';
 import TriangleIcon from '@/components/icon/Triangle';
 import { IconButton } from '@mui/material';
 import CustomButton from '@/components/CustomButton';
@@ -31,7 +30,7 @@ const Header = () => {
       <C.Paper>
         <CustomToolbar>
           <IconButton>
-            <PlusIcon />
+            <img src='/logo.svg' alt='로고 이미지' />
           </IconButton>
 
           {isProcessing && <CustomButton fullWidth />}
