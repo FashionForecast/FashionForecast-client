@@ -43,7 +43,7 @@ function getWeatherImage(
   rainType: RainType
 ) {
   const hour = Number(fcstTime.slice(0, 2));
-  const image = hour < 12 ? DayImage : NightImage;
+  const image = hour >= 6 && hour <= 18 ? DayImage : NightImage;
   let SvgComponent;
 
   if (rainType === 'NONE') {
