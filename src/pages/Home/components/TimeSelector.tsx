@@ -78,6 +78,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
     setIsButtonDisabled(true);
   };
 
+  //Todo: 중복 코드 리팩토링 필요
   useEffect(() => {
     const observers: (IntersectionObserver | null)[] = [];
 
@@ -185,17 +186,6 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
 
     return () => observers.forEach((ob) => ob?.disconnect());
   }, []);
-
-  useEffect(() => {
-    if (requestedStartTime !== startTime || requestedEndTime !== endTime) {
-      setIsButtonDisabled(false);
-    } else {
-      setIsButtonDisabled(true);
-    }
-  }, [selectedDay, startTime, endTime]);
-
-  console.log('1', requestedStartTime, requestedEndTime);
-  console.log('2', startTime, endTime);
 
   return (
     <S.TimeSelector>
