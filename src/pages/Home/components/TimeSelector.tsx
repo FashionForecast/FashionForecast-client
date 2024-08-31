@@ -59,6 +59,14 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
   useEffect(() => {}, []);
 
   useEffect(() => {
+    if (selectedDay === '내일') {
+      setShowAllTimes(true);
+    } else {
+      setShowAllTimes(false);
+    }
+  }, [selectedDay]);
+
+  useEffect(() => {
     // onSubmit 후 초기화된 시간과 현재 선택된 시간이 동일하면 버튼을 비활성화
     if (requestedStartTime === startTime && requestedEndTime === endTime) {
       setIsButtonDisabled(true);
@@ -92,8 +100,8 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
             if (entry.isIntersecting) {
               entry.target.classList.add('highlight');
               if (!isInit) {
-                setSelectedDay(entry.target.innerHTML);
-                setShowAllTimes(selectedDay === '내일');
+                const newSelectedDay = entry.target.innerHTML;
+                setSelectedDay(newSelectedDay);
               }
             } else {
               entry.target.classList.remove('highlight');
@@ -185,7 +193,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
     setIsInit(true);
 
     return () => observers.forEach((ob) => ob?.disconnect());
-  }, []);
+  }, [selectedDay, showAllTimes]);
 
   return (
     <S.TimeSelector>
