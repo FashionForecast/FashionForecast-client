@@ -1,11 +1,9 @@
-import CustomPaper from '@/components/CustomPaper';
 import CustomToolbar from '@/components/CustomToolBar';
 import AccountIcon from '@/components/icon/Account';
 import LocationIcon from '@/components/icon/Location';
 import PlusIcon from '@/components/icon/Plus';
 import TriangleIcon from '@/components/icon/Triangle';
 import { IconButton } from '@mui/material';
-import CustomAppBar from '@/components/CustomAppBar';
 import CustomButton from '@/components/CustomButton';
 import { C } from './Header.style';
 import useAppSelector from '@/hooks/useAppSelector';
@@ -29,8 +27,8 @@ const Header = () => {
   }, [dispatch, geolocation, isProcessing, currentRegion]);
 
   return (
-    <CustomAppBar position='relative'>
-      <CustomPaper>
+    <C.AppBar position='relative'>
+      <C.Paper>
         <CustomToolbar>
           <IconButton>
             <PlusIcon />
@@ -53,8 +51,8 @@ const Header = () => {
             <AccountIcon />
           </IconButton>
         </CustomToolbar>
-      </CustomPaper>
-    </CustomAppBar>
+      </C.Paper>
+    </C.AppBar>
   );
 };
 
