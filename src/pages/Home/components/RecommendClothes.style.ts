@@ -36,10 +36,8 @@ const ClothesCard = styled(Card, forwardPropOption)<{
   `}
 `;
 
-const Image = styled.img`
-  width: 72px;
-  height: 100%;
-  margin-right: 16px;
+const ImageWrap = styled.div`
+  margin: 0 32px 0 16px;
 `;
 
 const ChipWrapper = styled.div`
@@ -67,7 +65,7 @@ export const C = {
   ToggleButon,
 };
 
-export const S = { Section, Image, ChipWrapper };
+export const S = { Section, ImageWrap, ChipWrapper };
 
 function getChipColor(outfitType: OutfitType, theme: Theme) {
   let bgColor = '';
