@@ -35,12 +35,16 @@ export const colors = {
     A30: 'rgba(103, 32, 30, 0.3)',
     A50: 'rgba(103, 32, 30, 0.5)',
   },
+  amber: {
+    100: '#FFEBCD',
+  },
   orange: {
     300: '#FEAA5C',
     600: '#A85E1A',
     700: '#8E501A',
   },
   blue: {
+    100: '#E2EFFF',
     300: '#80C3FF',
     500: '#1892D9',
     600: '#2077AF',
@@ -50,6 +54,9 @@ export const colors = {
     300: '#45D769',
     600: '#328042',
     700: '#2C6C39',
+  },
+  teal: {
+    100: '#C6F9E2',
   },
   white: '#fff',
 } as const;
