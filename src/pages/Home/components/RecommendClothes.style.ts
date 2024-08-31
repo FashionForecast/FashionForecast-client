@@ -15,7 +15,6 @@ const ClothesCard = styled(Card, forwardPropOption)<{
   $outfitType: OutfitType;
 }>`
   display: flex;
-  align-items: center;
   padding: 16px;
   margin-bottom: 16px;
   border-radius: 16px;
@@ -37,6 +36,9 @@ const ClothesCard = styled(Card, forwardPropOption)<{
 `;
 
 const ImageWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 32px 0 16px;
 `;
 
