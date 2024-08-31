@@ -1,24 +1,39 @@
 import CustomToggleButton from '@/components/CustomToggleButton';
+import { OutfitType } from '@/types/clothes';
+import forwardPropOption from '@/utils/emotionForwardPropOption';
+import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Card, Chip as ChipBase } from '@mui/material';
+
+import { Card, css } from '@mui/material';
 
 const Section = styled.section`
   padding: 0 16px 16px;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
-const ClothesCard = styled(Card)`
+const ClothesCard = styled(Card, forwardPropOption)<{
+  $outfitType: OutfitType;
+}>`
   display: flex;
   align-items: center;
   padding: 16px;
   margin-bottom: 16px;
-  background-color: ${({ theme }) => theme.colors.blue[500]};
   border-radius: 16px;
 
   & h4 {
     ${({ theme }) => theme.typo['subtitle-1']}
     margin-bottom: 8px;
-    color: ${({ theme }) => theme.colors.white};
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
+
+  ${({ $outfitType, theme }) => css`
+    .MuiChip-root {
+      color: ${theme.colors.text.primary};
+      background-color: ${getChipColor($outfitType, theme)};
+      border: 1px solid #b2becc;
+    }
+  `}
 `;
 
 const Image = styled.img`
@@ -31,11 +46,6 @@ const ChipWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-`;
-
-const Chip = styled(ChipBase)`
-  color: ${({ theme }) => theme.colors.text.primary};
-  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const ToggleButon = styled(CustomToggleButton)`
@@ -54,8 +64,26 @@ const ToggleButon = styled(CustomToggleButton)`
 
 export const C = {
   ClothesCard,
-  Chip,
   ToggleButon,
 };
 
 export const S = { Section, Image, ChipWrapper };
+
+function getChipColor(outfitType: OutfitType, theme: Theme) {
+  let bgColor = '';
+
+  switch (outfitType) {
+    case 'OUTER':
+    case 'TOP':
+    case 'LAYERED':
+      bgColor = theme.colors.amber[100];
+      break;
+    case 'BOTTOM':
+      bgColor = theme.colors.blue[100];
+      break;
+    default:
+      bgColor = theme.colors.teal[100];
+  }
+
+  return bgColor;
+}

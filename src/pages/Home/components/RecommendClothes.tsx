@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { C, S } from './RecommendClothes.style';
 import clothesImage from '@/assets/clothesImage/반팔티.svg';
 import { OutfitType } from '@/types/clothes';
-import { ToggleButtonGroup } from '@mui/material';
+import { Chip, ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 
@@ -42,13 +42,13 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   return (
     <S.Section>
       {data?.data.map(({ names, outfitType }) => (
-        <C.ClothesCard elevation={0} key={outfitType}>
+        <C.ClothesCard elevation={0} key={outfitType} $outfitType={outfitType}>
           <S.Image src={clothesImage} alt={outFitName[outfitType]} />
           <div>
             <h4>{outFitName[outfitType]}</h4>
             <S.ChipWrapper>
               {names.map((name) => (
-                <C.Chip key={name} label={name} size='small' />
+                <Chip key={name} label={name} size='small' />
               ))}
             </S.ChipWrapper>
           </div>
