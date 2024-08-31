@@ -55,7 +55,7 @@ const Home = () => {
         />
       )}
 
-      <S.WeatehrWrap>
+      <S.WeatherWrap>
         <WeatherCard
           extremumTmp={data?.data.extremumTmp}
           maximumPop={data?.data.maximumPop}
@@ -63,9 +63,8 @@ const Home = () => {
         />
 
         {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
-      </S.WeatehrWrap>
-
-      <TimeSelector onSubmit={handleTimeSelectorSubmit} />
+        <TimeSelector onSubmit={handleTimeSelectorSubmit} />
+      </S.WeatherWrap>
     </div>
   );
 };
