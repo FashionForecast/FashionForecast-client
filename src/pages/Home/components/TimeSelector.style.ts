@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
-import { ListItemText, Button, List, Icon, ListItem } from '@mui/material';
-import shouldForwardProp from '@emotion/is-prop-valid';
+import { Button, Icon } from '@mui/material';
 
 const TimeSelector = styled.div`
   position: fixed;
@@ -31,17 +30,19 @@ const TimeRange = styled.div`
   box-shadow: none;
 `;
 
-const DayScroll = styled.div`
+const DayList = styled.ul`
   display: flex;
-  flex-direction: column; /* 수직 스크롤을 위해 flex-direction을 column으로 변경 */
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   width: 20%;
-  height: 40px;
-  padding: 10px;
+  height: 40px; /* 보여질 스크롤 높이 */
+  padding: 8px 0;
   overflow-y: auto;
   background-color: ${colors.blueGrey['A06']};
   border: none;
   border-radius: 4px;
+  scroll-snap-type: y mandatory;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -49,15 +50,19 @@ const DayScroll = styled.div`
   }
 `;
 
-const TimeScroll = styled.div`
+const TimeList = styled.ul`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   width: 40%;
   height: 40px; /* 보여질 스크롤 높이 */
+  padding: 8px 0;
   overflow-y: auto;
   background-color: ${colors.blueGrey['A06']};
   border: none;
   border-radius: 4px;
+  scroll-snap-type: y mandatory;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -65,67 +70,23 @@ const TimeScroll = styled.div`
   }
 `;
 
-const ItemText = styled(ListItemText)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  overflow: hidden;
+const Times = styled.li`
+  width: 100%;
+  height: 24px;
   text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  opacity: 0.5;
+  scroll-snap-align: center;
 
-  .MuiTypography-root {
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-    line-height: 1;
-    color: ${colors.blueGrey[900]}; /* 텍스트 색상 추가 */
+  &.highlight {
+    opacity: 1;
   }
 
   @media (max-width: 600px) {
-    .MuiTypography-root {
-      font-size: 14px;
-      line-height: 1;
-    }
+    ${({ theme }) => theme.typo['body-2']};
+    line-height: 1.5;
   }
 `;
 
-const ItemList = styled(List)`
-  display: flex;
-  flex-direction: row;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-  touch-action: pan-x pinch-zoom;
-
-  .MuiListItem-root {
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-  }
-`;
-
-const StyledListItem = styled(ListItem, {
-  shouldForwardProp: (prop) =>
-    shouldForwardProp(prop) && prop !== 'highlighted',
-})<{ highlighted: string }>`
-  display: flex;
-  flex: 0 0 100%;
-  align-items: center;
-  justify-content: center;
-  min-width: 100px;
-  min-height: 0;
-  padding-top: 1rem; /* 슬라이드 간 간격 */
-  opacity: ${({ highlighted }) => (highlighted ? 1 : 0.5)};
-  transition: opacity 0.3s ease;
-  transform: translate3d(0, 0, 0);
-`;
-
-// const StyledListItem = styled(ListItem)<{ highlighted: boolean }>`
-//   opacity: ${({ highlighted }) => (highlighted ? 1 : 0.5)};
-//   transition: opacity 0.3s ease;
-// `;
 const CheckButton = styled(Button)`
   box-sizing: border-box;
   display: flex;
@@ -158,16 +119,14 @@ const CheckIcon = styled(Icon)`
 `;
 
 export const C = {
-  ItemText,
-  ItemList,
   CheckButton,
   CheckIcon,
-  StyledListItem,
 };
 
 export const S = {
   TimeSelector,
   TimeRange,
-  DayScroll,
-  TimeScroll,
+  DayList,
+  TimeList,
+  Times,
 };
