@@ -7,12 +7,16 @@ type CustomToolbarProps = MUIToolbarProps & {
   children: React.ReactNode;
 };
 
-const CustomToolbar = ({ children }: CustomToolbarProps) => {
-  return <ToolbarBase>{children}</ToolbarBase>;
+const CustomToolbar = ({ children, ...rest }: CustomToolbarProps) => {
+  return <ToolbarBase {...rest}>{children}</ToolbarBase>;
 };
 
 export default CustomToolbar;
 
 const ToolbarBase = styled(MuiToolbar)`
   padding: 8px 16px;
+
+  @media (min-width: 600px) {
+    min-height: 56px;
+  }
 `;

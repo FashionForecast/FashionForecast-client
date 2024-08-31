@@ -41,7 +41,7 @@ const Home = () => {
 
   if (isError) return <div>날씨 조회 오류</div>;
   return (
-    <div>
+    <S.HomeWrap>
       <Header />
 
       {data && (
@@ -63,9 +63,10 @@ const Home = () => {
         />
 
         {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
-        <TimeSelector onSubmit={handleTimeSelectorSubmit} />
       </S.WeatherWrap>
-    </div>
+
+      <TimeSelector onSubmit={handleTimeSelectorSubmit} />
+    </S.HomeWrap>
   );
 };
 
