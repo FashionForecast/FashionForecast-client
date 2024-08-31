@@ -17,6 +17,10 @@ const TextFiledBase = styled(MuiTextFiled)`
       border-bottom-color: ${({ theme }) => theme.colors.blueGrey.A42};
     }
 
+    &::after {
+      border-bottom-color: ${({ theme }) => theme.colors.primary.main};
+    }
+
     @media (hover: hover) and (pointer: fine) {
       &:hover {
         background-color: ${({ theme }) => theme.colors.blueGrey.A09};
