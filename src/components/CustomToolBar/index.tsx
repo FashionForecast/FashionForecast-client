@@ -15,4 +15,8 @@ export default CustomToolbar;
 
 const ToolbarBase = styled(MuiToolbar)`
   padding: 8px 16px;
+
+  @media (min-width: 600px) {
+    min-height: 56px;
+  }
 `;
