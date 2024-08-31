@@ -6,6 +6,8 @@ import Header from './components/Header';
 import RecommendClothes from './components/RecommendClothes';
 import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
+import WeatherTimeLine from './components/WeatherTimeLine';
+import { S } from './style';
 
 const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
@@ -37,6 +39,7 @@ const Home = () => {
     enabled: !!currentRegion,
   });
 
+  if (isError) return <div>날씨 조회 오류</div>;
   return (
     <div>
       <Header />
@@ -52,21 +55,16 @@ const Home = () => {
         />
       )}
 
-      {isError && <span>날씨를 조회하지 못함</span>}
-      {data?.data.forecasts.map((v, i) => (
-        <div key={i}>
-          <span>
-            날짜: {v.fcstDate}, 시간: {v.fcstTime} 온도: {v.tmp} 강수확률:
-            {v.pop} 강수량: {v.pcp}
-          </span>
-        </div>
-      ))}
+      <S.WeatehrWrap>
+        <WeatherCard
+          extremumTmp={data?.data.extremumTmp}
+          maximumPop={data?.data.maximumPop}
+          maximumPcp={data?.data.maximumPcp}
+        />
 
-      <WeatherCard
-        extremumTmp={data?.data.extremumTmp}
-        maximumPop={data?.data.maximumPop}
-        maximumPcp={data?.data.maximumPcp}
-      />
+        {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
+      </S.WeatehrWrap>
+
       <TimeSelector onSubmit={handleTimeSelectorSubmit} />
     </div>
   );
