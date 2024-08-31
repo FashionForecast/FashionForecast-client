@@ -75,11 +75,11 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
 export default RecommendClothes;
 
 const outFitName: Record<OutfitType, string> = {
-  OUTER: '외투',
+  OUTER: '상의',
   TOP: '상의',
+  LAYERED: '상의',
   BOTTOM: '하의',
-  ETC: '기타 악세사리',
-  BASIC_UMBRELLA: '장우산',
-  FOLDING_UMBRELLA: '접이식 우산',
-  LAYERED: '겉옷',
+  ETC: '꼭 알아두세요!',
+  BASIC_UMBRELLA: '꼭 알아두세요!',
+  FOLDING_UMBRELLA: '꼭 알아두세요!',
 };
