@@ -241,7 +241,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
         </S.TimeList>
 
         <C.CheckButton onClick={handleSubmit} disabled={isButtonDisabled}>
-          <CheckIcon />
+          <CheckIcon color={isButtonDisabled ? 'disabled' : 'white'} />
         </C.CheckButton>
       </S.TimeRange>
     </S.TimeSelector>

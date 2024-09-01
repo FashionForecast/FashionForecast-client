@@ -20,6 +20,14 @@ export const theme = {
     elevation: {
       outlined: colors.blueGrey['300'],
     },
+    action: {
+      active: colors.blueGrey['A56'],
+      hover: colors.blueGrey['A04'],
+      selected: colors.blueGrey['A08'],
+      focus: colors.blueGrey['A12'],
+      disabled: colors.blueGrey['A38'],
+      disabledBackground: colors.blueGrey['A12'],
+    },
     blueGrey: colors.blueGrey,
     red: colors.red,
     amber: colors.amber,
