@@ -11,13 +11,23 @@ interface TimeSelectorProps {
 
 // 현재 시간 이후의 시간 리스트를 생성하는 함수
 const getAvailableTimes = (showAll: boolean, currentHour: number) => {
-  const hours = showAll ? 24 : 24 - currentHour;
-  return Array.from({ length: hours }, (_, i) => {
-    const hour = (currentHour + i) % 24;
-    const period = hour < 12 ? '오전' : '오후';
-    const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
-    return `${period} ${formattedHour}시`;
-  });
+  if (showAll) {
+    // showAll이 true일 때는 0시부터 23시까지의 시간대를 반환
+    return Array.from({ length: 24 }, (_, i) => {
+      const hour = i % 24;
+      const period = hour < 12 ? '오전' : '오후';
+      const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+      return `${period} ${formattedHour}시`;
+    });
+  } else {
+    // showAll이 false일 때는 currentHour부터 24시까지의 시간대를 반환
+    return Array.from({ length: 24 - currentHour }, (_, i) => {
+      const hour = (currentHour + i) % 24;
+      const period = hour < 12 ? '오전' : '오후';
+      const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+      return `${period} ${formattedHour}시`;
+    });
+  }
 };
 
 function TimeSelector({ onSubmit }: TimeSelectorProps) {
@@ -25,6 +35,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
   const currentHour = new Date(defaultTime).getHours();
   const [showAllTimes, setShowAllTimes] = useState<boolean>(false);
 
+  const [selectedDay, setSelectedDay] = useState<string>('오늘');
   const availableTimes = getAvailableTimes(showAllTimes, currentHour);
   const defaultEndTimeIndex = Math.min(availableTimes.length - 1, 8);
 
@@ -43,7 +54,6 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
     availableTimes[defaultEndTimeIndex]
   );
 
-  const [selectedDay, setSelectedDay] = useState<string>('오늘');
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   const day = ['오늘', '내일'];
@@ -58,14 +68,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
   // 처음 렌더링 시에만 실행
   useEffect(() => {}, []);
 
-  useEffect(() => {
-    if (selectedDay === '내일') {
-      setShowAllTimes(true);
-    } else {
-      setShowAllTimes(false);
-    }
-  }, [selectedDay]);
-
+  //버튼 활성화 여부 로직
   useEffect(() => {
     // onSubmit 후 초기화된 시간과 현재 선택된 시간이 동일하면 버튼을 비활성화
     if (requestedStartTime === startTime && requestedEndTime === endTime) {
@@ -81,8 +84,6 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
     // 선택된 시간을 requested 값으로 업데이트
     setRequestedStartTime(startTime);
     setRequestedEndTime(endTime);
-
-    // 버튼을 비활성화
     setIsButtonDisabled(true);
   };
 
@@ -102,6 +103,19 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
               if (!isInit) {
                 const newSelectedDay = entry.target.innerHTML;
                 setSelectedDay(newSelectedDay);
+                if (newSelectedDay === '내일') {
+                  setShowAllTimes(true);
+                  const newStartTime = availableTimes[0];
+                  setStartTime(newStartTime);
+
+                  // startTime의 인덱스를 가져옴
+                  const startIndex = availableTimes.indexOf(newStartTime);
+                  setEndTime(
+                    availableTimes[
+                      Math.min(startIndex + 8, availableTimes.length - 1)
+                    ]
+                  );
+                }
               }
             } else {
               entry.target.classList.remove('highlight');
@@ -169,7 +183,6 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
               entry.target.classList.add('highlight');
               if (!isInit) {
                 setEndTime(entry.target.innerHTML);
-                console.log('endTime', endTime);
               }
             } else {
               entry.target.classList.remove('highlight');
@@ -190,8 +203,6 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
       itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    setIsInit(true);
-
     return () => observers.forEach((ob) => ob?.disconnect());
   }, [selectedDay, showAllTimes]);
 
@@ -207,8 +218,8 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
 
         {/* 시작 시간 선택 부분 */}
         <S.TimeList ref={startListRef}>
-          {availableTimes.map((time) => (
-            <S.Times>{time}</S.Times>
+          {availableTimes.map((start) => (
+            <S.Times>{start}</S.Times>
           ))}
         </S.TimeList>
 
@@ -220,11 +231,11 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
         <S.TimeList ref={endListRef}>
           {availableTimes
             .slice(availableTimes.indexOf(startTime))
-            .map((time) =>
-              time === endTime ? (
-                <S.Times ref={itemRef}>{time}</S.Times>
+            .map((end) =>
+              end === endTime ? (
+                <S.Times ref={itemRef}>{end}</S.Times>
               ) : (
-                <S.Times>{time}</S.Times>
+                <S.Times>{end}</S.Times>
               )
             )}
         </S.TimeList>
