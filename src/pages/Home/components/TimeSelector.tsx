@@ -204,7 +204,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
     }
 
     return () => observers.forEach((ob) => ob?.disconnect());
-  }, [selectedDay, showAllTimes]);
+  }, [selectedDay, showAllTimes, startTime]);
 
   return (
     <S.TimeSelector>
