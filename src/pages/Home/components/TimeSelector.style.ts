@@ -112,7 +112,11 @@ const CheckButton = styled(Button)`
   }
 `;
 
-const CheckIcon = styled(Icon)`
+interface IconOwnProps {
+  disabled?: boolean; // Add the 'disabled' prop to the type definition
+}
+
+const CheckIcon = styled(Icon)<IconOwnProps>`
   color: ${({ disabled }) =>
     disabled ? colors.blueGrey['A12'] : colors.white};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
