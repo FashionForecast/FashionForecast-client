@@ -44,7 +44,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
     availableTimes[defaultEndTimeIndex]
   );
 
-  const [isInit, setIsInit] = useState<boolean>(false);
+  const isInit: boolean = false;
   //사용자가 스크롩을 통해 선택한 시작 시간
   const [requestedStartTime, setRequestedStartTime] = useState<string>(
     availableTimes[0]
