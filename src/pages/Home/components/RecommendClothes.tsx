@@ -80,9 +80,9 @@ const outFitName: Record<OutfitType, string> = {
   TOP: '상의',
   LAYERED: '상의',
   BOTTOM: '하의',
-  ETC: '꼭 알아두세요!',
-  BASIC_UMBRELLA: '꼭 알아두세요!',
-  FOLDING_UMBRELLA: '꼭 알아두세요!',
+  ETC: '꼭 챙기세요!',
+  BASIC_UMBRELLA: '꼭 챙기세요!',
+  FOLDING_UMBRELLA: '꼭 챙기세요!',
 };
 
 function getClothesImage(names: ClothesImageName[] | string[]) {
