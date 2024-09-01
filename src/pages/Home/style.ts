@@ -8,7 +8,7 @@ const HomeWrap = styled.div`
 
 const WeatherWrap = styled.div`
   flex-grow: 1;
-  padding: 16px 0 72px;
+  padding: 16px 16px 72px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
   border-top: 1px solid ${({ theme }) => theme.colors.elevation.outlined};
 `;

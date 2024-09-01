@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
-import { Snackbar, ListItemText, Button, List, Icon } from '@mui/material';
+import { Button, Icon } from '@mui/material';
 
-export const Floating = styled(Snackbar)`
+const TimeSelector = styled.div`
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -11,36 +11,38 @@ export const Floating = styled(Snackbar)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 100%;
-  padding: 0 16px;
+  max-width: 768px;
   margin: 0;
   border: 1px 0 0 0;
   border-color: ${colors.blueGrey[600]};
   transform: translateX(-50%);
 `;
 
-export const TimeSelector = styled.div`
+const TimeRange = styled.div`
+  position: relative; /* relative positioning 추가 */
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 8px;
   align-items: center;
   width: 100%;
   padding: 16px;
-  background-color: #fff;
-  border-radius: 16px;
+  background-color: ${colors.white};
   box-shadow: none;
 `;
-export const DayScroll = styled.div`
+
+const DayList = styled.ul`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   width: 20%;
   height: 40px; /* 보여질 스크롤 높이 */
-  padding: 10px;
+  padding: 8px 0;
   overflow-y: auto;
   background-color: ${colors.blueGrey['A06']};
   border: none;
   border-radius: 4px;
+  scroll-snap-type: y mandatory;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -48,17 +50,19 @@ export const DayScroll = styled.div`
   }
 `;
 
-export const TimeScroll = styled.div`
+const TimeList = styled.ul`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   width: 40%;
   height: 40px; /* 보여질 스크롤 높이 */
-  padding: 10px;
+  padding: 8px 0;
   overflow-y: auto;
   background-color: ${colors.blueGrey['A06']};
   border: none;
   border-radius: 4px;
+  scroll-snap-type: y mandatory;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -66,73 +70,67 @@ export const TimeScroll = styled.div`
   }
 `;
 
-export const ItemText = styled(ListItemText)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+const Times = styled.li`
+  width: 100%;
+  height: 24px;
+  text-align: center;
+  opacity: 0.5;
+  scroll-snap-align: center;
 
-  .MuiTypography-root {
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.2;
+  &.highlight {
+    opacity: 1;
   }
 
   @media (max-width: 600px) {
-    .MuiTypography-root {
-      font-size: 12px; /* 원하는 폰트 크기로 설정 */
-      line-height: 1;
-    }
+    ${({ theme }) => theme.typo['body-2']};
+    line-height: 1.5;
   }
 `;
 
-export const ItemList = styled(List)`
-  padding: 0; /* List의 기본 패딩 제거 */
-
-  .MuiListItem-root {
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-  }
-`;
-
-export const CheckButton = styled(Button)`
+const CheckButton = styled(Button)`
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   min-width: 40px;
   height: 40px;
   padding: 8px;
-  background-color: ${colors.blueGrey[600]};
-  border-radius: 10;
+  background-color: ${({ disabled }) =>
+    disabled ? colors.blueGrey['A12'] : colors.blueGrey[600]};
+  border-radius: 4px;
 
   &:hover {
-    background-color: ${colors.blueGrey[600]};
+    background-color: ${({ disabled }) =>
+      disabled ? colors.blueGrey['A12'] : colors.blueGrey[700]};
   }
 
   &:disabled {
     cursor: not-allowed;
     background-color: ${colors.blueGrey['A12']};
+    box-shadow: none;
   }
 `;
 
-export const CheckIcon = styled(Icon)`
-  color: ${colors.white};
+interface IconOwnProps {
+  disabled?: boolean; // Add the 'disabled' prop to the type definition
+}
+
+const CheckIcon = styled(Icon)<IconOwnProps>`
+  color: ${({ disabled }) =>
+    disabled ? colors.blueGrey['A12'] : colors.white};
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 export const C = {
-  Floating,
-  ItemText,
-  ItemList,
   CheckButton,
   CheckIcon,
 };
 
 export const S = {
   TimeSelector,
-  DayScroll,
-  TimeScroll,
+  TimeRange,
+  DayList,
+  TimeList,
+  Times,
 };
