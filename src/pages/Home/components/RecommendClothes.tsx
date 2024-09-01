@@ -43,7 +43,9 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
     <S.Section>
       {data?.data.map(({ names, outfitType }) => (
         <C.ClothesCard elevation={0} key={outfitType} $outfitType={outfitType}>
-          <S.ImageWrap>{getClothesImage(names)}</S.ImageWrap>
+          <S.ImageWrap>
+            {getClothesImage(names as ClothesImageName[])}
+          </S.ImageWrap>
           <div>
             <h4>{outFitName[outfitType]}</h4>
             <S.ChipWrapper>
@@ -61,7 +63,10 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
         value={tempCondition}
         onChange={handleTempConditionChange}
       >
-        <C.ToggleButon value={COOL} disabled={weather.extremumTmp < 5}>
+        <C.ToggleButon
+          value={COOL}
+          disabled={weather.extremumTmp < 5 || weather.extremumTmp >= 28}
+        >
           시원하게
         </C.ToggleButon>
         <C.ToggleButon value={NORMAL}>적당하게</C.ToggleButon>
@@ -85,27 +90,15 @@ const outFitName: Record<OutfitType, string> = {
   FOLDING_UMBRELLA: '꼭 챙기세요!',
 };
 
-function getClothesImage(names: ClothesImageName[] | string[]) {
+function getClothesImage(names: ClothesImageName[]) {
   let Image;
 
   for (const name of names) {
-    if (name === '민소매') Image = clothesImage.민소매;
-    else if (name === '반팔티') Image = clothesImage.반팔티;
-    else if (name === '긴팔티') Image = clothesImage.긴팔티;
-    else if (name === '후드티') Image = clothesImage.후드티;
-    else if (name === '니트') Image = clothesImage.니트;
-    else if (name === '트렌치 코트') Image = clothesImage['트렌치 코트'];
-    else if (name === '코트') Image = clothesImage.코트;
-    else if (name === '패딩') Image = clothesImage.패딩;
-    else if (name === '반바지') Image = clothesImage.반바지;
-    else if (name === '슬랙스' || name === '면바지' || name === '기모 바지')
+    if (name === '슬랙스' || name === '면바지' || name === '기모 바지') {
       Image = clothesImage.바지;
-    else if (name === '청바지') Image = clothesImage.청바지;
-    else if (name === '겉옷') Image = clothesImage.반팔티;
-    else if (name === '접이식 우산') Image = clothesImage['접이식 우산'];
-    else if (name === '장우산') Image = clothesImage.장우산;
-    else if (name === '히트텍') Image = clothesImage.장우산;
-    else if (name === '목도리') Image = clothesImage.목도리;
+    } else {
+      Image = clothesImage[name];
+    }
   }
 
   return Image ? <Image /> : <img src='not' alt='.' />;
