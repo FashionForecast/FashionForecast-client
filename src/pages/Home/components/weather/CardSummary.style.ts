@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colors } from '@/styles/colors';
 import { Avatar, Card, CardContent, Paper } from '@mui/material';
 
 export const WeatherCard = styled(Card)`
@@ -11,9 +10,6 @@ export const WeatherCard = styled(Card)`
 export const CustomPaper = styled(Paper)`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-  justify-content: space-between;
   width: 100%;
   padding: 16px;
   background-color: #fff;
@@ -22,26 +18,20 @@ export const CustomPaper = styled(Paper)`
 `;
 export const CustomCardContent = styled(CardContent)`
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 8px 0;
-  padding-bottom: 0;
 
-  &:last-child {
-    padding-bottom: 0;
+  &.MuiCardContent-root {
+    padding: 0;
   }
 `;
 
 export const CustomCardHeader = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
-  gap: 8px;
   align-items: center;
   justify-content: center;
+  width: 100%;
   padding: 8px 0;
 `;
 
@@ -56,21 +46,19 @@ export const Icon = styled(Avatar)`
 
 export const Header = styled.div`
   ${({ theme }) => theme.typo['body-1']};
-  color: ${colors.blueGrey[900]};
-  opacity: 0.87;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const Subheader = styled.div`
   ${({ theme }) => theme.typo['body-2']}
-  color: ${colors.blueGrey[900]};
-  opacity: 0.6;
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 export const SubTitle = styled.div`
+  ${({ theme }) => theme.typo['subtitle-2']};
   display: flex;
   align-items: flex-start;
-  ${({ theme }) => theme.typo['subtitle-2']};
-  color: ${colors.blueGrey[900]};
-  opacity: 0.87;
+  margin-bottom: 16px;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const C = {
