@@ -19,7 +19,7 @@ import { ClothesImageName } from '@/types/clothes';
 
 const clothesImage: Partial<
   Record<
-    ClothesImageName | '바지',
+    Exclude<ClothesImageName, '슬랙스' | '면바지' | '기모 바지'> | '바지',
     React.FunctionComponent<
       React.SVGProps<SVGSVGElement> & {
         title?: string;

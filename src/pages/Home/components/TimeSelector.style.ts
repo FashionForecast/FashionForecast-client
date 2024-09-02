@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
-import { Button, Icon } from '@mui/material';
+import { Button } from '@mui/material';
 
 const TimeSelector = styled.div`
   position: fixed;
@@ -112,19 +112,8 @@ const CheckButton = styled(Button)`
   }
 `;
 
-interface IconOwnProps {
-  disabled?: boolean; // Add the 'disabled' prop to the type definition
-}
-
-const CheckIcon = styled(Icon)<IconOwnProps>`
-  color: ${({ disabled }) =>
-    disabled ? colors.blueGrey['A12'] : colors.white};
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-`;
-
 export const C = {
   CheckButton,
-  CheckIcon,
 };
 
 export const S = {
