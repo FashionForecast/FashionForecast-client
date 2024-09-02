@@ -1,7 +1,7 @@
 import handlePoP from './HandlePop';
 import HandlePcP from './HandlePcp';
 import HandleTemp from './HandleTemp';
-import { C, S } from './CardSummary.style';
+import { C, S } from './WeatherCard.style';
 import { WeatherResponse } from '@/types/weather';
 
 type WeatherCardProps = Partial<
