@@ -6,8 +6,10 @@ import { useEffect } from 'react';
 import { guestLogin } from '@/service/login';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
+import useA2HS from './hooks/useA2HS';
 
 export default function RootLayout() {
+  const { deferredPrompt, installApp, clearPrompt } = useA2HS();
   const { mutate: guestLoginMutate } = useMutation({
     mutationFn: guestLogin,
     onSuccess: (data) => localStorage.setItem(GUEST_UUID, data.data.uuid),
@@ -34,6 +36,13 @@ export default function RootLayout() {
 
   return (
     <S.Main>
+      {deferredPrompt && (
+        <div>
+          <button onClick={clearPrompt}>취소</button>
+          <button onClick={installApp}>홈 화면에 추가</button>
+        </div>
+      )}
+
       <Outlet />
     </S.Main>
   );
