@@ -7,7 +7,8 @@ const useA2HS = () => {
   useEffect(() => {
     const handler = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
-      setDeferredPrompt(e);
+
+      setTimeout(() => setDeferredPrompt(e), 5000);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
@@ -19,7 +20,11 @@ const useA2HS = () => {
   const installApp = () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(clearPrompt);
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          clearPrompt;
+        }
+      });
     }
   };
 
