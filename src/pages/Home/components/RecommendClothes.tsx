@@ -111,6 +111,14 @@ function getClothesImage(outfitType: OutfitType, names: ClothesImageName[]) {
     }
   }
 
+  if (outFitName[outfitType] === '꼭 챙기세요!' && names.length === 2) {
+    if (names.includes('접이식 우산')) {
+      Image = clothesImage.겉옷접이식우산;
+    } else if (names.includes('장우산')) {
+      Image = clothesImage.겉옷장우산;
+    }
+  }
+
   /** 위의 조건에서 찾지 못했을 때, 대표 이미지를 찾음 */
   for (const name of names) {
     if (Image) break;

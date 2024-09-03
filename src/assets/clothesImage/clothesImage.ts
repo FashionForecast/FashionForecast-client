@@ -14,12 +14,17 @@ import 접이식우산 from '@/assets/clothesImage/접이식우산.svg?react';
 import 장우산 from '@/assets/clothesImage/장우산.svg?react';
 import 히트텍 from '@/assets/clothesImage/히트텍.svg?react';
 import 목도리 from '@/assets/clothesImage/목도리.svg?react';
+import 겉옷장우산 from '@/assets/clothesImage/겉옷장우산.svg?react';
+import 겉옷접이식우산 from '@/assets/clothesImage/겉옷접이식우산.svg?react';
 
 import { ClothesImageName } from '@/types/clothes';
 
 const clothesImage: Partial<
   Record<
-    Exclude<ClothesImageName, '슬랙스' | '면바지' | '기모 바지'> | '바지',
+    | Exclude<ClothesImageName, '슬랙스' | '면바지' | '기모 바지'>
+    | '바지'
+    | '겉옷장우산'
+    | '겉옷접이식우산',
     React.FunctionComponent<
       React.SVGProps<SVGSVGElement> & {
         title?: string;
@@ -41,6 +46,8 @@ const clothesImage: Partial<
   장우산,
   히트텍,
   목도리,
+  겉옷장우산,
+  겉옷접이식우산,
   '트렌치 코트': 트렌치코트,
   '접이식 우산': 접이식우산,
 };

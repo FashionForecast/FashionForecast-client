@@ -1,7 +1,7 @@
 import handlePoP from './HandlePop';
 import HandlePcP from './HandlePcp';
 import HandleTemp from './HandleTemp';
-import { C, S } from './CardSummary.style';
+import { C, S } from './WeatherCard.style';
 import { WeatherResponse } from '@/types/weather';
 
 type WeatherCardProps = Partial<
@@ -31,7 +31,7 @@ const WeatherCard = ({
             <S.CustomCardHeader>
               <C.Icon>{TempImage}</C.Icon>
               <S.Header>{extremumTmp}°C</S.Header>
-              <S.Subheader>기온</S.Subheader>
+              <S.Subheader>{getTempText()}</S.Subheader>
             </S.CustomCardHeader>
             <S.CustomCardHeader>
               <C.Icon>{PopImage}</C.Icon>
@@ -51,3 +51,25 @@ const WeatherCard = ({
 };
 
 export default WeatherCard;
+
+function getTempText() {
+  const month = new Date().getMonth() + 1;
+  let text;
+
+  switch (month) {
+    case 12:
+    case 1:
+    case 2:
+      text = '최저';
+      break;
+    case 6:
+    case 7:
+    case 8:
+      text = '최고';
+      break;
+    default:
+      text = '대표';
+  }
+
+  return `${text} 기온`;
+}
