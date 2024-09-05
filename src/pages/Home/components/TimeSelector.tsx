@@ -216,15 +216,15 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
       <S.TimeRange>
         {/* Day 선택 부분 */}
         <S.DayList ref={DayListRef}>
-          {day.map((day) => (
-            <S.Times>{day}</S.Times>
+          {day.map((day, index) => (
+            <S.Times key={index}>{day}</S.Times>
           ))}
         </S.DayList>
 
         {/* 시작 시간 선택 부분 */}
         <S.TimeList ref={startListRef}>
-          {availableTimes.map((start) => (
-            <S.Times>{start}</S.Times>
+          {availableTimes.map((start, index) => (
+            <S.Times key={index}>{start}</S.Times>
           ))}
         </S.TimeList>
 
@@ -236,11 +236,13 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
         <S.TimeList ref={endListRef}>
           {availableTimes
             .slice(availableTimes.indexOf(startTime))
-            .map((end) =>
+            .map((end, index) =>
               end === endTime ? (
-                <S.Times ref={itemRef}>{end}</S.Times>
+                <S.Times ref={itemRef} key={index}>
+                  {end}
+                </S.Times>
               ) : (
-                <S.Times>{end}</S.Times>
+                <S.Times key={index}>{end}</S.Times>
               )
             )}
         </S.TimeList>
