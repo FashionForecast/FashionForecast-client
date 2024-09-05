@@ -10,6 +10,8 @@ const Snackbar = styled(SnackbarBase)`
   max-width: 768px;
   padding: 0 16px;
   touch-action: none;
+  cursor: grab;
+  user-select: none;
   transform: translateX(-50%);
 
   & .MuiPaper-root {
