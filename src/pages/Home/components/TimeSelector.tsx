@@ -216,15 +216,15 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
       <S.TimeRange>
         {/* Day 선택 부분 */}
         <S.DayList ref={DayListRef}>
-          {day.map((day, index) => (
-            <S.Times key={index}>{day}</S.Times>
+          {day.map((dayItem) => (
+            <S.Times key={dayItem}>{dayItem}</S.Times>
           ))}
         </S.DayList>
 
         {/* 시작 시간 선택 부분 */}
         <S.TimeList ref={startListRef}>
-          {availableTimes.map((start, index) => (
-            <S.Times key={index}>{start}</S.Times>
+          {availableTimes.map((start) => (
+            <S.Times key={start}>{start}</S.Times>
           ))}
         </S.TimeList>
 
@@ -234,17 +234,15 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
 
         {/* 종료 시간 선택 부분 */}
         <S.TimeList ref={endListRef}>
-          {availableTimes
-            .slice(availableTimes.indexOf(startTime))
-            .map((end, index) =>
-              end === endTime ? (
-                <S.Times ref={itemRef} key={index}>
-                  {end}
-                </S.Times>
-              ) : (
-                <S.Times key={index}>{end}</S.Times>
-              )
-            )}
+          {availableTimes.slice(availableTimes.indexOf(startTime)).map((end) =>
+            end === endTime ? (
+              <S.Times ref={itemRef} key={end}>
+                {end}
+              </S.Times>
+            ) : (
+              <S.Times key={end}>{end}</S.Times>
+            )
+          )}
         </S.TimeList>
 
         <C.CheckButton onClick={handleSubmit} disabled={isButtonDisabled}>
