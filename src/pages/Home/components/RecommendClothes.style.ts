@@ -51,6 +51,11 @@ const ChipWrapper = styled.div`
 const ToggleButon = styled(CustomToggleButton)`
   height: 40px;
 
+  &.MuiToggleButtonGroup-middleButton {
+    border-right: 1px solid ${({ theme }) => theme.colors.primary.main};
+    border-left: 1px solid ${({ theme }) => theme.colors.primary.main};
+  }
+
   &:first-of-type {
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
