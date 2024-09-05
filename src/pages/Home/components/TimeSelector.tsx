@@ -103,7 +103,12 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
               if (!isInit) {
                 const newSelectedDay = entry.target.innerHTML;
                 setSelectedDay(newSelectedDay);
-                if (newSelectedDay === '내일') {
+
+                if (newSelectedDay === '오늘') {
+                  setShowAllTimes(false);
+                  setStartTime(availableTimes[0]);
+                  setEndTime(availableTimes[defaultEndTimeIndex]);
+                } else if (newSelectedDay === '내일') {
                   setShowAllTimes(true);
                   const newStartTime = availableTimes[0];
                   setStartTime(newStartTime);
