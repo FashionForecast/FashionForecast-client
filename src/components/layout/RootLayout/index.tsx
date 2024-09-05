@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { guestLogin } from '@/service/login';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
+import A2hsSnackbar from './components/A2hsSnackbar';
 
 export default function RootLayout() {
   const { mutate: guestLoginMutate } = useMutation({
@@ -35,6 +36,7 @@ export default function RootLayout() {
   return (
     <S.Main>
       <Outlet />
+      <A2hsSnackbar />
     </S.Main>
   );
 }
