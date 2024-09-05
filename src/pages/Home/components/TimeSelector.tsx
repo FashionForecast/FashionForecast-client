@@ -103,7 +103,12 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
               if (!isInit) {
                 const newSelectedDay = entry.target.innerHTML;
                 setSelectedDay(newSelectedDay);
-                if (newSelectedDay === '내일') {
+
+                if (newSelectedDay === '오늘') {
+                  setShowAllTimes(false);
+                  setStartTime(availableTimes[0]);
+                  setEndTime(availableTimes[defaultEndTimeIndex]);
+                } else if (newSelectedDay === '내일') {
                   setShowAllTimes(true);
                   const newStartTime = availableTimes[0];
                   setStartTime(newStartTime);
@@ -211,15 +216,15 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
       <S.TimeRange>
         {/* Day 선택 부분 */}
         <S.DayList ref={DayListRef}>
-          {day.map((day) => (
-            <S.Times>{day}</S.Times>
+          {day.map((dayItem) => (
+            <S.Times key={dayItem}>{dayItem}</S.Times>
           ))}
         </S.DayList>
 
         {/* 시작 시간 선택 부분 */}
         <S.TimeList ref={startListRef}>
           {availableTimes.map((start) => (
-            <S.Times>{start}</S.Times>
+            <S.Times key={start}>{start}</S.Times>
           ))}
         </S.TimeList>
 
@@ -229,15 +234,15 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
 
         {/* 종료 시간 선택 부분 */}
         <S.TimeList ref={endListRef}>
-          {availableTimes
-            .slice(availableTimes.indexOf(startTime))
-            .map((end) =>
-              end === endTime ? (
-                <S.Times ref={itemRef}>{end}</S.Times>
-              ) : (
-                <S.Times>{end}</S.Times>
-              )
-            )}
+          {availableTimes.slice(availableTimes.indexOf(startTime)).map((end) =>
+            end === endTime ? (
+              <S.Times ref={itemRef} key={end}>
+                {end}
+              </S.Times>
+            ) : (
+              <S.Times key={end}>{end}</S.Times>
+            )
+          )}
         </S.TimeList>
 
         <C.CheckButton onClick={handleSubmit} disabled={isButtonDisabled}>
