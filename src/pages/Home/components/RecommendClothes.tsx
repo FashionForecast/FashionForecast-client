@@ -63,14 +63,11 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
         value={tempCondition}
         onChange={handleTempConditionChange}
       >
-        <C.ToggleButon
-          value={COOL}
-          disabled={weather.extremumTmp < 5 || weather.extremumTmp >= 28}
-        >
+        <C.ToggleButon value={COOL} disabled={weather.extremumTmp >= 28}>
           시원하게
         </C.ToggleButon>
         <C.ToggleButon value={NORMAL}>적당하게</C.ToggleButon>
-        <C.ToggleButon value={WARM} disabled={weather.extremumTmp >= 28}>
+        <C.ToggleButon value={WARM} disabled={weather.extremumTmp < 5}>
           따뜻하게
         </C.ToggleButon>
       </ToggleButtonGroup>
