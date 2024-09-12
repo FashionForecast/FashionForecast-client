@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import getCurrentKST from '@/utils/time';
 import { C, S } from './TimeSelector.style';
-import { Icon } from '@mui/material';
+import { useMediaQuery, Icon, MenuItem, Select } from '@mui/material';
 import CheckIcon from '@/components/icon/Check';
 import HyphenIcon from '@/components/icon/Hyphen/index';
 
@@ -31,6 +31,7 @@ const getAvailableTimes = (showAll: boolean, currentHour: number) => {
 };
 
 function TimeSelector({ onSubmit }: TimeSelectorProps) {
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
   const defaultTime = getCurrentKST();
   const currentHour = new Date(defaultTime).getHours();
   const [showAllTimes, setShowAllTimes] = useState<boolean>(false);
@@ -76,7 +77,7 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
     } else {
       setIsButtonDisabled(false);
     }
-  }, [selectedDay, startTime, endTime]);
+  }, [selectedDay, startTime, endTime, isDesktop]);
 
   const handleSubmit = () => {
     onSubmit(selectedDay, startTime, endTime);
@@ -91,121 +92,123 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
   useEffect(() => {
     const observers: (IntersectionObserver | null)[] = [];
 
-    //dayListRef
-    if (DayListRef.current) {
-      const listItems = DayListRef.current.querySelectorAll('li');
+    if (!isDesktop) {
+      //dayListRef
+      if (DayListRef.current) {
+        const listItems = DayListRef.current.querySelectorAll('li');
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('highlight');
-              if (!isInit) {
-                const newSelectedDay = entry.target.innerHTML;
-                setSelectedDay(newSelectedDay);
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('highlight');
+                if (!isInit) {
+                  const newSelectedDay = entry.target.innerHTML;
+                  setSelectedDay(newSelectedDay);
 
-                if (newSelectedDay === '오늘') {
-                  setShowAllTimes(false);
-                  setStartTime(availableTimes[0]);
-                  setEndTime(availableTimes[defaultEndTimeIndex]);
-                } else if (newSelectedDay === '내일') {
-                  setShowAllTimes(true);
-                  const newStartTime = availableTimes[0];
+                  if (newSelectedDay === '오늘') {
+                    setShowAllTimes(false);
+                    setStartTime(availableTimes[0]);
+                    setEndTime(availableTimes[defaultEndTimeIndex]);
+                  } else if (newSelectedDay === '내일') {
+                    setShowAllTimes(true);
+                    const newStartTime = availableTimes[0];
+                    setStartTime(newStartTime);
+
+                    // startTime의 인덱스를 가져옴
+                    const startIndex = availableTimes.indexOf(newStartTime);
+                    setEndTime(
+                      availableTimes[
+                        Math.min(startIndex + 8, availableTimes.length - 1)
+                      ]
+                    );
+                  }
+                }
+              } else {
+                entry.target.classList.remove('highlight');
+              }
+            });
+          },
+          {
+            root: DayListRef.current,
+            threshold: 0.9, // 리스트 아이템의 90% 이상이 보일 때 트리거
+          }
+        );
+
+        listItems.forEach((item) => observer.observe(item));
+        observers.push(observer);
+      }
+
+      // startListRef
+      if (startListRef.current) {
+        const listItems = startListRef.current.querySelectorAll('li');
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('highlight');
+                if (!isInit) {
+                  const newStartTime = entry.target.innerHTML;
                   setStartTime(newStartTime);
 
                   // startTime의 인덱스를 가져옴
                   const startIndex = availableTimes.indexOf(newStartTime);
-                  setEndTime(
-                    availableTimes[
-                      Math.min(startIndex + 8, availableTimes.length - 1)
-                    ]
+
+                  // endTime을 설정할 인덱스를 계산 (startTime + 8)
+                  const newEndTimeIndex = Math.min(
+                    startIndex + 8, // 기본으로 8시간 후를 설정
+                    availableTimes.length - 1 // 배열 길이를 넘지 않도록 제한
                   );
+
+                  // 새로운 endTime 설정
+                  setEndTime(availableTimes[newEndTimeIndex]);
                 }
+              } else {
+                entry.target.classList.remove('highlight');
               }
-            } else {
-              entry.target.classList.remove('highlight');
-            }
-          });
-        },
-        {
-          root: DayListRef.current,
-          threshold: 0.9, // 리스트 아이템의 90% 이상이 보일 때 트리거
-        }
-      );
+            });
+          },
+          {
+            root: startListRef.current,
+            threshold: 0.9, // 리스트 아이템의 90% 이상이 보일 때 트리거
+          }
+        );
 
-      listItems.forEach((item) => observer.observe(item));
-      observers.push(observer);
-    }
+        listItems.forEach((item) => observer.observe(item));
+        observers.push(observer);
+      }
 
-    // startListRef
-    if (startListRef.current) {
-      const listItems = startListRef.current.querySelectorAll('li');
+      // endListRef
+      if (endListRef.current) {
+        const listItems = endListRef.current.querySelectorAll('li');
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('highlight');
-              if (!isInit) {
-                const newStartTime = entry.target.innerHTML;
-                setStartTime(newStartTime);
-
-                // startTime의 인덱스를 가져옴
-                const startIndex = availableTimes.indexOf(newStartTime);
-
-                // endTime을 설정할 인덱스를 계산 (startTime + 8)
-                const newEndTimeIndex = Math.min(
-                  startIndex + 8, // 기본으로 8시간 후를 설정
-                  availableTimes.length - 1 // 배열 길이를 넘지 않도록 제한
-                );
-
-                // 새로운 endTime 설정
-                setEndTime(availableTimes[newEndTimeIndex]);
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('highlight');
+                if (!isInit) {
+                  setEndTime(entry.target.innerHTML);
+                }
+              } else {
+                entry.target.classList.remove('highlight');
               }
-            } else {
-              entry.target.classList.remove('highlight');
-            }
-          });
-        },
-        {
-          root: startListRef.current,
-          threshold: 0.9, // 리스트 아이템의 90% 이상이 보일 때 트리거
-        }
-      );
+            });
+          },
+          {
+            root: endListRef.current,
+            threshold: 0.9, // 리스트 아이템의 90% 이상이 보일 때 트리거
+          }
+        );
 
-      listItems.forEach((item) => observer.observe(item));
-      observers.push(observer);
-    }
+        listItems.forEach((item) => observer.observe(item));
+        observers.push(observer);
+      }
 
-    // endListRef
-    if (endListRef.current) {
-      const listItems = endListRef.current.querySelectorAll('li');
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('highlight');
-              if (!isInit) {
-                setEndTime(entry.target.innerHTML);
-              }
-            } else {
-              entry.target.classList.remove('highlight');
-            }
-          });
-        },
-        {
-          root: endListRef.current,
-          threshold: 0.9, // 리스트 아이템의 90% 이상이 보일 때 트리거
-        }
-      );
-
-      listItems.forEach((item) => observer.observe(item));
-      observers.push(observer);
-    }
-
-    if (itemRef.current) {
-      itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (itemRef.current) {
+        itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     return () => observers.forEach((ob) => ob?.disconnect());
@@ -215,35 +218,71 @@ function TimeSelector({ onSubmit }: TimeSelectorProps) {
     <S.TimeSelector>
       <S.TimeRange>
         {/* Day 선택 부분 */}
-        <S.DayList ref={DayListRef}>
-          {day.map((dayItem) => (
-            <S.Times key={dayItem}>{dayItem}</S.Times>
-          ))}
-        </S.DayList>
+        {isDesktop ? (
+          <Select
+            value={selectedDay}
+            onChange={(e) => setSelectedDay(e.target.value as string)}
+          >
+            {day.map((dayItem) => (
+              <MenuItem key={dayItem} value={dayItem}>
+                {dayItem}
+              </MenuItem>
+            ))}
+          </Select>
+        ) : (
+          <S.DayList>
+            {day.map((dayItem) => (
+              <S.Times key={dayItem}>{dayItem}</S.Times>
+            ))}
+          </S.DayList>
+        )}
 
         {/* 시작 시간 선택 부분 */}
-        <S.TimeList ref={startListRef}>
-          {availableTimes.map((start) => (
-            <S.Times key={start}>{start}</S.Times>
-          ))}
-        </S.TimeList>
-
+        {isDesktop ? (
+          <Select
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value as string)}
+          >
+            {availableTimes.map((start) => (
+              <MenuItem key={start} value={start}>
+                {start}
+              </MenuItem>
+            ))}
+          </Select>
+        ) : (
+          <S.TimeList>
+            {availableTimes.map((start) => (
+              <S.Times key={start}>{start}</S.Times>
+            ))}
+          </S.TimeList>
+        )}
         <Icon>
           <HyphenIcon />
         </Icon>
 
         {/* 종료 시간 선택 부분 */}
-        <S.TimeList ref={endListRef}>
-          {availableTimes.slice(availableTimes.indexOf(startTime)).map((end) =>
-            end === endTime ? (
-              <S.Times ref={itemRef} key={end}>
-                {end}
-              </S.Times>
-            ) : (
-              <S.Times key={end}>{end}</S.Times>
-            )
-          )}
-        </S.TimeList>
+        {isDesktop ? (
+          <Select
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value as string)}
+          >
+            {availableTimes
+              .slice(availableTimes.indexOf(startTime))
+              .map((end) => (
+                <MenuItem key={end} value={end}>
+                  {end}
+                </MenuItem>
+              ))}
+          </Select>
+        ) : (
+          <S.TimeList>
+            {availableTimes
+              .slice(availableTimes.indexOf(startTime))
+              .map((end) => (
+                <S.Times key={end}>{end}</S.Times>
+              ))}
+          </S.TimeList>
+        )}
 
         <C.CheckButton onClick={handleSubmit} disabled={isButtonDisabled}>
           <CheckIcon color={isButtonDisabled ? 'disabled' : 'white'} />
