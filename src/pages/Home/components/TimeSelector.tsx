@@ -2,35 +2,43 @@ import { C, S } from './TimeSelector.style';
 import { Icon } from '@mui/material';
 import CheckIcon from '@/components/icon/Check';
 import HyphenIcon from '@/components/icon/Hyphen/index';
+import { SelectedTime } from '..';
+import TimeCarousel from './TimeCarousel';
 
 const DAYS = ['오늘', '내일'];
-const TIMES = ['오전 00시', '오전 01시', '오후 11시'];
+const TIMES = Array.from({ length: 24 }, (_, i) => {
+  const AMPM = i < 12 ? '오전' : '오후';
+  let hour = i.toString().padStart(2, '0');
 
-function TimeSelector() {
+  if (i >= 13) hour = (i - 12).toString().padStart(2, '0');
+
+  return `${AMPM} ${hour}시`;
+});
+
+type TimeSelectorProps = {
+  selectedTime: SelectedTime;
+};
+
+function TimeSelector({ selectedTime }: TimeSelectorProps) {
+  const startTimes = TIMES.filter(
+    (_, i) => i >= Number(selectedTime.start.slice(11, 13))
+  );
+  const endTimes = TIMES.filter(
+    (_, i) => i >= Number(selectedTime.end.slice(11, 13))
+  );
+
   return (
     <S.TimeSelector>
       <S.TimeRange>
-        <S.DayList>
-          {DAYS.map((day) => (
-            <S.Times key={day}>{day}</S.Times>
-          ))}
-        </S.DayList>
+        <TimeCarousel times={DAYS} />
 
-        <S.TimeList>
-          {TIMES.map((start) => (
-            <S.Times key={start}>{start}</S.Times>
-          ))}
-        </S.TimeList>
+        <TimeCarousel times={startTimes} />
 
         <Icon>
           <HyphenIcon />
         </Icon>
 
-        <S.TimeList>
-          {TIMES.map((end) => (
-            <S.Times key={end}>{end}</S.Times>
-          ))}
-        </S.TimeList>
+        <TimeCarousel times={endTimes} />
 
         <C.CheckButton>
           <CheckIcon />

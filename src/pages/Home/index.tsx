@@ -56,7 +56,7 @@ const Home = () => {
         {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
       </S.WeatherWrap>
 
-      <TimeSelector />
+      <TimeSelector selectedTime={selectedTime} />
     </S.HomeWrap>
   );
 };
