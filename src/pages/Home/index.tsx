@@ -8,34 +8,25 @@ import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
 import WeatherTimeLine from './components/WeatherTimeLine';
 import { S } from './style';
+import { dateToISO, KSTDate } from '@/utils/date';
+
+export type SelectedTime = {
+  day: '오늘' | '내일';
+  start: string;
+  end: string;
+};
 
 const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
-
-  const [selectedDay, setSelectedDay] = useState<string>('오늘');
-  const [startTime, setStartTime] = useState<string>('');
-  const [endTime, setEndTime] = useState<string>('');
-
-  const handleTimeSelectorSubmit = (
-    day: string,
-    start: string,
-    end: string
-  ) => {
-    setSelectedDay(day);
-    setStartTime(start);
-    setEndTime(end);
-  };
+  const [selectedTime, setSelectedTime] = useState<SelectedTime>({
+    day: '오늘',
+    start: setDefaultTime(),
+    end: setDefaultTime('end'),
+  });
 
   const { data, isError } = useQuery({
-    queryKey: [
-      'weather',
-      currentRegion?.region,
-      selectedDay,
-      startTime,
-      endTime,
-    ],
-    queryFn: () =>
-      getWeather(currentRegion?.region, selectedDay, startTime, endTime),
+    queryKey: ['weather', currentRegion?.region, selectedTime],
+    queryFn: () => getWeather(selectedTime, currentRegion!.region),
     enabled: !!currentRegion,
   });
 
@@ -65,9 +56,26 @@ const Home = () => {
         {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
       </S.WeatherWrap>
 
-      <TimeSelector onSubmit={handleTimeSelectorSubmit} />
+      <TimeSelector />
     </S.HomeWrap>
   );
 };
 
 export default Home;
+
+function setDefaultTime(type: 'start' | 'end' = 'start') {
+  const KST = KSTDate();
+
+  if (type === 'end') {
+    const hour = KST.getHours();
+
+    if (hour + 8 >= 24) KST.setHours(23);
+    else KST.setHours(hour + 8);
+  }
+
+  KST.setMinutes(0);
+  KST.setSeconds(0);
+  KST.setMilliseconds(0);
+
+  return dateToISO(KST);
+}
