@@ -4,6 +4,7 @@ import CheckIcon from '@/components/icon/Check';
 import HyphenIcon from '@/components/icon/Hyphen/index';
 import { SelectedTime } from '..';
 import TimeCarousel from './TimeCarousel';
+import { useMemo } from 'react';
 
 const DAYS = ['오늘', '내일'];
 const TIMES = Array.from({ length: 24 }, (_, i) => {
@@ -17,28 +18,48 @@ const TIMES = Array.from({ length: 24 }, (_, i) => {
 
 type TimeSelectorProps = {
   selectedTime: SelectedTime;
+  handleSelectedTime: (key: keyof SelectedTime, value: string) => void;
 };
 
-function TimeSelector({ selectedTime }: TimeSelectorProps) {
-  const startTimes = TIMES.filter(
-    (_, i) => i >= Number(selectedTime.start.slice(11, 13))
+function TimeSelector({ selectedTime, handleSelectedTime }: TimeSelectorProps) {
+  const startTimes = useMemo(
+    () => TIMES.filter((_, i) => i >= Number(selectedTime.start.slice(11, 13))),
+    [selectedTime.day]
   );
-  const endTimes = TIMES.filter(
-    (_, i) => i >= Number(selectedTime.end.slice(11, 13))
+  const endTimes = useMemo(
+    () =>
+      TIMES.filter(
+        (_, i) =>
+          i >= Number(selectedTime.start.slice(11, 13)) &&
+          i <= Number(selectedTime.end.slice(11, 13))
+      ),
+    [selectedTime.day]
   );
 
   return (
     <S.TimeSelector>
       <S.TimeRange>
-        <TimeCarousel times={DAYS} />
+        <TimeCarousel
+          times={DAYS}
+          type='day'
+          handleSelectedTime={handleSelectedTime}
+        />
 
-        <TimeCarousel times={startTimes} />
+        <TimeCarousel
+          times={startTimes}
+          type='start'
+          handleSelectedTime={handleSelectedTime}
+        />
 
         <Icon>
           <HyphenIcon />
         </Icon>
 
-        <TimeCarousel times={endTimes} />
+        <TimeCarousel
+          times={endTimes}
+          type='end'
+          handleSelectedTime={handleSelectedTime}
+        />
 
         <C.CheckButton>
           <CheckIcon />

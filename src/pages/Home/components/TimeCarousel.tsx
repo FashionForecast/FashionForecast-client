@@ -1,12 +1,21 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { S } from './TimeCarousel.style';
+import { SelectedTime } from '..';
 
 type TimeCarouselProps = {
   times: string[];
+  type: keyof SelectedTime;
+  handleSelectedTime: (key: keyof SelectedTime, value: string) => void;
 };
 
-const TimeCarousel = ({ times }: TimeCarouselProps) => {
-  const [currentItemIndex, setCurrentItemIndex] = useState(0);
+const TimeCarousel = ({
+  times,
+  type,
+  handleSelectedTime,
+}: TimeCarouselProps) => {
+  const [currentItemIndex, setCurrentItemIndex] = useState(
+    type === 'end' ? Math.min(times.length - 1, 8) : 0
+  );
   const [isDragging, setIsDragging] = useState(false);
   const [prevPageY, setPrevPageY] = useState(0);
   const [prevScrollTop, setPrevScrollTop] = useState(0);
@@ -40,6 +49,26 @@ const TimeCarousel = ({ times }: TimeCarouselProps) => {
       block: 'center',
     });
   };
+
+  useEffect(() => {
+    itemsRef.current[currentItemIndex]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }, []);
+
+  useEffect(() => {
+    const index = type === 'end' ? Math.min(times.length - 1, 8) : 0;
+    setCurrentItemIndex(index);
+    itemsRef.current[index]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }, [times]);
+
+  useEffect(() => {
+    handleSelectedTime(type, times[currentItemIndex]);
+  }, [currentItemIndex]);
 
   return (
     <S.Carousel
