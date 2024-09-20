@@ -8,8 +8,8 @@ export async function getWeather(
   region: string
 ): Promise<WeatherResponse> {
   const nowDateTime = dateToISO(KSTDate());
-  const startDateTime = selectedTime.start;
-  const endDateTime = selectedTime.end;
+  const startDateTime = convertToTime(selectedTime.day, selectedTime.start);
+  const endDateTime = convertToTime(selectedTime.day, selectedTime.end);
 
   const { weatherNx, weatherNy } = weatherCoordinateList[region];
 
@@ -29,4 +29,23 @@ export async function getWeather(
   } catch (error) {
     throw new Error(error as string);
   }
+}
+
+function convertToTime(day: SelectedTime['day'], time: string) {
+  const date = KSTDate();
+  let hour = parseInt(time.slice(3, 5), 10);
+
+  if (time.includes('오후') && hour < 12) {
+    hour = hour + 12;
+  }
+
+  if (day === '내일') {
+    date.setDate(date.getDate() + 1);
+  }
+
+  date.setHours(hour);
+  date.setMinutes(0);
+  date.setSeconds(0);
+
+  return dateToISO(date);
 }

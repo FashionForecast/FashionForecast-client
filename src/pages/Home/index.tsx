@@ -8,7 +8,7 @@ import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
 import WeatherTimeLine from './components/WeatherTimeLine';
 import { S } from './style';
-import { dateToISO, KSTDate } from '@/utils/date';
+import { KSTDate } from '@/utils/date';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -16,35 +16,35 @@ export type SelectedTime = {
   end: string;
 };
 
+const TIMES = Array.from({ length: 24 }, (_, i) => {
+  const AMPM = i < 12 ? '오전' : '오후';
+  let hour = i.toString().padStart(2, '0');
+
+  if (i >= 13) hour = (i - 12).toString().padStart(2, '0');
+
+  return `${AMPM} ${hour}시`;
+});
+
 const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
   const [selectedTime, setSelectedTime] = useState<SelectedTime>({
     day: '오늘',
-    start: setDefaultTime(),
-    end: setDefaultTime('end'),
+    start: defaultTime('start'),
+    end: defaultTime('end'),
   });
 
   const handleSelectedTime = (key: keyof SelectedTime, value: string) => {
-    if (key === 'day') {
-      if (value === '오늘') {
-        setSelectedTime({
-          day: '오늘',
-          start: setDefaultTime(),
-          end: setDefaultTime('end'),
-        });
-      } else {
-        setSelectedTime({
-          day: '내일',
-          start: setDefaultTime('start', 'tomorrow'),
-          end: setDefaultTime('end', 'tomorrow'),
-        });
-      }
+    if (value === '오늘') {
+      setSelectedTime({
+        day: '오늘',
+        start: defaultTime('start'),
+        end: defaultTime('end'),
+      });
 
       return;
     }
 
-    const time = convertToTime(selectedTime.day, value);
-    setSelectedTime((prev) => ({ ...prev, [key]: time }));
+    setSelectedTime((prev) => ({ ...prev, [key]: value }));
   };
 
   const { data, isError } = useQuery({
@@ -53,11 +53,10 @@ const Home = () => {
     enabled: !!currentRegion,
   });
 
-  if (isError) return <div>날씨 조회 오류</div>;
   return (
     <S.HomeWrap>
       <Header />
-
+      {isError && <div>날씨 조회 오류</div>}
       {data && (
         <RecommendClothes
           weather={{
@@ -68,7 +67,6 @@ const Home = () => {
           }}
         />
       )}
-
       <S.WeatherWrap>
         <WeatherCard
           extremumTmp={data?.data.extremumTmp}
@@ -79,61 +77,26 @@ const Home = () => {
         {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
       </S.WeatherWrap>
 
-      <TimeSelector
-        selectedTime={selectedTime}
-        handleSelectedTime={handleSelectedTime}
-      />
+      {selectedTime && (
+        <TimeSelector
+          selectedTime={selectedTime}
+          handleSelectedTime={handleSelectedTime}
+        />
+      )}
     </S.HomeWrap>
   );
 };
 
 export default Home;
 
-function setDefaultTime(
-  type: 'start' | 'end' = 'start',
-  day: 'today' | 'tomorrow' = 'today'
-) {
+function defaultTime(type: 'start' | 'end') {
   const KST = KSTDate();
-
-  if (day === 'tomorrow') {
-    const tomorrow = new Date(KST);
-    tomorrow.setDate(KST.getDate() + 1);
-
-    if (type === 'start') tomorrow.setHours(0);
-    else tomorrow.setHours(23);
-
-    tomorrow.setMinutes(0);
-    tomorrow.setSeconds(0);
-
-    return dateToISO(tomorrow);
-  }
+  let hour = KST.getHours();
 
   if (type === 'end') {
-    const hour = KST.getHours();
-
-    if (hour + 8 >= 24) KST.setHours(23);
-    else KST.setHours(hour + 8);
+    if (hour + 8 >= 24) hour = 23;
+    else hour = hour + 8;
   }
 
-  KST.setMinutes(0);
-  KST.setSeconds(0);
-  KST.setMilliseconds(0);
-
-  return dateToISO(KST);
-}
-
-function convertToTime(day: SelectedTime['day'], time: string) {
-  const KST = KSTDate();
-  let hour = parseInt(time.slice(3, 5), 10);
-  if (day === '오늘') {
-    if (time.includes('오후')) {
-      hour = parseInt(time.slice(3, 5), 10) + 12;
-    }
-
-    KST.setHours(hour);
-    KST.setMinutes(0);
-    KST.setSeconds(0);
-  }
-
-  return dateToISO(KST);
+  return TIMES[hour];
 }

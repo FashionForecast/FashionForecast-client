@@ -5,12 +5,14 @@ import { SelectedTime } from '..';
 type TimeCarouselProps = {
   times: string[];
   type: keyof SelectedTime;
+  setSelectorChange: () => void;
   handleSelectedTime: (key: keyof SelectedTime, value: string) => void;
 };
 
 const TimeCarousel = ({
   times,
   type,
+  setSelectorChange,
   handleSelectedTime,
 }: TimeCarouselProps) => {
   const [currentItemIndex, setCurrentItemIndex] = useState(
@@ -31,19 +33,22 @@ const TimeCarousel = ({
     carouselRef.current.scrollTop = prevScrollTop - positionDiff;
 
     if (Math.abs(positionDiff) > 20 / 3) {
-      setCurrentItemIndex(Math.round(carouselRef.current.scrollTop / 20));
+      const index = Math.round(carouselRef.current.scrollTop / 20);
+      setCurrentItemIndex(index);
     }
   };
 
   const dragStart = (e: React.PointerEvent) => {
     if (!carouselRef.current) return;
     setIsDragging(true);
+    setSelectorChange();
     setPrevPageY(e.pageY);
     setPrevScrollTop(carouselRef.current.scrollTop);
   };
 
   const dragStop = () => {
     setIsDragging(false);
+    handleSelectedTime(type, times[currentItemIndex]);
     itemsRef.current[currentItemIndex]?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
@@ -51,24 +56,14 @@ const TimeCarousel = ({
   };
 
   useEffect(() => {
-    itemsRef.current[currentItemIndex]?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
-  }, []);
-
-  useEffect(() => {
     const index = type === 'end' ? Math.min(times.length - 1, 8) : 0;
     setCurrentItemIndex(index);
+    handleSelectedTime(type, times[index]);
     itemsRef.current[index]?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
     });
   }, [times]);
-
-  useEffect(() => {
-    handleSelectedTime(type, times[currentItemIndex]);
-  }, [currentItemIndex]);
 
   return (
     <S.Carousel

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
-import { Button } from '@mui/material';
+import { Button, css } from '@mui/material';
+import forwardPropOption from '@/utils/emotionForwardPropOption';
 
 const TimeSelector = styled.section`
   position: fixed;
@@ -72,7 +73,7 @@ const Item = styled.li`
   }
 `;
 
-const CheckButton = styled(Button)`
+const CheckButton = styled(Button, forwardPropOption)<{ $isChange: boolean }>`
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -81,20 +82,20 @@ const CheckButton = styled(Button)`
   min-width: 40px;
   height: 40px;
   padding: 8px;
-  background-color: ${({ disabled }) =>
-    disabled ? colors.blueGrey['A12'] : colors.blueGrey[600]};
   border-radius: 4px;
 
-  &:hover {
-    background-color: ${({ disabled }) =>
-      disabled ? colors.blueGrey['A12'] : colors.blueGrey[700]};
-  }
+  ${({ $isChange, theme }) =>
+    css`
+      background-color: ${$isChange
+        ? theme.colors.primary.main
+        : theme.colors.action.disabledBackground};
 
-  &:disabled {
-    cursor: not-allowed;
-    background-color: ${colors.blueGrey['A12']};
-    box-shadow: none;
-  }
+      &:hover {
+        background-color: ${$isChange
+          ? theme.colors.primary.main
+          : theme.colors.action.disabledBackground};
+      }
+    `}
 `;
 
 export const C = {
