@@ -17,33 +17,34 @@ export type SelectedTime = {
   end: string;
 };
 
+const defaultSelectedTime: SelectedTime = {
+  day: '오늘',
+  start: defaultTime('start'),
+  end: defaultTime('end'),
+};
+
 const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
-  const [selectedTime, setSelectedTime] = useState<SelectedTime>({
-    day: '오늘',
-    start: defaultTime('start'),
-    end: defaultTime('end'),
-  });
-
-  const handleSelectedTime = (key: keyof SelectedTime, value: string) => {
-    if (value === '오늘') {
-      setSelectedTime({
-        day: '오늘',
-        start: defaultTime('start'),
-        end: defaultTime('end'),
-      });
-
-      return;
-    }
-
-    setSelectedTime((prev) => ({ ...prev, [key]: value }));
-  };
+  const [selectedTime, setSelectedTime] =
+    useState<SelectedTime>(defaultSelectedTime);
 
   const { data, isError } = useQuery({
     queryKey: ['weather', currentRegion?.region],
     queryFn: () => getWeather(selectedTime, currentRegion!.region),
     enabled: !!currentRegion,
   });
+
+  const updateSelectedTime = (
+    key: keyof SelectedTime,
+    value: SelectedTime[keyof SelectedTime]
+  ) => {
+    if ((value as SelectedTime['day']) === '오늘') {
+      setSelectedTime(defaultSelectedTime);
+      return;
+    }
+
+    setSelectedTime((prev) => ({ ...prev, [key]: value }));
+  };
 
   return (
     <S.HomeWrap>
@@ -72,7 +73,7 @@ const Home = () => {
       {selectedTime && (
         <TimeSelector
           selectedTime={selectedTime}
-          handleSelectedTime={handleSelectedTime}
+          updateSelectedTime={updateSelectedTime}
         />
       )}
     </S.HomeWrap>

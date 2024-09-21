@@ -1,57 +1,56 @@
 import { useEffect, useRef, useState } from 'react';
-import { S } from './TimeCarousel.style';
+import { ITEM_HEIGHT, S } from './TimeCarousel.style';
 import { SelectedTime } from '..';
 
 type TimeCarouselProps = {
   times: string[];
   type: keyof SelectedTime;
-  setSelectorChange: () => void;
-  handleSelectedTime: (key: keyof SelectedTime, value: string) => void;
+  updateSelectedTime: (
+    key: keyof SelectedTime,
+    value: SelectedTime[keyof SelectedTime]
+  ) => void;
 };
 
 const TimeCarousel = ({
   times,
   type,
-  setSelectorChange,
-  handleSelectedTime,
+  updateSelectedTime,
 }: TimeCarouselProps) => {
-  const [currentItemIndex, setCurrentItemIndex] = useState(
+  const [currentIndex, setCurrentIndex] = useState(
     type === 'end' ? Math.min(times.length - 1, 8) : 0
   );
-  const [userSelectTime, setUserSelectTime] = useState(times[currentItemIndex]);
+  const [userSelected, setUserSelected] = useState(times[currentIndex]);
   const [isDragging, setIsDragging] = useState(false);
   const [prevPageY, setPrevPageY] = useState(0);
   const [prevScrollTop, setPrevScrollTop] = useState(0);
   const carouselRef = useRef<HTMLOListElement>(null);
   const itemsRef = useRef<Array<HTMLElement | null>>([]);
 
-  const dragging = (e: React.PointerEvent) => {
+  const handleDragging = (e: React.PointerEvent) => {
     e.preventDefault();
     if (!carouselRef.current || !isDragging) return;
 
     const positionDiff = e.pageY - prevPageY;
-
     carouselRef.current.scrollTop = prevScrollTop - positionDiff;
 
-    if (Math.abs(positionDiff) > 20 / 3) {
-      const index = Math.round(carouselRef.current.scrollTop / 20);
-      setCurrentItemIndex(index);
+    if (Math.abs(positionDiff) > ITEM_HEIGHT / 3) {
+      const index = Math.round(carouselRef.current.scrollTop / ITEM_HEIGHT);
+      setCurrentIndex(index);
     }
   };
 
-  const dragStart = (e: React.PointerEvent) => {
+  const handleDragStart = (e: React.PointerEvent) => {
     if (!carouselRef.current) return;
     setIsDragging(true);
-    setSelectorChange();
     setPrevPageY(e.pageY);
     setPrevScrollTop(carouselRef.current.scrollTop);
   };
 
-  const dragStop = () => {
+  const handleDragStop = () => {
     setIsDragging(false);
-    setUserSelectTime(times[currentItemIndex]);
-    handleSelectedTime(type, times[currentItemIndex]);
-    itemsRef.current[currentItemIndex]?.scrollIntoView({
+    setUserSelected(times[currentIndex]);
+    updateSelectedTime(type, times[currentIndex]);
+    itemsRef.current[currentIndex]?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
     });
@@ -60,12 +59,12 @@ const TimeCarousel = ({
   useEffect(() => {
     let index = 0;
     if (type === 'end') {
-      const selectedIndex = times.indexOf(userSelectTime);
+      const selectedIndex = times.indexOf(userSelected);
       index = selectedIndex >= 0 ? selectedIndex : 0;
     }
 
-    setCurrentItemIndex(index);
-    handleSelectedTime(type, times[index]);
+    setCurrentIndex(index);
+    updateSelectedTime(type, times[index]);
     itemsRef.current[index]?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
@@ -75,15 +74,15 @@ const TimeCarousel = ({
   return (
     <S.Carousel
       ref={carouselRef}
-      onPointerMove={dragging}
-      onPointerDown={dragStart}
-      onPointerUp={dragStop}
-      onPointerLeave={dragStop}
+      onPointerMove={handleDragging}
+      onPointerDown={handleDragStart}
+      onPointerUp={handleDragStop}
+      onPointerLeave={handleDragStop}
     >
       {times.map((time, index) => (
         <S.Item
           key={time}
-          className={`${currentItemIndex === index && 'is-active'}`}
+          className={`${currentIndex === index && 'is-active'}`}
           data-index={index}
           ref={(el) => {
             itemsRef.current[index] = el;

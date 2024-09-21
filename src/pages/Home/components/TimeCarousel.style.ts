@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+export const ITEM_HEIGHT = 20;
+
 const Carousel = styled.ol`
   display: flex;
   flex-direction: column;
@@ -32,7 +34,7 @@ const Carousel = styled.ol`
 const Item = styled.li`
   ${({ theme }) => theme.typo['body-2']}
   width: 100%;
-  height: 20px;
+  height: ${ITEM_HEIGHT}px;
   color: ${({ theme }) => theme.colors.text.secondary};
   text-align: center;
 

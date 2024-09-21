@@ -4,7 +4,7 @@ import CheckIcon from '@/components/icon/Check';
 import HyphenIcon from '@/components/icon/Hyphen/index';
 import { SelectedTime } from '..';
 import TimeCarousel from './TimeCarousel';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { TIME_LIST } from '@/constants/timeSelector/data';
 
@@ -12,11 +12,15 @@ const DAYS = ['오늘', '내일'];
 
 type TimeSelectorProps = {
   selectedTime: SelectedTime;
-  handleSelectedTime: (key: keyof SelectedTime, value: string) => void;
+  updateSelectedTime: (
+    key: keyof SelectedTime,
+    value: SelectedTime[keyof SelectedTime]
+  ) => void;
 };
 
-function TimeSelector({ selectedTime, handleSelectedTime }: TimeSelectorProps) {
+function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
   const [isChange, setIsChange] = useState(false);
+  const initialTime = useRef(selectedTime);
   const queryClient = useQueryClient();
 
   const startTimes = useMemo(
@@ -32,12 +36,19 @@ function TimeSelector({ selectedTime, handleSelectedTime }: TimeSelectorProps) {
     [selectedTime.start]
   );
 
-  const setSelectorChange = () => setIsChange(true);
   const handleButtonClick = () => {
     if (isChange) {
+      setIsChange(false);
+      initialTime.current = selectedTime;
       queryClient.invalidateQueries({ queryKey: ['weather'] });
     }
   };
+
+  useEffect(() => {
+    if (JSON.stringify(selectedTime) !== JSON.stringify(initialTime.current)) {
+      setIsChange(true);
+    }
+  }, [selectedTime]);
 
   return (
     <S.TimeSelector>
@@ -45,15 +56,13 @@ function TimeSelector({ selectedTime, handleSelectedTime }: TimeSelectorProps) {
         <TimeCarousel
           times={DAYS}
           type='day'
-          setSelectorChange={setSelectorChange}
-          handleSelectedTime={handleSelectedTime}
+          updateSelectedTime={updateSelectedTime}
         />
 
         <TimeCarousel
           times={startTimes}
           type='start'
-          setSelectorChange={setSelectorChange}
-          handleSelectedTime={handleSelectedTime}
+          updateSelectedTime={updateSelectedTime}
         />
 
         <Icon>
@@ -63,8 +72,7 @@ function TimeSelector({ selectedTime, handleSelectedTime }: TimeSelectorProps) {
         <TimeCarousel
           times={endTimes}
           type='end'
-          setSelectorChange={setSelectorChange}
-          handleSelectedTime={handleSelectedTime}
+          updateSelectedTime={updateSelectedTime}
         />
 
         <C.CheckButton
