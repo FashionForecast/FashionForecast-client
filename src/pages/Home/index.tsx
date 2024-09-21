@@ -9,21 +9,13 @@ import { useState } from 'react';
 import WeatherTimeLine from './components/WeatherTimeLine';
 import { S } from './style';
 import { KSTDate } from '@/utils/date';
+import { TIME_LIST } from '@/constants/timeSelector/data';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
   start: string;
   end: string;
 };
-
-const TIMES = Array.from({ length: 24 }, (_, i) => {
-  const AMPM = i < 12 ? '오전' : '오후';
-  let hour = i.toString().padStart(2, '0');
-
-  if (i >= 13) hour = (i - 12).toString().padStart(2, '0');
-
-  return `${AMPM} ${hour}시`;
-});
 
 const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
@@ -98,5 +90,5 @@ function defaultTime(type: 'start' | 'end') {
     else hour = hour + 8;
   }
 
-  return TIMES[hour];
+  return TIME_LIST[hour];
 }
