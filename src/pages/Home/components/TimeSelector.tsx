@@ -26,12 +26,10 @@ function TimeSelector({ selectedTime, handleSelectedTime }: TimeSelectorProps) {
         : TIME_LIST,
     [selectedTime.day]
   );
+
   const endTimes = useMemo(
-    () =>
-      selectedTime.day === '오늘'
-        ? TIME_LIST.slice(TIME_LIST.indexOf(selectedTime.start))
-        : TIME_LIST,
-    [selectedTime.day]
+    () => TIME_LIST.slice(TIME_LIST.indexOf(selectedTime.start)),
+    [selectedTime.start]
   );
 
   const setSelectorChange = () => setIsChange(true);

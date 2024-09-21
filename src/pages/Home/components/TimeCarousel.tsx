@@ -18,6 +18,7 @@ const TimeCarousel = ({
   const [currentItemIndex, setCurrentItemIndex] = useState(
     type === 'end' ? Math.min(times.length - 1, 8) : 0
   );
+  const [userSelectTime, setUserSelectTime] = useState(times[currentItemIndex]);
   const [isDragging, setIsDragging] = useState(false);
   const [prevPageY, setPrevPageY] = useState(0);
   const [prevScrollTop, setPrevScrollTop] = useState(0);
@@ -48,6 +49,7 @@ const TimeCarousel = ({
 
   const dragStop = () => {
     setIsDragging(false);
+    setUserSelectTime(times[currentItemIndex]);
     handleSelectedTime(type, times[currentItemIndex]);
     itemsRef.current[currentItemIndex]?.scrollIntoView({
       behavior: 'smooth',
@@ -56,7 +58,12 @@ const TimeCarousel = ({
   };
 
   useEffect(() => {
-    const index = type === 'end' ? Math.min(times.length - 1, 8) : 0;
+    let index = 0;
+    if (type === 'end') {
+      const selectedIndex = times.indexOf(userSelectTime);
+      index = selectedIndex >= 0 ? selectedIndex : 0;
+    }
+
     setCurrentItemIndex(index);
     handleSelectedTime(type, times[index]);
     itemsRef.current[index]?.scrollIntoView({
