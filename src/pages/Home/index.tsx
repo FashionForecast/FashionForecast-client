@@ -8,42 +8,48 @@ import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
 import WeatherTimeLine from './components/WeatherTimeLine';
 import { S } from './style';
+import { KSTDate } from '@/utils/date';
+import { TIME_LIST } from '@/constants/timeSelector/data';
+
+export type SelectedTime = {
+  day: '오늘' | '내일';
+  start: string;
+  end: string;
+};
+
+const defaultSelectedTime: SelectedTime = {
+  day: '오늘',
+  start: defaultTime('start'),
+  end: defaultTime('end'),
+};
 
 const Home = () => {
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
-
-  const [selectedDay, setSelectedDay] = useState<string>('오늘');
-  const [startTime, setStartTime] = useState<string>('');
-  const [endTime, setEndTime] = useState<string>('');
-
-  const handleTimeSelectorSubmit = (
-    day: string,
-    start: string,
-    end: string
-  ) => {
-    setSelectedDay(day);
-    setStartTime(start);
-    setEndTime(end);
-  };
+  const [selectedTime, setSelectedTime] =
+    useState<SelectedTime>(defaultSelectedTime);
 
   const { data, isError } = useQuery({
-    queryKey: [
-      'weather',
-      currentRegion?.region,
-      selectedDay,
-      startTime,
-      endTime,
-    ],
-    queryFn: () =>
-      getWeather(currentRegion?.region, selectedDay, startTime, endTime),
+    queryKey: ['weather', currentRegion?.region],
+    queryFn: () => getWeather(selectedTime, currentRegion!.region),
     enabled: !!currentRegion,
   });
 
-  if (isError) return <div>날씨 조회 오류</div>;
+  const updateSelectedTime = (
+    key: keyof SelectedTime,
+    value: SelectedTime[keyof SelectedTime]
+  ) => {
+    if ((value as SelectedTime['day']) === '오늘') {
+      setSelectedTime(defaultSelectedTime);
+      return;
+    }
+
+    setSelectedTime((prev) => ({ ...prev, [key]: value }));
+  };
+
   return (
     <S.HomeWrap>
       <Header />
-
+      {isError && <div>날씨 조회 오류</div>}
       {data && (
         <RecommendClothes
           weather={{
@@ -54,7 +60,6 @@ const Home = () => {
           }}
         />
       )}
-
       <S.WeatherWrap>
         <WeatherCard
           extremumTmp={data?.data.extremumTmp}
@@ -65,9 +70,26 @@ const Home = () => {
         {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
       </S.WeatherWrap>
 
-      <TimeSelector onSubmit={handleTimeSelectorSubmit} />
+      {selectedTime && (
+        <TimeSelector
+          selectedTime={selectedTime}
+          updateSelectedTime={updateSelectedTime}
+        />
+      )}
     </S.HomeWrap>
   );
 };
 
 export default Home;
+
+function defaultTime(type: 'start' | 'end') {
+  const KST = KSTDate();
+  let hour = KST.getHours();
+
+  if (type === 'end') {
+    if (hour + 8 >= 24) hour = 23;
+    else hour = hour + 8;
+  }
+
+  return TIME_LIST[hour];
+}
