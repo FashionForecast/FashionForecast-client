@@ -12,7 +12,6 @@ const Carousel = styled.ol`
   cursor: grab;
   user-select: none;
   background-color: ${({ theme }) => theme.colors.blueGrey.A06};
-  border: none;
   border-radius: 4px;
 
   &:first-of-type {
