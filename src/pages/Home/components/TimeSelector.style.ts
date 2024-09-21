@@ -28,6 +28,13 @@ const TimeRange = styled.div`
   background-color: ${colors.white};
 `;
 
+const Hypen = styled.div`
+  flex-shrink: 0;
+  width: 14px;
+  height: 2px;
+  background-color: ${({ theme }) => theme.colors.primary.main};
+`;
+
 const CheckButton = styled(Button, forwardPropOption)<{ $isChange: boolean }>`
   box-sizing: border-box;
   display: flex;
@@ -60,4 +67,5 @@ export const C = {
 export const S = {
   TimeSelector,
   TimeRange,
+  Hypen,
 };

@@ -1,7 +1,5 @@
 import { C, S } from './TimeSelector.style';
-import { Icon } from '@mui/material';
 import CheckIcon from '@/components/icon/Check';
-import HyphenIcon from '@/components/icon/Hyphen/index';
 import { SelectedTime } from '..';
 import TimeCarousel from './TimeCarousel';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -65,9 +63,7 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
           updateSelectedTime={updateSelectedTime}
         />
 
-        <Icon>
-          <HyphenIcon />
-        </Icon>
+        <S.Hypen />
 
         <TimeCarousel
           times={endTimes}
