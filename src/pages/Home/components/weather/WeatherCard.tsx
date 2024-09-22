@@ -1,8 +1,8 @@
-import HandlePcP from './HandlePcp';
 import { C, S } from './WeatherCard.style';
 import { WeatherResponse } from '@/types/weather';
 import PopImage from '@/assets/popImage/popImage';
 import TempImage from '@/assets/tempImage/tempImage';
+import PcpImage from '@/assets/pcpImage/pcpImage';
 
 type WeatherCardProps = Partial<
   Pick<WeatherResponse['data'], 'extremumTmp' | 'maximumPop' | 'maximumPcp'>
@@ -13,9 +13,6 @@ const WeatherCard = ({
   maximumPop = 0,
   maximumPcp = 0,
 }: WeatherCardProps) => {
-  //외출 시간의 강수량 가져오기
-  const PcpImage = HandlePcP(maximumPcp);
-
   return (
     <div>
       <C.WeatherCard>
@@ -33,7 +30,7 @@ const WeatherCard = ({
               <S.Subheader>강수확률</S.Subheader>
             </S.CustomCardHeader>
             <S.CustomCardHeader>
-              <C.Icon>{PcpImage}</C.Icon>
+              <C.Icon>{getPcpImage(maximumPcp)}</C.Icon>
               <S.Header>{maximumPcp}mm</S.Header>
               <S.Subheader>강수량</S.Subheader>
             </S.CustomCardHeader>
@@ -88,4 +85,10 @@ function getPopImage(maximumPop: number) {
   if (maximumPop < 90) return <PopImage.Pop_80 />;
   if (maximumPop < 100) return <PopImage.Pop_90 />;
   return <PopImage.Pop_100 />;
+}
+
+function getPcpImage(maximumPcp: number) {
+  if (maximumPcp <= 0) return <PcpImage.PClear />;
+  if (maximumPcp < 3) return <PcpImage.PRaindrop />;
+  return <PcpImage.PRain />;
 }
