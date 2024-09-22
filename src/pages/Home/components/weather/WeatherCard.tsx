@@ -1,8 +1,8 @@
-import handlePoP from './HandlePop';
 import HandlePcP from './HandlePcp';
 import HandleTemp from './HandleTemp';
 import { C, S } from './WeatherCard.style';
 import { WeatherResponse } from '@/types/weather';
+import PopImage from '@/assets/popImage/popImage';
 
 type WeatherCardProps = Partial<
   Pick<WeatherResponse['data'], 'extremumTmp' | 'maximumPop' | 'maximumPcp'>
@@ -15,9 +15,6 @@ const WeatherCard = ({
 }: WeatherCardProps) => {
   //대표 기온 가져오기
   const TempImage = HandleTemp(extremumTmp);
-
-  //외출 시간의 최대 강수확률 가져오기
-  const PopImage = handlePoP(maximumPop);
 
   //외출 시간의 강수량 가져오기
   const PcpImage = HandlePcP(maximumPcp);
@@ -34,7 +31,7 @@ const WeatherCard = ({
               <S.Subheader>{getTempText()}</S.Subheader>
             </S.CustomCardHeader>
             <S.CustomCardHeader>
-              <C.Icon>{PopImage}</C.Icon>
+              <C.Icon>{getPopImage(maximumPop)}</C.Icon>
               <S.Header>{maximumPop}%</S.Header>
               <S.Subheader>강수확률</S.Subheader>
             </S.CustomCardHeader>
@@ -72,4 +69,18 @@ function getTempText() {
   }
 
   return `${text} 기온`;
+}
+
+function getPopImage(maximumPop: number) {
+  if (maximumPop <= 0) return <PopImage.Pop_0 />;
+  if (maximumPop < 20) return <PopImage.Pop_10 />;
+  if (maximumPop < 30) return <PopImage.Pop_20 />;
+  if (maximumPop < 40) return <PopImage.Pop_30 />;
+  if (maximumPop < 50) return <PopImage.Pop_40 />;
+  if (maximumPop < 60) return <PopImage.Pop_50 />;
+  if (maximumPop < 70) return <PopImage.Pop_60 />;
+  if (maximumPop < 80) return <PopImage.Pop_70 />;
+  if (maximumPop < 90) return <PopImage.Pop_80 />;
+  if (maximumPop < 100) return <PopImage.Pop_90 />;
+  return <PopImage.Pop_100 />;
 }
