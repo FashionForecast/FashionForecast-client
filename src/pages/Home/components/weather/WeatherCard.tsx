@@ -1,8 +1,8 @@
 import HandlePcP from './HandlePcp';
-import HandleTemp from './HandleTemp';
 import { C, S } from './WeatherCard.style';
 import { WeatherResponse } from '@/types/weather';
 import PopImage from '@/assets/popImage/popImage';
+import TempImage from '@/assets/tempImage/tempImage';
 
 type WeatherCardProps = Partial<
   Pick<WeatherResponse['data'], 'extremumTmp' | 'maximumPop' | 'maximumPcp'>
@@ -13,9 +13,6 @@ const WeatherCard = ({
   maximumPop = 0,
   maximumPcp = 0,
 }: WeatherCardProps) => {
-  //대표 기온 가져오기
-  const TempImage = HandleTemp(extremumTmp);
-
   //외출 시간의 강수량 가져오기
   const PcpImage = HandlePcP(maximumPcp);
 
@@ -26,7 +23,7 @@ const WeatherCard = ({
           <S.SubTitle>외출할 때 꼭 필요한 날씨 정보</S.SubTitle>
           <S.CustomCardContent>
             <S.CustomCardHeader>
-              <C.Icon>{TempImage}</C.Icon>
+              <C.Icon>{getTempImage(extremumTmp)}</C.Icon>
               <S.Header>{extremumTmp}°C</S.Header>
               <S.Subheader>{getTempText()}</S.Subheader>
             </S.CustomCardHeader>
@@ -69,6 +66,14 @@ function getTempText() {
   }
 
   return `${text} 기온`;
+}
+
+function getTempImage(extremumTmp: number) {
+  if (extremumTmp <= 16) return <TempImage.Cold />;
+  if (extremumTmp <= 19) return <TempImage.Cool />;
+  if (extremumTmp <= 22) return <TempImage.Moderate />;
+  if (extremumTmp <= 27) return <TempImage.Warm />;
+  return <TempImage.Hot />;
 }
 
 function getPopImage(maximumPop: number) {
