@@ -37,6 +37,7 @@ const Item = styled.li`
   height: ${ITEM_HEIGHT}px;
   color: ${({ theme }) => theme.colors.text.secondary};
   text-align: center;
+  touch-action: none;
 
   &.is-active {
     color: ${({ theme }) => theme.colors.text.primary};
