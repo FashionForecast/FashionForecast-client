@@ -1,25 +1,24 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
-import { Button } from '@mui/material';
+import { Button, css } from '@mui/material';
+import forwardPropOption from '@/utils/emotionForwardPropOption';
 
-const TimeSelector = styled.div`
+const TimeSelector = styled.section`
   position: fixed;
   bottom: 0;
   left: 50%;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 768px;
-  margin: 0;
-  border: 1px 0 0 0;
-  border-color: ${colors.blueGrey[600]};
+  touch-action: none;
+  border-top: 1px solid ${({ theme }) => theme.colors.elevation.outlined};
   transform: translateX(-50%);
 `;
 
 const TimeRange = styled.div`
-  position: relative; /* relative positioning 추가 */
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -27,67 +26,16 @@ const TimeRange = styled.div`
   width: 100%;
   padding: 16px;
   background-color: ${colors.white};
-  box-shadow: none;
 `;
 
-const DayList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 20%;
-  height: 40px; /* 보여질 스크롤 높이 */
-  padding: 8px 0;
-  overflow-y: auto;
-  background-color: ${colors.blueGrey['A06']};
-  border: none;
-  border-radius: 4px;
-  scroll-snap-type: y mandatory;
-
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
+const Hypen = styled.div`
+  flex-shrink: 0;
+  width: 14px;
+  height: 2px;
+  background-color: ${({ theme }) => theme.colors.primary.main};
 `;
 
-const TimeList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 40%;
-  height: 40px; /* 보여질 스크롤 높이 */
-  padding: 8px 0;
-  overflow-y: auto;
-  background-color: ${colors.blueGrey['A06']};
-  border: none;
-  border-radius: 4px;
-  scroll-snap-type: y mandatory;
-
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-`;
-
-const Times = styled.li`
-  width: 100%;
-  height: 24px;
-  text-align: center;
-  opacity: 0.5;
-  scroll-snap-align: center;
-
-  &.highlight {
-    opacity: 1;
-  }
-
-  @media (max-width: 600px) {
-    ${({ theme }) => theme.typo['body-2']};
-    line-height: 1.5;
-  }
-`;
-
-const CheckButton = styled(Button)`
+const CheckButton = styled(Button, forwardPropOption)<{ $isChange: boolean }>`
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -96,20 +44,20 @@ const CheckButton = styled(Button)`
   min-width: 40px;
   height: 40px;
   padding: 8px;
-  background-color: ${({ disabled }) =>
-    disabled ? colors.blueGrey['A12'] : colors.blueGrey[600]};
   border-radius: 4px;
 
-  &:hover {
-    background-color: ${({ disabled }) =>
-      disabled ? colors.blueGrey['A12'] : colors.blueGrey[700]};
-  }
+  ${({ $isChange, theme }) =>
+    css`
+      background-color: ${$isChange
+        ? theme.colors.primary.main
+        : theme.colors.action.disabledBackground};
 
-  &:disabled {
-    cursor: not-allowed;
-    background-color: ${colors.blueGrey['A12']};
-    box-shadow: none;
-  }
+      &:hover {
+        background-color: ${$isChange
+          ? theme.colors.primary.main
+          : theme.colors.action.disabledBackground};
+      }
+    `}
 `;
 
 export const C = {
@@ -119,7 +67,5 @@ export const C = {
 export const S = {
   TimeSelector,
   TimeRange,
-  DayList,
-  TimeList,
-  Times,
+  Hypen,
 };
