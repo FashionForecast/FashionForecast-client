@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import useGeolocation from '../../../hooks/useGeolocation';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const { geolocation, isProcessing } = useGeolocation();
@@ -46,9 +47,11 @@ const Header = () => {
             </C.SearchLink>
           )}
 
-          <IconButton>
-            <AccountIcon />
-          </IconButton>
+          <Link to={'/login'}>
+            <IconButton>
+              <AccountIcon />
+            </IconButton>
+          </Link>
         </CustomToolbar>
       </C.Paper>
     </C.AppBar>

@@ -3,7 +3,8 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import RootLayout from './components/layout/RootLayout';
 import Search from './pages/Search';
-import WeatherCard from './pages/Home/components/weather/WeatherCard';
+import Login from './pages/Login';
+import LoginAuth from './pages/LoginAuth';
 export const router = createBrowserRouter([
   {
     element: <RootLayout />,
@@ -14,7 +15,8 @@ export const router = createBrowserRouter([
         path: '/search',
         element: <Search />,
       },
-      { path : '/weathercard', element: <WeatherCard />},
+      { path: '/login', element: <Login /> },
+      { path: '/login/auth', element: <LoginAuth /> },
     ],
   },
 ]) as ReturnType<typeof createBrowserRouter>;
