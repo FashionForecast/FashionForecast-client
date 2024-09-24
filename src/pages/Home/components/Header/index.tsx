@@ -1,7 +1,7 @@
 import CustomToolbar from '@/components/CustomMui/CustomToolBar';
-import AccountIcon from '@/components/icon/Account';
+import AccountIcon from '@/assets/svg/account.svg?react';
 import LocationIcon from '@/components/icon/Location';
-import TriangleIcon from '@/components/icon/Triangle';
+import TriangleIcon from '@/assets/svg/triangle.svg?react';
 import { IconButton } from '@mui/material';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { C } from './style';

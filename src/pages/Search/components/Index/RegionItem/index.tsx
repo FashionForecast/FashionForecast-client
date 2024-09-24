@@ -1,4 +1,4 @@
-import CheckIcon from '@/components/icon/Check';
+import CheckIcon from '@/components/icon/CheckIcon';
 import { C } from './style';
 import { IconButton } from '@mui/material';
 import { Region } from '@/types/region';

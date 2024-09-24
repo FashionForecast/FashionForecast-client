@@ -2,9 +2,9 @@ import CustomPaper from '@/components/CustomMui/CustomPaper';
 import { C, S } from './style';
 import CustomToolbar from '@/components/CustomMui/CustomToolBar';
 import { Link } from 'react-router-dom';
-import ArrowIcon from '@/components/icon/Arrow';
+import ArrowIcon from '@/assets/svg/arrow.svg?react';
 import CustomTextField from '@/components/CustomMui/CustomTextField';
-import CancelIcon from '@/components/icon/Cancel';
+import CancelIcon from '@/assets/svg/cancle.svg?react';
 
 type SearchHeaderProps = {
   keyword: string;

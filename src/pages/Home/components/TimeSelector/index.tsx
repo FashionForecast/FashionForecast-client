@@ -1,5 +1,5 @@
 import { C, S } from './style';
-import CheckIcon from '@/components/icon/Check';
+import CheckIcon from '@/components/icon/CheckIcon';
 import { SelectedTime } from '../..';
 import TimeCarousel from './TimeCarousel';
 import { useEffect, useMemo, useRef, useState } from 'react';
