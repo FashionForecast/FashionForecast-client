@@ -1,5 +1,5 @@
 import CustomPaper from '@/components/CustomPaper';
-import { C, S } from './SearchHeader.style';
+import { C, S } from './style';
 import CustomToolbar from '@/components/CustomToolBar';
 import { Link } from 'react-router-dom';
 import ArrowIcon from '@/components/icon/Arrow';

@@ -1,5 +1,5 @@
 import CheckIcon from '@/components/icon/Check';
-import { C } from './RegionItem.style';
+import { C } from './style';
 import { IconButton } from '@mui/material';
 import { Region } from '@/types/region';
 import useAppDispatch from '@/hooks/useAppDispatch';

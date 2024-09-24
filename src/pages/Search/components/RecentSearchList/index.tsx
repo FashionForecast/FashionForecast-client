@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material';
-import { C } from './RecentSearchList.style';
+import { C } from './style';
 import CloseIcon from '@/components/icon/Close';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearch } from '@/service/search';

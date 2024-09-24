@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import regions from '@/assets/region.json';
-import RegionItem from './components/RegionItem';
+import RegionItem from './components/Index/RegionItem';
 import { C, S } from './style';
 import SearchHeader from './components/SearchHeader';
-import RecentSearchList from './components/RecentSearch';
-import RegionSetButton from './components/RegionSetButton';
+import RecentSearchList from './components/RecentSearchList';
+import CurrentRegionButton from './components/CurrentRegionButton';
 
 const Search = () => {
   const [keyword, setKeyword] = useState('');
@@ -31,7 +31,7 @@ const Search = () => {
         onKeywordResetClick={handleKeywordResetClick}
       />
 
-      <RegionSetButton />
+      <CurrentRegionButton />
 
       {!keyword && <RecentSearchList regions={regions} />}
 
