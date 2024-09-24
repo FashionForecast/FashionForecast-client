@@ -1,15 +1,15 @@
-import CustomToolbar from '@/components/CustomMui/CustomToolBar';
 import AccountIcon from '@/assets/svg/account.svg?react';
-import LocationIcon from '@/components/icon/Location';
 import TriangleIcon from '@/assets/svg/triangle.svg?react';
 import { IconButton } from '@mui/material';
-import CustomButton from '@/components/CustomMui/CustomButton';
 import { C } from './style';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useEffect } from 'react';
 import useGeolocation from '../../../../hooks/useGeolocation';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
+import CustomToolbar from '@/components/CustomMui/CustomToolbar';
+import CustomButton from '@/components/CustomMui/CustomButton';
+import LocationIcon from '@/components/icon/Location';
 
 const Header = () => {
   const { geolocation, isProcessing } = useGeolocation();

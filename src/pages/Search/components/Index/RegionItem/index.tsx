@@ -1,4 +1,3 @@
-import CheckIcon from '@/components/icon/CheckIcon';
 import { C } from './style';
 import { IconButton } from '@mui/material';
 import { Region } from '@/types/region';
@@ -8,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { MY_REGION } from '@/constants/localStorage/key';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { registerSearchWord } from '@/service/search';
+import CheckIcon from '@/components/icon/CheckIcon';
 
 type RegionItemProps = Region & {
   keyword: string;
