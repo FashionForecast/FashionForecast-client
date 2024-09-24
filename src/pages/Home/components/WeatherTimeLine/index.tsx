@@ -1,7 +1,7 @@
 import DayImage from '@/assets/weatherIconImage/DayImages';
 import NightImage from '@/assets/weatherIconImage/NightImages';
 import { RainType, SkyStatus, WeatherResponse } from '@/types/weather';
-import { S } from './WeatherTimeLine.style';
+import { S } from './style';
 
 type WeatherTimeLimeProps = Pick<WeatherResponse['data'], 'forecasts'>;
 

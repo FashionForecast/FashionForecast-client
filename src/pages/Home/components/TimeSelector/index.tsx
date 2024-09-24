@@ -1,6 +1,6 @@
-import { C, S } from './TimeSelector.style';
+import { C, S } from './style';
 import CheckIcon from '@/components/icon/Check';
-import { SelectedTime } from '..';
+import { SelectedTime } from '../..';
 import TimeCarousel from './TimeCarousel';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';

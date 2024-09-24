@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { ITEM_HEIGHT, S } from './TimeCarousel.style';
-import { SelectedTime } from '..';
+import { ITEM_HEIGHT, S } from './style';
+import { SelectedTime } from '../../..';
 
 type TimeCarouselProps = {
   times: string[];

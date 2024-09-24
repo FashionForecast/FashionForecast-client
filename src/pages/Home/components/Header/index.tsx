@@ -4,10 +4,10 @@ import LocationIcon from '@/components/icon/Location';
 import TriangleIcon from '@/components/icon/Triangle';
 import { IconButton } from '@mui/material';
 import CustomButton from '@/components/CustomButton';
-import { C } from './Header.style';
+import { C } from './style';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useEffect } from 'react';
-import useGeolocation from '../../../hooks/useGeolocation';
+import useGeolocation from '../../../../hooks/useGeolocation';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 

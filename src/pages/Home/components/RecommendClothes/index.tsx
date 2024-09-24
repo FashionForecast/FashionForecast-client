@@ -1,7 +1,7 @@
 import { getDefaultClothes } from '@/service/clothes';
 import { WeatherResponse } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
-import { C, S } from './RecommendClothes.style';
+import { C, S } from './style';
 import { ClothesImageName, OutfitType } from '@/types/clothes';
 import { Chip, ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';

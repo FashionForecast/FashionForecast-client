@@ -1,7 +1,7 @@
 import {
   ClothesForWeather,
   TempCondition,
-} from '@/pages/Home/components/RecommendClothes';
+} from '@/pages/Home/components/RecommendClothes/RecommendClothes';
 import { ClothesResponse } from '@/types/clothes';
 
 export async function getDefaultClothes(

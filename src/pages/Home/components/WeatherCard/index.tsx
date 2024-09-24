@@ -1,4 +1,4 @@
-import { C, S } from './WeatherCard.style';
+import { C, S } from './style';
 import { WeatherResponse } from '@/types/weather';
 import PopImage from '@/assets/popImage/popImage';
 import TempImage from '@/assets/tempImage/tempImage';
