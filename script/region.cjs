@@ -34,18 +34,23 @@ for (const v of data) {
   localCoordinates.push(region);
 }
 
-console.log('region.json 파일 생성중...');
+console.log('actualRegionCoordinates.json 파일 생성중...');
 
 const regionJson = JSON.stringify(localCoordinates, null, 2);
 
-fs.writeFile('./src/assets/region.json', regionJson, 'utf-8', (err) => {
-  if (err) {
-    console.error('파일 생성 중 오류 발생: ', err);
-    return;
-  }
+fs.writeFile(
+  './src/assets/actualRegionCoordinates.json',
+  regionJson,
+  'utf-8',
+  (err) => {
+    if (err) {
+      console.error('파일 생성 중 오류 발생: ', err);
+      return;
+    }
 
-  console.log('region.json 파일이 생성되었습니다.');
-});
+    console.log('actualRegionCoordinates.json 파일이 생성되었습니다.');
+  }
+);
 
 console.log('기상청 지역 좌표 엑셀 데이터 변환중...');
 
@@ -72,7 +77,7 @@ localCoordinates.forEach((v) => {
   }
 });
 
-console.log('weatherRegionCoordinates.ts 파일 생성중...');
+console.log('meteorologicalRegionCoordinates.ts 파일 생성중...');
 
 const listJson = JSON.stringify(weatherCoordinateList, null, 2);
 const listContent = `const weatherCoordinateList: Record<
@@ -81,7 +86,7 @@ const listContent = `const weatherCoordinateList: Record<
 > = ${listJson}\n export default weatherCoordinateList`;
 
 fs.writeFile(
-  './src/assets/weatherRegionCoordinates.ts',
+  './src/assets/meteorologicalRegionCoordinates.ts',
   listContent,
   'utf-8',
   (err) => {
@@ -90,6 +95,6 @@ fs.writeFile(
       return;
     }
 
-    console.log('weatherRegionCoordinates.ts 파일이 생성되었습니다.');
+    console.log('meteorologicalRegionCoordinates.ts 파일이 생성되었습니다.');
   }
 );
