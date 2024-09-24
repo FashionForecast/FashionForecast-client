@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import useA2HS from '../hooks/useA2HS';
-import { C } from './A2hsSnackbar.style';
+import { C } from './style';
 import { SnackbarProps } from '@mui/material';
+import useA2HS from './hooks/useA2HS';
 
 const snackbarPosition: SnackbarProps['anchorOrigin'] = {
   vertical: 'bottom',
