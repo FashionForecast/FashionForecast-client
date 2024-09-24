@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import regions from '@/assets/region.json';
+import regions from '@/assets/actualRegionCoordinates.json';
 import RegionItem from './components/Index/RegionItem';
 import { C, S } from './style';
 import SearchHeader from './components/SearchHeader';

@@ -1,6 +1,6 @@
 import { UserCurrentRegion } from '@/types/region';
 import { useEffect, useState } from 'react';
-import regions from '@/assets/region.json';
+import regions from '@/assets/actualRegionCoordinates.json';
 
 /** 사용자의 현재 위치를 설정하는 hook */
 const useGeolocation = () => {
