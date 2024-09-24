@@ -6,7 +6,7 @@ import { ClothesImageName, OutfitType } from '@/types/clothes';
 import { Chip, ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
-import clothesImage from '@/assets/clothesImage/clothesImage';
+import clothesImage from '@/constants/imageData/clothesImage';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',

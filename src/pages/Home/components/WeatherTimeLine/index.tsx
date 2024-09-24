@@ -1,5 +1,5 @@
-import DayImage from '@/assets/weatherIconImage/DayImages';
-import NightImage from '@/assets/weatherIconImage/NightImages';
+import DayImage from '@/constants/imageData/DayImages';
+import NightImage from '@/constants/imageData/NightImages';
 import { RainType, SkyStatus, WeatherResponse } from '@/types/weather';
 import { S } from './style';
 

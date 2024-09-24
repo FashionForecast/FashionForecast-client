@@ -1,8 +1,9 @@
 import { C, S } from './style';
 import { WeatherResponse } from '@/types/weather';
-import PopImage from '@/assets/popImage/popImage';
-import TempImage from '@/assets/tempImage/tempImage';
-import PcpImage from '@/assets/pcpImage/pcpImage';
+
+import PcpImage from '@/constants/imageData/pcpImage';
+import TempImage from '@/constants/imageData/tempImage';
+import PopImage from '@/constants/imageData/popImage';
 
 type WeatherCardProps = Partial<
   Pick<WeatherResponse['data'], 'extremumTmp' | 'maximumPop' | 'maximumPcp'>
