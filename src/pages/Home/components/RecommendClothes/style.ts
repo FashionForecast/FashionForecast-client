@@ -1,4 +1,4 @@
-import CustomToggleButton from '@/components/CustomToggleButton';
+import CustomToggleButton from '@/components/CustomMui/CustomToggleButton';
 import { OutfitType } from '@/types/clothes';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { Theme } from '@emotion/react';

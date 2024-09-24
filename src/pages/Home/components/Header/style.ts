@@ -1,5 +1,5 @@
-import CustomAppBar from '@/components/CustomAppBar';
-import CustomPaper from '@/components/CustomPaper';
+import CustomAppBar from '@/components/CustomMui/CustomAppBar';
+import CustomPaper from '@/components/CustomMui/CustomPaper';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 

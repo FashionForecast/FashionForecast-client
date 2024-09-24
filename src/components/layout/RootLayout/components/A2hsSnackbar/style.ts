@@ -1,4 +1,4 @@
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
 import { Snackbar as SnackbarBase } from '@mui/material';
 

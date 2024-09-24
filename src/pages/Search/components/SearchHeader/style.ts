@@ -1,4 +1,4 @@
-import CustomAppBar from '@/components/CustomAppBar';
+import CustomAppBar from '@/components/CustomMui/CustomAppBar';
 import styled from '@emotion/styled';
 import { IconButton } from '@mui/material';
 
