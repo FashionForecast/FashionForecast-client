@@ -10,6 +10,7 @@ import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 import CustomToolbar from '@/components/CustomMui/CustomToolbar';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/Location';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const { geolocation, isProcessing } = useGeolocation();
@@ -46,9 +47,11 @@ const Header = () => {
             </C.SearchLink>
           )}
 
-          <IconButton>
-            <AccountIcon />
-          </IconButton>
+          <Link to={'/login'}>
+            <IconButton>
+              <AccountIcon />
+            </IconButton>
+          </Link>
         </CustomToolbar>
       </C.Paper>
     </C.AppBar>

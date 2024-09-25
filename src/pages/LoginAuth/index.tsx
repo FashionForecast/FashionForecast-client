@@ -20,7 +20,7 @@ const LoginAuth = () => {
 export default LoginAuth;
 
 async function getAccessToken() {
-  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/login/token`, {
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login/token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

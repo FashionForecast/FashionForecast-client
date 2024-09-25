@@ -14,14 +14,14 @@ export async function getWeather(
   const { weatherNx, weatherNy } = meteorologicalCoordinateList[region];
 
   try {
-    // const res = await fetch(
-    //   `${
-    //     import.meta.env.VITE_SERVER_URL
-    //   }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
-    // );
     const res = await fetch(
-      `/api/v1/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
+      `${
+        import.meta.env.VITE_API_BASE_URL
+      }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
     );
+    // const res = await fetch(
+    //   `/api/v1/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
+    // );
     const json = await res.json();
 
     if (!res.ok) {

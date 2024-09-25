@@ -7,7 +7,7 @@ export async function getRecentSearch(): Promise<RecentSearchData> {
     const uuid = localStorage.getItem(GUEST_UUID);
 
     const res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/search/${uuid}`
+      `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`
     );
     const json: ResponseBase<RecentSearchData> = await res.json();
 
@@ -34,7 +34,7 @@ export async function registerSearchWord(region: string) {
     const uuid = localStorage.getItem(GUEST_UUID);
     const [city, district] = region.split(' ');
     const res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/search/${uuid}`,
+      `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`,
       {
         method: 'POST',
         headers: {
@@ -64,7 +64,7 @@ export async function deleteSearchWord({ city, district }: RegionName) {
   try {
     const uuid = localStorage.getItem(GUEST_UUID);
     const res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/search/${uuid}`,
+      `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`,
       {
         method: 'DELETE',
         headers: {
