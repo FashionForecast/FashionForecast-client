@@ -9,4 +9,14 @@ export default defineConfig({
   resolve: {
     alias: [{ find: '@', replacement: resolve(__dirname, 'src') }],
   },
+  server: {
+    proxy: {
+      '/oauth2': {
+        target: 'http://localhost:8080',
+      },
+      '/api': {
+        target: 'http://localhost:8080',
+      },
+    },
+  },
 });

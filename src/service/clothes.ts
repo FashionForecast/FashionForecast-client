@@ -16,7 +16,7 @@ export async function getDefaultClothes(
     const queryString = new URLSearchParams(params).toString();
 
     const res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/recommend/default?${queryString}`
+      `${import.meta.env.VITE_API_BASE_URL}/recommend/default?${queryString}`
     );
     const json = await res.json();
 
