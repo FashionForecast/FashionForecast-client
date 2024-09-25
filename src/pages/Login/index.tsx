@@ -5,7 +5,9 @@ const SOCIAL_LOGIN = [
 
 const Login = () => {
   const handleLoginClick = (type: string) => () => {
-    window.location.href = `/oauth2/authorization/${type}`;
+    window.location.href = `${
+      import.meta.env.VITE_SERVER_URL
+    }/oauth2/authorization/${type}`;
   };
 
   return (
