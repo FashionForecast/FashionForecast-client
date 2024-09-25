@@ -1,7 +1,7 @@
 import useAppSelector from '@/hooks/useAppSelector';
 import { getWeather } from '@/service/weather';
 import { useQuery } from '@tanstack/react-query';
-import WeatherCard from './components/weather/WeatherCard';
+import WeatherCard from './components/WeatherCard';
 import Header from './components/Header';
 import RecommendClothes from './components/RecommendClothes';
 import TimeSelector from './components/TimeSelector';

@@ -1,4 +1,4 @@
-import weatherCoordinateList from '@/assets/weatherRegionCoordinates';
+import meteorologicalCoordinateList from '@/assets/meteorologicalRegionCoordinates';
 import { SelectedTime } from '@/pages/Home';
 import { WeatherResponse } from '@/types/weather';
 import { dateToISO, KSTDate } from '@/utils/date';
@@ -11,7 +11,7 @@ export async function getWeather(
   const startDateTime = convertToTime(selectedTime.day, selectedTime.start);
   const endDateTime = convertToTime(selectedTime.day, selectedTime.end);
 
-  const { weatherNx, weatherNy } = weatherCoordinateList[region];
+  const { weatherNx, weatherNy } = meteorologicalCoordinateList[region];
 
   try {
     // const res = await fetch(
