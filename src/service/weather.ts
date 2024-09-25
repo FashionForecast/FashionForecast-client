@@ -16,7 +16,7 @@ export async function getWeather(
   try {
     const res = await fetch(
       `${
-        import.meta.env.VITE_SERVER_URL
+        import.meta.env.VITE_API_BASE_URL
       }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
     );
     const json = await res.json();
