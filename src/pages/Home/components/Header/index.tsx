@@ -47,7 +47,7 @@ const Header = () => {
             </C.SearchLink>
           )}
 
-          <Link to={'/login'}>
+          <Link to={'/feedback'}>
             <IconButton>
               <AccountIcon />
             </IconButton>

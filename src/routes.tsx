@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import RootLayout from './components/layout/RootLayout';
 import Search from './pages/Search';
+import Feedback from './pages/Feedback';
 // import Login from './pages/Login';
 // import LoginAuth from './pages/LoginAuth';
 export const router = createBrowserRouter([
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
         path: '/search',
         element: <Search />,
       },
+      { path: '/feedback', element: <Feedback /> },
       // { path: '/login', element: <Login /> },
       // { path: '/login/auth', element: <LoginAuth /> },
     ],
