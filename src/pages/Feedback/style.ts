@@ -1,3 +1,4 @@
+import CustomTextField from '@/components/CustomMui/CustomTextField';
 import styled from '@emotion/styled';
 
 const Header = styled.header`
@@ -11,6 +12,26 @@ const Header = styled.header`
   }
 `;
 
+const Section = styled.section`
+  ${({ theme }) => theme.typo['body-2']}
+  padding: 16px;
+
+  p {
+    margin-bottom: 16px;
+  }
+`;
+
+const TextField = styled(CustomTextField)`
+  & .MuiFilledInput-root {
+    padding-top: 8px;
+  }
+`;
+
 export const S = {
   Header,
+  Section,
+};
+
+export const C = {
+  TextField,
 };
