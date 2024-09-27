@@ -1,10 +1,10 @@
 import { C, S } from './style';
 import { Link } from 'react-router-dom';
-import ArrowIcon from '@/assets/svg/arrow.svg?react';
 import CancelIcon from '@/assets/svg/cancle.svg?react';
 import CustomPaper from '@/components/CustomMui/CustomPaper';
 import CustomToolbar from '@/components/CustomMui/CustomToolbar';
 import CustomTextField from '@/components/CustomMui/CustomTextField';
+import GoBackButton from '@/components/GoBackButton';
 
 type SearchHeaderProps = {
   keyword: string;
@@ -22,9 +22,7 @@ const SearchHeader = ({
       <CustomPaper>
         <CustomToolbar>
           <Link to={'/'}>
-            <C.GoBackButton size='large'>
-              <ArrowIcon />
-            </C.GoBackButton>
+            <GoBackButton />
           </Link>
 
           <S.InputWrapper>
