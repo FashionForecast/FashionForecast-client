@@ -10,7 +10,7 @@ const Feedback = () => {
   };
 
   return (
-    <div>
+    <S.FeedbackWrap>
       <S.Header>
         <Link to={'/'}>
           <GoBackButton />
@@ -33,7 +33,10 @@ const Feedback = () => {
           onChange={handleInputChange}
         />
       </S.Section>
-    </div>
+      <C.SubmitButton size='large' fullWidth variant='contained'>
+        피드백 남기기
+      </C.SubmitButton>
+    </S.FeedbackWrap>
   );
 };
 
