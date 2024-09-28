@@ -1,7 +1,7 @@
 import CheckIcon from '@/components/icon/Check';
 import * as S from './RegionItem.style';
 import { IconButton } from '@mui/material';
-import { MY_REGIONS } from '@/constants/localStorage/key';
+import { MY_REGION } from '@/constants/localStorage/key';
 import { Region } from '@/types/region';
 
 type RegionItemProps = Region & {
@@ -33,7 +33,7 @@ const RegionItem = ({
 
     const addRegion = [...myRegions, { region, nx, ny }];
     setNewMyRegions(addRegion);
-    localStorage.setItem(MY_REGIONS, JSON.stringify(addRegion));
+    localStorage.setItem(MY_REGION, JSON.stringify(addRegion));
     alert(`${region} 지역을 저장했습니다.`);
   };
 
