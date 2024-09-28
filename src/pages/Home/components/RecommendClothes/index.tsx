@@ -1,5 +1,5 @@
 import { getDefaultClothes } from '@/service/clothes';
-import { WeatherResponse } from '@/types/weather';
+import { WeatherResponseData } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { C, S } from './style';
 import { ClothesImageName, OutfitType } from '@/types/clothes';
@@ -15,7 +15,7 @@ const COOL = 'COOL',
 export type TempCondition = typeof COOL | typeof NORMAL | typeof WARM;
 
 export type ClothesForWeather = Pick<
-  WeatherResponse['data'],
+  WeatherResponseData,
   'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
 >;
 

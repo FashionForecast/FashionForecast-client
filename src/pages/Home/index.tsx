@@ -54,35 +54,31 @@ const Home = () => {
       {isError && <div>날씨 조회 오류</div>}
 
       {isLoading && <HomeLoading />}
-      {!isLoading && (
+      {data && (
         <>
-          {data && (
-            <RecommendClothes
-              weather={{
-                extremumTmp: data.data.extremumTmp,
-                maxMinTmpDiff: data.data.maxMinTmpDiff,
-                maximumPop: data.data.maximumPop,
-                maximumPcp: data.data.maximumPcp,
-              }}
-            />
-          )}
+          <RecommendClothes
+            weather={{
+              extremumTmp: data.extremumTmp,
+              maxMinTmpDiff: data.maxMinTmpDiff,
+              maximumPop: data.maximumPop,
+              maximumPcp: data.maximumPcp,
+            }}
+          />
 
           <S.WeatherWrap>
             <WeatherCard
-              extremumTmp={data?.data.extremumTmp}
-              maximumPop={data?.data.maximumPop}
-              maximumPcp={data?.data.maximumPcp}
+              extremumTmp={data.extremumTmp}
+              maximumPop={data.maximumPop}
+              maximumPcp={data.maximumPcp}
             />
 
-            {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
+            <WeatherTimeLine forecasts={data.forecasts} />
           </S.WeatherWrap>
 
-          {selectedTime && (
-            <TimeSelector
-              selectedTime={selectedTime}
-              updateSelectedTime={updateSelectedTime}
-            />
-          )}
+          <TimeSelector
+            selectedTime={selectedTime}
+            updateSelectedTime={updateSelectedTime}
+          />
         </>
       )}
     </S.HomeWrap>

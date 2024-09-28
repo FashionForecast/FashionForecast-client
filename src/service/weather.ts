@@ -1,12 +1,12 @@
 import meteorologicalCoordinateList from '@/assets/meteorologicalRegionCoordinates';
 import { SelectedTime } from '@/pages/Home';
-import { WeatherResponse } from '@/types/weather';
+import { WeatherResponseData } from '@/types/weather';
 import { dateToISO, KSTDate } from '@/utils/date';
 
 export async function getWeather(
   selectedTime: SelectedTime,
   region: string
-): Promise<WeatherResponse> {
+): Promise<WeatherResponseData> {
   const nowDateTime = dateToISO(KSTDate());
   const startDateTime = convertToTime(selectedTime.day, selectedTime.start);
   const endDateTime = convertToTime(selectedTime.day, selectedTime.end);
@@ -25,7 +25,7 @@ export async function getWeather(
       throw new Error(`${json.code}: ${json.message}`);
     }
 
-    return json;
+    return json.data;
   } catch (error) {
     throw new Error(error as string);
   }

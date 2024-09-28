@@ -1,9 +1,9 @@
 import DayImage from '@/constants/imageData/DayImages';
 import NightImage from '@/constants/imageData/NightImages';
-import { RainType, SkyStatus, WeatherResponse } from '@/types/weather';
+import { RainType, SkyStatus, WeatherResponseData } from '@/types/weather';
 import { S } from './style';
 
-type WeatherTimeLimeProps = Pick<WeatherResponse['data'], 'forecasts'>;
+type WeatherTimeLimeProps = Pick<WeatherResponseData, 'forecasts'>;
 
 const WeatherTimeLine = ({ forecasts }: WeatherTimeLimeProps) => {
   return (
