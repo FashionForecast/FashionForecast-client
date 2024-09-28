@@ -3,7 +3,7 @@ import { C } from './style';
 import CloseIcon from '@/assets/svg/close.svg?react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearch } from '@/service/search';
-import { GUEST_UUID } from '@/constants/localStorage/key';
+import { GUEST_UUID, MY_REGION } from '@/constants/localStorage/key';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 import { Region } from '@/types/region';
@@ -32,6 +32,7 @@ const RecentSearchList = ({ regions }: RecentSearchListProps) => {
     );
     if (region) {
       dispatch(currentRegionActions.setCurrentRegion(region));
+      localStorage.setItem(MY_REGION, JSON.stringify(region));
       navigate('/');
     }
   };
