@@ -1,6 +1,5 @@
 import CustomAppBar from '@/components/CustomMui/CustomAppBar';
 import styled from '@emotion/styled';
-import { IconButton } from '@mui/material';
 
 const AppBar = styled(CustomAppBar)`
   position: fixed;
@@ -9,10 +8,6 @@ const AppBar = styled(CustomAppBar)`
   max-width: 768px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.blueGrey[300]};
   transform: translateX(-50%);
-`;
-
-const GoBackButton = styled(IconButton)`
-  margin-right: 16px;
 `;
 
 const InputWrapper = styled.div`
@@ -41,5 +36,4 @@ export const S = {
 
 export const C = {
   AppBar,
-  GoBackButton,
 };

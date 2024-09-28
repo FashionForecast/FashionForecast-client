@@ -13,6 +13,7 @@ export const theme = {
     },
     primary: {
       main: colors.blueGrey['600'],
+      dark: colors.blueGrey['700'],
     },
     primaryState: {
       hover: colors.blueGrey['A04'],
