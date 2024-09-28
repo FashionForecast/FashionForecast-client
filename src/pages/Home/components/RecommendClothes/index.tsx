@@ -44,7 +44,7 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
     <S.Section>
       {isLoading && <RecommendClothesLoading />}
 
-      {data?.data.map(({ names, outfitType }) => (
+      {data?.map(({ names, outfitType }) => (
         <C.ClothesCard elevation={0} key={outfitType} $outfitType={outfitType}>
           <S.ImageWrap>
             {getClothesImage(outfitType, names as ClothesImageName[])}
