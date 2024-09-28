@@ -1,75 +1,95 @@
-import useAppDispatch from '@/hooks/useAppDispatch';
 import useAppSelector from '@/hooks/useAppSelector';
-import { decrement, increment } from '@/redux/slice/EXAMPLE_counterSlice';
 import { getWeather } from '@/service/weather';
-import { Button } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import RegionSelector from './components/RegionSelector';
+import WeatherCard from './components/WeatherCard';
+import Header from './components/Header';
+import RecommendClothes from './components/RecommendClothes';
+import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
-import { Region } from '@/types/region';
-import { MY_REGIONS } from '@/constants/localStorage/key';
+import WeatherTimeLine from './components/WeatherTimeLine';
+import { S } from './style';
+import { KSTDate } from '@/utils/date';
+import { TIME_LIST } from '@/constants/timeSelector/data';
+
+export type SelectedTime = {
+  day: '오늘' | '내일';
+  start: string;
+  end: string;
+};
+
+const defaultSelectedTime: SelectedTime = {
+  day: '오늘',
+  start: defaultTime('start'),
+  end: defaultTime('end'),
+};
 
 const Home = () => {
-  const [regions, setRegions] = useState<Region[]>(
-    JSON.parse(localStorage.getItem(MY_REGIONS) || '[]')
-  );
-  const count = useAppSelector((state) => state.counter.value);
-  const dispatch = useAppDispatch();
+  const currentRegion = useAppSelector((state) => state.currentRegion.value);
+  const [selectedTime, setSelectedTime] =
+    useState<SelectedTime>(defaultSelectedTime);
+
   const { data, isError } = useQuery({
-    queryKey: ['weather'],
-    queryFn: getWeather,
+    queryKey: ['weather', currentRegion?.region],
+    queryFn: () => getWeather(selectedTime, currentRegion!.region),
+    enabled: !!currentRegion,
   });
 
-  const handleRegionClick = (region: string) => {
-    setRegions((prev) => {
-      if (prev[0].region === region) {
-        return prev;
-      }
+  const updateSelectedTime = (
+    key: keyof SelectedTime,
+    value: SelectedTime[keyof SelectedTime]
+  ) => {
+    if ((value as SelectedTime['day']) === '오늘') {
+      setSelectedTime(defaultSelectedTime);
+      return;
+    }
 
-      const list = [...prev];
-      const targetIndex = list.findIndex((v) => v.region === region);
-
-      [list[0], list[targetIndex]] = [list[targetIndex], list[0]];
-
-      localStorage.setItem(MY_REGIONS, JSON.stringify(list));
-
-      return list;
-    });
+    setSelectedTime((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
-    <div>
-      홈
-      <div>
-        <RegionSelector regions={regions} onRegionClick={handleRegionClick} />
-        <Button
-          variant='contained'
-          aria-label='Increment value'
-          onClick={() => dispatch(increment())}
-        >
-          Increment
-        </Button>
-        <span>{count}</span>
-        <Button
-          variant='contained'
-          color='warning'
-          aria-label='Decrement value'
-          onClick={() => dispatch(decrement())}
-        >
-          Decrement
-        </Button>
-      </div>
-      {isError && <span>날씨를 조회하지 못함</span>}
-      {data?.data.map((v, i) => (
-        <div key={i}>
-          <span>
-            날짜: {v.fcstDate}, 시간: {v.fcstTime} 온도: {v.tmp} 강수확률:
-            {v.pop} 강수량: {v.pcp}
-          </span>
-        </div>
-      ))}
-    </div>
+    <S.HomeWrap>
+      <Header />
+      {isError && <div>날씨 조회 오류</div>}
+      {data && (
+        <RecommendClothes
+          weather={{
+            extremumTmp: data.data.extremumTmp,
+            maxMinTmpDiff: data.data.maxMinTmpDiff,
+            maximumPop: data.data.maximumPop,
+            maximumPcp: data.data.maximumPcp,
+          }}
+        />
+      )}
+      <S.WeatherWrap>
+        <WeatherCard
+          extremumTmp={data?.data.extremumTmp}
+          maximumPop={data?.data.maximumPop}
+          maximumPcp={data?.data.maximumPcp}
+        />
+
+        {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
+      </S.WeatherWrap>
+
+      {selectedTime && (
+        <TimeSelector
+          selectedTime={selectedTime}
+          updateSelectedTime={updateSelectedTime}
+        />
+      )}
+    </S.HomeWrap>
   );
 };
 
 export default Home;
+
+function defaultTime(type: 'start' | 'end') {
+  const KST = KSTDate();
+  let hour = KST.getHours();
+
+  if (type === 'end') {
+    if (hour + 8 >= 24) hour = 23;
+    else hour = hour + 8;
+  }
+
+  return TIME_LIST[hour];
+}

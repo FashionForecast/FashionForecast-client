@@ -3,3 +3,7 @@ export type Region = {
   nx: number;
   ny: number;
 };
+
+export type UserCurrentRegion = Region & {
+  isGPS?: boolean;
+};

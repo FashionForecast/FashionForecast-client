@@ -8,6 +8,8 @@ e.g) feature/#5-login
 
 gitflow 전략을 따르지만, release 브랜치가 없는 형태
 
+gitflow 전략을 따르지만, release 브랜치가 없는 형태
+
 main : 최종 배포 브랜치
 
 develop : 개발 단계 브랜치 (디폴트)
@@ -30,80 +32,72 @@ develop : 개발 단계 브랜치 (디폴트)
 ### 폴더 구조
 
 ```
-src
+src/
   │  main.tsx
   │  routes.tsx
   │
-  ├─components (공통 컴포넌트)
-  │  └─EXAMPLE_TEXT
-  │        │  index.tsx
-  │        │  style.ts
-  │        │
-  │        └─ hooks (특정 컴포넌트의 hooks)
+  ├─ script  # 스크립트 파일
+  │   └─ region.cjs
   │
-  ├─contexts
-  │      ReduxProvider.tsx
-  │      TanstackQueryProvider.tsx
+  ├─ assets/  # 이미지, json 파일 등
+  │   └─ svg/
   │
-  ├─hooks (공통 hooks)
-  │      useAppDispatch.ts
-  │      useAppSelector.ts
+  ├─ components/  # 전역으로 재사용 가능한 컴포넌트 및 레이아웃
+  │   ├─ CustomMui/
+  │   │    └─  CustomButton.tsx
+  │   └─ layout/
+  │        └─  RootLayout/
   │
-  ├─pages
-  │  ├─Home
-  │  │   │  index.tsx
-  │  │   │
-  │  │   └─ components (특정 페이지 내 컴포넌트)
-  │  │
-  │  └─NotFound
-  │         index.tsx
+  ├─ constants/  # 상수
+  │   └─  localStorage/
   │
-  ├─redux
-  │  │  store.ts
-  │  │
-  │  └─slice
-  │          EXAMPLE_counterSlice.ts
   │
-  ├─ service
-  |     weather.ts
+  ├─ contexts/  # react context 및 라이브러리 provider
+  │   ├─  ReduxProvider.tsx
+  │   └─  TanstackQueryProvider.tsx
+  │
+  ├─ hooks/  # 전역으로 재사용 가능한 hooks
+  │   ├─  useAppDispatch.ts
+  │   └─  useAppSelector.ts
+  │
+  ├─ pages/  # 각 라우트에 해당하는 페이지 컴포넌트
+  │   ├─ Home/
+  │   │   ├─ components/
+  │   │   │    └─ Header/
+  │   │   └─ index.tsx
+  │   │
+  │   └─ NotFound/
+  │        └─ index.tsx
+  │
+  ├─ redux/  # redux 전역 상태 관리
+  │   ├─ slice/
+  │   │   └─ currentRegionSlice.ts
+  │   └─ store.ts
+  │
+  ├─ service/  # api 호출 등 서비스 로직
+  |   └─  weather.ts
   |
-  ├─ types
-  │     weather.ts
+  ├─ types/  # typescript 타입 정의
+  │   └─  emotion.d.ts
   |
-  ├─ utils
+  ├─ utils/  # 유틸리티 함수
   │
-  └─styles
-          normalize.css
-          reset.css
+  └─ styles/  # 스타일 파일
+       ├─  normalize.css
+       └─  reset.css
 ```
-
-### 컴포넌트
-
-```tsx
-type SomeComponentProps = {
-  text: string;
-};
-
-const SomeComponent = ({ text }: SomeComponentProps) => {
-  return <span>{text}</span>;
-};
-
-export default SomeComponent;
-```
-
-- 컴포넌트는 함수 표현식으로 정의한다.
-- props의 타입은 {컴포넌트명}Props로 정의한다.
 
 ### emotion style 컴포넌트
 
 ```tsx
-import * as S from './style';
+import { C, S } from './style';
 
 const SomeComponent = () => {
   return (
     <S.Contents>
+      <Header />
       <S.Title>제목</S.Title>
-      <S.Desc>설명</S.Desc>
+      <C.Button>설명</C.Button>
     </S.Contents>
   );
 };
@@ -111,4 +105,6 @@ const SomeComponent = () => {
 export default SomeComponent;
 ```
 
-- style 컴포넌트는 네임스페이스 S를 지정해 일반 컴포넌트와 구분한다.
+- style 컴포넌트는 S 또는 C 네임스페이스를 통해 일반 컴포넌트와 구분한다.
+  - S는 html 태그에 적용한 styled 컴포넌트이다. `styled.div`
+  - C는 기존 컴포넌트의 스타일을 재정의 한 styled 컴포넌트이다. `styled(CustomButton)`

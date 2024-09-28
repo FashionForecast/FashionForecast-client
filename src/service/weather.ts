@@ -1,15 +1,23 @@
+import meteorologicalCoordinateList from '@/assets/meteorologicalRegionCoordinates';
+import { SelectedTime } from '@/pages/Home';
 import { WeatherResponse } from '@/types/weather';
+import { dateToISO, KSTDate } from '@/utils/date';
 
-export async function getWeather(): Promise<WeatherResponse> {
-  const offset = 1000 * 60 * 60 * 9;
-  const KTCnow = new Date(new Date().getTime() + offset);
-  const now = KTCnow.toISOString().slice(0, -5);
+export async function getWeather(
+  selectedTime: SelectedTime,
+  region: string
+): Promise<WeatherResponse> {
+  const nowDateTime = dateToISO(KSTDate());
+  const startDateTime = convertToTime(selectedTime.day, selectedTime.start);
+  const endDateTime = convertToTime(selectedTime.day, selectedTime.end);
+
+  const { weatherNx, weatherNy } = meteorologicalCoordinateList[region];
 
   try {
     const res = await fetch(
       `${
-        import.meta.env.VITE_SERVER_URL
-      }/weather/forecast?now=${now}&nx=60&ny=127`
+        import.meta.env.VITE_API_BASE_URL
+      }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
     );
     const json = await res.json();
 
@@ -21,4 +29,23 @@ export async function getWeather(): Promise<WeatherResponse> {
   } catch (error) {
     throw new Error(error as string);
   }
+}
+
+function convertToTime(day: SelectedTime['day'], time: string) {
+  const date = KSTDate();
+  let hour = parseInt(time.slice(3, 5), 10);
+
+  if (time.includes('오후') && hour < 12) {
+    hour = hour + 12;
+  }
+
+  if (day === '내일') {
+    date.setDate(date.getDate() + 1);
+  }
+
+  date.setHours(hour);
+  date.setMinutes(0);
+  date.setSeconds(0);
+
+  return dateToISO(date);
 }
