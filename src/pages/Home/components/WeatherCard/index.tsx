@@ -1,12 +1,12 @@
 import { C, S } from './style';
-import { WeatherResponse } from '@/types/weather';
+import { WeatherResponseData } from '@/types/weather';
 
 import PcpImage from '@/constants/imageData/pcpImage';
 import TempImage from '@/constants/imageData/tempImage';
 import PopImage from '@/constants/imageData/popImage';
 
 type WeatherCardProps = Partial<
-  Pick<WeatherResponse['data'], 'extremumTmp' | 'maximumPop' | 'maximumPcp'>
+  Pick<WeatherResponseData, 'extremumTmp' | 'maximumPop' | 'maximumPcp'>
 >;
 
 const WeatherCard = ({

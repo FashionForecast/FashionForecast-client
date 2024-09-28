@@ -1,5 +1,5 @@
 import { getDefaultClothes } from '@/service/clothes';
-import { WeatherResponse } from '@/types/weather';
+import { WeatherResponseData } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { C, S } from './style';
 import { ClothesImageName, OutfitType } from '@/types/clothes';
@@ -7,6 +7,7 @@ import { Chip, ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 import clothesImage from '@/constants/imageData/clothesImage';
+import RecommendClothesLoading from './loading';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -14,7 +15,7 @@ const COOL = 'COOL',
 export type TempCondition = typeof COOL | typeof NORMAL | typeof WARM;
 
 export type ClothesForWeather = Pick<
-  WeatherResponse['data'],
+  WeatherResponseData,
   'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
 >;
 
@@ -25,7 +26,7 @@ type RecommendClothesProps = {
 const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
   const currentRegion = useAppSelector((state) => state.currentRegion.value);
-  const { data, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['clothes', tempCondition, currentRegion?.region],
     queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
   });
@@ -41,7 +42,9 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   if (isError) return <div>추천 옷 오류가 발생했습니다.</div>;
   return (
     <S.Section>
-      {data?.data.map(({ names, outfitType }) => (
+      {isLoading && <RecommendClothesLoading />}
+
+      {data?.map(({ names, outfitType }) => (
         <C.ClothesCard elevation={0} key={outfitType} $outfitType={outfitType}>
           <S.ImageWrap>
             {getClothesImage(outfitType, names as ClothesImageName[])}

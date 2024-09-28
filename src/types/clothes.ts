@@ -27,11 +27,7 @@ export type OutfitType =
   | 'FOLDING_UMBRELLA'
   | 'LAYERED';
 
-export type ClothesResponse = {
-  data: Array<{
-    names: Array<ClothesImageName | string>;
-    outfitType: OutfitType;
-  }>;
-  message: string;
-  status: number;
-};
+export type ClothesResponseData = Array<{
+  names: Array<ClothesImageName | string>;
+  outfitType: OutfitType;
+}>;

@@ -10,27 +10,23 @@ export type RainType =
 
 export type SkyStatus = 'CLEAR' | 'PARTLY_CLOUDY' | 'CLOUDY';
 
-export type WeatherResponse = {
-  data: {
-    season: string;
-    extremumTmp: number;
-    maxMinTmpDiff: number;
-    maximumPop: number;
-    maximumPcp: number;
-    forecasts: Array<{
-      fcstDate: string;
-      fcstTime: string;
-      tmp: number;
-      reh: number;
-      wsd: number;
-      pop: number;
-      pcp: number;
-      rainType: RainType;
-      skyStatus: SkyStatus;
-      nx: number;
-      ny: number;
-    }>;
-  };
-  message: string;
-  status: number;
+export type WeatherResponseData = {
+  season: string;
+  extremumTmp: number;
+  maxMinTmpDiff: number;
+  maximumPop: number;
+  maximumPcp: number;
+  forecasts: Array<{
+    fcstDate: string;
+    fcstTime: string;
+    tmp: number;
+    reh: number;
+    wsd: number;
+    pop: number;
+    pcp: number;
+    rainType: RainType;
+    skyStatus: SkyStatus;
+    nx: number;
+    ny: number;
+  }>;
 };
