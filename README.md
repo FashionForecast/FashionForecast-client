@@ -8,6 +8,8 @@ e.g) feature/#5-login
 
 gitflow 전략을 따르지만, release 브랜치가 없는 형태
 
+gitflow 전략을 따르지만, release 브랜치가 없는 형태
+
 main : 최종 배포 브랜치
 
 develop : 개발 단계 브랜치 (디폴트)
