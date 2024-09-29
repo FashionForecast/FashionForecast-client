@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import currentRegionSlice from './slice/currentRegionSlice';
+import geolocationSlice from './slice/geolocationSlice';
 
 const store = configureStore({
-  reducer: { currentRegion: currentRegionSlice },
+  reducer: { geolocation: geolocationSlice },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
