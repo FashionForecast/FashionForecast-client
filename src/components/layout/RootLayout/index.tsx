@@ -17,7 +17,6 @@ export default function RootLayout() {
     mutationFn: guestLogin,
     onSuccess: (data) => localStorage.setItem(GUEST_UUID, data.data.uuid),
   });
-  const dispatch = useAppDispatch();
 
   // 게스트의 uuid를 저장
   useEffect(() => {
