@@ -50,6 +50,7 @@ export default function RootLayout() {
     <S.Main>
       <Outlet />
       <A2hsSnackbar />
+      <A2hsSnackbar />
     </S.Main>
   );
 }

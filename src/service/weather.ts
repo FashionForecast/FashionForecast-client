@@ -18,6 +18,8 @@ export async function getWeather(
       `${
         import.meta.env.VITE_API_BASE_URL
       }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
+        import.meta.env.VITE_API_BASE_URL
+      }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
     );
     const json = await res.json();
 
@@ -29,6 +31,25 @@ export async function getWeather(
   } catch (error) {
     throw new Error(error as string);
   }
+}
+
+function convertToTime(day: SelectedTime['day'], time: string) {
+  const date = KSTDate();
+  let hour = parseInt(time.slice(3, 5), 10);
+
+  if (time.includes('오후') && hour < 12) {
+    hour = hour + 12;
+  }
+
+  if (day === '내일') {
+    date.setDate(date.getDate() + 1);
+  }
+
+  date.setHours(hour);
+  date.setMinutes(0);
+  date.setSeconds(0);
+
+  return dateToISO(date);
 }
 
 function convertToTime(day: SelectedTime['day'], time: string) {
