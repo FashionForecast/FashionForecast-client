@@ -5,10 +5,6 @@ import WeatherCard from './components/WeatherCard';
 import Header from './components/Header';
 import RecommendClothes from './components/RecommendClothes';
 import TimeSelector from './components/TimeSelector';
-import WeatherCard from './components/WeatherCard';
-import Header from './components/Header';
-import RecommendClothes from './components/RecommendClothes';
-import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
 import WeatherTimeLine from './components/WeatherTimeLine';
 import { S } from './style';
@@ -91,18 +87,6 @@ const Home = () => {
 };
 
 export default Home;
-
-function defaultTime(type: 'start' | 'end') {
-  const KST = KSTDate();
-  let hour = KST.getHours();
-
-  if (type === 'end') {
-    if (hour + 8 >= 24) hour = 23;
-    else hour = hour + 8;
-  }
-
-  return TIME_LIST[hour];
-}
 
 function defaultTime(type: 'start' | 'end') {
   const KST = KSTDate();
