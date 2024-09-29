@@ -1,45 +1,56 @@
-import { UserCurrentRegion } from '@/types/region';
-import { useEffect, useState } from 'react';
 import regions from '@/assets/actualRegionCoordinates.json';
+import useAppSelector from './useAppSelector';
+import useAppDispatch from './useAppDispatch';
+import { goelocationActions } from '@/redux/slice/geolocationSlice';
 
-/** 사용자의 현재 위치를 설정하는 hook */
+const DEFAULT_REGION = {
+  region: '서울특별시 종로구',
+  nx: 37,
+  ny: 126,
+};
+
+/** 사용자의 위치를 설정하는 hook */
 const useGeolocation = () => {
-  const [geolocation, setGeolocation] = useState<null | UserCurrentRegion>(
-    null
-  );
-  const [isProcessing, setIsProcessing] = useState(true);
-  const setUserGeolocation = (region: UserCurrentRegion) =>
-    setGeolocation(region);
-  const setProcessEnd = () => setIsProcessing(false);
+  const { value } = useAppSelector((state) => state.geolocation);
+  const dispatch = useAppDispatch();
 
-  //TODO: alert 제거
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) =>
-          geolocationSuccess(position, setUserGeolocation, setProcessEnd),
-        (error) => geolocationSuccessError(error, setProcessEnd),
-        {
-          enableHighAccuracy: true,
-        }
+  const { updateGeolocation } = goelocationActions;
+
+  const updateDefaultRegion = () => dispatch(updateGeolocation(DEFAULT_REGION));
+  const updateGPSRegion = () => {
+    const gpsSuccess = (position: GeolocationPosition) => {
+      const { closestRegion, nx, ny } = getClosestRegion(position);
+      dispatch(
+        updateGeolocation({
+          region: closestRegion,
+          nx,
+          ny,
+          isGPS: true,
+        })
       );
-    } else {
-      alert('위치 권한을 사용할 수 없는 브라우저 입니다.');
-      setProcessEnd();
-    }
-  }, []);
+    };
 
-  return { geolocation, isProcessing };
+    const gpsError = (error: GeolocationPositionError) => {
+      alert(`위치 권한이 거부되었거나 오류가 발생했습니다. [${error.code}]`);
+      dispatch(updateGeolocation(DEFAULT_REGION));
+    };
+
+    navigator.geolocation.getCurrentPosition(gpsSuccess, gpsError, {
+      enableHighAccuracy: true,
+    });
+  };
+
+  return {
+    geolocation: value,
+    updateDefaultRegion,
+    updateGPSRegion,
+  };
 };
 
 export default useGeolocation;
 
 /** 사용자의 위치를 특정하는 함수 */
-function geolocationSuccess(
-  position: GeolocationPosition,
-  setUserGeolocation: (region: UserCurrentRegion) => void,
-  setProcessEnd: () => void
-) {
+function getClosestRegion(position: GeolocationPosition) {
   let closestRegion = '';
   let minDistance = Number.MAX_SAFE_INTEGER;
   let nx = 0;
@@ -60,17 +71,7 @@ function geolocationSuccess(
     }
   });
 
-  setUserGeolocation({ region: closestRegion, nx, ny, isGPS: true });
-  setProcessEnd();
-}
-
-/** geolocation 오류를 처리하는 함수 */
-function geolocationSuccessError(
-  error: GeolocationPositionError,
-  setProcessEnd: () => void
-) {
-  alert(`위치 권한이 거부되었거나 오류가 발생했습니다. [${error.code}]`);
-  setProcessEnd();
+  return { closestRegion, nx, ny };
 }
 
 /** 위도, 경도를 이용한 두 지점 사이의 거리 계산 함수 (Haversine formula) */
