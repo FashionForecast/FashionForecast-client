@@ -64,7 +64,7 @@ const A2hsSnackbar = () => {
         anchorOrigin={snackbarPosition}
         message='홈화면에 바로가기를 추가할 수 있어요!'
         action={
-          <C.Button size='small' onClick={installApp}>
+          <C.Button size='small' color='inherit' onClick={installApp}>
             추가하기
           </C.Button>
         }

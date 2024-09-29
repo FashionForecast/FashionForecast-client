@@ -1,4 +1,3 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
 import CustomTextField from '@/components/CustomMui/CustomTextField';
 import styled from '@emotion/styled';
 
@@ -37,15 +36,6 @@ const TextField = styled(CustomTextField)`
   }
 `;
 
-const SubmitButton = styled(CustomButton)`
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.primary.main};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primary.dark};
-  }
-`;
-
 export const S = {
   FeedbackWrap,
   Header,
@@ -54,5 +44,4 @@ export const S = {
 
 export const C = {
   TextField,
-  SubmitButton,
 };

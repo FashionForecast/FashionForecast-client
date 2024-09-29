@@ -39,6 +39,7 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
       setIsChange(false);
       initialTime.current = selectedTime;
       queryClient.invalidateQueries({ queryKey: ['weather'] });
+      queryClient.invalidateQueries({ queryKey: ['clothes'] });
     }
   };
 
@@ -74,6 +75,7 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
         <C.CheckButton
           $isChange={isChange}
           disabled={!isChange}
+          color='inherit'
           onClick={handleButtonClick}
         >
           <CheckIcon color={isChange ? 'white' : 'disabled'} />

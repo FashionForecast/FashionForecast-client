@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { colors } from '@/styles/colors';
-import { Button, css } from '@mui/material';
+import { css } from '@mui/material';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
+import CustomButton from '@/components/CustomMui/CustomButton';
 
 const TimeSelector = styled.section`
   position: fixed;
@@ -35,8 +36,9 @@ const Hypen = styled.div`
   background-color: ${({ theme }) => theme.colors.primary.main};
 `;
 
-const CheckButton = styled(Button, forwardPropOption)<{ $isChange: boolean }>`
-  box-sizing: border-box;
+const CheckButton = styled(CustomButton, forwardPropOption)<{
+  $isChange: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;

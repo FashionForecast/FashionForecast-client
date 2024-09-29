@@ -8,6 +8,7 @@ import { useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 import clothesImage from '@/constants/imageData/clothesImage';
 import RecommendClothesLoading from './loading';
+import NetworkError from '@/components/NetworkError';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -27,7 +28,7 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['clothes', tempCondition, geolocation?.region],
     queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
   });
@@ -40,7 +41,7 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
     setTempCondition(condition);
   };
 
-  if (isError) return <div>추천 옷 오류가 발생했습니다.</div>;
+  if (isError) return <NetworkError handleRefetch={refetch} />;
   return (
     <S.Section>
       {isLoading && <RecommendClothesLoading />}

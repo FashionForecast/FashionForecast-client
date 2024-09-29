@@ -11,6 +11,7 @@ import { S } from './style';
 import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeSelector/data';
 import HomeLoading from './loading';
+import NetworkError from '@/components/NetworkError';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -29,7 +30,7 @@ const Home = () => {
   const [selectedTime, setSelectedTime] =
     useState<SelectedTime>(defaultSelectedTime);
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['weather', geolocation?.region],
     queryFn: () => getWeather(selectedTime, geolocation!.region),
     enabled: !!geolocation,
@@ -51,7 +52,7 @@ const Home = () => {
     <S.HomeWrap>
       <Header />
 
-      {isError && <div>날씨 조회 오류</div>}
+      {isError && <NetworkError handleRefetch={refetch} />}
 
       {isLoading && <HomeLoading />}
       {data && (
