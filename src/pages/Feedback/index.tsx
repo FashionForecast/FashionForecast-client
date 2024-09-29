@@ -2,6 +2,7 @@ import GoBackButton from '@/components/GoBackButton';
 import { S, C } from './style';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import CustomButton from '@/components/CustomMui/CustomButton';
 
 const Feedback = () => {
   const [feedback, setFeedback] = useState('');
@@ -33,9 +34,9 @@ const Feedback = () => {
           onChange={handleInputChange}
         />
       </S.Section>
-      <C.SubmitButton size='large' fullWidth variant='contained'>
+      <CustomButton size='large' fullWidth variant='contained'>
         피드백 남기기
-      </C.SubmitButton>
+      </CustomButton>
     </S.FeedbackWrap>
   );
 };

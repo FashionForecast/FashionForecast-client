@@ -16,4 +16,13 @@ export default CustomButton;
 
 const ButtonBase = styled(MuiButton)`
   color: ${({ theme }) => theme.colors.text.primary};
+
+  &.MuiButton-colorPrimary {
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.primary.main};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.primary.dark};
+    }
+  }
 `;

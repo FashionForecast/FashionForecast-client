@@ -23,6 +23,7 @@ const Header = () => {
             <CustomButton
               startIcon={geolocation?.isGPS && <LocationIcon />}
               endIcon={<TriangleIcon />}
+              color='inherit'
               fullWidth
             >
               {geolocation?.region}
