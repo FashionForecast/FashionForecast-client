@@ -3,35 +3,38 @@ import { C } from './style';
 import CloseIcon from '@/assets/svg/close.svg?react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearch } from '@/service/search';
-import { GUEST_UUID } from '@/constants/localStorage/key';
+import { GUEST_UUID, MY_REGION } from '@/constants/localStorage/key';
 import useAppDispatch from '@/hooks/useAppDispatch';
-import { currentRegionActions } from '@/redux/slice/currentRegionSlice';
 import { Region } from '@/types/region';
 import { useNavigate } from 'react-router-dom';
+import { goelocationActions } from '@/redux/slice/geolocationSlice';
 
 type RecentSearchListProps = {
   regions: Region[];
 };
 
 const RecentSearchList = ({ regions }: RecentSearchListProps) => {
+  const queryClient = useQueryClient();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const { data } = useQuery({
     queryKey: ['recentSearch', localStorage.getItem(GUEST_UUID)],
     queryFn: getRecentSearch,
     retry: 1,
   });
+
   const { mutate } = useMutation({
     mutationFn: deleteSearchWord,
   });
-  const queryClient = useQueryClient();
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleRegionClick = (city: string, district: string) => () => {
     const region = regions.find(
       (region) => region.region === `${city} ${district}`
     );
     if (region) {
-      dispatch(currentRegionActions.setCurrentRegion(region));
+      dispatch(goelocationActions.updateGeolocation(region));
+      localStorage.setItem(MY_REGION, JSON.stringify(region));
       navigate('/');
     }
   };

@@ -10,6 +10,8 @@ import WeatherTimeLine from './components/WeatherTimeLine';
 import { S } from './style';
 import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeSelector/data';
+import HomeLoading from './loading';
+import NetworkError from '@/components/NetworkError';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -24,14 +26,14 @@ const defaultSelectedTime: SelectedTime = {
 };
 
 const Home = () => {
-  const currentRegion = useAppSelector((state) => state.currentRegion.value);
+  const geolocation = useAppSelector((state) => state.geolocation.value);
   const [selectedTime, setSelectedTime] =
     useState<SelectedTime>(defaultSelectedTime);
 
-  const { data, isError } = useQuery({
-    queryKey: ['weather', currentRegion?.region],
-    queryFn: () => getWeather(selectedTime, currentRegion!.region),
-    enabled: !!currentRegion,
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ['weather', geolocation?.region],
+    queryFn: () => getWeather(selectedTime, geolocation!.region),
+    enabled: !!geolocation,
   });
 
   const updateSelectedTime = (
@@ -49,32 +51,36 @@ const Home = () => {
   return (
     <S.HomeWrap>
       <Header />
-      {isError && <div>날씨 조회 오류</div>}
+
+      {isError && <NetworkError handleRefetch={refetch} />}
+
+      {isLoading && <HomeLoading />}
       {data && (
-        <RecommendClothes
-          weather={{
-            extremumTmp: data.data.extremumTmp,
-            maxMinTmpDiff: data.data.maxMinTmpDiff,
-            maximumPop: data.data.maximumPop,
-            maximumPcp: data.data.maximumPcp,
-          }}
-        />
-      )}
-      <S.WeatherWrap>
-        <WeatherCard
-          extremumTmp={data?.data.extremumTmp}
-          maximumPop={data?.data.maximumPop}
-          maximumPcp={data?.data.maximumPcp}
-        />
+        <>
+          <RecommendClothes
+            weather={{
+              extremumTmp: data.extremumTmp,
+              maxMinTmpDiff: data.maxMinTmpDiff,
+              maximumPop: data.maximumPop,
+              maximumPcp: data.maximumPcp,
+            }}
+          />
 
-        {data && <WeatherTimeLine forecasts={data.data.forecasts} />}
-      </S.WeatherWrap>
+          <S.WeatherWrap>
+            <WeatherCard
+              extremumTmp={data.extremumTmp}
+              maximumPop={data.maximumPop}
+              maximumPcp={data.maximumPcp}
+            />
 
-      {selectedTime && (
-        <TimeSelector
-          selectedTime={selectedTime}
-          updateSelectedTime={updateSelectedTime}
-        />
+            <WeatherTimeLine forecasts={data.forecasts} />
+          </S.WeatherWrap>
+
+          <TimeSelector
+            selectedTime={selectedTime}
+            updateSelectedTime={updateSelectedTime}
+          />
+        </>
       )}
     </S.HomeWrap>
   );

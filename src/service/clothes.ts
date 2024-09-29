@@ -2,11 +2,11 @@ import {
   ClothesForWeather,
   TempCondition,
 } from '@/pages/Home/components/RecommendClothes';
-import { ClothesResponse } from '@/types/clothes';
+import { ClothesResponseData } from '@/types/clothes';
 
 export async function getDefaultClothes(
   weather: ClothesForWeather & { tempCondition: TempCondition }
-): Promise<ClothesResponse> {
+): Promise<ClothesResponseData> {
   try {
     const params: Record<string, string> = {};
     Object.entries(weather).forEach(([key, value]) => {
@@ -24,7 +24,7 @@ export async function getDefaultClothes(
       throw new Error(`${json.code}: ${json.message}`);
     }
 
-    return json;
+    return json.data;
   } catch (error) {
     throw new Error(error as string);
   }

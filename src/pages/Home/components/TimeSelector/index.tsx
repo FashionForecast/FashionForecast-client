@@ -74,6 +74,7 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
         <C.CheckButton
           $isChange={isChange}
           disabled={!isChange}
+          color='inherit'
           onClick={handleButtonClick}
         >
           <CheckIcon color={isChange ? 'white' : 'disabled'} />
