@@ -24,10 +24,11 @@ type RecommendClothesProps = {
 };
 
 const RecommendClothes = ({ weather }: RecommendClothesProps) => {
+  const geolocation = useAppSelector((state) => state.geolocation.value);
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
-  const currentRegion = useAppSelector((state) => state.currentRegion.value);
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['clothes', tempCondition, currentRegion?.region],
+    queryKey: ['clothes', tempCondition, geolocation?.region],
     queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
   });
 

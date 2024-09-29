@@ -25,14 +25,14 @@ const defaultSelectedTime: SelectedTime = {
 };
 
 const Home = () => {
-  const currentRegion = useAppSelector((state) => state.currentRegion.value);
+  const geolocation = useAppSelector((state) => state.geolocation.value);
   const [selectedTime, setSelectedTime] =
     useState<SelectedTime>(defaultSelectedTime);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['weather', currentRegion?.region],
-    queryFn: () => getWeather(selectedTime, currentRegion!.region),
-    enabled: !!currentRegion,
+    queryKey: ['weather', geolocation?.region],
+    queryFn: () => getWeather(selectedTime, geolocation!.region),
+    enabled: !!geolocation,
   });
 
   const updateSelectedTime = (
