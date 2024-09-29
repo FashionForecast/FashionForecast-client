@@ -39,7 +39,6 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
       setIsChange(false);
       initialTime.current = selectedTime;
       queryClient.invalidateQueries({ queryKey: ['weather'] });
-      queryClient.invalidateQueries({ queryKey: ['clothes'] });
     }
   };
 

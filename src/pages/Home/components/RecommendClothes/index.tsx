@@ -29,7 +29,7 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['clothes', tempCondition, geolocation?.region],
+    queryKey: ['clothes', tempCondition, geolocation?.region, weather],
     queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
   });
 
