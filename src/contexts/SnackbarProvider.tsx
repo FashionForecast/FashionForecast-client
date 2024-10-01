@@ -1,5 +1,6 @@
-import { Snackbar } from '@mui/material';
+import CustomSnackbar from '@/components/CustomMui/CustomSnackbar';
 import { createContext, useContext, useState } from 'react';
+import styled from '@emotion/styled';
 
 type SnackbarContextType = {
   openSnackbar: (message: string) => void;
@@ -8,24 +9,23 @@ const SnackbarContext = createContext<SnackbarContextType | null>(null);
 
 type SnackbarProviedProps = { children: React.ReactNode };
 export const SnackbarProvider = ({ children }: SnackbarProviedProps) => {
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [message, setMessage] = useState('asdfasdf');
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState('');
 
   const openSnackbar = (message: string) => {
     setMessage(message);
-    setSnackbarOpen(true);
+    setIsOpen(true);
   };
 
   const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-    setMessage('');
+    setIsOpen(false);
   };
 
   return (
     <SnackbarContext.Provider value={{ openSnackbar }}>
       {children}
-      <Snackbar
-        open={snackbarOpen}
+      <SnackbarStyle
+        open={isOpen}
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
         message={message}
@@ -41,3 +41,17 @@ export const useSnackbar = () => {
   }
   return context;
 };
+
+const SnackbarStyle = styled(CustomSnackbar)`
+  bottom: 80px;
+  min-width: max-content;
+
+  & .MuiPaper-root {
+    min-width: max-content;
+    height: 32px;
+  }
+
+  @media (min-width: 600px) {
+    bottom: 80px;
+  }
+`;
