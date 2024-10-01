@@ -3,11 +3,24 @@ import { S, C } from './style';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
+import { useMutation } from '@tanstack/react-query';
+import { submitFeedback } from '@/service/feedback';
 
 const Feedback = () => {
   const [feedback, setFeedback] = useState('');
+
+  const { mutate } = useMutation({
+    mutationFn: () => submitFeedback(feedback),
+  });
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFeedback(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (feedback.trim().length === 0) return;
+
+    mutate();
   };
 
   return (
@@ -34,7 +47,13 @@ const Feedback = () => {
           onChange={handleInputChange}
         />
       </S.Section>
-      <CustomButton size='large' fullWidth variant='contained'>
+      <CustomButton
+        size='large'
+        fullWidth
+        variant='contained'
+        disabled={feedback.trim().length === 0}
+        onClick={handleSubmit}
+      >
         피드백 남기기
       </CustomButton>
     </S.FeedbackWrap>
