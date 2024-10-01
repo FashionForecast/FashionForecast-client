@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { C } from './style';
-import { SnackbarProps } from '@mui/material';
 import useA2HS from './hooks/useA2HS';
-
-const snackbarPosition: SnackbarProps['anchorOrigin'] = {
-  vertical: 'bottom',
-  horizontal: 'center',
-};
 
 const A2hsSnackbar = () => {
   const { deferredPrompt, installApp, clearPrompt: hideSnackbar } = useA2HS();
@@ -61,7 +55,6 @@ const A2hsSnackbar = () => {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
         open={true}
-        anchorOrigin={snackbarPosition}
         message='홈화면에 바로가기를 추가할 수 있어요!'
         action={
           <C.Button size='small' color='inherit' onClick={installApp}>

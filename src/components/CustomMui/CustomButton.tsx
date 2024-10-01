@@ -24,5 +24,11 @@ const ButtonBase = styled(MuiButton)`
     &:hover {
       background-color: ${({ theme }) => theme.colors.primary.dark};
     }
+
+    &:disabled {
+      color: ${({ theme }) => theme.colors.action.disabled};
+      background-color: ${({ theme }) =>
+        theme.colors.action.disabledBackground};
+    }
   }
 `;
