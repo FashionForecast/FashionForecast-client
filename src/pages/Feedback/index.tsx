@@ -1,13 +1,16 @@
 import GoBackButton from '@/components/GoBackButton';
 import { S, C } from './style';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { useMutation } from '@tanstack/react-query';
 import { submitFeedback } from '@/service/feedback';
+import { useSnackbar } from '@/contexts/SnackbarProvider';
 
 const Feedback = () => {
   const [feedback, setFeedback] = useState('');
+  const navigate = useNavigate();
+  const { openSnackbar } = useSnackbar();
 
   const { mutate } = useMutation({
     mutationFn: () => submitFeedback(feedback),
@@ -20,7 +23,12 @@ const Feedback = () => {
   const handleSubmit = () => {
     if (feedback.trim().length === 0) return;
 
-    mutate();
+    mutate(undefined, {
+      onSuccess: () => {
+        openSnackbar('피드백을 성공적으로 남겼어요');
+        navigate('/');
+      },
+    });
   };
 
   return (
@@ -31,6 +39,7 @@ const Feedback = () => {
         </Link>
         <h6>고객의 소리</h6>
       </S.Header>
+
       <S.Section>
         <p>
           여러분이 남겨주시는 소중한 피드백은 OOTC가 더욱 성장할 수 있는 바탕이
@@ -47,6 +56,7 @@ const Feedback = () => {
           onChange={handleInputChange}
         />
       </S.Section>
+
       <CustomButton
         size='large'
         fullWidth
