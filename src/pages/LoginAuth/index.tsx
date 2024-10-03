@@ -12,7 +12,8 @@ const LoginAuth = () => {
 
   useEffect(() => {
     if (isLoginSucess) {
-      storeAccessToken(dispatch, navigate);
+      storeAccessToken(dispatch);
+      navigate('/');
     }
   }, []);
 

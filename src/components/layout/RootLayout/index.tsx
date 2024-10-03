@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import * as S from './style';
 import { GUEST_UUID, LOGIN, MY_REGION } from '@/constants/localStorage/key';
 import { useMutation } from '@tanstack/react-query';
@@ -13,7 +13,6 @@ import { storeAccessToken } from '@/utils/auth';
 export default function RootLayout() {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const { mutate: guestLoginMutate } = useMutation({
     mutationFn: guestLogin,
@@ -53,7 +52,7 @@ export default function RootLayout() {
     const isPrevLoggedIn = localStorage.getItem(LOGIN);
 
     if (isPrevLoggedIn) {
-      storeAccessToken(dispatch, navigate);
+      storeAccessToken(dispatch);
     }
   }, []);
 
