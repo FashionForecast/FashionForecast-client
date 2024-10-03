@@ -1,3 +1,4 @@
+import LoginFooter from './components/LoginFooter';
 import LoginHeader from './components/LoginHeader';
 
 const SOCIAL_LOGIN = [
@@ -21,6 +22,8 @@ const Login = () => {
           {text} 계정으로 계속하기
         </button>
       ))}
+
+      <LoginFooter />
     </div>
   );
 };
