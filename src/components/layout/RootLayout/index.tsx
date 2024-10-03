@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import * as S from './style';
-import { GUEST_UUID, MY_REGION } from '@/constants/localStorage/key';
+import { GUEST_UUID, LOGIN, MY_REGION } from '@/constants/localStorage/key';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { guestLogin } from '@/service/login';
@@ -8,6 +8,7 @@ import useAppDispatch from '@/hooks/useAppDispatch';
 import A2hsSnackbar from './components/A2hsSnackbar';
 import { goelocationActions } from '@/redux/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
+import { storeAccessToken } from '@/utils/auth';
 
 export default function RootLayout() {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
@@ -44,6 +45,15 @@ export default function RootLayout() {
     }
 
     updateGPSRegion();
+  }, []);
+
+  // 이전에 로그인 한 사용자라면, access token을 저장
+  useEffect(() => {
+    const isPrevLoggedIn = localStorage.getItem(LOGIN);
+
+    if (isPrevLoggedIn) {
+      storeAccessToken(dispatch);
+    }
   }, []);
 
   return (

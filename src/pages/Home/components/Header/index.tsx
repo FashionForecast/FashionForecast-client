@@ -1,4 +1,4 @@
-import FeedbackIcon from '@/assets/svg/feedback.svg?react';
+import AccountIcon from '@/assets/svg/account.svg?react';
 import TriangleIcon from '@/assets/svg/triangle.svg?react';
 import { IconButton } from '@mui/material';
 import { C } from './style';
@@ -30,9 +30,9 @@ const Header = () => {
             </CustomButton>
           </C.SearchLink>
 
-          <Link to={'/feedback'}>
+          <Link to={'/login'}>
             <IconButton>
-              <FeedbackIcon />
+              <AccountIcon />
             </IconButton>
           </Link>
         </CustomToolbar>

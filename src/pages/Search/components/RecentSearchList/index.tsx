@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material';
 import { C } from './style';
-import CloseIcon from '@/assets/svg/close.svg?react';
+import CloseIcon from '@/components/icon/CloseIcon';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearch } from '@/service/search';
 import { GUEST_UUID, MY_REGION } from '@/constants/localStorage/key';
