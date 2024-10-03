@@ -1,32 +1,23 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import NotFound from '../NotFound';
+import useAppDispatch from '@/hooks/useAppDispatch';
+import { storeAccessToken } from '@/utils/auth';
 
 const LoginAuth = () => {
   const [searchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isLoginSucess = JSON.parse(searchParams.get('social-login') || 'false');
 
   useEffect(() => {
     if (isLoginSucess) {
-      getAccessToken();
-      navigate('/');
+      storeAccessToken(dispatch, navigate);
     }
   }, []);
 
-  if (isLoginSucess) return <div>로딩중</div>;
-  return <div>페이지가 존재하지 않습니다</div>;
+  if (isLoginSucess) return <></>;
+  return <NotFound />;
 };
 
 export default LoginAuth;
-
-async function getAccessToken() {
-  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-  });
-  const json = await res.json();
-  console.log(json);
-}
