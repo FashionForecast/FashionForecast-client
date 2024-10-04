@@ -17,7 +17,8 @@ const UserGender = () => {
   return (
     <S.UserGenderWrap>
       <UserGenderHeader />
-      <div>
+
+      <S.SectionWrap>
         <바지 />
         <title>거의 다 왔어요!</title>
 
@@ -27,24 +28,31 @@ const UserGender = () => {
           성별 정보를 입력해주세요
         </p>
 
-        <div>
+        <S.ButtonWrap>
           {BUTTONS.map(({ text, icon }) => (
-            <button
+            <S.GenderButton
               type='button'
               key={text}
               onClick={() => setGender(text)}
               $select={gender === text}
             >
-              <div>{icon}</div>
+              <div className='icon'>{icon}</div>
               {text}
-            </button>
+            </S.GenderButton>
           ))}
-        </div>
-      </div>
+        </S.ButtonWrap>
+      </S.SectionWrap>
 
-      <CustomButton variant='contained' size='large' disabled={!gender}>
-        개인화된 OOTC 시작하기
-      </CustomButton>
+      <S.SubmitButtonWrap>
+        <CustomButton
+          variant='contained'
+          size='large'
+          fullWidth
+          disabled={!gender}
+        >
+          개인화된 OOTC 시작하기
+        </CustomButton>
+      </S.SubmitButtonWrap>
     </S.UserGenderWrap>
   );
 };
