@@ -1,7 +1,12 @@
 import { S } from './style';
+import UserGenderHeader from './UserGenderHeader';
 
 const UserGender = () => {
-  return <S.UserGenderWrap>성별 설정 페이지</S.UserGenderWrap>;
+  return (
+    <S.UserGenderWrap>
+      <UserGenderHeader />
+    </S.UserGenderWrap>
+  );
 };
 
 export default UserGender;
