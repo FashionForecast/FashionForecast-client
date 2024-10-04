@@ -6,6 +6,7 @@ import Search from './pages/Search';
 import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 import LoginAuth from './pages/LoginAuth';
+import UserGender from './pages/UserGender';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: '/feedback', element: <Feedback /> },
       { path: '/login', element: <Login /> },
       { path: '/login/auth', element: <LoginAuth /> },
+      { path: '/user/gender', element: <UserGender /> },
     ],
   },
 ]) as ReturnType<typeof createBrowserRouter>;
