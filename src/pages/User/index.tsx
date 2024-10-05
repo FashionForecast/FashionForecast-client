@@ -1,5 +1,11 @@
+import UserHeader from './components/UserHeader';
+
 const User = () => {
-  return <div>사용자 페이지</div>;
+  return (
+    <div>
+      <UserHeader />
+    </div>
+  );
 };
 
 export default User;
