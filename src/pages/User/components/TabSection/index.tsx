@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Lookbook from './Lookbook';
+import LookbookList from './LookbookList';
 import MySetting from './MySetting';
 import LookbookIcon from '@/assets/svg/lookbook.svg?react';
 import SettingIcon from '@/assets/svg/setting.svg?react';
@@ -32,7 +32,7 @@ const TabSection = () => {
       </C.Tabs>
 
       <div>
-        {tab === '룩북' && <Lookbook />}
+        {tab === '룩북' && <LookbookList />}
         {tab === '내 설정' && <MySetting />}
       </div>
     </section>
