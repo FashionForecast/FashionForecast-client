@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import LookbookList from './LookbookList';
 import MySetting from './MySetting';
-import LookbookIcon from '@/assets/svg/lookbook.svg?react';
-import SettingIcon from '@/assets/svg/setting.svg?react';
+import BookFillIcon from '@/assets/svg/bookFill.svg?react';
+import BookOutlineIcon from '@/assets/svg/bookOutline.svg?react';
+import UserFillIcon from '@/assets/svg/userFill.svg?react';
+import UserOutlineIcon from '@/assets/svg/userOutline.svg?react';
 import { C } from './style';
 
 type TabState = '룩북' | '내 설정';
@@ -20,13 +22,13 @@ const TabSection = () => {
         <C.Tab
           value='룩북'
           label='룩북'
-          icon={<LookbookIcon />}
+          icon={tab === '룩북' ? <BookFillIcon /> : <BookOutlineIcon />}
           iconPosition='start'
         />
         <C.Tab
           value='내 설정'
           label='내 설정'
-          icon={<SettingIcon />}
+          icon={tab === '내 설정' ? <UserFillIcon /> : <UserOutlineIcon />}
           iconPosition='start'
         />
       </C.Tabs>
