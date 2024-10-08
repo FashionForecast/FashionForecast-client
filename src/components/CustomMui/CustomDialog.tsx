@@ -16,6 +16,7 @@ const DialogBase = styled(MuiDialog)`
 
   & .MuiDialogTitle-root {
     ${({ theme }) => theme.typo.h6}
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 
   & .MuiDialogActions-root {
