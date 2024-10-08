@@ -13,40 +13,12 @@ const ContentWrap = styled.div`
   flex-grow: 1;
 `;
 
-const List = styled.ul`
+const Ul = styled.ul`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 16px;
 
   &:first-of-type {
     margin-bottom: 32px;
-  }
-`;
-
-const ListItem = styled.li`
-  display: flex;
-  align-items: center;
-  padding: 12px 16px;
-  cursor: pointer;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.blueGrey.A30};
-
-  &.divider-thick {
-    border-bottom: 2px solid ${({ theme }) => theme.colors.primary.main};
-  }
-
-  &:last-of-type {
-    border-bottom: none;
-  }
-`;
-
-const TextWrap = styled.div`
-  margin-left: 16px;
-
-  & h6 {
-    ${({ theme }) => theme.typo['body-1']}
-  }
-
-  & span {
-    ${({ theme }) => theme.typo['body-2']}
   }
 `;
 
@@ -67,9 +39,7 @@ const Divder = styled.div`
 export const S = {
   MySettingWrap,
   ContentWrap,
-  List,
-  ListItem,
-  TextWrap,
+  Ul,
   Footer,
   Divder,
 };
