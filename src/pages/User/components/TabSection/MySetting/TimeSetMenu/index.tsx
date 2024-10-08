@@ -38,9 +38,8 @@ const TimeSetMenu = () => {
         <DialogContent>
           <FormControl>
             <RadioGroup
-              aria-labelledby='demo-radio-buttons-group-label'
-              defaultValue='female'
-              name='radio-buttons-group'
+              aria-labelledby='외출시간 라디오 그룹'
+              defaultValue='default value'
             >
               <CustomFormControlLabel
                 value='현재 시간으로부터 8시간 동안'

@@ -38,9 +38,8 @@ const ThicknessSetMenu = () => {
         <DialogContent>
           <FormControl>
             <RadioGroup
-              aria-labelledby='demo-radio-buttons-group-label'
-              defaultValue='female'
-              name='radio-buttons-group'
+              aria-labelledby='옷차림 두께 라디오 그룹'
+              defaultValue='default value'
             >
               <CustomFormControlLabel
                 value='시원하게'
