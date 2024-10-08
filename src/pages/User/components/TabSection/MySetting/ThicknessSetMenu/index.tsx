@@ -3,8 +3,6 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  FormControlLabel,
-  Radio,
   RadioGroup,
 } from '@mui/material';
 import MenuItem from '../MenuItem';
@@ -12,6 +10,8 @@ import TshirtIcon from '@/assets/svg/tshirt.svg?react';
 import { useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
+import CustomRadio from '@/components/CustomMui/CustomRadio';
+import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
 
 const ThicknessSetMenu = () => {
   const [open, setOpen] = useState(false);
@@ -42,19 +42,19 @@ const ThicknessSetMenu = () => {
               defaultValue='female'
               name='radio-buttons-group'
             >
-              <FormControlLabel
+              <CustomFormControlLabel
                 value='시원하게'
-                control={<Radio />}
+                control={<CustomRadio />}
                 label='시원하게'
               />
-              <FormControlLabel
+              <CustomFormControlLabel
                 value='적당하게'
-                control={<Radio />}
+                control={<CustomRadio />}
                 label='적당하게'
               />
-              <FormControlLabel
+              <CustomFormControlLabel
                 value='따뜻하게'
-                control={<Radio />}
+                control={<CustomRadio />}
                 label='따뜻하게'
               />
             </RadioGroup>

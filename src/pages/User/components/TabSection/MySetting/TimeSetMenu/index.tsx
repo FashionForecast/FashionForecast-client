@@ -3,8 +3,6 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  FormControlLabel,
-  Radio,
   RadioGroup,
 } from '@mui/material';
 import MenuItem from '../MenuItem';
@@ -12,6 +10,8 @@ import ClockIcon from '@/assets/svg/clock.svg?react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { useState } from 'react';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
+import CustomRadio from '@/components/CustomMui/CustomRadio';
+import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
 
 const TimeSetMenu = () => {
   const [open, setOpen] = useState(false);
@@ -42,14 +42,14 @@ const TimeSetMenu = () => {
               defaultValue='female'
               name='radio-buttons-group'
             >
-              <FormControlLabel
+              <CustomFormControlLabel
                 value='현재 시간으로부터 8시간 동안'
-                control={<Radio />}
+                control={<CustomRadio />}
                 label='현재 시간으로부터 8시간 동안'
               />
-              <FormControlLabel
+              <CustomFormControlLabel
                 value='직접 설정'
-                control={<Radio />}
+                control={<CustomRadio />}
                 label='직접 설정'
               />
             </RadioGroup>
