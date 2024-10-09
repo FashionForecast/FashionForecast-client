@@ -1,74 +1,33 @@
-import LocationIcon from '@/components/icon/Location';
-import ClockIcon from '@/assets/svg/clock.svg?react';
-import TshirtIcon from '@/assets/svg/tshirt.svg?react';
 import UserFillIcon from '@/assets/svg/userFill.svg?react';
 import LogoutIcon from '@/assets/svg/logout.svg?react';
 import FeedbackIcon from '@/assets/svg/feedback.svg?react';
-import { Icon } from '@mui/material';
 import { S } from './style';
 import CustomButton from '@/components/CustomMui/CustomButton';
+import MenuItem from './MenuItem';
+import RegionSetMenu from './RegionSetMenu';
+import TimeSetMenu from './TimeSetMenu';
+import ThicknessSetMenu from './ThicknessSetMenu';
 
 const MySetting = () => {
   return (
     <S.MySettingWrap>
       <S.ContentWrap>
-        <S.List>
-          <S.ListItem>
-            <Icon>
-              <LocationIcon />
-            </Icon>
-            <S.TextWrap>
-              <h6>기본 위치</h6>
-              <span>현재 위치</span>
-            </S.TextWrap>
-          </S.ListItem>
-          <S.ListItem>
-            <Icon>
-              <ClockIcon />
-            </Icon>
-            <S.TextWrap>
-              <h6>기본 외출시간</h6>
-              <span>오늘 오전 08시 - 오후 07시</span>
-            </S.TextWrap>
-          </S.ListItem>
-          <S.ListItem>
-            <Icon>
-              <TshirtIcon />
-            </Icon>
-            <S.TextWrap>
-              <h6>기본 옷차림 두께</h6>
-              <span>적당하게</span>
-            </S.TextWrap>
-          </S.ListItem>
-          <S.ListItem className='divider-thick'>
-            <Icon>
-              <UserFillIcon />
-            </Icon>
-            <S.TextWrap>
-              <h6>성별</h6>
-              <span>남성</span>
-            </S.TextWrap>
-          </S.ListItem>
-          <S.ListItem>
-            <Icon>
-              <LogoutIcon />
-            </Icon>
-            <S.TextWrap>
-              <h6>로그아웃</h6>
-            </S.TextWrap>
-          </S.ListItem>
-        </S.List>
+        <S.Ul>
+          <RegionSetMenu />
+          <TimeSetMenu />
+          <ThicknessSetMenu />
+          <MenuItem
+            title='성별'
+            value='남성'
+            icon={<UserFillIcon />}
+            dividerThick
+          />
+          <MenuItem title='로그아웃' icon={<LogoutIcon />} />
+        </S.Ul>
 
-        <S.List>
-          <S.ListItem>
-            <Icon>
-              <FeedbackIcon />
-            </Icon>
-            <S.TextWrap>
-              <h6>고객의 소리</h6>
-            </S.TextWrap>
-          </S.ListItem>
-        </S.List>
+        <S.Ul>
+          <MenuItem title='고객의 소리' icon={<FeedbackIcon />} />
+        </S.Ul>
       </S.ContentWrap>
 
       <S.Footer>
