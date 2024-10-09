@@ -8,6 +8,7 @@ const DAYS = ['오늘', '내일'];
 
 type TimeSelectorProps = {
   selectedTime: SelectedTime;
+  disabled: boolean;
   updateSelectedTime: (
     key: keyof SelectedTime,
     value: SelectedTime[keyof SelectedTime]
@@ -16,6 +17,7 @@ type TimeSelectorProps = {
 
 const UserTimeSelector = ({
   selectedTime,
+  disabled,
   updateSelectedTime,
 }: TimeSelectorProps) => {
   const endTimes = useMemo(
@@ -24,7 +26,7 @@ const UserTimeSelector = ({
   );
 
   return (
-    <S.TimeSelector>
+    <S.TimeSelector $disabled={disabled}>
       <TimeCarousel
         times={DAYS}
         type='day'

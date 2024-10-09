@@ -23,6 +23,7 @@ const TimeSetMenu = () => {
     end: TIME_LIST[0],
   });
   const [open, setOpen] = useState(false);
+  const [option, setOption] = useState('default value');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,6 +31,10 @@ const TimeSetMenu = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOption((event.target as HTMLInputElement).value);
   };
 
   const updateSelectedTime = (
@@ -55,6 +60,8 @@ const TimeSetMenu = () => {
             <RadioGroup
               aria-labelledby='외출시간 라디오 그룹'
               defaultValue='default value'
+              value={option}
+              onChange={handleOptionChange}
             >
               <CustomFormControlLabel
                 value='현재 시간으로부터 8시간 동안'
@@ -70,6 +77,7 @@ const TimeSetMenu = () => {
               <UserTimeSelector
                 selectedTime={selectedTime}
                 updateSelectedTime={updateSelectedTime}
+                disabled={option !== '직접 설정'}
               />
             </RadioGroup>
           </FormControl>
