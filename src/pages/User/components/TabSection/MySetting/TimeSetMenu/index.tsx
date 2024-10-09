@@ -12,8 +12,16 @@ import { useState } from 'react';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
+import { TIME_LIST } from '@/constants/timeSelector/data';
+import { SelectedTime } from '@/pages/Home';
+import UserTimeSelector from './UserTimeSelector';
 
 const TimeSetMenu = () => {
+  const [selectedTime, setSelectedTime] = useState<SelectedTime>({
+    day: '오늘',
+    start: TIME_LIST[0],
+    end: TIME_LIST[0],
+  });
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -22,6 +30,13 @@ const TimeSetMenu = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const updateSelectedTime = (
+    key: keyof SelectedTime,
+    value: SelectedTime[keyof SelectedTime]
+  ) => {
+    setSelectedTime((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
@@ -50,6 +65,11 @@ const TimeSetMenu = () => {
                 value='직접 설정'
                 control={<CustomRadio />}
                 label='직접 설정'
+              />
+
+              <UserTimeSelector
+                selectedTime={selectedTime}
+                updateSelectedTime={updateSelectedTime}
               />
             </RadioGroup>
           </FormControl>
