@@ -11,6 +11,8 @@ export default CustomDialog;
 
 const DialogBase = styled(MuiDialog)`
   & .MuiPaper-root {
+    width: 100%;
+    margin: 16px;
     border-radius: 16px;
   }
 
