@@ -13,6 +13,10 @@ const TimeSelector = styled.div<{ $disabled: boolean }>`
       pointer-events: none;
       opacity: 0.4;
     `}
+
+  @media (min-width: 600px) {
+    margin-left: 30px;
+  }
 `;
 
 const Hypen = styled.div`

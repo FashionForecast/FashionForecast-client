@@ -2,7 +2,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   RadioGroup,
 } from '@mui/material';
 import MenuItem from '../MenuItem';
@@ -15,6 +14,7 @@ import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabe
 import { TIME_LIST } from '@/constants/timeSelector/data';
 import { SelectedTime } from '@/pages/Home';
 import UserTimeSelector from './UserTimeSelector';
+import { C } from './style';
 
 const TimeSetMenu = () => {
   const [selectedTime, setSelectedTime] = useState<SelectedTime>({
@@ -56,7 +56,7 @@ const TimeSetMenu = () => {
       <CustomDialog fullWidth onClose={handleClose} open={open}>
         <DialogTitle>기본 외출시간</DialogTitle>
         <DialogContent>
-          <FormControl>
+          <C.FormControl>
             <RadioGroup
               aria-labelledby='외출시간 라디오 그룹'
               defaultValue='default value'
@@ -80,7 +80,7 @@ const TimeSetMenu = () => {
                 disabled={option !== '직접 설정'}
               />
             </RadioGroup>
-          </FormControl>
+          </C.FormControl>
         </DialogContent>
         <DialogActions>
           <CustomButton
