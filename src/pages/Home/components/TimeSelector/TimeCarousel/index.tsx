@@ -70,11 +70,6 @@ const TimeCarousel = ({
 
   return (
     <>
-      {/* {
-        <div>
-          {userSelected} {currentIndex}
-        </div>
-      } */}
       <S.Carousel
         ref={carouselRef}
         onPointerMove={handleDragging}
