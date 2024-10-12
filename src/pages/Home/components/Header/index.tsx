@@ -1,4 +1,3 @@
-import AccountIcon from '@/assets/svg/account.svg?react';
 import TriangleIcon from '@/assets/svg/triangle.svg?react';
 import { IconButton } from '@mui/material';
 import { C } from './style';
@@ -7,6 +6,7 @@ import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/Location';
 import { Link } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
+import UserAvatar from '@/components/UserAvatar';
 
 const Header = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
@@ -32,9 +32,7 @@ const Header = () => {
           </C.SearchLink>
 
           <Link to={user ? '/user' : '/login'}>
-            <IconButton>
-              <AccountIcon />
-            </IconButton>
+            <UserAvatar imageUrl={user?.imageUrl} />
           </Link>
         </CustomToolbar>
       </C.Paper>
