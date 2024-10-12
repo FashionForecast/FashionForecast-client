@@ -14,6 +14,11 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
+    setGender: (state, action: PayloadAction<string>) => {
+      if (state.user) {
+        state.user.gender = action.payload;
+      }
+    },
   },
 });
 
