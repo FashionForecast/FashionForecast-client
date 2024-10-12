@@ -12,15 +12,20 @@ const LoginAuth = () => {
 
   useEffect(() => {
     async function handleLogin() {
-      const accessToken = await storeAccessToken(dispatch);
-      const user = await storeUser(accessToken, dispatch);
+      try {
+        const accessToken = await storeAccessToken(dispatch);
+        const user = await storeUser(accessToken, dispatch);
 
-      if (!user?.gender) {
-        navigate('/user/gender');
-        return;
+        if (!user?.gender) {
+          navigate('/user/gender');
+          return;
+        }
+
+        navigate('/user');
+      } catch {
+        console.error('인증 과정중 문제가 발생했습니다.');
+        navigate('/login');
       }
-
-      navigate('/user');
     }
 
     if (isLoginSucess) {
