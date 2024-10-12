@@ -6,7 +6,7 @@ type PrivateLayoutProps = {
 };
 
 const PrivateRouteLayout = ({ children }: PrivateLayoutProps) => {
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.info);
   const { pathname } = useLocation();
 
   if (!user) return <Navigate to={'/login'} replace />;

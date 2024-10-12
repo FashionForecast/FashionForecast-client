@@ -10,7 +10,7 @@ import UserAvatar from '@/components/UserAvatar';
 
 const Header = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.info);
 
   return (
     <C.AppBar position='relative'>

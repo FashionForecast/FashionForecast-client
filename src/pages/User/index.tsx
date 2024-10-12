@@ -4,7 +4,7 @@ import TabSection from './components/TabSection';
 import useAppSelector from '@/hooks/useAppSelector';
 
 const User = () => {
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.info);
 
   return (
     <S.UserWrap>

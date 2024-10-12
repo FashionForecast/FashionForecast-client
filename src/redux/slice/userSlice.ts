@@ -2,21 +2,21 @@ import { User } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type UserState = {
-  user: User | null;
+  info: User | null;
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: null,
+    info: null,
   } as UserState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+      state.info = action.payload;
     },
     setGender: (state, action: PayloadAction<string>) => {
-      if (state.user) {
-        state.user.gender = action.payload;
+      if (state.info) {
+        state.info.gender = action.payload;
       }
     },
   },

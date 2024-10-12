@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
 
 const UserGenderHeader = () => {
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.info);
 
   return (
     <C.AppBar position='relative'>
