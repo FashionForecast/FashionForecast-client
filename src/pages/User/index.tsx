@@ -1,13 +1,16 @@
 import UserHeader from './components/UserHeader';
 import { S } from './style';
 import TabSection from './components/TabSection';
+import useAppSelector from '@/hooks/useAppSelector';
 
 const User = () => {
+  const user = useAppSelector((state) => state.user.info);
+
   return (
     <S.UserWrap>
       <UserHeader />
 
-      <S.Heading>안녕하세요 사용자님,</S.Heading>
+      <S.Heading>안녕하세요 {user?.nickname},</S.Heading>
 
       <TabSection />
     </S.UserWrap>

@@ -1,18 +1,20 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import * as S from './style';
 import { GUEST_UUID, LOGIN, MY_REGION } from '@/constants/localStorage/key';
 import { useMutation } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { guestLogin } from '@/service/login';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import A2hsSnackbar from './components/A2hsSnackbar';
 import { goelocationActions } from '@/redux/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
-import { storeAccessToken } from '@/utils/auth';
+import { storeAccessToken, storeUser } from '@/utils/auth';
 
 export default function RootLayout() {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
+  const [isLoggingIn, setIsLoggingIn] = useState(true);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { mutate: guestLoginMutate } = useMutation({
     mutationFn: guestLogin,
@@ -47,15 +49,35 @@ export default function RootLayout() {
     updateGPSRegion();
   }, []);
 
-  // 이전에 로그인 한 사용자라면, access token을 저장
+  // 이전에 로그인 한 사용자의 로그인 처리
   useEffect(() => {
+    async function handleLogin() {
+      try {
+        const accessToken = await storeAccessToken(dispatch);
+        const user = await storeUser(accessToken, dispatch);
+
+        if (!user?.gender) {
+          navigate('/user/gender');
+        }
+      } catch (error) {
+        console.error('자동 로그인에 실패했습니다.');
+        navigate('/login');
+      } finally {
+        setIsLoggingIn(false);
+      }
+    }
+
     const isPrevLoggedIn = localStorage.getItem(LOGIN);
 
     if (isPrevLoggedIn) {
-      storeAccessToken(dispatch);
+      handleLogin();
+      return;
     }
+
+    setIsLoggingIn(false);
   }, []);
 
+  if (isLoggingIn) return <></>;
   return (
     <S.Main>
       <Outlet />
