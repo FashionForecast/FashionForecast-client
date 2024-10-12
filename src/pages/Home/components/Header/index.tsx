@@ -10,6 +10,7 @@ import useAppSelector from '@/hooks/useAppSelector';
 
 const Header = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
+  const user = useAppSelector((state) => state.user.user);
 
   return (
     <C.AppBar position='relative'>
@@ -30,7 +31,7 @@ const Header = () => {
             </CustomButton>
           </C.SearchLink>
 
-          <Link to={'/login'}>
+          <Link to={user ? '/user' : '/login'}>
             <IconButton>
               <AccountIcon />
             </IconButton>
