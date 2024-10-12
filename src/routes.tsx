@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import LoginAuth from './pages/LoginAuth';
 import UserGender from './pages/UserGender';
 import User from './pages/User';
+import PrivateRouteLayout from './components/layout/PrivateRouteLayout';
 
 export const router = createBrowserRouter([
   {
@@ -22,8 +23,22 @@ export const router = createBrowserRouter([
       { path: '/feedback', element: <Feedback /> },
       { path: '/login', element: <Login /> },
       { path: '/login/auth', element: <LoginAuth /> },
-      { path: '/user', element: <User /> },
-      { path: '/user/gender', element: <UserGender /> },
+      {
+        path: '/user',
+        element: (
+          <PrivateRouteLayout>
+            <User />
+          </PrivateRouteLayout>
+        ),
+      },
+      {
+        path: '/user/gender',
+        element: (
+          <PrivateRouteLayout>
+            <UserGender />
+          </PrivateRouteLayout>
+        ),
+      },
     ],
   },
 ]) as ReturnType<typeof createBrowserRouter>;
