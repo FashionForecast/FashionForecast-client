@@ -5,14 +5,39 @@ import MaleImage from '@/assets/svg/gender/male.svg?react';
 import FemaleImage from '@/assets/svg/gender/female.svg?react';
 import { useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
+import { useMutation } from '@tanstack/react-query';
+import { setUserGender } from '@/service/auth';
+import useAppSelector from '@/hooks/useAppSelector';
+import { useNavigate } from 'react-router-dom';
+import useAppDispatch from '@/hooks/useAppDispatch';
+import { userActions } from '@/redux/slice/userSlice';
 
 const BUTTONS = [
-  { text: '남자', icon: <MaleImage /> },
-  { text: '여자', icon: <FemaleImage /> },
+  { text: '남자', value: 'MALE', icon: <MaleImage /> },
+  { text: '여자', value: 'FEMALE', icon: <FemaleImage /> },
 ];
 
 const UserGender = () => {
+  const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const dispatch = useAppDispatch();
   const [gender, setGender] = useState('');
+  const navigate = useNavigate();
+
+  const { mutate } = useMutation({
+    mutationFn: (accessToken: string) => setUserGender(gender, accessToken),
+  });
+
+  const handleSubmitClick = () => {
+    if (!gender || !accessToken) return;
+
+    mutate(accessToken, {
+      onSuccess: () => {
+        dispatch(userActions.setGender(gender));
+        navigate('/user');
+      },
+      onError: () => navigate('/login'),
+    });
+  };
 
   return (
     <S.UserGenderWrap>
@@ -29,12 +54,12 @@ const UserGender = () => {
         </p>
 
         <S.ButtonWrap>
-          {BUTTONS.map(({ text, icon }) => (
+          {BUTTONS.map(({ text, value, icon }) => (
             <S.GenderButton
               type='button'
               key={text}
-              onClick={() => setGender(text)}
-              $select={gender === text}
+              onClick={() => setGender(value)}
+              $select={gender === value}
             >
               <div className='icon'>{icon}</div>
               {text}
@@ -49,6 +74,7 @@ const UserGender = () => {
           size='large'
           fullWidth
           disabled={!gender}
+          onClick={handleSubmitClick}
         >
           개인화된 OOTC 시작하기
         </CustomButton>
