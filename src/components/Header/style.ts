@@ -3,6 +3,7 @@ import CustomAppBar from '../CustomMui/CustomAppBar';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { HeaderColor, HeaderPosition } from '.';
 import { css, Theme } from '@emotion/react';
+import { MAX_WIDTH } from '@/constants/css/value';
 
 const AppBar = styled(CustomAppBar, forwardPropOption)<{
   $color: HeaderColor;
@@ -17,7 +18,7 @@ const AppBar = styled(CustomAppBar, forwardPropOption)<{
       position: fixed;
       top: 0;
       left: 50%;
-      max-width: 768px;
+      max-width: ${MAX_WIDTH};
       border-bottom: 1px solid ${theme.colors.blueGrey[300]};
       transform: translateX(-50%);
     `}

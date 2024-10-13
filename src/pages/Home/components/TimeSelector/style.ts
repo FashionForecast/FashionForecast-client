@@ -3,6 +3,7 @@ import { colors } from '@/styles/colors';
 import { css } from '@mui/material';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import CustomButton from '@/components/CustomMui/CustomButton';
+import { MAX_WIDTH } from '@/constants/css/value';
 
 const TimeSelector = styled.section`
   position: fixed;
@@ -12,7 +13,7 @@ const TimeSelector = styled.section`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 768px;
+  max-width: ${MAX_WIDTH};
   touch-action: none;
   border-top: 1px solid ${({ theme }) => theme.colors.elevation.outlined};
   transform: translateX(-50%);

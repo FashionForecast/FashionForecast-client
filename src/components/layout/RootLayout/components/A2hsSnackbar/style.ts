@@ -1,12 +1,13 @@
 import CustomButton from '@/components/CustomMui/CustomButton';
 import CustomSnackbar from '@/components/CustomMui/CustomSnackbar';
+import { MAX_WIDTH } from '@/constants/css/value';
 import styled from '@emotion/styled';
 
 const Snackbar = styled(CustomSnackbar)`
   position: fixed;
   bottom: 80px;
   width: 100%;
-  max-width: 768px;
+  max-width: ${MAX_WIDTH};
   padding: 0 16px;
   touch-action: none;
   cursor: grab;
