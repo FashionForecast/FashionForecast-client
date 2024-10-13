@@ -1,11 +1,26 @@
 import styled from '@emotion/styled';
 import CustomAppBar from '../CustomMui/CustomAppBar';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
-import { HeaderColor } from '.';
-import { Theme } from '@emotion/react';
+import { HeaderColor, HeaderPosition } from '.';
+import { css, Theme } from '@emotion/react';
 
-const AppBar = styled(CustomAppBar, forwardPropOption)<{ $color: HeaderColor }>`
+const AppBar = styled(CustomAppBar, forwardPropOption)<{
+  $color: HeaderColor;
+  $position: HeaderPosition;
+}>`
+  position: relative;
   background-color: ${({ $color, theme }) => getColor($color, theme)};
+
+  ${({ $position, theme }) =>
+    $position === 'fixed' &&
+    css`
+      position: fixed;
+      top: 0;
+      left: 50%;
+      max-width: 768px;
+      border-bottom: 1px solid ${theme.colors.blueGrey[300]};
+      transform: translateX(-50%);
+    `}
 
   & .MuiPaper-root {
     background-color: ${({ $color, theme }) => getColor($color, theme)};

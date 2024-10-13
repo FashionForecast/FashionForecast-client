@@ -1,17 +1,27 @@
 import CustomToolbar from '../CustomMui/CustomToolbar';
 import { C } from './style';
 import CustomPaper from '../CustomMui/CustomPaper';
+import { AppBarOwnProps } from '@mui/material';
 
 export type HeaderColor = 'blueGrey' | 'white';
+export type HeaderPosition = Extract<
+  AppBarOwnProps['position'],
+  'relative' | 'fixed'
+>;
 
 type HeaderProps = {
   color?: HeaderColor;
+  position?: HeaderPosition;
   children: React.ReactNode;
 };
 
-const Header = ({ color = 'blueGrey', children }: HeaderProps) => {
+const Header = ({
+  color = 'blueGrey',
+  position = 'relative',
+  children,
+}: HeaderProps) => {
   return (
-    <C.AppBar position='relative' $color={color}>
+    <C.AppBar $color={color} $position={position}>
       <CustomPaper>
         <CustomToolbar>{children}</CustomToolbar>
       </CustomPaper>
