@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
 import UserAvatar from '@/components/UserAvatar';
 
-const Header = () => {
+const MainHeader = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const user = useAppSelector((state) => state.user.info);
 
@@ -40,4 +40,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default MainHeader;

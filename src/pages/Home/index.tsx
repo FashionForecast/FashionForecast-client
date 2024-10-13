@@ -2,7 +2,7 @@ import useAppSelector from '@/hooks/useAppSelector';
 import { getWeather } from '@/service/weather';
 import { useQuery } from '@tanstack/react-query';
 import WeatherCard from './components/WeatherCard';
-import Header from './components/Header';
+import MainHeader from './components/MainHeader';
 import RecommendClothes from './components/RecommendClothes';
 import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
@@ -50,7 +50,7 @@ const Home = () => {
 
   return (
     <S.HomeWrap>
-      <Header />
+      <MainHeader />
 
       {isError && <NetworkError handleRefetch={refetch} />}
 
