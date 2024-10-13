@@ -1,7 +1,6 @@
 import UserAvatar from '@/components/UserAvatar';
 import { C } from './style';
 import { IconButton } from '@mui/material';
-import { Link } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
 
 const UserGenderHeader = () => {
@@ -11,11 +10,9 @@ const UserGenderHeader = () => {
     <C.AppBar position='relative'>
       <C.Paper>
         <C.Toolbar>
-          <Link to={'/'}>
-            <IconButton>
-              <img src='/logo.svg' alt='로고 이미지' />
-            </IconButton>
-          </Link>
+          <IconButton disableRipple>
+            <img src='/logo.svg' alt='로고 이미지' />
+          </IconButton>
 
           <UserAvatar imageUrl={user?.imageUrl} />
         </C.Toolbar>
