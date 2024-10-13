@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import * as S from './style';
 import { GUEST_UUID, LOGIN, MY_REGION } from '@/constants/localStorage/key';
 import { useMutation } from '@tanstack/react-query';
@@ -9,10 +9,13 @@ import A2hsSnackbar from './components/A2hsSnackbar';
 import { goelocationActions } from '@/redux/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
 import { storeAccessToken, storeUser } from '@/utils/auth';
+import useAppSelector from '@/hooks/useAppSelector';
 
 export default function RootLayout() {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
+  const user = useAppSelector((state) => state.user.info);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
+  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -54,11 +57,7 @@ export default function RootLayout() {
     async function handleLogin() {
       try {
         const accessToken = await storeAccessToken(dispatch);
-        const user = await storeUser(accessToken, dispatch);
-
-        if (!user?.gender) {
-          navigate('/user/gender');
-        }
+        await storeUser(accessToken, dispatch);
       } catch (error) {
         console.error('자동 로그인에 실패했습니다.');
         navigate('/login');
@@ -76,6 +75,13 @@ export default function RootLayout() {
 
     setIsLoggingIn(false);
   }, []);
+
+  // 성별이 설정되어 있지 않으면, 성별 설정 페이지로 이동
+  useEffect(() => {
+    if (user && !user.gender) {
+      navigate('/user/gender');
+    }
+  }, [pathname, user?.gender]);
 
   if (isLoggingIn) return <></>;
   return (
