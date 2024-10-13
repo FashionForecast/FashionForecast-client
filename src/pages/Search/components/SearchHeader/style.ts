@@ -1,14 +1,4 @@
-import CustomAppBar from '@/components/CustomMui/CustomAppBar';
 import styled from '@emotion/styled';
-
-const AppBar = styled(CustomAppBar)`
-  position: fixed;
-  top: 0;
-  left: 50%;
-  max-width: 768px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.blueGrey[300]};
-  transform: translateX(-50%);
-`;
 
 const InputWrapper = styled.div`
   position: relative;
@@ -32,8 +22,4 @@ const CancleButton = styled.button`
 export const S = {
   InputWrapper,
   CancleButton,
-};
-
-export const C = {
-  AppBar,
 };
