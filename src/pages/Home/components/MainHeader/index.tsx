@@ -1,42 +1,38 @@
 import TriangleIcon from '@/assets/svg/triangle.svg?react';
 import { IconButton } from '@mui/material';
 import { C } from './style';
-import CustomToolbar from '@/components/CustomMui/CustomToolbar';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/Location';
 import { Link } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
 import UserAvatar from '@/components/UserAvatar';
+import Header from '@/components/Header';
 
 const MainHeader = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const user = useAppSelector((state) => state.user.info);
 
   return (
-    <C.AppBar position='relative'>
-      <C.Paper>
-        <CustomToolbar>
-          <IconButton>
-            <img src='/logo.svg' alt='로고 이미지' />
-          </IconButton>
+    <Header>
+      <IconButton>
+        <img src='/logo.svg' alt='로고 이미지' />
+      </IconButton>
 
-          <C.SearchLink to={'/search'}>
-            <CustomButton
-              startIcon={geolocation?.isGPS && <LocationIcon />}
-              endIcon={<TriangleIcon />}
-              color='inherit'
-              fullWidth
-            >
-              {geolocation?.region}
-            </CustomButton>
-          </C.SearchLink>
+      <C.SearchLink to={'/search'}>
+        <CustomButton
+          startIcon={geolocation?.isGPS && <LocationIcon />}
+          endIcon={<TriangleIcon />}
+          color='inherit'
+          fullWidth
+        >
+          {geolocation?.region}
+        </CustomButton>
+      </C.SearchLink>
 
-          <Link to={user ? '/user' : '/login'}>
-            <UserAvatar imageUrl={user?.imageUrl} />
-          </Link>
-        </CustomToolbar>
-      </C.Paper>
-    </C.AppBar>
+      <Link to={user ? '/user' : '/login'}>
+        <UserAvatar imageUrl={user?.imageUrl} />
+      </Link>
+    </Header>
   );
 };
 
