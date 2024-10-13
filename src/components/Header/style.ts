@@ -25,6 +25,11 @@ const AppBar = styled(CustomAppBar, forwardPropOption)<{
   & .MuiPaper-root {
     background-color: ${({ $color, theme }) => getColor($color, theme)};
   }
+
+  & .MuiToolbar-root {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export const C = { AppBar };
