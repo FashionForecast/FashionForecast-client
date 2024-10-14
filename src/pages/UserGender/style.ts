@@ -14,7 +14,7 @@ const SectionWrap = styled.section`
   align-items: center;
   padding: 64px 16px 0;
 
-  & title {
+  & h3 {
     ${({ theme }) => theme.typo['subtitle-1']}
     display: inline-flex;
     margin: 16px 0;
@@ -26,6 +26,14 @@ const SectionWrap = styled.section`
     margin-bottom: 64px;
     text-align: center;
   }
+`;
+
+const ImageWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
 `;
 
 const ButtonWrap = styled.div`
@@ -84,6 +92,7 @@ const SubmitButtonWrap = styled.div`
 export const S = {
   UserGenderWrap,
   SectionWrap,
+  ImageWrap,
   ButtonWrap,
   GenderButton,
   SubmitButtonWrap,

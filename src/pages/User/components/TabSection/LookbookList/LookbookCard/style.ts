@@ -32,15 +32,32 @@ const IconBtn = styled(IconButton)`
 
 const ClothesList = styled.ol`
   display: flex;
+  gap: 12px;
   margin-top: 8px;
 `;
 
 const ClothesItem = styled.li`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 64px;
 `;
 
-export const S = { LookbookCardWrap, CardHeader, ClothesList, ClothesItem };
+const Top = styled.div`
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  height: 64px;
+`;
+
+export const S = {
+  LookbookCardWrap,
+  CardHeader,
+  ClothesList,
+  ClothesItem,
+  Top,
+};
 
 export const C = { IconBtn };
 

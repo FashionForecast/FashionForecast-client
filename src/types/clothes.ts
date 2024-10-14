@@ -1,3 +1,7 @@
+export type ClothesProps = {
+  color?: string;
+};
+
 export type ClothesImageName =
   | '민소매'
   | '반팔티'

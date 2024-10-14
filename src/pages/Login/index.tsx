@@ -2,7 +2,10 @@ import LoginFooter from './components/LoginFooter';
 import LoginHeader from './components/LoginHeader';
 import KaKaoIcon from '@/assets/svg/social/kakao.svg?react';
 import GoogleIcon from '@/assets/svg/social/google.svg?react';
-import ClothesImage from '@/assets/svg/loginClothes.svg?react';
+import 청바지 from '@/components/clothes/청바지';
+import 바지 from '@/components/clothes/바지';
+import 반팔티 from '@/components/clothes/반팔티';
+import 코트 from '@/components/clothes/코트';
 import { C, S } from './style';
 
 export type SocialType = {
@@ -28,9 +31,18 @@ const Login = () => {
       <LoginHeader />
 
       <S.MainWrap>
-        <ClothesImage />
+        <S.ImageSection>
+          <S.ImageWrap>
+            <코트 color='#53616F' />
+            <반팔티 color='#FB9FE1' />
+          </S.ImageWrap>
+          <S.ImageWrap>
+            <바지 color='#FFEF9B' />
+            <청바지 color='#2160A9' />
+          </S.ImageWrap>
+        </S.ImageSection>
 
-        <title>나의 옷장을 날씨에 담아보세요</title>
+        <h3>나의 옷장을 날씨에 담아보세요</h3>
 
         <p>
           오늘 날씨를 고민할 필요 없이

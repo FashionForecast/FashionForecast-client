@@ -1,6 +1,5 @@
 import { S } from './style';
 import UserGenderHeader from './UserGenderHeader';
-import 바지 from '@/assets/svg/clothes/바지.svg?react';
 import MaleImage from '@/assets/svg/gender/male.svg?react';
 import FemaleImage from '@/assets/svg/gender/female.svg?react';
 import { useState } from 'react';
@@ -11,6 +10,7 @@ import useAppSelector from '@/hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { userActions } from '@/redux/slice/userSlice';
+import 바지 from '@/components/clothes/바지';
 
 const BUTTONS = [
   { text: '남자', value: 'MALE', icon: <MaleImage /> },
@@ -44,8 +44,10 @@ const UserGender = () => {
       <UserGenderHeader />
 
       <S.SectionWrap>
-        <바지 />
-        <title>거의 다 왔어요!</title>
+        <S.ImageWrap>
+          <바지 />
+        </S.ImageWrap>
+        <h3>거의 다 왔어요!</h3>
 
         <p>
           나에게 딱 맞는 옷차림을 알려줄 수 있도록
