@@ -18,17 +18,37 @@ const MainWrap = styled.div`
   padding: 30px 16px 16px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 
-  & title {
+  & h3 {
     ${({ theme }) => theme.typo['subtitle-1']}
-    display: inline-flex;
     margin: 32px 0 16px;
-    font-weight: bold;
   }
 
   & p {
     ${({ theme }) => theme.typo['body-2']}
     margin-bottom: 32px;
     text-align: center;
+  }
+`;
+
+const ImageSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+
+const ImageWrap = styled.div`
+  display: flex;
+
+  & svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+
+    &:first-of-type {
+      margin-right: 32px;
+    }
   }
 `;
 
@@ -57,6 +77,8 @@ const SocialButton = styled(CustomButton, forwardPropOption)<{
 export const S = {
   LoginWrap,
   MainWrap,
+  ImageSection,
+  ImageWrap,
   ButtonWrap,
 };
 

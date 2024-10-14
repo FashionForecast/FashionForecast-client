@@ -39,6 +39,8 @@ const ImageWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 64px;
+  height: 64px;
   margin: 0 32px 0 16px;
 `;
 
