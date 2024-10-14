@@ -1,27 +1,28 @@
-import 민소매 from '@/assets/svg/clothes/민소매.svg?react';
-import 반팔티 from '@/assets/svg/clothes/반팔티.svg?react';
-import 긴팔티 from '@/assets/svg/clothes/긴팔티.svg?react';
-import 후드티 from '@/assets/svg/clothes/후드티.svg?react';
-import 니트 from '@/assets/svg/clothes/니트.svg?react';
-import 트렌치코트 from '@/assets/svg/clothes/트렌치코트.svg?react';
-import 코트 from '@/assets/svg/clothes/코트.svg?react';
-import 패딩 from '@/assets/svg/clothes/패딩.svg?react';
-import 반바지 from '@/assets/svg/clothes/반바지.svg?react';
-import 바지 from '@/assets/svg/clothes/바지.svg?react';
-import 청바지 from '@/assets/svg/clothes/청바지.svg?react';
-import 겉옷 from '@/assets/svg/clothes/겉옷.svg?react';
-import 접이식우산 from '@/assets/svg/clothes/접이식우산.svg?react';
-import 장우산 from '@/assets/svg/clothes/장우산.svg?react';
-import 히트텍 from '@/assets/svg/clothes/히트텍.svg?react';
-import 목도리 from '@/assets/svg/clothes/목도리.svg?react';
-import 겉옷장우산 from '@/assets/svg/clothes/겉옷장우산.svg?react';
-import 겉옷접이식우산 from '@/assets/svg/clothes/겉옷접이식우산.svg?react';
+import 민소매 from '@/components/clothes/민소매';
+import 반팔티 from '@/components/clothes/반팔티';
+import 긴팔티 from '@/components/clothes/긴팔티';
+import 후드티 from '@/components/clothes/후드티';
+import 니트 from '@/components/clothes/니트';
+import 트렌치코트 from '@/components/clothes/트렌치코트';
+import 코트 from '@/components/clothes/코트';
+import 패딩 from '@/components/clothes/패딩';
+import 반바지 from '@/components/clothes/반바지';
+import 바지 from '@/components/clothes/바지';
+import 청바지 from '@/components/clothes/청바지';
+import 기모바지 from '@/components/clothes/기모바지';
+import 겉옷 from '@/components/clothes/겉옷';
+import 접이식우산 from '@/components/clothes/접이식우산';
+import 장우산 from '@/components/clothes/장우산';
+import 히트텍 from '@/components/clothes/히트텍';
+import 목도리 from '@/components/clothes/목도리';
+import 겉옷장우산 from '@/components/clothes/겉옷장우산';
+import 겉옷접이식우산 from '@/components/clothes/겉옷접이식우산';
 
 import { ClothesImageName } from '@/types/clothes';
 
 const clothesImage: Partial<
   Record<
-    | Exclude<ClothesImageName, '슬랙스' | '면바지' | '기모 바지'>
+    | Exclude<ClothesImageName, '슬랙스' | '면바지'>
     | '바지'
     | '겉옷장우산'
     | '겉옷접이식우산',
@@ -40,7 +41,7 @@ const clothesImage: Partial<
   코트,
   패딩,
   반바지,
-  바지, // 슬랙스 = 면바지 = 기모 바지 이미지 동일
+  바지, // 슬랙스 = 면바지 이미지 동일
   청바지,
   겉옷,
   장우산,
@@ -49,6 +50,7 @@ const clothesImage: Partial<
   겉옷장우산,
   겉옷접이식우산,
   '트렌치 코트': 트렌치코트,
+  '기모 바지': 기모바지,
   '접이식 우산': 접이식우산,
 };
 
