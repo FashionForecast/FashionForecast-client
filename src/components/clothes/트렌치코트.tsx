@@ -39,21 +39,21 @@ const 트렌치코트 = ({ color = '#F8AF20' }: ClothesProps) => {
       <path
         d='M8 9L10 31V37L8 59H40L38 37V31L40 9'
         stroke='#434D58'
-        stroke-width='2'
+        strokeWidth='2'
       />
       <path
         d='M38 42L45 41L41 9L35 7L31 3H17L13 7L7 9L3 41L10 42'
         stroke='#434D58'
-        stroke-width='2'
+        strokeWidth='2'
       />
-      <path d='M45 40L38 41' stroke='#434D58' stroke-width='2' />
-      <path d='M3 40L10 41' stroke='#434D58' stroke-width='2' />
-      <path d='M10 31H38' stroke='#434D58' stroke-width='2' />
-      <path d='M10 37H38' stroke='#434D58' stroke-width='2' />
-      <path d='M17 3L28 22V31M28 37L24 59' stroke='#434D58' stroke-width='2' />
-      <path d='M13 7L16 15L28 22' stroke='#434D58' stroke-width='2' />
-      <path d='M35 7L32 15L26.5 19' stroke='#434D58' stroke-width='2' />
-      <path d='M31 3L24 15.5' stroke='#434D58' stroke-width='2' />
+      <path d='M45 40L38 41' stroke='#434D58' strokeWidth='2' />
+      <path d='M3 40L10 41' stroke='#434D58' strokeWidth='2' />
+      <path d='M10 31H38' stroke='#434D58' strokeWidth='2' />
+      <path d='M10 37H38' stroke='#434D58' strokeWidth='2' />
+      <path d='M17 3L28 22V31M28 37L24 59' stroke='#434D58' strokeWidth='2' />
+      <path d='M13 7L16 15L28 22' stroke='#434D58' strokeWidth='2' />
+      <path d='M35 7L32 15L26.5 19' stroke='#434D58' strokeWidth='2' />
+      <path d='M31 3L24 15.5' stroke='#434D58' strokeWidth='2' />
       <circle cx='21.5' cy='43.5' r='1.5' fill='#434D58' />
       <circle cx='21.5' cy='24.5' r='1.5' fill='#434D58' />
     </svg>
