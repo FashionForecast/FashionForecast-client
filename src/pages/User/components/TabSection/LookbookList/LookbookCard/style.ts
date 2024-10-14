@@ -41,6 +41,7 @@ const ClothesItem = styled.li`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 64px;
 `;
 
 const Top = styled.div`
