@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import LookbookCreateHeader from './components/LookbookCreateHeader';
+import { S } from './style';
 
 const UserLookbookCreate = () => {
   const [searchParams] = useSearchParams();
@@ -16,9 +17,9 @@ const UserLookbookCreate = () => {
   }, []);
 
   return (
-    <div>
+    <S.PageWrap>
       <LookbookCreateHeader />
-    </div>
+    </S.PageWrap>
   );
 };
 
