@@ -1,26 +1,32 @@
-import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import LookbookCreateHeader from './components/LookbookCreateHeader';
 import { S } from './style';
+import TypeHeadline from './components/TypeHeadline';
+import { WeatherType } from '@/types/weather';
 
 const UserLookbookCreate = () => {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const typeParam = searchParams.get('type');
 
-  // type이 1 ~ 8 아닌 경우, /user 페이지로 이동
-  useEffect(() => {
-    const typeNumber = Number(searchParams.get('type'));
-
-    if (!Number.isInteger(typeNumber) || typeNumber <= 0 || typeNumber >= 9) {
-      navigate('/user');
-    }
-  }, []);
-
+  if (isInvalidParam(typeParam)) return <Navigate to={'/user'} />;
   return (
     <S.PageWrap>
       <LookbookCreateHeader />
+      <TypeHeadline type={typeParam as WeatherType} />
     </S.PageWrap>
   );
 };
 
 export default UserLookbookCreate;
+
+// type이 1~8 사이가 아니면, 유효하지 않은 parameter
+function isInvalidParam(typeParam: string | null) {
+  const typeNumber = Number(typeParam);
+
+  return (
+    !typeParam ||
+    !Number.isInteger(typeNumber) ||
+    typeNumber <= 0 ||
+    typeNumber >= 9
+  );
+}
