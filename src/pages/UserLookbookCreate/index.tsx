@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import LookbookCreateHeader from './components/LookbookCreateHeader';
 
 const UserLookbookCreate = () => {
   const [searchParams] = useSearchParams();
@@ -14,7 +15,11 @@ const UserLookbookCreate = () => {
     }
   }, []);
 
-  return <div>룩북 만들기 페이지 {searchParams.get('type')}</div>;
+  return (
+    <div>
+      <LookbookCreateHeader />
+    </div>
+  );
 };
 
 export default UserLookbookCreate;
