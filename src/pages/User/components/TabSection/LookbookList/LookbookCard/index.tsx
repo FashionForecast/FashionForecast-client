@@ -7,8 +7,7 @@ import 반바지 from '@/components/clothes/반바지';
 import 코트 from '@/components/clothes/코트';
 import 바지 from '@/components/clothes/바지';
 import { Link } from 'react-router-dom';
-
-export type WeatherType = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
+import { WeatherType } from '@/types/weather';
 
 type LookbookCardProps = {
   type: WeatherType;

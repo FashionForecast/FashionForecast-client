@@ -1,11 +1,12 @@
+import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
+import { WeatherType } from '@/types/weather';
 import styled from '@emotion/styled';
-import { WeatherType } from '.';
 import { IconButton } from '@mui/material';
 
 const LookbookCardWrap = styled.li<{ $color: WeatherType }>`
   padding: 12px 16px;
   margin: 0 16px 8px;
-  background-color: ${({ $color }) => lookbookColorByWeather[$color]};
+  background-color: ${({ $color }) => LOOKBOOK_WEATHER_TYPE[$color].color};
   border-radius: 16px;
 `;
 
@@ -60,14 +61,3 @@ export const S = {
 };
 
 export const C = { IconBtn };
-
-const lookbookColorByWeather = {
-  '1': '#FFC8C0',
-  '2': '#FFCA98',
-  '3': '#F2D41B',
-  '4': '#CAE02A',
-  '5': '#7FEB90',
-  '6': '#68E7E8',
-  '7': '#B4D8FF',
-  '8': '#D4D0FD',
-};
