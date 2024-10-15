@@ -6,6 +6,7 @@ import 민소매 from '@/components/clothes/민소매';
 import 반바지 from '@/components/clothes/반바지';
 import 코트 from '@/components/clothes/코트';
 import 바지 from '@/components/clothes/바지';
+import { Link } from 'react-router-dom';
 
 export type WeatherType = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
 
@@ -20,11 +21,11 @@ const LookbookCard = ({ type, title }: LookbookCardProps) => {
       <S.CardHeader>
         <span>계절 {type}</span>
         <h3>{title}</h3>
-        <div>
+        <Link to={`/user/lookbook/create?type=${type}`}>
           <C.IconBtn>
             <Add />
           </C.IconBtn>
-        </div>
+        </Link>
       </S.CardHeader>
 
       <S.ClothesList>
