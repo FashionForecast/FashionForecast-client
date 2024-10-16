@@ -1,8 +1,8 @@
 import { useKeenSlider } from 'keen-slider/react';
 import { MAN_TOP_COLTHES } from '@/constants/Lookbook/data';
 import { useState } from 'react';
-import { S } from './style';
-import 'keen-slider/keen-slider.min.css';
+import SliderItem from '../components/SliderItem';
+import SliderList from '../components/SliderList';
 
 const TopList = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,7 +11,7 @@ const TopList = () => {
     slides: {
       origin: 'center',
       perView: 'auto',
-      spacing: -48,
+      spacing: -32,
     },
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
@@ -19,17 +19,13 @@ const TopList = () => {
   });
 
   return (
-    <S.SliderList ref={sliderRef} className='keen-slider'>
+    <SliderList ref={sliderRef}>
       {MAN_TOP_COLTHES.map(({ name, Clothes }, i) => (
-        <S.ClothesItem
-          key={name}
-          className='keen-slider__slide'
-          $isSelected={currentSlide === i}
-        >
+        <SliderItem key={name} $isSelected={currentSlide === i}>
           <Clothes color='white' />
-        </S.ClothesItem>
+        </SliderItem>
       ))}
-    </S.SliderList>
+    </SliderList>
   );
 };
 
