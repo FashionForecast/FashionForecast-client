@@ -6,6 +6,7 @@ import { ClothesSliderItem } from '@/types/clothes';
 
 type ClotehsSliderProps = {
   items: ClothesSliderItem[];
+  initial: number;
   $isFocussingSlider: boolean;
   handleSliderClick: () => void;
 };
@@ -13,9 +14,10 @@ type ClotehsSliderProps = {
 const ClothesSlider = ({
   items,
   $isFocussingSlider,
+  initial = 0,
   handleSliderClick,
 }: ClotehsSliderProps) => {
-  const [currentItem, setCurrentItem] = useState(0);
+  const [currentItem, setCurrentItem] = useState(initial);
   const [sliderRef] = useKeenSlider({
     mode: 'snap',
     slides: {
@@ -23,6 +25,7 @@ const ClothesSlider = ({
       perView: 'auto',
       spacing: -32,
     },
+    initial: initial,
     slideChanged(slider) {
       setCurrentItem(slider.track.details.rel);
     },

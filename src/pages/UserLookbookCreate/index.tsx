@@ -16,7 +16,7 @@ const UserLookbookCreate = () => {
 
       <TypeHeadline type={typeParam as WeatherType} />
 
-      <Showcase />
+      <Showcase type={typeParam as WeatherType} />
     </S.PageWrap>
   );
 };
