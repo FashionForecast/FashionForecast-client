@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import BottomList from './BottomList';
 import { S } from './style';
-import TopList from './TopList';
+import ClothesSlider from './components/ClothesSlider';
+import { MAN_BOTTOM_CLOTHES, MAN_TOP_COLTHES } from '@/constants/Lookbook/data';
 
 export type SliderType = 'TOP' | 'BOTTOM' | null;
 
@@ -15,13 +15,15 @@ const Showcase = () => {
     <>
       <S.ShowcaseWrap $isFocussing={targetSlider}>
         <S.TopWrap>
-          <TopList
+          <ClothesSlider
+            items={MAN_TOP_COLTHES}
             $isFocussingSlider={targetSlider === 'TOP'}
             handleSliderClick={handleSliderClick('TOP')}
           />
         </S.TopWrap>
 
-        <BottomList
+        <ClothesSlider
+          items={MAN_BOTTOM_CLOTHES}
           $isFocussingSlider={targetSlider === 'BOTTOM'}
           handleSliderClick={handleSliderClick('BOTTOM')}
         />

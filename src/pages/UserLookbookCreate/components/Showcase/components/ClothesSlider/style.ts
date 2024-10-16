@@ -1,6 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+const SliderList = styled.ol`
+  align-items: center;
+`;
+
 const SliderItem = styled.li<{
   $isFocussingSlider: boolean;
   $isSelected: boolean;
@@ -44,5 +48,6 @@ const SliderItem = styled.li<{
 `;
 
 export const S = {
+  SliderList,
   SliderItem,
 };
