@@ -7,6 +7,10 @@ import 니트 from '@/components/clothes/니트';
 import 트렌치코트 from '@/components/clothes/트렌치코트';
 import 코트 from '@/components/clothes/코트';
 import 패딩 from '@/components/clothes/패딩';
+import 반바지 from '@/components/clothes/반바지';
+import 바지 from '@/components/clothes/바지';
+import 청바지 from '@/components/clothes/청바지';
+import 기모바지 from '@/components/clothes/기모바지';
 
 export const LOOKBOOK_WEATHER_TYPE: Record<
   WeatherType,
@@ -55,4 +59,11 @@ export const MAN_TOP_COLTHES = [
   { name: '트렌치코트', Clothes: 트렌치코트 },
   { name: '코트', Clothes: 코트 },
   { name: '패딩', Clothes: 패딩 },
+];
+
+export const MAN_BOTTOM_CLOTHES = [
+  { name: '반바지', Clothes: 반바지 },
+  { name: '바지', Clothes: 바지 },
+  { name: '청바지', Clothes: 청바지 },
+  { name: '기모바지', Clothes: 기모바지 },
 ];
