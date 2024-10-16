@@ -4,7 +4,15 @@ import { useState } from 'react';
 import SliderItem from '../components/SliderItem';
 import SliderList from '../components/SliderList';
 
-const BottomList = () => {
+type TopListProps = {
+  $isFocussingSlider: boolean;
+  handleSliderClick: () => void;
+};
+
+const BottomList = ({
+  $isFocussingSlider: isFocussingSlider,
+  handleSliderClick,
+}: TopListProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef] = useKeenSlider({
     mode: 'snap',
@@ -19,10 +27,14 @@ const BottomList = () => {
   });
 
   return (
-    <SliderList ref={sliderRef}>
+    <SliderList ref={sliderRef} handleSliderClick={handleSliderClick}>
       {MAN_BOTTOM_CLOTHES.map(({ name, Clothes }, i) => (
-        <SliderItem key={name} $isSelected={currentSlide === i}>
-          <Clothes color='white' />
+        <SliderItem
+          key={name}
+          $isFocussingSlider={isFocussingSlider}
+          $isSelected={currentSlide === i}
+        >
+          <Clothes color={currentSlide === i ? 'white' : 'transparent'} />
         </SliderItem>
       ))}
     </SliderList>

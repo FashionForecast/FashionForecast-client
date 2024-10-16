@@ -3,16 +3,21 @@ import { S } from './style';
 import 'keen-slider/keen-slider.min.css';
 
 type SliderListProps = {
+  handleSliderClick: () => void;
   children: React.ReactNode;
 };
 
 const SliderList = forwardRef(
   (
-    { children }: SliderListProps,
+    { handleSliderClick, children }: SliderListProps,
     sliderRef: React.ForwardedRef<HTMLOListElement>
   ) => {
     return (
-      <S.SliderList ref={sliderRef} className='keen-slider'>
+      <S.SliderList
+        ref={sliderRef}
+        className='keen-slider'
+        onClick={handleSliderClick}
+      >
         {children}
       </S.SliderList>
     );

@@ -2,12 +2,21 @@ import { S } from './style';
 
 type SliderItemProps = {
   $isSelected: boolean;
+  $isFocussingSlider: boolean;
   children: React.ReactNode;
 };
 
-const SliderItem = ({ $isSelected, children }: SliderItemProps) => {
+const SliderItem = ({
+  $isSelected,
+  $isFocussingSlider,
+  children,
+}: SliderItemProps) => {
   return (
-    <S.SliderItem className='keen-slider__slide' $isSelected={$isSelected}>
+    <S.SliderItem
+      className='keen-slider__slide'
+      $isFocussingSlider={$isFocussingSlider}
+      $isSelected={$isSelected}
+    >
       {children}
     </S.SliderItem>
   );
