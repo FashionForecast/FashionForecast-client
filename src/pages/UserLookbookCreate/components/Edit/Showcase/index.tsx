@@ -8,12 +8,13 @@ import {
 } from '@/constants/Lookbook/data';
 import { ClothesType } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
-import { FocussingSliderType } from '..';
+import { FocussingSliderType, LookbookSelect } from '..';
 
 export type SliderType = ClothesType | null;
 
 type ShowcaseProps = {
   weatherType: WeatherType;
+  select: LookbookSelect;
   focussingSlider: FocussingSliderType;
   updateFocussingSlider: (sliderType: FocussingSliderType) => void;
   changeClothesName: (clothesType: ClothesType) => (name: string) => void;
@@ -21,6 +22,7 @@ type ShowcaseProps = {
 
 const Showcase = ({
   weatherType,
+  select,
   focussingSlider,
   updateFocussingSlider,
   changeClothesName,
@@ -58,6 +60,7 @@ const Showcase = ({
           <ClothesSlider
             items={MAN_TOP_COLTHES}
             initial={topSliderInitial}
+            clothesColor={select.top.color}
             $isFocussingSlider={focussingSlider === 'top'}
             changeClothesName={changeClothesName('top')}
           />
@@ -67,6 +70,7 @@ const Showcase = ({
           <ClothesSlider
             items={MAN_BOTTOM_CLOTHES}
             initial={bottomSliderInitial}
+            clothesColor={select.bottom.color}
             $isFocussingSlider={focussingSlider === 'bottom'}
             changeClothesName={changeClothesName('bottom')}
           />

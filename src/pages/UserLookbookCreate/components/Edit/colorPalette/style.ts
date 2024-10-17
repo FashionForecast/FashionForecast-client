@@ -63,7 +63,10 @@ const PaletteWrap = styled.div<{ $isColor: boolean }>`
     `}
 `;
 
-const ColorButton = styled(CustomButton, forwardPropOption)<{ $color: string }>`
+const ColorButton = styled(CustomButton, forwardPropOption)<{
+  $color: string;
+}>`
+  position: relative;
   min-width: 44px;
   min-height: 42px;
   padding: 0;
@@ -78,6 +81,13 @@ const ColorButton = styled(CustomButton, forwardPropOption)<{ $color: string }>`
   }
 `;
 
+const Mark = styled.div`
+  width: 24px;
+  height: 24px;
+  background-color: ${({ theme }) => theme.colors.primary.dark};
+  border-radius: 50%;
+`;
+
 export const S = {
   ColorPaletteWrap,
   HandleBar,
@@ -85,4 +95,5 @@ export const S = {
   Icon,
   PaletteWrap,
   ColorButton,
+  Mark,
 };

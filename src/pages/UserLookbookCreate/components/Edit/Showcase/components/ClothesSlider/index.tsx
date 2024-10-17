@@ -7,12 +7,14 @@ import { ClothesSliderItem } from '@/types/clothes';
 type ClotehsSliderProps = {
   items: ClothesSliderItem[];
   initial: number;
+  clothesColor: string;
   $isFocussingSlider: boolean;
   changeClothesName: (name: string) => void;
 };
 
 const ClothesSlider = ({
   items,
+  clothesColor,
   $isFocussingSlider,
   initial = 0,
   changeClothesName,
@@ -47,7 +49,7 @@ const ClothesSlider = ({
             className='keen-slider__slide'
             $isSelected={currentItem === i}
           >
-            <Clothes color={currentItem === i ? 'white' : 'transparent'} />
+            <Clothes color={currentItem === i ? clothesColor : 'transparent'} />
           </S.SliderItem>
         ))}
       </S.SliderList>

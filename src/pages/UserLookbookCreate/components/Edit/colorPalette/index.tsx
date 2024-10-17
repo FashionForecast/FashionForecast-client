@@ -4,12 +4,19 @@ import { FocussingSliderType } from '..';
 import { S } from './style';
 import { ColorPalettes } from '@/constants/Lookbook/data';
 import { memo } from 'react';
+import CheckIcon from '@/components/icon/CheckIcon';
 
 type ColorPaletteProps = {
   focussingSlider: FocussingSliderType;
+  clothesColor: string;
+  changeClothesColor: (color: string) => () => void;
 };
 
-const ColorPalette = ({ focussingSlider }: ColorPaletteProps) => {
+const ColorPalette = ({
+  focussingSlider,
+  clothesColor,
+  changeClothesColor,
+}: ColorPaletteProps) => {
   return (
     <S.ColorPaletteWrap>
       <S.HandleBar />
@@ -28,7 +35,18 @@ const ColorPalette = ({ focussingSlider }: ColorPaletteProps) => {
         {!focussingSlider && <span>상의 또는 하의를 먼저 선택해 주세요</span>}
         {focussingSlider &&
           ColorPalettes.map((color) => (
-            <S.ColorButton key={color} variant='contained' $color={color} />
+            <S.ColorButton
+              key={color}
+              variant='contained'
+              $color={color}
+              onClick={changeClothesColor(color)}
+            >
+              {clothesColor === color && (
+                <S.Mark>
+                  <CheckIcon color='white' />
+                </S.Mark>
+              )}
+            </S.ColorButton>
           ))}
       </S.PaletteWrap>
     </S.ColorPaletteWrap>
