@@ -8,14 +8,14 @@ type ClotehsSliderProps = {
   items: ClothesSliderItem[];
   initial: number;
   $isFocussingSlider: boolean;
-  handleSliderClick: () => void;
+  changeClothesName: (name: string) => void;
 };
 
 const ClothesSlider = ({
   items,
   $isFocussingSlider,
   initial = 0,
-  handleSliderClick,
+  changeClothesName,
 }: ClotehsSliderProps) => {
   const [currentItem, setCurrentItem] = useState(initial);
   const [sliderRef] = useKeenSlider({
@@ -27,7 +27,10 @@ const ClothesSlider = ({
     },
     initial: initial,
     slideChanged(slider) {
-      setCurrentItem(slider.track.details.rel);
+      const index = slider.track.details.rel;
+
+      setCurrentItem(index);
+      changeClothesName(items[index].name);
     },
   });
 
@@ -37,7 +40,6 @@ const ClothesSlider = ({
         ref={sliderRef}
         $isFocussingSlider={$isFocussingSlider}
         className='keen-slider'
-        onClick={handleSliderClick}
       >
         {items.map(({ name, Clothes }, i) => (
           <S.SliderItem

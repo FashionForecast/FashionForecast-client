@@ -40,3 +40,5 @@ export type ClothesResponseData = Array<{
   names: Array<ClothesImageName | string>;
   outfitType: OutfitType;
 }>;
+
+export type ClothesType = 'top' | 'bottom';

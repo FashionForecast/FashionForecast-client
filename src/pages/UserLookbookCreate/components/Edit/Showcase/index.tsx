@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import { S } from './style';
 import ClothesSlider from './components/ClothesSlider';
 import {
@@ -6,23 +6,44 @@ import {
   MAN_BOTTOM_CLOTHES,
   MAN_TOP_COLTHES,
 } from '@/constants/Lookbook/data';
+import { ClothesType } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
+import { FocussingSliderType } from '..';
 
-export type SliderType = 'TOP' | 'BOTTOM' | null;
+export type SliderType = ClothesType | null;
 
 type ShowcaseProps = {
   weatherType: WeatherType;
+  focussingSlider: FocussingSliderType;
+  updateFocussingSlider: (sliderType: FocussingSliderType) => void;
+  changeClothesName: (clothesType: ClothesType) => (name: string) => void;
 };
 
-const Showcase = ({ weatherType }: ShowcaseProps) => {
-  const [targetSlider, setTargetSlider] = useState<SliderType>(null);
+const Showcase = ({
+  weatherType,
+  focussingSlider,
+  updateFocussingSlider,
+  changeClothesName,
+}: ShowcaseProps) => {
   const showcaseRef = useRef<HTMLElement>(null);
-  const handleSliderClick = (slider: SliderType) => () => {
-    setTargetSlider(slider);
-  };
+  const topSliderInitial = useMemo(
+    () => getInitialIndex(weatherType, 'top'),
+    []
+  );
+  const bottomSliderInitial = useMemo(
+    () => getInitialIndex(weatherType, 'bottom'),
+    []
+  );
+
+  const detectSliderClick =
+    (sliderType: SliderType) => (e: React.MouseEvent) => {
+      e.stopPropagation();
+      updateFocussingSlider(sliderType);
+    };
+
   const cancleFocusingClick = () => (e: React.MouseEvent) => {
     if (showcaseRef.current && showcaseRef.current === e.target) {
-      setTargetSlider(null);
+      updateFocussingSlider(null);
     }
   };
 
@@ -30,24 +51,24 @@ const Showcase = ({ weatherType }: ShowcaseProps) => {
     <>
       <S.ShowcaseWrap
         ref={showcaseRef}
-        $isFocussing={targetSlider}
+        $isFocussing={focussingSlider}
         onClick={cancleFocusingClick()}
       >
-        <S.SliderWrap className='top'>
+        <S.SliderWrap className='top' onClick={detectSliderClick('top')}>
           <ClothesSlider
             items={MAN_TOP_COLTHES}
-            initial={getInitialIndex(weatherType, 'TOP')}
-            $isFocussingSlider={targetSlider === 'TOP'}
-            handleSliderClick={handleSliderClick('TOP')}
+            initial={topSliderInitial}
+            $isFocussingSlider={focussingSlider === 'top'}
+            changeClothesName={changeClothesName('top')}
           />
         </S.SliderWrap>
 
-        <S.SliderWrap>
+        <S.SliderWrap onClick={detectSliderClick('bottom')}>
           <ClothesSlider
             items={MAN_BOTTOM_CLOTHES}
-            initial={getInitialIndex(weatherType, 'BOTTOM')}
-            $isFocussingSlider={targetSlider === 'BOTTOM'}
-            handleSliderClick={handleSliderClick('BOTTOM')}
+            initial={bottomSliderInitial}
+            $isFocussingSlider={focussingSlider === 'bottom'}
+            changeClothesName={changeClothesName('bottom')}
           />
         </S.SliderWrap>
       </S.ShowcaseWrap>
@@ -60,8 +81,8 @@ export default Showcase;
 function getInitialIndex(type: WeatherType, slider: Exclude<SliderType, null>) {
   const { top, bottom } = DEFAULT_CLOTHES_BY_WEATHER[type];
 
-  const clothesList = slider === 'TOP' ? MAN_TOP_COLTHES : MAN_BOTTOM_CLOTHES;
-  const clothesName = slider === 'TOP' ? top : bottom;
+  const clothesList = slider === 'top' ? MAN_TOP_COLTHES : MAN_BOTTOM_CLOTHES;
+  const clothesName = slider === 'top' ? top : bottom;
 
   return clothesList.findIndex(({ name }) => name === clothesName);
 }
