@@ -11,10 +11,10 @@ import { WeatherType } from '@/types/weather';
 export type SliderType = 'TOP' | 'BOTTOM' | null;
 
 type ShowcaseProps = {
-  type: WeatherType;
+  weatherType: WeatherType;
 };
 
-const Showcase = ({ type }: ShowcaseProps) => {
+const Showcase = ({ weatherType }: ShowcaseProps) => {
   const [targetSlider, setTargetSlider] = useState<SliderType>(null);
   const showcaseRef = useRef<HTMLElement>(null);
   const handleSliderClick = (slider: SliderType) => () => {
@@ -36,7 +36,7 @@ const Showcase = ({ type }: ShowcaseProps) => {
         <S.SliderWrap className='top'>
           <ClothesSlider
             items={MAN_TOP_COLTHES}
-            initial={getInitialIndex(type, 'TOP')}
+            initial={getInitialIndex(weatherType, 'TOP')}
             $isFocussingSlider={targetSlider === 'TOP'}
             handleSliderClick={handleSliderClick('TOP')}
           />
@@ -45,7 +45,7 @@ const Showcase = ({ type }: ShowcaseProps) => {
         <S.SliderWrap>
           <ClothesSlider
             items={MAN_BOTTOM_CLOTHES}
-            initial={getInitialIndex(type, 'BOTTOM')}
+            initial={getInitialIndex(weatherType, 'BOTTOM')}
             $isFocussingSlider={targetSlider === 'BOTTOM'}
             handleSliderClick={handleSliderClick('BOTTOM')}
           />

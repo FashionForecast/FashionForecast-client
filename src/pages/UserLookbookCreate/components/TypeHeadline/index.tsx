@@ -3,14 +3,14 @@ import { WeatherType } from '@/types/weather';
 import { S } from './style';
 
 type TypeHeadlineProps = {
-  type: WeatherType;
+  weatherType: WeatherType;
 };
 
-const TypeHeadline = ({ type }: TypeHeadlineProps) => {
+const TypeHeadline = ({ weatherType }: TypeHeadlineProps) => {
   return (
-    <S.Headline $type={type}>
-      <h6>계절 {type}</h6>
-      <span>{LOOKBOOK_WEATHER_TYPE[type].title}</span>
+    <S.Headline $type={weatherType}>
+      <h6>계절 {weatherType}</h6>
+      <span>{LOOKBOOK_WEATHER_TYPE[weatherType].title}</span>
     </S.Headline>
   );
 };

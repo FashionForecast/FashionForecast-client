@@ -3,7 +3,7 @@ import LookbookCreateHeader from './components/LookbookCreateHeader';
 import { S } from './style';
 import TypeHeadline from './components/TypeHeadline';
 import { WeatherType } from '@/types/weather';
-import Showcase from './components/Showcase';
+import Edit from './components/Edit';
 
 const UserLookbookCreate = () => {
   const [searchParams] = useSearchParams();
@@ -14,9 +14,9 @@ const UserLookbookCreate = () => {
     <S.PageWrap>
       <LookbookCreateHeader />
 
-      <TypeHeadline type={typeParam as WeatherType} />
+      <TypeHeadline weatherType={typeParam as WeatherType} />
 
-      <Showcase type={typeParam as WeatherType} />
+      <Edit weatherType={typeParam as WeatherType} />
     </S.PageWrap>
   );
 };
