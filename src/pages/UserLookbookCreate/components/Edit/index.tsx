@@ -1,6 +1,6 @@
 import { WeatherType } from '@/types/weather';
 import Showcase, { SliderType } from './Showcase';
-import ColorPalette from './colorPalette';
+import ColorPalette from './ColorPalette';
 import { useState } from 'react';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/Lookbook/data';
 import { ClothesType } from '@/types/clothes';
@@ -40,7 +40,7 @@ const Edit = ({ weatherType }: EditProps) => {
         updateFocussingSlider={updateFocussingSlider}
         changeClothesName={changeClothesName}
       />
-      <ColorPalette />
+      <ColorPalette focussingSlider={focussingSlider} />
     </>
   );
 };
