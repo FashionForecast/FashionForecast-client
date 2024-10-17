@@ -32,22 +32,25 @@ const ClothesSlider = ({
   });
 
   return (
-    <S.SliderList
-      ref={sliderRef}
-      className='keen-slider'
-      onClick={handleSliderClick}
-    >
-      {items.map(({ name, Clothes }, i) => (
-        <S.SliderItem
-          key={name}
-          className='keen-slider__slide'
-          $isFocussingSlider={$isFocussingSlider}
-          $isSelected={currentItem === i}
-        >
-          <Clothes color={currentItem === i ? 'white' : 'transparent'} />
-        </S.SliderItem>
-      ))}
-    </S.SliderList>
+    <>
+      <S.SliderList
+        ref={sliderRef}
+        $isFocussingSlider={$isFocussingSlider}
+        className='keen-slider'
+        onClick={handleSliderClick}
+      >
+        {items.map(({ name, Clothes }, i) => (
+          <S.SliderItem
+            key={name}
+            className='keen-slider__slide'
+            $isSelected={currentItem === i}
+          >
+            <Clothes color={currentItem === i ? 'white' : 'transparent'} />
+          </S.SliderItem>
+        ))}
+      </S.SliderList>
+      {$isFocussingSlider && <S.FocussingCircle />}
+    </>
   );
 };
 

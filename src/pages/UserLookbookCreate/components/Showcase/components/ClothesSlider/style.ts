@@ -1,15 +1,17 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const SliderList = styled.ol`
+const SliderList = styled.ol<{ $isFocussingSlider: boolean }>`
+  position: relative;
+  z-index: ${({ $isFocussingSlider }) => ($isFocussingSlider ? 50 : 30)};
   align-items: center;
 `;
 
 const SliderItem = styled.li<{
-  $isFocussingSlider: boolean;
   $isSelected: boolean;
 }>`
   position: relative;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,32 +24,31 @@ const SliderItem = styled.li<{
     transition: transform 0.3s ease;
   }
 
-  ${({ $isSelected, $isFocussingSlider, theme }) => {
-    if (!$isSelected) return;
-
-    return css`
+  ${({ $isSelected }) =>
+    $isSelected &&
+    css`
       opacity: 1;
 
       & svg {
+        z-index: 70;
         transform: scale(1.8);
       }
+    `}
+`;
 
-      ${$isFocussingSlider &&
-      css`
-        &::before {
-          position: absolute;
-          width: 128px;
-          height: 128px;
-          content: '';
-          background-color: ${theme.colors.white};
-          border-radius: 50%;
-        }
-      `}
-    `;
-  }}
+const FocussingCircle = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 128px;
+  height: 128px;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const S = {
   SliderList,
   SliderItem,
+  FocussingCircle,
 };

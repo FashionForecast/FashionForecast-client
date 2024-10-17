@@ -12,22 +12,17 @@ const ShowcaseWrap = styled.section<{ $isFocussing: SliderType }>`
   background-color: ${({ $isFocussing, theme }) =>
     $isFocussing ? theme.colors.blueGrey.A23 : theme.colors.white};
   border-radius: 12px;
+`;
 
-  & .slider-wrap {
-    position: relative;
+const SliderWrap = styled.div`
+  position: relative;
 
-    &.top {
-      top: ${TOP};
-      z-index: 20;
-      z-index: ${({ $isFocussing }) => ($isFocussing === 'TOP' ? 10 : 20)};
-    }
-
-    &.bottom {
-      z-index: ${({ $isFocussing }) => ($isFocussing === 'BOTTOM' ? 10 : 20)};
-    }
+  &.top {
+    top: ${TOP};
   }
 `;
 
 export const S = {
   ShowcaseWrap,
+  SliderWrap,
 };

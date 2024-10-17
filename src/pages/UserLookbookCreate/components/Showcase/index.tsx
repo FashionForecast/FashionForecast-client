@@ -33,23 +33,23 @@ const Showcase = ({ type }: ShowcaseProps) => {
         $isFocussing={targetSlider}
         onClick={cancleFocusingClick()}
       >
-        <div className='slider-wrap top'>
+        <S.SliderWrap className='top'>
           <ClothesSlider
             items={MAN_TOP_COLTHES}
             initial={getInitialIndex(type, 'TOP')}
             $isFocussingSlider={targetSlider === 'TOP'}
             handleSliderClick={handleSliderClick('TOP')}
           />
-        </div>
+        </S.SliderWrap>
 
-        <div className='slider-wrap bottom'>
+        <S.SliderWrap>
           <ClothesSlider
             items={MAN_BOTTOM_CLOTHES}
             initial={getInitialIndex(type, 'BOTTOM')}
             $isFocussingSlider={targetSlider === 'BOTTOM'}
             handleSliderClick={handleSliderClick('BOTTOM')}
           />
-        </div>
+        </S.SliderWrap>
       </S.ShowcaseWrap>
     </>
   );
