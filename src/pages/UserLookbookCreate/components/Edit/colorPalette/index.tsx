@@ -3,6 +3,7 @@ import ShortsIcon from '@/assets/svg/shorts.svg?react';
 import { FocussingSliderType } from '..';
 import { S } from './style';
 import { ColorPalettes } from '@/constants/Lookbook/data';
+import { memo } from 'react';
 
 type ColorPaletteProps = {
   focussingSlider: FocussingSliderType;
@@ -34,7 +35,7 @@ const ColorPalette = ({ focussingSlider }: ColorPaletteProps) => {
   );
 };
 
-export default ColorPalette;
+export default memo(ColorPalette);
 
 function getTitleText(focussingSlider: FocussingSliderType) {
   if (focussingSlider === 'top') return '상의';
