@@ -82,10 +82,9 @@ const ColorButton = styled(CustomButton, forwardPropOption)<{
 `;
 
 const Mark = styled.div`
-  width: 24px;
-  height: 24px;
-  background-color: ${({ theme }) => theme.colors.primary.dark};
-  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const S = {

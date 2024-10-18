@@ -4,7 +4,7 @@ import { FocussingSliderType } from '..';
 import { S } from './style';
 import { ColorPalettes } from '@/constants/Lookbook/data';
 import { memo } from 'react';
-import CheckIcon from '@/components/icon/CheckIcon';
+import CheckCircleIcon from '@/components/icon/CheckCircle';
 
 type ColorPaletteProps = {
   focussingSlider: FocussingSliderType;
@@ -43,7 +43,9 @@ const ColorPalette = ({
             >
               {clothesColor === color && (
                 <S.Mark>
-                  <CheckIcon color='white' />
+                  <CheckCircleIcon
+                    color={color == '#F9FAFB' ? 'dark' : 'white'}
+                  />
                 </S.Mark>
               )}
             </S.ColorButton>
