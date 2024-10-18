@@ -56,7 +56,11 @@ const Showcase = ({
         $isFocussing={focussingSlider}
         onClick={cancleFocusingClick()}
       >
-        <S.SliderWrap className='top' onClick={detectSliderClick('top')}>
+        <S.SliderWrap
+          className='top'
+          $zIndex={!focussingSlider && 50}
+          onClick={detectSliderClick('top')}
+        >
           <ClothesSlider
             items={MAN_TOP_COLTHES}
             initial={topSliderInitial}

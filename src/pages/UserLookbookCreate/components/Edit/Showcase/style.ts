@@ -14,11 +14,12 @@ const ShowcaseWrap = styled.section<{ $isFocussing: SliderType }>`
   border-radius: 12px;
 `;
 
-const SliderWrap = styled.div`
+const SliderWrap = styled.div<{ $zIndex?: number | boolean }>`
   position: relative;
 
   &.top {
     top: ${TOP};
+    z-index: ${({ $zIndex }) => $zIndex};
   }
 `;
 
