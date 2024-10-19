@@ -1,7 +1,33 @@
+import { MAX_WIDTH } from '@/constants/css/value';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
+const Drawer = styled.div<{ $isDragging: boolean }>`
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: ${MAX_WIDTH};
+  height: calc(100vh - 56px - 52px - 8px - 320px);
+  min-height: calc(100vh - 56px - 52px - 8px - 320px);
+  max-height: calc(100vh - 56px - 52px - 8px);
+  font-size: 18px;
+  touch-action: none;
+  user-select: none;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+  transform: translateX(-50%);
+
+  ${({ $isDragging }) =>
+    $isDragging &&
+    css`
+      transition: none;
+    `}
+`;
 
 const ColorPaletteWrap = styled.section`
   display: flex;
@@ -9,12 +35,16 @@ const ColorPaletteWrap = styled.section`
   flex-grow: 1;
 `;
 
-const HandleBar = styled.div`
+const HandleBar = styled.div<{ $isDraggable: boolean }>`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 38px;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
 
   &::after {
     display: block;
@@ -23,14 +53,23 @@ const HandleBar = styled.div`
     content: '';
     background-color: ${({ theme }) => theme.colors.blueGrey[400]};
     border-radius: 12px;
+    opacity: ${({ $isDraggable }) => ($isDraggable ? 1 : 0.4)};
+    transition: opacity 0.2s ease;
   }
 `;
 
-const TitleWrap = styled.div`
+const InfoBar = styled.div`
   ${({ theme }) => theme.typo['subtitle-1']}
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 16px 4px;
+`;
+
+const Info = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Icon = styled.div`
@@ -90,9 +129,11 @@ const Mark = styled.div`
 export const S = {
   ColorPaletteWrap,
   HandleBar,
-  TitleWrap,
+  InfoBar,
+  Info,
   Icon,
   PaletteWrap,
   ColorButton,
   Mark,
+  Drawer,
 };
