@@ -13,15 +13,16 @@ const LookbookCardWrap = styled.li<{ $color: WeatherType }>`
 const CardHeader = styled.header`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+`;
 
-  & > span {
+const TitleWrap = styled.div`
+  & h6 {
     ${({ theme }) => theme.typo['subtitle-1']}
-    margin-right: 16px;
   }
 
-  & h3 {
-    ${({ theme }) => theme.typo['body-2']}
-    flex-grow: 1;
+  & span {
+    ${({ theme }) => theme.typo['body-2']} /* margin-right: 16px; */
     color: ${({ theme }) => theme.colors.text.secondary};
   }
 `;
@@ -55,6 +56,7 @@ const Top = styled.div`
 export const S = {
   LookbookCardWrap,
   CardHeader,
+  TitleWrap,
   ClothesList,
   ClothesItem,
   Top,

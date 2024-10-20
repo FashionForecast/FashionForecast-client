@@ -7,10 +7,12 @@ type TypeHeadlineProps = {
 };
 
 const TypeHeadline = ({ weatherType }: TypeHeadlineProps) => {
+  const { title, subtitle, color } = LOOKBOOK_WEATHER_TYPE[weatherType];
+
   return (
-    <S.Headline $type={weatherType}>
-      <h6>계절 {weatherType}</h6>
-      <span>{LOOKBOOK_WEATHER_TYPE[weatherType].title}</span>
+    <S.Headline $color={color}>
+      <h6>{title}</h6>
+      <span>{subtitle}</span>
     </S.Headline>
   );
 };

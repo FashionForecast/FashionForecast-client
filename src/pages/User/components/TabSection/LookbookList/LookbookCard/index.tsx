@@ -8,18 +8,22 @@ import 코트 from '@/components/clothes/코트';
 import 바지 from '@/components/clothes/바지';
 import { Link } from 'react-router-dom';
 import { WeatherType } from '@/types/weather';
+import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
 
 type LookbookCardProps = {
   type: WeatherType;
-  title: string;
 };
 
-const LookbookCard = ({ type, title }: LookbookCardProps) => {
+const LookbookCard = ({ type }: LookbookCardProps) => {
+  const { title, subtitle } = LOOKBOOK_WEATHER_TYPE[type];
+
   return (
     <S.LookbookCardWrap $color={type}>
       <S.CardHeader>
-        <span>계절 {type}</span>
-        <h3>{title}</h3>
+        <S.TitleWrap>
+          <h6>{title}</h6>
+          <span>{subtitle}</span>
+        </S.TitleWrap>
         <Link to={`/user/lookbook/create?type=${type}`}>
           <C.IconBtn>
             <Add />

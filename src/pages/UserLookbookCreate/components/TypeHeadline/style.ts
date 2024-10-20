@@ -1,13 +1,11 @@
-import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
-import { WeatherType } from '@/types/weather';
 import styled from '@emotion/styled';
 
-const Headline = styled.div<{ $type: WeatherType }>`
+const Headline = styled.div<{ $color: string }>`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: 12px 16px;
   margin: 0 16px 8px;
-  background-color: ${({ $type }) => LOOKBOOK_WEATHER_TYPE[$type].color};
+  background-color: ${({ $color }) => $color};
   border-radius: 12px;
 
   & h6 {
