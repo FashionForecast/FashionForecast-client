@@ -21,8 +21,10 @@ const ButtonBase = styled(MuiButton)`
     color: ${({ theme }) => theme.colors.white};
     background-color: ${({ theme }) => theme.colors.primary.main};
 
-    &:hover {
-      background-color: ${({ theme }) => theme.colors.primary.dark};
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.primary.dark};
+      }
     }
 
     &:disabled {

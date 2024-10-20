@@ -6,12 +6,12 @@ import {
   RadioGroup,
 } from '@mui/material';
 import MenuItem from '../MenuItem';
-import TshirtIcon from '@/assets/svg/tshirt.svg?react';
 import { useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
+import TshirtIcon from '@/components/icon/TshirtIcon';
 
 const ThicknessSetMenu = () => {
   const [open, setOpen] = useState(false);

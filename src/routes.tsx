@@ -9,6 +9,7 @@ import LoginAuth from './pages/LoginAuth';
 import UserGender from './pages/UserGender';
 import User from './pages/User';
 import PrivateRouteLayout from './components/layout/PrivateRouteLayout';
+import UserLookbookCreate from './pages/UserLookbookCreate';
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRouteLayout>
             <UserGender />
+          </PrivateRouteLayout>
+        ),
+      },
+      {
+        path: '/user/lookbook/create',
+        element: (
+          <PrivateRouteLayout>
+            <UserLookbookCreate />
           </PrivateRouteLayout>
         ),
       },

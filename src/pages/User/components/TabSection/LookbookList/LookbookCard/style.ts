@@ -1,26 +1,28 @@
+import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
+import { WeatherType } from '@/types/weather';
 import styled from '@emotion/styled';
-import { WeatherType } from '.';
 import { IconButton } from '@mui/material';
 
 const LookbookCardWrap = styled.li<{ $color: WeatherType }>`
   padding: 12px 16px;
   margin: 0 16px 8px;
-  background-color: ${({ $color }) => lookbookColorByWeather[$color]};
+  background-color: ${({ $color }) => LOOKBOOK_WEATHER_TYPE[$color].color};
   border-radius: 16px;
 `;
 
 const CardHeader = styled.header`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+`;
 
-  & > span {
+const TitleWrap = styled.div`
+  & h6 {
     ${({ theme }) => theme.typo['subtitle-1']}
-    margin-right: 16px;
   }
 
-  & h3 {
-    ${({ theme }) => theme.typo['body-2']}
-    flex-grow: 1;
+  & span {
+    ${({ theme }) => theme.typo['body-2']} /* margin-right: 16px; */
     color: ${({ theme }) => theme.colors.text.secondary};
   }
 `;
@@ -54,20 +56,10 @@ const Top = styled.div`
 export const S = {
   LookbookCardWrap,
   CardHeader,
+  TitleWrap,
   ClothesList,
   ClothesItem,
   Top,
 };
 
 export const C = { IconBtn };
-
-const lookbookColorByWeather = {
-  '1': '#FFC8C0',
-  '2': '#FFCA98',
-  '3': '#F2D41B',
-  '4': '#CAE02A',
-  '5': '#7FEB90',
-  '6': '#68E7E8',
-  '7': '#B4D8FF',
-  '8': '#D4D0FD',
-};

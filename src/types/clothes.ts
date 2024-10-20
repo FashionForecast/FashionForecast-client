@@ -2,6 +2,11 @@ export type ClothesProps = {
   color?: string;
 };
 
+export type ClothesSliderItem = {
+  name: string;
+  Clothes: (props: ClothesProps) => JSX.Element;
+};
+
 export type ClothesImageName =
   | '민소매'
   | '반팔티'
@@ -35,3 +40,5 @@ export type ClothesResponseData = Array<{
   names: Array<ClothesImageName | string>;
   outfitType: OutfitType;
 }>;
+
+export type ClothesType = 'top' | 'bottom';

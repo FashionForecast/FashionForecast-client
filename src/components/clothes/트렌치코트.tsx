@@ -20,14 +20,14 @@ const 트렌치코트 = ({ color = '#F8AF20' }: ClothesProps) => {
       >
         <rect fill='white' x='-1' width='50' height='62' />
         <path
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
           d='M17 3H31L35 7L41 9L45 41L38.4487 41.9359L40 59H8L9.55128 41.9359L3 41L7 9L13 7L17 3Z'
         />
       </mask>
       <path
-        fill-rule='evenodd'
-        clip-rule='evenodd'
+        fillRule='evenodd'
+        clipRule='evenodd'
         d='M17 3H31L35 7L41 9L45 41L38.4487 41.9359L40 59H8L9.55128 41.9359L3 41L7 9L13 7L17 3Z'
         fill={color}
       />
