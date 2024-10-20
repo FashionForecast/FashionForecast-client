@@ -8,7 +8,8 @@ import {
 } from '@/constants/Lookbook/data';
 import { ClothesType } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
-import { FocussingSliderType, LookbookSelect } from '..';
+import { FocussingSliderType } from '..';
+import { LookbookSelect } from '@/pages/UserLookbookCreate';
 
 export type SliderType = ClothesType | null;
 
