@@ -13,14 +13,14 @@ const Drawer = styled.div<{ $isDragging: boolean }>`
   flex-direction: column;
   width: 100%;
   max-width: ${MAX_WIDTH};
-  height: calc(100vh - 56px - 52px - 8px - 320px);
-  min-height: calc(100vh - 56px - 52px - 8px - 320px);
-  max-height: calc(100vh - 56px - 52px - 8px);
+  height: calc(100vh - 56px - 72px - 8px - 320px);
+  min-height: calc(100vh - 56px - 72px - 8px - 320px);
+  max-height: calc(100vh - 56px - 72px - 8px);
   font-size: 18px;
   touch-action: none;
   user-select: none;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
-  transition: height 0.6s ease-in-out;
+  transition: height 0.6s ease-out;
   transform: translateX(-50%);
 
   ${({ $isDragging }) =>
