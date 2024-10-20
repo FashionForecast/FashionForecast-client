@@ -77,6 +77,13 @@ const ColorPalette = ({
     drawerElment.style.height = `${height}px`;
   };
 
+  const handleChooseButtonClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsDragging(true);
+    updateHeight('min');
+    setTimeout(() => setIsDragging(false), 100);
+  };
+
   useEffect(() => {
     window.addEventListener('pointerup', handleDragEnd);
     return () => window.removeEventListener('pointerup', handleDragEnd);
@@ -99,29 +106,30 @@ const ColorPalette = ({
   return (
     <S.Drawer ref={drawerRef} $isDragging={isDragging}>
       <S.ColorPaletteWrap>
-        <S.HandleBar
-          $isDraggable={isDraggable}
+        <S.DraggableArea
           onPointerDown={handleDragStart}
           onPointerMove={handleDragging}
-        />
-        <S.InfoBar>
-          <S.Info>
-            <S.Icon>
-              {focussingSlider === 'bottom' ? (
-                <ShortsIcon />
-              ) : (
-                <TshirtIcon color='white' />
-              )}
-            </S.Icon>
-            <span>{`${getTitleText(focussingSlider)} 색상`}</span>
-          </S.Info>
+        >
+          <S.HandleBar $isDraggable={isDraggable} />
+          <S.InfoBar>
+            <S.Info>
+              <S.Icon>
+                {focussingSlider === 'bottom' ? (
+                  <ShortsIcon />
+                ) : (
+                  <TshirtIcon color='white' />
+                )}
+              </S.Icon>
+              <span>{`${getTitleText(focussingSlider)} 색상`}</span>
+            </S.Info>
 
-          {isOpen && (
-            <CustomButton onClick={() => updateHeight('min')}>
-              옷 고르기
-            </CustomButton>
-          )}
-        </S.InfoBar>
+            {isOpen && (
+              <CustomButton onClick={handleChooseButtonClick}>
+                옷 고르기
+              </CustomButton>
+            )}
+          </S.InfoBar>
+        </S.DraggableArea>
 
         <S.PaletteWrap
           ref={palleteRef}

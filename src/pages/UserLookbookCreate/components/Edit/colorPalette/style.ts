@@ -20,6 +20,7 @@ const Drawer = styled.div<{ $isDragging: boolean }>`
   touch-action: none;
   user-select: none;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+  transition: height 0.6s ease-in-out;
   transform: translateX(-50%);
 
   ${({ $isDragging }) =>
@@ -35,6 +36,12 @@ const ColorPaletteWrap = styled.section`
   flex-grow: 1;
 `;
 
+const DraggableArea = styled.div`
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+`;
+
 const HandleBar = styled.div<{ $isDraggable: boolean }>`
   display: flex;
   flex-shrink: 0;
@@ -42,9 +49,6 @@ const HandleBar = styled.div<{ $isDraggable: boolean }>`
   justify-content: center;
   width: 100%;
   height: 38px;
-  touch-action: none;
-  cursor: grab;
-  user-select: none;
 
   &::after {
     display: block;
@@ -129,6 +133,7 @@ const Mark = styled.div`
 export const S = {
   ColorPaletteWrap,
   HandleBar,
+  DraggableArea,
   InfoBar,
   Info,
   Icon,
