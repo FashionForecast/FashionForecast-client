@@ -18,19 +18,12 @@ import 목도리 from '@/components/clothes/목도리';
 import 겉옷장우산 from '@/components/clothes/겉옷장우산';
 import 겉옷접이식우산 from '@/components/clothes/겉옷접이식우산';
 
-import { ClothesImageName } from '@/types/clothes';
+import { ClothesImageName, ClothesProps } from '@/types/clothes';
 
 const clothesImage: Partial<
   Record<
-    | Exclude<ClothesImageName, '슬랙스' | '면바지'>
-    | '바지'
-    | '겉옷장우산'
-    | '겉옷접이식우산',
-    React.FunctionComponent<
-      React.SVGProps<SVGSVGElement> & {
-        title?: string;
-      }
-    >
+    ClothesImageName | '바지' | '겉옷장우산' | '겉옷접이식우산',
+    ({ color }: ClothesProps) => JSX.Element
   >
 > = {
   민소매,
@@ -41,7 +34,9 @@ const clothesImage: Partial<
   코트,
   패딩,
   반바지,
-  바지, // 슬랙스 = 면바지 이미지 동일
+  바지,
+  슬랙스: 바지,
+  면바지: 바지,
   청바지,
   겉옷,
   장우산,
