@@ -3,6 +3,8 @@ import {
   TempCondition,
 } from '@/pages/Home/components/RecommendClothes';
 import { ClothesResponseData, LookbookListResponseData } from '@/types/clothes';
+import { WeatherType } from '@/types/weather';
+import { LookbookSelect } from '@/pages/UserLookbookCreate';
 
 export async function getDefaultClothes(
   weather: ClothesForWeather & { tempCondition: TempCondition }
@@ -49,6 +51,43 @@ export async function getLookbookList(
     }
 
     return json.data;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
+
+export async function saveLookbook(
+  weatherType: WeatherType,
+  select: LookbookSelect,
+  token: string | null
+) {
+  try {
+    const { top, bottom } = select;
+    const data = {
+      topType: top.name,
+      topColor: top.color,
+      bottomType: bottom.name,
+      bottomColor: bottom.color,
+      tempStageLevel: Number(weatherType),
+    };
+
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/member/outfit`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
   } catch (error) {
     throw new Error(error as string);
   }
