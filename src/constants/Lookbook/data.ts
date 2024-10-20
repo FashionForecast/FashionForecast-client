@@ -64,7 +64,7 @@ export const MAN_TOP_COLTHES = [
   { name: '긴팔티', Clothes: 긴팔티 },
   { name: '후드티', Clothes: 후드티 },
   { name: '니트', Clothes: 니트 },
-  { name: '트렌치코트', Clothes: 트렌치코트 },
+  { name: '트렌치 코트', Clothes: 트렌치코트 },
   { name: '코트', Clothes: 코트 },
   { name: '패딩', Clothes: 패딩 },
 ];
@@ -73,7 +73,7 @@ export const MAN_BOTTOM_CLOTHES = [
   { name: '반바지', Clothes: 반바지 },
   { name: '바지', Clothes: 바지 },
   { name: '청바지', Clothes: 청바지 },
-  { name: '기모바지', Clothes: 기모바지 },
+  { name: '기모 바지', Clothes: 기모바지 },
 ];
 
 export const DEFAULT_CLOTHES_BY_WEATHER = {
@@ -98,16 +98,16 @@ export const DEFAULT_CLOTHES_BY_WEATHER = {
     bottom: '청바지',
   },
   6: {
-    top: '트렌치코트',
-    bottom: '기모바지',
+    top: '트렌치 코트',
+    bottom: '기모 바지',
   },
   7: {
     top: '코트',
-    bottom: '기모바지',
+    bottom: '기모 바지',
   },
   8: {
     top: '패딩',
-    bottom: '기모바지',
+    bottom: '기모 바지',
   },
 };
 
