@@ -33,10 +33,18 @@ const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
       {outfits.length > 0 && (
         <S.ClothesList>
           {outfits.map((outfit) => (
-            <S.ClothesItem key={outfit.memberOutfitId}>
-              <S.Top>{getClothesImage(outfit.topType, outfit.topColor)}</S.Top>
-              {getClothesImage(outfit.bottomType, outfit.bottomColor)}
-            </S.ClothesItem>
+            <C.LookbookLink
+              to={`/user/lookbook/create?type=${type}`}
+              state={{ outfit }}
+              key={outfit.memberOutfitId}
+            >
+              <S.ClothesItem key={outfit.memberOutfitId}>
+                <S.Top>
+                  {getClothesImage(outfit.topType, outfit.topColor)}
+                </S.Top>
+                {getClothesImage(outfit.bottomType, outfit.bottomColor)}
+              </S.ClothesItem>
+            </C.LookbookLink>
           ))}
         </S.ClothesList>
       )}

@@ -1,4 +1,4 @@
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import LookbookCreateHeader from './components/LookbookCreateHeader';
 import { S } from './style';
 import TypeHeadline from './components/TypeHeadline';
@@ -6,6 +6,7 @@ import { WeatherType } from '@/types/weather';
 import Edit from './components/Edit';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/Lookbook/data';
 import { useState } from 'react';
+import { Outfits } from '@/types/clothes';
 
 export type LookbookSelect = {
   top: { name: string; color: string };
@@ -15,11 +16,19 @@ export type LookbookSelect = {
   };
 };
 
+export type LocationState = {
+  state?: {
+    outfit: Outfits;
+  };
+};
+
 const UserLookbookCreate = () => {
   const [searchParams] = useSearchParams();
+  const { state }: LocationState = useLocation();
+  const userOutfit = state?.outfit;
   const typeParam = searchParams.get('type');
   const [select, setSelect] = useState<LookbookSelect>(
-    defaultSelect(typeParam)
+    defaultSelect(typeParam, userOutfit)
   );
 
   const updateSelect = (
@@ -61,17 +70,28 @@ function isInvalidParam(typeParam: string | null) {
   );
 }
 
-function defaultSelect(typeParam: string | null) {
+function defaultSelect(
+  typeParam: string | null,
+  userOutfit: Outfits | undefined
+) {
   const type = (isInvalidParam(typeParam) ? '1' : typeParam) as WeatherType;
+  const { top: defaultTop, bottom: defaultBottom } =
+    DEFAULT_CLOTHES_BY_WEATHER[type];
+
+  const topName = userOutfit ? userOutfit.topType : defaultTop;
+  const topColor = userOutfit ? userOutfit.topColor : '#F9FAFB';
+
+  const bottomName = userOutfit ? userOutfit.bottomType : defaultBottom;
+  const bottomColor = userOutfit ? userOutfit.bottomColor : '#F9FAFB';
 
   return {
     top: {
-      name: DEFAULT_CLOTHES_BY_WEATHER[type].top,
-      color: '#F9FAFB',
+      name: topName,
+      color: topColor,
     },
     bottom: {
-      name: DEFAULT_CLOTHES_BY_WEATHER[type].bottom,
-      color: '#F9FAFB',
+      name: bottomName,
+      color: bottomColor,
     },
   };
 }

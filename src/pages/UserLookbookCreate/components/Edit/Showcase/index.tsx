@@ -6,10 +6,11 @@ import {
   MAN_BOTTOM_CLOTHES,
   MAN_TOP_COLTHES,
 } from '@/constants/Lookbook/data';
-import { ClothesType } from '@/types/clothes';
+import { ClothesType, Outfits } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { FocussingSliderType } from '..';
-import { LookbookSelect } from '@/pages/UserLookbookCreate';
+import { LocationState, LookbookSelect } from '@/pages/UserLookbookCreate';
+import { useLocation } from 'react-router-dom';
 
 export type SliderType = ClothesType | null;
 
@@ -28,13 +29,14 @@ const Showcase = ({
   updateFocussingSlider,
   changeClothesName,
 }: ShowcaseProps) => {
+  const { state }: LocationState = useLocation();
   const showcaseRef = useRef<HTMLElement>(null);
   const topSliderInitial = useMemo(
-    () => getInitialIndex(weatherType, 'top'),
+    () => getInitialIndex(weatherType, 'top', state?.outfit),
     []
   );
   const bottomSliderInitial = useMemo(
-    () => getInitialIndex(weatherType, 'bottom'),
+    () => getInitialIndex(weatherType, 'bottom', state?.outfit),
     []
   );
 
@@ -87,11 +89,19 @@ const Showcase = ({
 
 export default Showcase;
 
-function getInitialIndex(type: WeatherType, slider: Exclude<SliderType, null>) {
-  const { top, bottom } = DEFAULT_CLOTHES_BY_WEATHER[type];
+function getInitialIndex(
+  type: WeatherType,
+  slider: Exclude<SliderType, null>,
+  userOutfit: Outfits | undefined
+) {
+  const { top: defaultTopName, bottom: defaultBottomName } =
+    DEFAULT_CLOTHES_BY_WEATHER[type];
+
+  const topName = userOutfit ? userOutfit.topType : defaultTopName;
+  const bottomName = userOutfit ? userOutfit.bottomType : defaultBottomName;
 
   const clothesList = slider === 'top' ? MAN_TOP_COLTHES : MAN_BOTTOM_CLOTHES;
-  const clothesName = slider === 'top' ? top : bottom;
+  const clothesName = slider === 'top' ? topName : bottomName;
 
   return clothesList.findIndex(({ name }) => name === clothesName);
 }
