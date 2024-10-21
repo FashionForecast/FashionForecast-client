@@ -92,3 +92,30 @@ export async function saveLookbook(
     throw new Error(error as string);
   }
 }
+
+export async function deleteLookbook(
+  outfitId: number | undefined,
+  token: string | null
+) {
+  try {
+    if (!outfitId) throw new Error(`해당 룩북을 찾을 수 없습니다.`);
+
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/member/outfits/${outfitId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
