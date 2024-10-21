@@ -21,11 +21,13 @@ const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
           <h6>{title}</h6>
           <span>{subtitle}</span>
         </S.TitleWrap>
-        <Link to={`/user/lookbook/create?type=${type}`}>
-          <C.IconBtn>
-            <Add />
-          </C.IconBtn>
-        </Link>
+        {outfits.length < 4 && (
+          <Link to={`/user/lookbook/create?type=${type}`}>
+            <C.IconBtn>
+              <Add />
+            </C.IconBtn>
+          </Link>
+        )}
       </S.CardHeader>
 
       {outfits.length > 0 && (
