@@ -3,7 +3,7 @@ import { getWeather } from '@/service/weather';
 import { useQuery } from '@tanstack/react-query';
 import WeatherCard from './components/WeatherCard';
 import MainHeader from './components/MainHeader';
-import RecommendClothes from './components/RecommendClothes';
+import ClothesSection from './components/ClothesSection';
 import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
 import WeatherTimeLine from './components/WeatherTimeLine';
@@ -58,7 +58,7 @@ const Home = () => {
 
       {data && (
         <>
-          <RecommendClothes
+          <ClothesSection
             weather={{
               extremumTmp: data.extremumTmp,
               maxMinTmpDiff: data.maxMinTmpDiff,

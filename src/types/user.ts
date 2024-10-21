@@ -1,4 +1,4 @@
-import { TempCondition } from '@/pages/Home/components/RecommendClothes';
+import { TempCondition } from '@/pages/Home/components/ClothesSection';
 
 export type User = {
   socialId: string;

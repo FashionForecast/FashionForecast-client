@@ -1,7 +1,7 @@
 import {
   ClothesForWeather,
   TempCondition,
-} from '@/pages/Home/components/RecommendClothes';
+} from '@/pages/Home/components/ClothesSection';
 import { ClothesResponseData, LookbookListResponseData } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { LookbookSelect } from '@/pages/UserLookbookCreate';

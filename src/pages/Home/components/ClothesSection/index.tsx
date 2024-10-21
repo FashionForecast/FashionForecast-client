@@ -27,14 +27,19 @@ export type ClothesForWeather = Pick<
   'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
 >;
 
-type RecommendClothesProps = {
+type ClothesSectionProps = {
   weather: ClothesForWeather;
 };
 
-const RecommendClothes = ({ weather }: RecommendClothesProps) => {
+const ClothesSection = ({ weather }: ClothesSectionProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
   const [currentSlider, setCurrentSlider] = useState(0);
+
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ['clothes', tempCondition, geolocation?.region, weather],
+    queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
+  });
 
   const [sliderRef, instanceRef] = useKeenSlider({
     mode: 'snap',
@@ -49,11 +54,6 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   const moveToSliderClick = (index: number) => () => {
     instanceRef.current?.moveToIdx(index);
   };
-
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['clothes', tempCondition, geolocation?.region, weather],
-    queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
-  });
 
   const handleTempConditionChange = (
     _e: React.MouseEvent<HTMLElement>,
@@ -140,7 +140,7 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   );
 };
 
-export default RecommendClothes;
+export default ClothesSection;
 
 const outFitName = {
   OUTER: '상의',
