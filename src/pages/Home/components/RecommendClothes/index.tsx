@@ -9,6 +9,13 @@ import useAppSelector from '@/hooks/useAppSelector';
 import clothesImage from '@/constants/imageData/clothesImage';
 import RecommendClothesLoading from './loading';
 import NetworkError from '@/components/NetworkError';
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
+import 민소매 from '@/components/clothes/민소매';
+import 반바지 from '@/components/clothes/반바지';
+import 트렌치코트 from '@/components/clothes/트렌치코트';
+import 바지 from '@/components/clothes/바지';
+import AddIcon from '@/assets/svg/add.svg?react';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -27,6 +34,21 @@ type RecommendClothesProps = {
 const RecommendClothes = ({ weather }: RecommendClothesProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
+  const [currentSlider, setCurrentSlider] = useState(0);
+
+  const [sliderRef, instanceRef] = useKeenSlider({
+    mode: 'snap',
+    slides: {
+      origin: 'center',
+    },
+    slideChanged(slider) {
+      setCurrentSlider(slider.track.details.rel);
+    },
+  });
+
+  const moveToSliderClick = (index: number) => () => {
+    instanceRef.current?.moveToIdx(index);
+  };
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['clothes', tempCondition, geolocation?.region, weather],
@@ -46,36 +68,74 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
     <S.Section>
       {isLoading && <RecommendClothesLoading />}
 
-      {data?.map(({ names, outfitType }) => (
-        <C.ClothesCard elevation={0} key={outfitType} $outfitType={outfitType}>
-          <S.ImageWrap>
-            {getClothesImage(outfitType, names as ClothesImageName[])}
-          </S.ImageWrap>
-          <div>
-            <h4>{outFitName[outfitType]}</h4>
-            <S.ChipWrapper>
-              {names.map((name) => (
-                <Chip key={name} label={name} size='small' />
-              ))}
-            </S.ChipWrapper>
-          </div>
-        </C.ClothesCard>
-      ))}
+      {data && (
+        <ul ref={sliderRef} className='keen-slider'>
+          <S.SliderItem className='keen-slider__slide'>
+            {data.map(({ names, outfitType }) => (
+              <C.ClothesCard
+                elevation={0}
+                key={outfitType}
+                $outfitType={outfitType}
+              >
+                <S.ImageWrap>
+                  {getClothesImage(outfitType, names as ClothesImageName[])}
+                </S.ImageWrap>
+                <div>
+                  <h4>{outFitName[outfitType]}</h4>
+                  <S.ChipWrapper>
+                    {names.map((name) => (
+                      <Chip key={name} label={name} size='small' />
+                    ))}
+                  </S.ChipWrapper>
+                </div>
+              </C.ClothesCard>
+            ))}
+          </S.SliderItem>
 
-      <ToggleButtonGroup
-        fullWidth
-        exclusive
-        value={tempCondition}
-        onChange={handleTempConditionChange}
-      >
-        <C.ToggleButon value={COOL} disabled={weather.extremumTmp >= 28}>
-          시원하게
-        </C.ToggleButon>
-        <C.ToggleButon value={NORMAL}>적당하게</C.ToggleButon>
-        <C.ToggleButon value={WARM} disabled={weather.extremumTmp < 5}>
-          따뜻하게
-        </C.ToggleButon>
-      </ToggleButtonGroup>
+          <S.SliderItem className='keen-slider__slide'>
+            <S.LookbookList>
+              <S.LookbookCard>
+                <민소매 />
+                <반바지 />
+              </S.LookbookCard>
+              <S.LookbookCard>
+                <트렌치코트 />
+                <바지 />
+              </S.LookbookCard>
+              <S.LookbookCard $content='add'>
+                <AddIcon />
+                <span>추가하기</span>
+              </S.LookbookCard>
+            </S.LookbookList>
+          </S.SliderItem>
+
+          {currentSlider === 1 && (
+            <S.MoveButton onClick={moveToSliderClick(0)}>ITEMS</S.MoveButton>
+          )}
+          {currentSlider === 0 && (
+            <S.MoveButton $position={'right'} onClick={moveToSliderClick(1)}>
+              Lookbook
+            </S.MoveButton>
+          )}
+        </ul>
+      )}
+
+      <S.ButtonWrap>
+        <ToggleButtonGroup
+          fullWidth
+          exclusive
+          value={tempCondition}
+          onChange={handleTempConditionChange}
+        >
+          <C.ToggleButon value={COOL} disabled={weather.extremumTmp >= 28}>
+            시원하게
+          </C.ToggleButon>
+          <C.ToggleButon value={NORMAL}>적당하게</C.ToggleButon>
+          <C.ToggleButon value={WARM} disabled={weather.extremumTmp < 5}>
+            따뜻하게
+          </C.ToggleButon>
+        </ToggleButtonGroup>
+      </S.ButtonWrap>
     </S.Section>
   );
 };

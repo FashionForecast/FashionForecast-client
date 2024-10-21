@@ -7,8 +7,13 @@ import styled from '@emotion/styled';
 import { Card, css } from '@mui/material';
 
 const Section = styled.section`
-  padding: 0 16px 16px;
+  padding-bottom: 16px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+`;
+
+const SliderItem = styled.li`
+  padding: 0 16px;
+  margin-bottom: 16px;
 `;
 
 const ClothesCard = styled(Card, forwardPropOption)<{
@@ -19,6 +24,10 @@ const ClothesCard = styled(Card, forwardPropOption)<{
   padding: 16px;
   margin-bottom: 16px;
   border-radius: 16px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
   & h4 {
     ${({ theme }) => theme.typo['subtitle-1']}
@@ -70,12 +79,89 @@ const ToggleButon = styled(CustomToggleButton)`
   }
 `;
 
+const LookbookList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 10px;
+  height: 100%;
+`;
+
+const LookbookCard = styled.li<{ $content?: 'lookbook' | 'add' }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: calc(50% - 5px);
+  max-height: calc(50% - 5px);
+  padding: 8px;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 12px;
+
+  ${({ $content = 'lookbook', theme }) =>
+    $content === 'add' &&
+    css`
+      justify-content: flex-end;
+      padding: 8px 0;
+      background-color: transparent;
+      border: 1px dashed ${theme.colors.elevation.outlined};
+      border-radius: 12px;
+
+      & svg {
+        width: 22px;
+        height: 22px;
+        margin-bottom: 52px;
+      }
+
+      & span {
+        ${theme.typo['subtitle-1']}
+      }
+    `}
+`;
+
+const MoveButton = styled.div<{ $position?: 'left' | 'right' }>`
+  ${({ theme }) => theme.typo['body-2']}
+  position: absolute;
+  top: 50%;
+  left: 0;
+  padding: 8px 4px;
+  color: ${({ theme }) => theme.colors.white};
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.colors.primary.main};
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+
+  ${({ $position = 'left' }) =>
+    $position === 'right' &&
+    css`
+      right: 0;
+      left: auto;
+      border-radius: 0;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    `}
+`;
+
+const ButtonWrap = styled.div`
+  padding: 0 16px;
+`;
+
 export const C = {
   ClothesCard,
   ToggleButon,
 };
 
-export const S = { Section, ImageWrap, ChipWrapper };
+export const S = {
+  Section,
+  SliderItem,
+  ImageWrap,
+  ChipWrapper,
+  LookbookList,
+  LookbookCard,
+  MoveButton,
+  ButtonWrap,
+};
 
 function getChipColor(outfitType: OutfitType, theme: Theme) {
   let bgColor = '';

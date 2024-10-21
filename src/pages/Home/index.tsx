@@ -12,6 +12,7 @@ import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeSelector/data';
 import HomeLoading from './loading';
 import NetworkError from '@/components/NetworkError';
+import 'keen-slider/keen-slider.min.css';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -53,8 +54,8 @@ const Home = () => {
       <MainHeader />
 
       {isError && <NetworkError handleRefetch={refetch} />}
-
       {isLoading && <HomeLoading />}
+
       {data && (
         <>
           <RecommendClothes
