@@ -139,7 +139,6 @@ async function updateLookbookItem(
     const json = await res.json();
 
     if (!res.ok) {
-      console.log(json);
       throw new Error(`${json.code}: ${json.message}`);
     }
   } catch (error) {
