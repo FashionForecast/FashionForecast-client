@@ -11,6 +11,20 @@ const Section = styled.section`
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
+const TitleWrap = styled.div`
+  padding: 0 16px;
+  margin-bottom: 16px;
+
+  & h6 {
+    ${({ theme }) => theme.typo['subtitle-1']}
+  }
+
+  & span {
+    ${({ theme }) => theme.typo['body-2']}
+    color: ${({ theme }) => theme.colors.text.secondary};
+  }
+`;
+
 const SliderItem = styled.li`
   padding: 0 16px;
   margin-bottom: 16px;
@@ -154,6 +168,7 @@ export const C = {
 
 export const S = {
   Section,
+  TitleWrap,
   SliderItem,
   ImageWrap,
   ChipWrapper,

@@ -1,5 +1,5 @@
 import { getDefaultClothes } from '@/service/clothes';
-import { WeatherResponseData } from '@/types/weather';
+import { WeatherResponseData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { C, S } from './style';
 import { ClothesImageName, OutfitType } from '@/types/clothes';
@@ -16,6 +16,7 @@ import 반바지 from '@/components/clothes/반바지';
 import 트렌치코트 from '@/components/clothes/트렌치코트';
 import 바지 from '@/components/clothes/바지';
 import AddIcon from '@/assets/svg/add.svg?react';
+import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -35,6 +36,7 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
   const [currentSlider, setCurrentSlider] = useState(0);
+  const weatherType = getWeatehrType(weather.extremumTmp);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['clothes', tempCondition, geolocation?.region, weather],
@@ -67,6 +69,11 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   return (
     <S.Section>
       {isLoading && <RecommendClothesLoading />}
+
+      <S.TitleWrap>
+        <h6>{LOOKBOOK_WEATHER_TYPE[weatherType].title}</h6>
+        <span>{LOOKBOOK_WEATHER_TYPE[weatherType].subtitle}</span>
+      </S.TitleWrap>
 
       {data && (
         <ul ref={sliderRef} className='keen-slider'>
@@ -193,4 +200,15 @@ function getClothesImage(outfitType: OutfitType, names: ClothesImageName[]) {
   }
 
   return Image ? <Image /> : <img src='not' alt='.' />;
+}
+
+function getWeatehrType(temp: number): WeatherType {
+  if (temp >= 28) return '1';
+  if (temp >= 23 && temp < 28) return '2';
+  if (temp >= 20 && temp < 23) return '3';
+  if (temp >= 17 && temp < 20) return '4';
+  if (temp >= 12 && temp < 17) return '5';
+  if (temp >= 9 && temp < 12) return '6';
+  if (temp >= 5 && temp < 9) return '7';
+  return '8';
 }
