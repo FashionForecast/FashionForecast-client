@@ -24,7 +24,8 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
   const { openSnackbar } = useSnackbar();
 
   const { mutate } = useMutation({
-    mutationFn: () => deleteLookbook(state?.outfit.memberOutfitId, accessToken),
+    mutationFn: () =>
+      deleteLookbook(state?.outfit?.memberOutfitId, accessToken),
   });
 
   const handleClick = () => {
@@ -33,7 +34,7 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
     mutate(undefined, {
       onSuccess: async () => {
         await queryClient.invalidateQueries({ queryKey: ['user'] });
-        navigate('/user');
+        navigate(state?.referrer ? state.referrer : '/user');
       },
       onError: () => openSnackbar('해당 룩북을 삭제 할 수 없습니다.'),
       onSettled: () => setIsLoading(false),

@@ -18,7 +18,8 @@ export type LookbookSelect = {
 
 export type LocationState = {
   state?: {
-    outfit: Outfits;
+    outfit?: Outfits;
+    referrer?: string;
   };
 };
 

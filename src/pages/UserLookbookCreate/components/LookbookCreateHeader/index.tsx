@@ -35,7 +35,7 @@ const LookbookCreateHeader = ({
         weatherType,
         select,
         accessToken,
-        state?.outfit.memberOutfitId
+        state?.outfit?.memberOutfitId
       ),
     onSuccess: async () =>
       await queryClient.invalidateQueries({ queryKey: ['user'] }),
@@ -45,7 +45,7 @@ const LookbookCreateHeader = ({
     setIsLoading(true);
 
     mutate(undefined, {
-      onSuccess: () => navigate('/user'),
+      onSuccess: () => navigate(state?.referrer ? state.referrer : '/user'),
       onError: (error) => {
         if (error.message.includes('M003')) {
           openSnackbar('5개 이상 저장할 수 없습니다.');
@@ -69,7 +69,7 @@ const LookbookCreateHeader = ({
   return (
     <>
       <Header>
-        <Link to={'/'}>
+        <Link to={state?.referrer ? state.referrer : '/user'}>
           <GoBackButton />
         </Link>
 

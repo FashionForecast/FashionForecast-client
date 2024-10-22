@@ -2,7 +2,7 @@ import { getDefaultClothes, getUserLookbookByTemp } from '@/service/clothes';
 import { WeatherResponseData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { C, S } from './style';
-import { ClothesImageName, OutfitType } from '@/types/clothes';
+import { ClothesImageName, Outfits, OutfitType } from '@/types/clothes';
 import { Chip, ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
@@ -14,6 +14,7 @@ import 'keen-slider/keen-slider.min.css';
 import AddIcon from '@/assets/svg/add.svg?react';
 import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
 import { getClothesImageJSX } from '@/utils/clothes';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -35,8 +36,10 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   const user = useAppSelector((state) => state.user.info);
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
   const [currentSlider, setCurrentSlider] = useState(0);
-  const weatherType = getWeatehrType(weather.extremumTmp);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
+  const weatherType = getWeatehrType(weather.extremumTmp);
   const {
     data: recommedClothes,
     isLoading,
@@ -59,8 +62,12 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     slides: {
       origin: 'center',
     },
+    initial: searchParams.get('tab') === 'lookbook' ? 1 : 0,
     slideChanged(slider) {
       setCurrentSlider(slider.track.details.rel);
+    },
+    created() {
+      setCurrentSlider(searchParams.get('tab') === 'lookbook' ? 1 : 0);
     },
   });
 
@@ -74,6 +81,12 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   ) => {
     if (!condition) return;
     setTempCondition(condition);
+  };
+
+  const handleLookbookItemClick = (outfit?: Outfits) => () => {
+    navigate(`/user/lookbook/create?type=${weatherType}`, {
+      state: { outfit, referrer: '/?tab=lookbook' },
+    });
   };
 
   if (isError) return <NetworkError handleRefetch={refetch} />;
@@ -113,15 +126,21 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
           <>
             <S.SliderItem className='keen-slider__slide'>
               <S.LookbookList>
-                {lookbook?.map((item) => (
-                  <S.LookbookCard key={item.memberOutfitId}>
-                    {getClothesImageJSX(item.topType, item.topColor)}
-                    {getClothesImageJSX(item.bottomType, item.bottomColor)}
+                {lookbook?.map((outfit) => (
+                  <S.LookbookCard
+                    key={outfit.memberOutfitId}
+                    onClick={handleLookbookItemClick(outfit)}
+                  >
+                    {getClothesImageJSX(outfit.topType, outfit.topColor)}
+                    {getClothesImageJSX(outfit.bottomType, outfit.bottomColor)}
                   </S.LookbookCard>
                 ))}
 
                 {(!lookbook || lookbook.length <= 3) && (
-                  <S.LookbookCard $content='add'>
+                  <S.LookbookCard
+                    $content='add'
+                    onClick={handleLookbookItemClick()}
+                  >
                     <AddIcon />
                     <span>추가하기</span>
                   </S.LookbookCard>

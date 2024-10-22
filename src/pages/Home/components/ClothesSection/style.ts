@@ -96,7 +96,7 @@ const ToggleButon = styled(CustomToggleButton)`
 const LookbookList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 0 10px;
+  gap: 8px;
   height: 100%;
 `;
 
@@ -105,9 +105,10 @@ const LookbookCard = styled.li<{ $content?: 'lookbook' | 'add' }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: calc(50% - 5px);
-  max-height: calc(50% - 5px);
+  width: calc(50% - 4px);
+  height: calc(50% - 4px);
   padding: 8px;
+  cursor: pointer;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
 
