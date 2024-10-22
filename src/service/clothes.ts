@@ -60,10 +60,19 @@ export async function getLookbookList(
   }
 }
 
+type SaveLookbookBodyData = {
+  topType: string;
+  topColor: string;
+  bottomType: string;
+  bottomColor: string;
+  tempStageLevel: number;
+};
+
 export async function saveLookbook(
   weatherType: WeatherType,
   select: LookbookSelect,
-  token: string | null
+  token: string | null,
+  outfitId?: number
 ) {
   try {
     const { top, bottom } = select;
@@ -75,6 +84,18 @@ export async function saveLookbook(
       tempStageLevel: Number(weatherType),
     };
 
+    const service = outfitId ? updateLookbookItem : createLookbookItem;
+    await service(data, token, outfitId);
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
+
+async function createLookbookItem(
+  data: SaveLookbookBodyData,
+  token: string | null
+) {
+  try {
     const res = await fetch(
       `${import.meta.env.VITE_API_BASE_URL}/member/outfit`,
       {
@@ -90,6 +111,35 @@ export async function saveLookbook(
     const json = await res.json();
 
     if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
+
+async function updateLookbookItem(
+  data: SaveLookbookBodyData,
+  token: string | null,
+  outfitId?: number
+) {
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/member/outfits/${outfitId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      console.log(json);
       throw new Error(`${json.code}: ${json.message}`);
     }
   } catch (error) {

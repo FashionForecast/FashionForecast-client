@@ -28,8 +28,15 @@ const LookbookCreateHeader = ({
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { openSnackbar } = useSnackbar();
+
   const { mutate } = useMutation({
-    mutationFn: () => saveLookbook(weatherType, select, accessToken),
+    mutationFn: () =>
+      saveLookbook(
+        weatherType,
+        select,
+        accessToken,
+        state?.outfit.memberOutfitId
+      ),
     onSuccess: async () =>
       await queryClient.invalidateQueries({ queryKey: ['user'] }),
   });
