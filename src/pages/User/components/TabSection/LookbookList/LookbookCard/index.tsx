@@ -3,8 +3,8 @@ import { S, C } from './style';
 import { Link } from 'react-router-dom';
 import { WeatherType } from '@/types/weather';
 import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
-import { ClothesImageName, Outfits } from '@/types/clothes';
-import clothesImage from '@/constants/imageData/clothesImage';
+import { Outfits } from '@/types/clothes';
+import { getClothesImageJSX } from '@/utils/clothes';
 
 type LookbookCardProps = {
   type: WeatherType;
@@ -40,9 +40,9 @@ const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
             >
               <S.ClothesItem key={outfit.memberOutfitId}>
                 <S.Top>
-                  {getClothesImage(outfit.topType, outfit.topColor)}
+                  {getClothesImageJSX(outfit.topType, outfit.topColor)}
                 </S.Top>
-                {getClothesImage(outfit.bottomType, outfit.bottomColor)}
+                {getClothesImageJSX(outfit.bottomType, outfit.bottomColor)}
               </S.ClothesItem>
             </C.LookbookLink>
           ))}
@@ -53,8 +53,3 @@ const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
 };
 
 export default LookbookCard;
-
-function getClothesImage(name: ClothesImageName, color: string) {
-  const Image = clothesImage[name];
-  return Image && <Image color={color} />;
-}

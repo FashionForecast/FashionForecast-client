@@ -1,4 +1,4 @@
-import { getDefaultClothes } from '@/service/clothes';
+import { getDefaultClothes, getUserLookbookByTemp } from '@/service/clothes';
 import { WeatherResponseData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { C, S } from './style';
@@ -11,12 +11,9 @@ import RecommendClothesLoading from './loading';
 import NetworkError from '@/components/NetworkError';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import 민소매 from '@/components/clothes/민소매';
-import 반바지 from '@/components/clothes/반바지';
-import 트렌치코트 from '@/components/clothes/트렌치코트';
-import 바지 from '@/components/clothes/바지';
 import AddIcon from '@/assets/svg/add.svg?react';
 import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
+import { getClothesImageJSX } from '@/utils/clothes';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -34,13 +31,27 @@ type ClothesSectionProps = {
 
 const ClothesSection = ({ weather }: ClothesSectionProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
+  const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const user = useAppSelector((state) => state.user.info);
   const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
   const [currentSlider, setCurrentSlider] = useState(0);
   const weatherType = getWeatehrType(weather.extremumTmp);
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const {
+    data: recommedClothes,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['clothes', tempCondition, geolocation?.region, weather],
     queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
+  });
+
+  const { data: lookbook } = useQuery({
+    queryKey: ['user', user?.socialId, 'lookbook', weather, tempCondition],
+    queryFn: () =>
+      getUserLookbookByTemp(weather.extremumTmp, tempCondition, accessToken),
+    enabled: !!user,
   });
 
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -68,64 +79,67 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   if (isError) return <NetworkError handleRefetch={refetch} />;
   return (
     <S.Section>
-      {isLoading && <RecommendClothesLoading />}
-
       <S.TitleWrap>
         <h6>{LOOKBOOK_WEATHER_TYPE[weatherType].title}</h6>
         <span>{LOOKBOOK_WEATHER_TYPE[weatherType].subtitle}</span>
       </S.TitleWrap>
 
-      {data && (
-        <ul ref={sliderRef} className='keen-slider'>
-          <S.SliderItem className='keen-slider__slide'>
-            {data.map(({ names, outfitType }) => (
-              <C.ClothesCard
-                elevation={0}
-                key={outfitType}
-                $outfitType={outfitType}
-              >
-                <S.ImageWrap>
-                  {getClothesImage(outfitType, names as ClothesImageName[])}
-                </S.ImageWrap>
-                <div>
-                  <h4>{outFitName[outfitType]}</h4>
-                  <S.ChipWrapper>
-                    {names.map((name) => (
-                      <Chip key={name} label={name} size='small' />
-                    ))}
-                  </S.ChipWrapper>
-                </div>
-              </C.ClothesCard>
-            ))}
-          </S.SliderItem>
+      <ul ref={sliderRef} className='keen-slider'>
+        <S.SliderItem className='keen-slider__slide'>
+          {isLoading && <RecommendClothesLoading />}
 
-          <S.SliderItem className='keen-slider__slide'>
-            <S.LookbookList>
-              <S.LookbookCard>
-                <민소매 />
-                <반바지 />
-              </S.LookbookCard>
-              <S.LookbookCard>
-                <트렌치코트 />
-                <바지 />
-              </S.LookbookCard>
-              <S.LookbookCard $content='add'>
-                <AddIcon />
-                <span>추가하기</span>
-              </S.LookbookCard>
-            </S.LookbookList>
-          </S.SliderItem>
+          {recommedClothes?.map(({ names, outfitType }) => (
+            <C.ClothesCard
+              elevation={0}
+              key={outfitType}
+              $outfitType={outfitType}
+            >
+              <S.ImageWrap>
+                {getClothesImage(outfitType, names as ClothesImageName[])}
+              </S.ImageWrap>
+              <div>
+                <h4>{outFitName[outfitType]}</h4>
+                <S.ChipWrapper>
+                  {names.map((name) => (
+                    <Chip key={name} label={name} size='small' />
+                  ))}
+                </S.ChipWrapper>
+              </div>
+            </C.ClothesCard>
+          ))}
+        </S.SliderItem>
 
-          {currentSlider === 1 && (
-            <S.MoveButton onClick={moveToSliderClick(0)}>ITEMS</S.MoveButton>
-          )}
-          {currentSlider === 0 && (
-            <S.MoveButton $position={'right'} onClick={moveToSliderClick(1)}>
-              Lookbook
-            </S.MoveButton>
-          )}
-        </ul>
-      )}
+        {user && (
+          <>
+            <S.SliderItem className='keen-slider__slide'>
+              <S.LookbookList>
+                {lookbook?.map((item) => (
+                  <S.LookbookCard key={item.memberOutfitId}>
+                    {getClothesImageJSX(item.topType, item.topColor)}
+                    {getClothesImageJSX(item.bottomType, item.bottomColor)}
+                  </S.LookbookCard>
+                ))}
+
+                {(!lookbook || lookbook.length <= 3) && (
+                  <S.LookbookCard $content='add'>
+                    <AddIcon />
+                    <span>추가하기</span>
+                  </S.LookbookCard>
+                )}
+              </S.LookbookList>
+            </S.SliderItem>
+
+            {currentSlider === 1 && (
+              <S.MoveButton onClick={moveToSliderClick(0)}>ITEMS</S.MoveButton>
+            )}
+            {currentSlider === 0 && (
+              <S.MoveButton $position={'right'} onClick={moveToSliderClick(1)}>
+                Lookbook
+              </S.MoveButton>
+            )}
+          </>
+        )}
+      </ul>
 
       <S.ButtonWrap>
         <ToggleButtonGroup
