@@ -2,7 +2,11 @@ import {
   ClothesForWeather,
   TempCondition,
 } from '@/pages/Home/components/ClothesSection';
-import { ClothesResponseData, LookbookListResponseData } from '@/types/clothes';
+import {
+  ClothesResponseData,
+  LookbookListResponseData,
+  Outfits,
+} from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { LookbookSelect } from '@/pages/UserLookbookCreate';
 
@@ -115,6 +119,34 @@ export async function deleteLookbook(
     if (!res.ok) {
       throw new Error(`${json.code}: ${json.message}`);
     }
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
+
+export async function getUserLookbookByTemp(
+  temp: ClothesForWeather['extremumTmp'],
+  tempCondition: TempCondition,
+  accessToken: string | null
+): Promise<Outfits[]> {
+  try {
+    const res = await fetch(
+      `${
+        import.meta.env.VITE_API_BASE_URL
+      }/member/outfits/temp-stage?extremumTmp=${temp}&tempCondition=${tempCondition}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
+
+    return json.data;
   } catch (error) {
     throw new Error(error as string);
   }
