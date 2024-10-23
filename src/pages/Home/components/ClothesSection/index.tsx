@@ -2,11 +2,10 @@ import { getDefaultClothes, getUserLookbookByTemp } from '@/service/clothes';
 import { WeatherResponseData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { C, S } from './style';
-import { ClothesImageName, Outfits, OutfitType } from '@/types/clothes';
-import { Chip, ToggleButtonGroup } from '@mui/material';
+import { Outfits } from '@/types/clothes';
+import { ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
-import clothesImage from '@/constants/imageData/clothesImage';
 import RecommendClothesLoading from './loading';
 import NetworkError from '@/components/NetworkError';
 import { useKeenSlider } from 'keen-slider/react';
@@ -15,6 +14,7 @@ import AddIcon from '@/assets/svg/add.svg?react';
 import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
 import { getClothesImageJSX } from '@/utils/clothes';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import RecommendClothes from './RecommendClothes';
 
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -121,27 +121,7 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
         <S.SliderItem className='keen-slider__slide'>
           {isLoading && <RecommendClothesLoading />}
 
-          <S.RecommendWrap>
-            {recommedClothes?.map(({ names, outfitType }) => (
-              <C.ClothesCard
-                elevation={0}
-                key={outfitType}
-                $outfitType={outfitType}
-              >
-                <S.ImageWrap>
-                  {getClothesImage(outfitType, names as ClothesImageName[])}
-                </S.ImageWrap>
-                <div>
-                  <h4>{outFitName[outfitType]}</h4>
-                  <S.ChipWrapper>
-                    {names.map((name) => (
-                      <Chip key={name} label={name} size='small' />
-                    ))}
-                  </S.ChipWrapper>
-                </div>
-              </C.ClothesCard>
-            ))}
-          </S.RecommendWrap>
+          {recommedClothes && <RecommendClothes clothes={recommedClothes} />}
         </S.SliderItem>
 
         {user && (
@@ -204,59 +184,6 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
 
 export default ClothesSection;
 
-const outFitName = {
-  OUTER: '상의',
-  TOP: '상의',
-  LAYERED: '상의',
-  BOTTOM: '하의',
-  ETC: '꼭 챙기세요!',
-  BASIC_UMBRELLA: '꼭 챙기세요!',
-  FOLDING_UMBRELLA: '꼭 챙기세요!',
-} as const;
-
-function getClothesImage(outfitType: OutfitType, names: ClothesImageName[]) {
-  let Image;
-
-  /** 대표 이미지가 둘 이상 포함되어 있는 경우, 특정 옷의 이미지를 보여줌 */
-  if (outFitName[outfitType] === '상의' && names.length === 2) {
-    if (names.includes('민소매') && names.includes('반팔티')) {
-      Image = clothesImage.민소매;
-    }
-  }
-
-  if (outFitName[outfitType] === '하의') {
-    if (names.length === 3) Image = clothesImage.바지;
-    else if (names.length === 2) {
-      if (names.includes('반바지') && names.includes('슬랙스')) {
-        Image = clothesImage.바지;
-      } else if (names.includes('면바지') && names.includes('청바지')) {
-        Image = clothesImage.청바지;
-      }
-    }
-  }
-
-  if (outFitName[outfitType] === '꼭 챙기세요!' && names.length === 2) {
-    if (names.includes('접이식 우산')) {
-      Image = clothesImage.겉옷접이식우산;
-    } else if (names.includes('장우산')) {
-      Image = clothesImage.겉옷장우산;
-    }
-  }
-
-  /** 위의 조건에서 찾지 못했을 때, 대표 이미지를 찾음 */
-  for (const name of names) {
-    if (Image) break;
-
-    if (name === '슬랙스' || name === '면바지' || name === '기모 바지') {
-      Image = clothesImage.바지;
-    } else {
-      Image = clothesImage[name];
-    }
-  }
-
-  return Image ? <Image /> : <img src='not' alt='.' />;
-}
-
 function getWeatehrType(temp: number): WeatherType {
   if (temp >= 28) return '1';
   if (temp >= 23 && temp < 28) return '2';
@@ -267,26 +194,3 @@ function getWeatehrType(temp: number): WeatherType {
   if (temp >= 5 && temp < 9) return '7';
   return '8';
 }
-
-// function getWeatehrType(
-//   temp: number,
-//   tempCondition: TempCondition
-// ): WeatherType {
-//   let type;
-
-//   if (temp >= 28) type = 1;
-//   else if (temp >= 23 && temp < 28) type = 2;
-//   else if (temp >= 20 && temp < 23) type = 3;
-//   else if (temp >= 17 && temp < 20) type = 4;
-//   else if (temp >= 12 && temp < 17) type = 5;
-//   else if (temp >= 9 && temp < 12) type = 6;
-//   else if (temp >= 5 && temp < 9) type = 7;
-//   else type = 8;
-//   // console.log(type);
-//   console.log(temp, type);
-
-//   if (tempCondition === 'COOL') type = type - 1;
-//   else if (tempCondition === 'WARM') type = type + 1;
-
-//   return String(type) as WeatherType;
-// }
