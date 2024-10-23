@@ -7,6 +7,7 @@ import Edit from './components/Edit';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/Lookbook/data';
 import { useState } from 'react';
 import { Outfits } from '@/types/clothes';
+import { TempCondition } from '../Home/components/ClothesSection';
 
 export type LookbookSelect = {
   top: { name: string; color: string };
@@ -20,6 +21,7 @@ export type LocationState = {
   state?: {
     outfit?: Outfits;
     referrer?: string;
+    tempOption?: TempCondition;
   };
 };
 

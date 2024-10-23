@@ -19,6 +19,13 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 const COOL = 'COOL',
   NORMAL = 'NORMAL',
   WARM = 'WARM';
+
+const Options = new Map([
+  [COOL, COOL],
+  [NORMAL, NORMAL],
+  [WARM, WARM],
+]);
+
 export type TempCondition = typeof COOL | typeof NORMAL | typeof WARM;
 
 export type ClothesForWeather = Pick<
@@ -34,9 +41,13 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const user = useAppSelector((state) => state.user.info);
-  const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
-  const [currentSlider, setCurrentSlider] = useState(0);
   const [searchParams] = useSearchParams();
+  const tempParamOption = (searchParams.get('option') ??
+    NORMAL) as TempCondition;
+  const [tempCondition, setTempCondition] = useState<TempCondition>(
+    Options.has(tempParamOption) ? tempParamOption : NORMAL
+  );
+  const [currentSlider, setCurrentSlider] = useState(0);
   const navigate = useNavigate();
 
   const weatherType = getWeatehrType(weather.extremumTmp);
@@ -84,8 +95,17 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   };
 
   const handleLookbookItemClick = (outfit?: Outfits) => () => {
-    navigate(`/user/lookbook/create?type=${weatherType}`, {
-      state: { outfit, referrer: '/?tab=lookbook' },
+    let type = Number(weatherType);
+
+    if (tempCondition === 'COOL') type = type - 1;
+    else if (tempCondition === 'WARM') type = type + 1;
+
+    navigate(`/user/lookbook/create?type=${type}`, {
+      state: {
+        outfit,
+        referrer: `/?tab=lookbook&option=${tempCondition}`,
+        tempOption: tempCondition,
+      },
     });
   };
 
@@ -101,25 +121,27 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
         <S.SliderItem className='keen-slider__slide'>
           {isLoading && <RecommendClothesLoading />}
 
-          {recommedClothes?.map(({ names, outfitType }) => (
-            <C.ClothesCard
-              elevation={0}
-              key={outfitType}
-              $outfitType={outfitType}
-            >
-              <S.ImageWrap>
-                {getClothesImage(outfitType, names as ClothesImageName[])}
-              </S.ImageWrap>
-              <div>
-                <h4>{outFitName[outfitType]}</h4>
-                <S.ChipWrapper>
-                  {names.map((name) => (
-                    <Chip key={name} label={name} size='small' />
-                  ))}
-                </S.ChipWrapper>
-              </div>
-            </C.ClothesCard>
-          ))}
+          <S.RecommendWrap>
+            {recommedClothes?.map(({ names, outfitType }) => (
+              <C.ClothesCard
+                elevation={0}
+                key={outfitType}
+                $outfitType={outfitType}
+              >
+                <S.ImageWrap>
+                  {getClothesImage(outfitType, names as ClothesImageName[])}
+                </S.ImageWrap>
+                <div>
+                  <h4>{outFitName[outfitType]}</h4>
+                  <S.ChipWrapper>
+                    {names.map((name) => (
+                      <Chip key={name} label={name} size='small' />
+                    ))}
+                  </S.ChipWrapper>
+                </div>
+              </C.ClothesCard>
+            ))}
+          </S.RecommendWrap>
         </S.SliderItem>
 
         {user && (
@@ -245,3 +267,26 @@ function getWeatehrType(temp: number): WeatherType {
   if (temp >= 5 && temp < 9) return '7';
   return '8';
 }
+
+// function getWeatehrType(
+//   temp: number,
+//   tempCondition: TempCondition
+// ): WeatherType {
+//   let type;
+
+//   if (temp >= 28) type = 1;
+//   else if (temp >= 23 && temp < 28) type = 2;
+//   else if (temp >= 20 && temp < 23) type = 3;
+//   else if (temp >= 17 && temp < 20) type = 4;
+//   else if (temp >= 12 && temp < 17) type = 5;
+//   else if (temp >= 9 && temp < 12) type = 6;
+//   else if (temp >= 5 && temp < 9) type = 7;
+//   else type = 8;
+//   // console.log(type);
+//   console.log(temp, type);
+
+//   if (tempCondition === 'COOL') type = type - 1;
+//   else if (tempCondition === 'WARM') type = type + 1;
+
+//   return String(type) as WeatherType;
+// }

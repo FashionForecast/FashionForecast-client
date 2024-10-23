@@ -30,11 +30,19 @@ const SliderItem = styled.li`
   margin-bottom: 16px;
 `;
 
+const RecommendWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 310px;
+`;
+
 const ClothesCard = styled(Card, forwardPropOption)<{
   $outfitType: OutfitType;
 }>`
   display: flex;
+  flex-grow: 1;
   align-items: center;
+  height: 100%;
   padding: 16px;
   margin-bottom: 16px;
   border-radius: 16px;
@@ -171,6 +179,7 @@ export const S = {
   Section,
   TitleWrap,
   SliderItem,
+  RecommendWrap,
   ImageWrap,
   ChipWrapper,
   LookbookList,
