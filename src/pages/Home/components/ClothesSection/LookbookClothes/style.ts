@@ -9,6 +9,7 @@ const LookbookList = styled.ul`
 `;
 
 const LookbookCard = styled.li<{ $content?: 'lookbook' | 'add' }>`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,16 +35,22 @@ const LookbookCard = styled.li<{ $content?: 'lookbook' | 'add' }>`
       border: 1px dashed ${theme.colors.elevation.outlined};
       border-radius: 12px;
 
-      & svg {
-        width: 22px;
-        height: 22px;
-        margin-bottom: 52px;
-      }
-
       & span {
         ${theme.typo['subtitle-1']}
       }
     `}
 `;
 
-export const S = { LookbookList, LookbookCard };
+const IconWrap = styled.div`
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  & svg {
+    width: 22px;
+    height: 22px;
+  }
+`;
+
+export const S = { LookbookList, LookbookCard, IconWrap };

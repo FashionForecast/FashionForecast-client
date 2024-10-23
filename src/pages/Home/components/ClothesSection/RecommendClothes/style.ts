@@ -7,7 +7,7 @@ import { Card, css } from '@mui/material';
 const RecommendWrap = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 310px;
+  min-height: 256px;
 `;
 
 const ClothesCard = styled(Card, forwardPropOption)<{

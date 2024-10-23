@@ -59,7 +59,9 @@ const LookbookClothes = ({
 
       {(!data || data.length <= 3) && (
         <S.LookbookCard $content='add' onClick={handleLookbookItemClick()}>
-          <AddIcon />
+          <S.IconWrap>
+            <AddIcon />
+          </S.IconWrap>
           <span>추가하기</span>
         </S.LookbookCard>
       )}
