@@ -2,6 +2,7 @@ import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
 import { WeatherType } from '@/types/weather';
 import styled from '@emotion/styled';
 import { IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const LookbookCardWrap = styled.li<{ $color: WeatherType }>`
   padding: 12px 16px;
@@ -53,6 +54,14 @@ const Top = styled.div`
   height: 64px;
 `;
 
+const LookbookLink = styled(Link)`
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+`;
+
 export const S = {
   LookbookCardWrap,
   CardHeader,
@@ -62,4 +71,4 @@ export const S = {
   Top,
 };
 
-export const C = { IconBtn };
+export const C = { IconBtn, LookbookLink };

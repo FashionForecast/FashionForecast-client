@@ -2,33 +2,20 @@ import { WeatherType } from '@/types/weather';
 import Showcase, { SliderType } from './Showcase';
 import ColorPalette from './ColorPalette';
 import { useCallback, useState } from 'react';
-import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/Lookbook/data';
 import { ClothesType } from '@/types/clothes';
+import { LookbookSelect } from '../..';
 
 export type FocussingSliderType = SliderType | null;
-export type LookbookSelect = {
-  top: { name: string; color: string };
-  bottom: {
-    name: string;
-    color: string;
-  };
-};
 
 type EditProps = {
   weatherType: WeatherType;
+  select: LookbookSelect;
+  updateSelect: (
+    select: LookbookSelect | ((prev: LookbookSelect) => LookbookSelect)
+  ) => void;
 };
 
-const Edit = ({ weatherType }: EditProps) => {
-  const [select, setSelect] = useState<LookbookSelect>({
-    top: {
-      name: DEFAULT_CLOTHES_BY_WEATHER[weatherType].top,
-      color: '#F9FAFB',
-    },
-    bottom: {
-      name: DEFAULT_CLOTHES_BY_WEATHER[weatherType].bottom,
-      color: '#F9FAFB',
-    },
-  });
+const Edit = ({ weatherType, select, updateSelect }: EditProps) => {
   const [focussingSlider, setFocussingSlider] =
     useState<FocussingSliderType>(null);
 
@@ -43,7 +30,7 @@ const Edit = ({ weatherType }: EditProps) => {
     (color: string) => () => {
       if (!focussingSlider) return;
 
-      setSelect((prev) => ({
+      updateSelect((prev) => ({
         ...prev,
         [focussingSlider]: { ...prev[focussingSlider], color },
       }));
@@ -52,7 +39,7 @@ const Edit = ({ weatherType }: EditProps) => {
   );
 
   const changeClothesName = (clothesType: ClothesType) => (name: string) => {
-    setSelect((prev) => ({
+    updateSelect((prev) => ({
       ...prev,
       [clothesType]: { ...prev[clothesType], name },
     }));

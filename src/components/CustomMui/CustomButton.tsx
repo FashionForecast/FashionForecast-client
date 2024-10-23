@@ -33,4 +33,12 @@ const ButtonBase = styled(MuiButton)`
         theme.colors.action.disabledBackground};
     }
   }
+
+  &.MuiButton-containedError {
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  &.MuiButton-textError {
+    color: ${({ theme }) => theme.colors.error.main};
+  }
 `;

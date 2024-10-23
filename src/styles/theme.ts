@@ -21,6 +21,9 @@ export const theme = {
     elevation: {
       outlined: colors.blueGrey['300'],
     },
+    error: {
+      main: colors.red[600],
+    },
     action: {
       active: colors.blueGrey['A56'],
       hover: colors.blueGrey['A04'],

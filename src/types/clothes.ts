@@ -42,3 +42,16 @@ export type ClothesResponseData = Array<{
 }>;
 
 export type ClothesType = 'top' | 'bottom';
+
+export type Outfits = {
+  memberOutfitId: number;
+  topType: ClothesImageName;
+  topColor: string;
+  bottomType: ClothesImageName;
+  bottomColor: string;
+};
+
+export type LookbookListResponseData = Array<{
+  memberOutfits: Outfits[];
+  tempStageLevel: number;
+}>;

@@ -1,52 +1,20 @@
-import { getDefaultClothes } from '@/service/clothes';
-import { WeatherResponseData } from '@/types/weather';
-import { useQuery } from '@tanstack/react-query';
+import {
+  ClothesImageName,
+  ClothesResponseData,
+  OutfitType,
+} from '@/types/clothes';
 import { C, S } from './style';
-import { ClothesImageName, OutfitType } from '@/types/clothes';
-import { Chip, ToggleButtonGroup } from '@mui/material';
-import { useState } from 'react';
-import useAppSelector from '@/hooks/useAppSelector';
 import clothesImage from '@/constants/imageData/clothesImage';
-import RecommendClothesLoading from './loading';
-import NetworkError from '@/components/NetworkError';
-
-const COOL = 'COOL',
-  NORMAL = 'NORMAL',
-  WARM = 'WARM';
-export type TempCondition = typeof COOL | typeof NORMAL | typeof WARM;
-
-export type ClothesForWeather = Pick<
-  WeatherResponseData,
-  'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
->;
+import { Chip } from '@mui/material';
 
 type RecommendClothesProps = {
-  weather: ClothesForWeather;
+  clothes: ClothesResponseData;
 };
 
-const RecommendClothes = ({ weather }: RecommendClothesProps) => {
-  const geolocation = useAppSelector((state) => state.geolocation.value);
-  const [tempCondition, setTempCondition] = useState<TempCondition>(NORMAL);
-
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['clothes', tempCondition, geolocation?.region, weather],
-    queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
-  });
-
-  const handleTempConditionChange = (
-    _e: React.MouseEvent<HTMLElement>,
-    condition: TempCondition
-  ) => {
-    if (!condition) return;
-    setTempCondition(condition);
-  };
-
-  if (isError) return <NetworkError handleRefetch={refetch} />;
+const RecommendClothes = ({ clothes }: RecommendClothesProps) => {
   return (
-    <S.Section>
-      {isLoading && <RecommendClothesLoading />}
-
-      {data?.map(({ names, outfitType }) => (
+    <S.RecommendWrap>
+      {clothes?.map(({ names, outfitType }) => (
         <C.ClothesCard elevation={0} key={outfitType} $outfitType={outfitType}>
           <S.ImageWrap>
             {getClothesImage(outfitType, names as ClothesImageName[])}
@@ -61,22 +29,7 @@ const RecommendClothes = ({ weather }: RecommendClothesProps) => {
           </div>
         </C.ClothesCard>
       ))}
-
-      <ToggleButtonGroup
-        fullWidth
-        exclusive
-        value={tempCondition}
-        onChange={handleTempConditionChange}
-      >
-        <C.ToggleButon value={COOL} disabled={weather.extremumTmp >= 28}>
-          시원하게
-        </C.ToggleButon>
-        <C.ToggleButon value={NORMAL}>적당하게</C.ToggleButon>
-        <C.ToggleButon value={WARM} disabled={weather.extremumTmp < 5}>
-          따뜻하게
-        </C.ToggleButon>
-      </ToggleButtonGroup>
-    </S.Section>
+    </S.RecommendWrap>
   );
 };
 

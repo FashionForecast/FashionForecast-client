@@ -1,24 +1,29 @@
-import CustomToggleButton from '@/components/CustomMui/CustomToggleButton';
 import { OutfitType } from '@/types/clothes';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-
 import { Card, css } from '@mui/material';
 
-const Section = styled.section`
-  padding: 0 16px 16px;
-  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+const RecommendWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 256px;
 `;
 
 const ClothesCard = styled(Card, forwardPropOption)<{
   $outfitType: OutfitType;
 }>`
   display: flex;
+  flex-grow: 1;
   align-items: center;
+  height: 100%;
   padding: 16px;
   margin-bottom: 16px;
   border-radius: 16px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
   & h4 {
     ${({ theme }) => theme.typo['subtitle-1']}
@@ -51,31 +56,9 @@ const ChipWrapper = styled.div`
   gap: 8px;
 `;
 
-const ToggleButon = styled(CustomToggleButton)`
-  height: 40px;
+export const C = { ClothesCard };
 
-  &.MuiToggleButtonGroup-middleButton {
-    border-right: 1px solid ${({ theme }) => theme.colors.primary.main};
-    border-left: 1px solid ${({ theme }) => theme.colors.primary.main};
-  }
-
-  &:first-of-type {
-    border-top-left-radius: 16px;
-    border-bottom-left-radius: 16px;
-  }
-
-  &:last-of-type {
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-  }
-`;
-
-export const C = {
-  ClothesCard,
-  ToggleButon,
-};
-
-export const S = { Section, ImageWrap, ChipWrapper };
+export const S = { RecommendWrap, ImageWrap, ChipWrapper };
 
 function getChipColor(outfitType: OutfitType, theme: Theme) {
   let bgColor = '';

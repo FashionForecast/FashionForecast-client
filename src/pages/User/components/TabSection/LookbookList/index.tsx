@@ -1,18 +1,29 @@
-import { WeatherType } from '@/types/weather';
 import LookbookCard from './LookbookCard';
-
-const LookbookTypes = Array.from(
-  { length: 8 },
-  (_, i) => String(i + 1) as WeatherType
-);
+import { useQuery } from '@tanstack/react-query';
+import useAppSelector from '@/hooks/useAppSelector';
+import { getLookbookList } from '@/service/clothes';
+import { WeatherType } from '@/types/weather';
 
 const LookbookList = () => {
+  const user = useAppSelector((state) => state.user.info);
+  const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const { data } = useQuery({
+    queryKey: ['user', user?.socialId, 'lookbook'],
+    queryFn: () => getLookbookList(accessToken),
+  });
+
   return (
-    <ol>
-      {LookbookTypes.map((type) => (
-        <LookbookCard key={type} type={type} />
-      ))}
-    </ol>
+    data && (
+      <ol>
+        {data.map(({ tempStageLevel, memberOutfits }) => (
+          <LookbookCard
+            key={tempStageLevel}
+            type={String(tempStageLevel) as WeatherType}
+            outfits={memberOutfits}
+          />
+        ))}
+      </ol>
+    )
   );
 };
 
