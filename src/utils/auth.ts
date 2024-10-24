@@ -19,10 +19,12 @@ export async function storeAccessToken(dispatch: AppDispatch): Promise<string> {
 }
 
 export async function storeUser(
-  accessToken: string,
+  accessToken: string | null,
   dispatch: AppDispatch
 ): Promise<User> {
   try {
+    if (!accessToken) throw new Error('로그인을 해주세요.');
+
     const user = await getUser(accessToken);
     dispatch(userActions.setUser(user));
 
