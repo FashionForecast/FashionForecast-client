@@ -16,19 +16,15 @@ import { SelectedTime } from '@/pages/Home';
 import UserTimeSelector from './UserTimeSelector';
 import { C } from './style';
 import useAppSelector from '@/hooks/useAppSelector';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { setUserTime } from '@/service/auth';
 import { storeUser } from '@/utils/auth';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { User } from '@/types/user';
 
 const DEFAULT = 'DEFAULT';
 const SET_IT = 'setIt';
-const resetSelectedTime: SelectedTime = {
-  day: '오늘',
-  start: TIME_LIST[0],
-  end: TIME_LIST[0],
-};
 
 export type TimeSetOption = typeof DEFAULT | typeof SET_IT;
 
@@ -36,8 +32,9 @@ const TimeSetMenu = () => {
   const user = useAppSelector((state) => state.user.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
-  const [selectedTime, setSelectedTime] =
-    useState<SelectedTime>(resetSelectedTime);
+  const [selectedTime, setSelectedTime] = useState<SelectedTime>(() =>
+    getSelectedTime(user)
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [option, setOption] = useState<TimeSetOption>(
@@ -47,6 +44,7 @@ const TimeSetMenu = () => {
   );
   const prevOption = useRef<TimeSetOption>(option);
   const { openSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: () => setUserTime(selectedTime, option, accessToken),
@@ -60,7 +58,7 @@ const TimeSetMenu = () => {
   const handleClose = () => {
     setOpen(false);
     setOption(prevOption.current);
-    setSelectedTime(resetSelectedTime);
+    setSelectedTime(getSelectedTime(user));
   };
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +77,9 @@ const TimeSetMenu = () => {
 
     mutate(undefined, {
       onSuccess: async () => {
-        await storeUser(accessToken, dispatch);
-        setSelectedTime(resetSelectedTime);
+        const user = await storeUser(accessToken, dispatch);
+        queryClient.invalidateQueries({ queryKey: ['weather'] });
+        setSelectedTime(getSelectedTime(user));
         setOpen(false);
       },
       onError: () => openSnackbar('외출시간 설정 오류가 발생했어요.'),
@@ -120,11 +119,13 @@ const TimeSetMenu = () => {
                 control={<CustomRadio />}
               />
 
-              <UserTimeSelector
-                selectedTime={selectedTime}
-                updateSelectedTime={updateSelectedTime}
-                disabled={option !== SET_IT}
-              />
+              {open && (
+                <UserTimeSelector
+                  selectedTime={selectedTime}
+                  updateSelectedTime={updateSelectedTime}
+                  disabled={option !== SET_IT}
+                />
+              )}
             </RadioGroup>
           </C.FormControl>
         </DialogContent>
@@ -146,3 +147,15 @@ const TimeSetMenu = () => {
 };
 
 export default TimeSetMenu;
+
+const defaultSelectedTime: SelectedTime = {
+  day: '오늘',
+  start: TIME_LIST[8],
+  end: TIME_LIST[19],
+};
+
+function getSelectedTime(user: User | null): SelectedTime {
+  if (!user || user.outingStartTime === 'DEFAULT') return defaultSelectedTime;
+
+  return { day: '오늘', start: user.outingStartTime, end: user.outingEndTime };
+}

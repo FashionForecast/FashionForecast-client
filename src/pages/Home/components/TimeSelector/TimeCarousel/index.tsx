@@ -5,6 +5,7 @@ import { SelectedTime } from '../../..';
 type TimeCarouselProps = {
   times: string[];
   type: keyof SelectedTime;
+  selectedTime: string;
   initial?: number;
   updateSelectedTime: (
     key: keyof SelectedTime,
@@ -15,11 +16,11 @@ type TimeCarouselProps = {
 const TimeCarousel = ({
   times,
   type,
-  initial,
+  selectedTime,
   updateSelectedTime,
 }: TimeCarouselProps) => {
-  const [currentIndex, setCurrentIndex] = useState(
-    getInitialIndex(type, times, initial)
+  const [currentIndex, setCurrentIndex] = useState(() =>
+    getInitialIndex(times, selectedTime)
   );
   const [userSelected, setUserSelected] = useState(times[currentIndex]);
   const [isDragging, setIsDragging] = useState(false);
@@ -111,13 +112,6 @@ const TimeCarousel = ({
 
 export default TimeCarousel;
 
-function getInitialIndex(
-  type: keyof SelectedTime,
-  times: string[],
-  initial?: number
-) {
-  if (initial) return initial;
-
-  if (type === 'end') return Math.min(times.length - 1, 8);
-  return 0;
+function getInitialIndex(times: string[], selectedTime: string) {
+  return times.findIndex((time) => time === selectedTime);
 }

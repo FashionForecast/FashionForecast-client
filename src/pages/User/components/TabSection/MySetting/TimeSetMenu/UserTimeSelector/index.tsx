@@ -3,7 +3,6 @@ import { SelectedTime } from '@/pages/Home';
 import TimeCarousel from '@/pages/Home/components/TimeSelector/TimeCarousel';
 import { useMemo } from 'react';
 import { S } from './style';
-import useAppSelector from '@/hooks/useAppSelector';
 
 const DAYS = ['오늘'];
 
@@ -21,20 +20,9 @@ const UserTimeSelector = ({
   disabled,
   updateSelectedTime,
 }: TimeSelectorProps) => {
-  const user = useAppSelector((state) => state.user.info);
   const endTimes = useMemo(
     () => TIME_LIST.slice(TIME_LIST.indexOf(selectedTime.start)),
     [selectedTime.start]
-  );
-
-  const startListInitial = useMemo(
-    () => TIME_LIST.findIndex((time) => time === user?.outingStartTime),
-    [user]
-  );
-
-  const endListInitial = useMemo(
-    () => TIME_LIST.findIndex((time) => time === user?.outingEndTime),
-    [user]
   );
 
   return (
@@ -42,13 +30,14 @@ const UserTimeSelector = ({
       <TimeCarousel
         times={DAYS}
         type='day'
+        selectedTime={selectedTime.day}
         updateSelectedTime={updateSelectedTime}
       />
 
       <TimeCarousel
         times={TIME_LIST}
         type='start'
-        initial={startListInitial >= 0 ? startListInitial : 8}
+        selectedTime={selectedTime.start}
         updateSelectedTime={updateSelectedTime}
       />
 
@@ -57,7 +46,7 @@ const UserTimeSelector = ({
       <TimeCarousel
         times={endTimes}
         type='end'
-        initial={endListInitial >= 0 ? endListInitial : 19}
+        selectedTime={selectedTime.end}
         updateSelectedTime={updateSelectedTime}
       />
     </S.TimeSelector>
