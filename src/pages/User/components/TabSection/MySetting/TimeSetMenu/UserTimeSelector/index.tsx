@@ -4,7 +4,7 @@ import TimeCarousel from '@/pages/Home/components/TimeSelector/TimeCarousel';
 import { useMemo } from 'react';
 import { S } from './style';
 
-const DAYS = ['오늘', '내일'];
+const DAYS = ['오늘'];
 
 type TimeSelectorProps = {
   selectedTime: SelectedTime;
@@ -36,6 +36,7 @@ const UserTimeSelector = ({
       <TimeCarousel
         times={TIME_LIST}
         type='start'
+        initial={8}
         updateSelectedTime={updateSelectedTime}
       />
 
@@ -44,6 +45,7 @@ const UserTimeSelector = ({
       <TimeCarousel
         times={endTimes}
         type='end'
+        initial={19}
         updateSelectedTime={updateSelectedTime}
       />
     </S.TimeSelector>

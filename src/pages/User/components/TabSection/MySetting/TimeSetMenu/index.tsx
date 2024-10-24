@@ -15,15 +15,21 @@ import { TIME_LIST } from '@/constants/timeSelector/data';
 import { SelectedTime } from '@/pages/Home';
 import UserTimeSelector from './UserTimeSelector';
 import { C } from './style';
+import useAppSelector from '@/hooks/useAppSelector';
+
+const DEFAULT = 'DEFAULT';
+const SET_IT = 'setIt';
+type TimeSetOption = typeof DEFAULT | typeof SET_IT;
 
 const TimeSetMenu = () => {
+  const user = useAppSelector((state) => state.user.info);
   const [selectedTime, setSelectedTime] = useState<SelectedTime>({
     day: '오늘',
     start: TIME_LIST[0],
     end: TIME_LIST[0],
   });
   const [open, setOpen] = useState(false);
-  const [option, setOption] = useState('default value');
+  const [option, setOption] = useState<TimeSetOption>(DEFAULT);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,10 +37,15 @@ const TimeSetMenu = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setSelectedTime({
+      day: '오늘',
+      start: TIME_LIST[0],
+      end: TIME_LIST[0],
+    });
   };
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOption((event.target as HTMLInputElement).value);
+    setOption(event.target.value as TimeSetOption);
   };
 
   const updateSelectedTime = (
@@ -44,11 +55,16 @@ const TimeSetMenu = () => {
     setSelectedTime((prev) => ({ ...prev, [key]: value }));
   };
 
+  const settingValue =
+    user?.outingStartTime !== 'DEFAULT'
+      ? `오늘 ${user?.outingStartTime} ${user?.outingEndTime}`
+      : '현재 시간으로부터 8시간 동안';
+
   return (
     <>
       <MenuItem
         title='기본 외출시간'
-        value='오늘 오전 08시 - 오후 07시'
+        value={settingValue}
         icon={<ClockIcon />}
         handleClick={handleClickOpen}
       />
@@ -57,27 +73,22 @@ const TimeSetMenu = () => {
         <DialogTitle>기본 외출시간</DialogTitle>
         <DialogContent>
           <C.FormControl>
-            <RadioGroup
-              aria-labelledby='외출시간 라디오 그룹'
-              defaultValue='default value'
-              value={option}
-              onChange={handleOptionChange}
-            >
+            <RadioGroup value={option} onChange={handleOptionChange}>
               <CustomFormControlLabel
-                value='현재 시간으로부터 8시간 동안'
-                control={<CustomRadio />}
+                value={DEFAULT}
                 label='현재 시간으로부터 8시간 동안'
+                control={<CustomRadio />}
               />
               <CustomFormControlLabel
-                value='직접 설정'
-                control={<CustomRadio />}
+                value={SET_IT}
                 label='직접 설정'
+                control={<CustomRadio />}
               />
 
               <UserTimeSelector
                 selectedTime={selectedTime}
                 updateSelectedTime={updateSelectedTime}
-                disabled={option !== '직접 설정'}
+                disabled={option !== SET_IT}
               />
             </RadioGroup>
           </C.FormControl>
