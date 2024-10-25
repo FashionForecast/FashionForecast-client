@@ -35,9 +35,9 @@ const MySetting = () => {
 
       <S.Footer>
         <CustomButton color='inherit'>회원탈퇴</CustomButton>
-        <S.Divder />
+        <S.Divider />
         <CustomButton color='inherit'>이용약관</CustomButton>
-        <S.Divder />
+        <S.Divider />
         <CustomButton color='inherit'>개인정보처리방침</CustomButton>
       </S.Footer>
     </S.MySettingWrap>

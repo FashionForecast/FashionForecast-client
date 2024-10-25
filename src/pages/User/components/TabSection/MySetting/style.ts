@@ -29,7 +29,7 @@ const Footer = styled.footer`
   margin-top: 16px;
 `;
 
-const Divder = styled.div`
+const Divider = styled.div`
   width: 1px;
   height: 24px;
   margin: 0 12px;
@@ -41,5 +41,5 @@ export const S = {
   ContentWrap,
   Ul,
   Footer,
-  Divder,
+  Divider,
 };
