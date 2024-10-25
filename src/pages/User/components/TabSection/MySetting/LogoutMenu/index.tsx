@@ -29,7 +29,7 @@ const LogoutMenu = () => {
     mutate(undefined, {
       onSettled: () => {
         localStorage.removeItem(LOGIN);
-        navigate('/', { replace: true });
+        navigate('/');
         navigate(0);
       },
     });
