@@ -30,7 +30,6 @@ const SliderItem = styled.li<{
       opacity: 1;
 
       & svg {
-        z-index: 70;
         transform: scale(1.8);
       }
     `}
