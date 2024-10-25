@@ -7,6 +7,6 @@ export type User = {
   outingStartTime: 'DEFAULT' | string;
   outingEndTime: 'DEFAULT' | string;
   tempCondition: TempCondition;
-  gender: string | null;
+  gender: 'MALE' | 'FEMALE' | null;
   imageUrl: string | null;
 };

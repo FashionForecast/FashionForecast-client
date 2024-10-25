@@ -11,6 +11,8 @@ import 반바지 from '@/components/clothes/반바지';
 import 바지 from '@/components/clothes/바지';
 import 청바지 from '@/components/clothes/청바지';
 import 기모바지 from '@/components/clothes/기모바지';
+import 치마 from '@/components/clothes/치마';
+import 긴치마 from '@/components/clothes/긴치마';
 
 export const LOOKBOOK_WEATHER_TYPE: Record<
   WeatherType,
@@ -74,6 +76,12 @@ export const MAN_BOTTOM_CLOTHES = [
   { name: '바지', Clothes: 바지 },
   { name: '청바지', Clothes: 청바지 },
   { name: '기모 바지', Clothes: 기모바지 },
+];
+
+export const WOMAN_BOTTOM_CLOTHES = [
+  ...MAN_BOTTOM_CLOTHES,
+  { name: '치마', Clothes: 치마 },
+  { name: '긴치마', Clothes: 긴치마 },
 ];
 
 export const DEFAULT_CLOTHES_BY_WEATHER = {
