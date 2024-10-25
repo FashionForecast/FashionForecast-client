@@ -54,7 +54,7 @@ const CurrentRegionButton = () => {
       onSuccess: async () => {
         await queryClient.invalidateQueries({ queryKey: ['weather'] });
         await storeUser(accessToken, dispatch);
-        navigate('/user');
+        navigate('/user?tab=set');
       },
       onError: () => openSnackbar('위치 설정 변경에 오류가 발생했어요'),
       onSettled: () => setIsLoading(false),

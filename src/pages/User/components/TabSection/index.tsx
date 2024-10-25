@@ -6,11 +6,15 @@ import BookOutlineIcon from '@/assets/svg/bookOutline.svg?react';
 import UserFillIcon from '@/assets/svg/userFill.svg?react';
 import UserOutlineIcon from '@/assets/svg/userOutline.svg?react';
 import { C, S } from './style';
+import { useSearchParams } from 'react-router-dom';
 
 type TabState = '룩북' | '내 설정';
 
 const TabSection = () => {
-  const [tab, setTab] = useState<TabState>('룩북');
+  const [searchParams] = useSearchParams();
+  const [tab, setTab] = useState<TabState>(
+    searchParams.get('tab') === 'set' ? '내 설정' : '룩북'
+  );
 
   const handleTabChange = (_: React.SyntheticEvent, tab: TabState) => {
     setTab(tab);
