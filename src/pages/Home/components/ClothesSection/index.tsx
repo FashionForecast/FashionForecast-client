@@ -39,13 +39,10 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const user = useAppSelector((state) => state.user.info);
   const [searchParams] = useSearchParams();
-
-  const tempParamOption = (searchParams.get('option') ??
-    NORMAL) as TempCondition;
+  const tempParamOption = searchParams.get('option');
   const weatherType = getWeatehrType(weather.extremumTmp);
-
-  const [tempCondition, setTempCondition] = useState<TempCondition>(
-    Options.has(tempParamOption) ? tempParamOption : NORMAL
+  const [tempCondition, setTempCondition] = useState<TempCondition>(() =>
+    getInitialTempCondition(tempParamOption, user?.tempCondition)
   );
   const [currentSlider, setCurrentSlider] = useState(0);
 
@@ -153,4 +150,14 @@ function getWeatehrType(temp: number): WeatherType {
   if (temp >= 9 && temp < 12) return '6';
   if (temp >= 5 && temp < 9) return '7';
   return '8';
+}
+
+function getInitialTempCondition(
+  tempParamOption: string | null,
+  userTempCondition?: TempCondition
+): TempCondition {
+  if (tempParamOption && Options.has(tempParamOption))
+    return tempParamOption as TempCondition;
+
+  return userTempCondition ? userTempCondition : 'NORMAL';
 }
