@@ -7,6 +7,7 @@ import RegionSetMenu from './RegionSetMenu';
 import TimeSetMenu from './TimeSetMenu';
 import ThicknessSetMenu from './ThicknessSetMenu';
 import LogoutMenu from './LogoutMenu';
+import { Link } from 'react-router-dom';
 
 const MySetting = () => {
   return (
@@ -26,7 +27,9 @@ const MySetting = () => {
         </S.Ul>
 
         <S.Ul>
-          <MenuItem title='고객의 소리' icon={<FeedbackIcon />} />
+          <Link to={'/feedback'}>
+            <MenuItem title='고객의 소리' icon={<FeedbackIcon />} />
+          </Link>
         </S.Ul>
       </S.ContentWrap>
 
