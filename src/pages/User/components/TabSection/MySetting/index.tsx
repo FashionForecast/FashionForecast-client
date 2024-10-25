@@ -1,5 +1,4 @@
 import UserFillIcon from '@/assets/svg/userFill.svg?react';
-import LogoutIcon from '@/assets/svg/logout.svg?react';
 import FeedbackIcon from '@/assets/svg/feedback.svg?react';
 import { S } from './style';
 import CustomButton from '@/components/CustomMui/CustomButton';
@@ -7,6 +6,7 @@ import MenuItem from './MenuItem';
 import RegionSetMenu from './RegionSetMenu';
 import TimeSetMenu from './TimeSetMenu';
 import ThicknessSetMenu from './ThicknessSetMenu';
+import LogoutMenu from './LogoutMenu';
 
 const MySetting = () => {
   return (
@@ -22,7 +22,7 @@ const MySetting = () => {
             icon={<UserFillIcon />}
             dividerThick
           />
-          <MenuItem title='로그아웃' icon={<LogoutIcon />} />
+          <LogoutMenu />
         </S.Ul>
 
         <S.Ul>

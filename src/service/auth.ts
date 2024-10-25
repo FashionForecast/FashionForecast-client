@@ -45,6 +45,28 @@ export async function getUser(token: string) {
   }
 }
 
+export async function logout(accessToken: string | null) {
+  try {
+    if (!accessToken) throw new Error('로그인을 해주세요.');
+
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/member/logout`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
+
 export async function setUserGender(gender: string, accessToken: string) {
   try {
     const res = await fetch(
