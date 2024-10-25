@@ -6,29 +6,68 @@ import {
   RadioGroup,
 } from '@mui/material';
 import MenuItem from '../MenuItem';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
 import TshirtIcon from '@/components/icon/TshirtIcon';
+import useAppSelector from '@/hooks/useAppSelector';
+import { TempCondition } from '@/pages/Home/components/ClothesSection';
+import { useMutation } from '@tanstack/react-query';
+import { setUserTempCondition } from '@/service/auth';
+import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { storeUser } from '@/utils/auth';
+import useAppDispatch from '@/hooks/useAppDispatch';
 
 const ThicknessSetMenu = () => {
+  const user = useAppSelector((state) => state.user.info);
+  const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const dispatch = useAppDispatch();
+  const [option, setOption] = useState<TempCondition>(
+    user?.tempCondition ? user.tempCondition : 'NORMAL'
+  );
+  const prevOption = useRef(option);
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { openSnackbar } = useSnackbar();
+
+  const { mutate } = useMutation({
+    mutationFn: () => setUserTempCondition(option, accessToken),
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
+    prevOption.current = option;
   };
 
   const handleClose = () => {
     setOpen(false);
+    setOption(prevOption.current);
+  };
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOption(event.target.value as TempCondition);
+  };
+
+  const handleSaveButtonClick = () => {
+    setIsLoading(true);
+    mutate(undefined, {
+      onSuccess: async () => {
+        const user = await storeUser(accessToken, dispatch);
+        setOption(user.tempCondition);
+        setOpen(false);
+      },
+      onError: () => openSnackbar('옷차림 두께 설정에 실패했어요.'),
+      onSettled: () => setIsLoading(false),
+    });
   };
 
   return (
     <>
       <MenuItem
         title='기본 옷차림 두께'
-        value='적당하게'
+        value={tempConditionText[user?.tempCondition || 'NORMAL']}
         icon={<TshirtIcon />}
         handleClick={handleClickOpen}
       />
@@ -37,24 +76,21 @@ const ThicknessSetMenu = () => {
         <DialogTitle>기본 옷차림 두께</DialogTitle>
         <DialogContent>
           <FormControl>
-            <RadioGroup
-              aria-labelledby='옷차림 두께 라디오 그룹'
-              defaultValue='default value'
-            >
+            <RadioGroup value={option} onChange={handleOptionChange}>
               <CustomFormControlLabel
-                value='시원하게'
+                value={'COOL'}
                 control={<CustomRadio />}
-                label='시원하게'
+                label={tempConditionText.COOL}
               />
               <CustomFormControlLabel
-                value='적당하게'
+                value='NORMAL'
                 control={<CustomRadio />}
-                label='적당하게'
+                label={tempConditionText.NORMAL}
               />
               <CustomFormControlLabel
-                value='따뜻하게'
+                value='WARM'
                 control={<CustomRadio />}
-                label='따뜻하게'
+                label={tempConditionText.WARM}
               />
             </RadioGroup>
           </FormControl>
@@ -67,7 +103,9 @@ const ThicknessSetMenu = () => {
           >
             취소
           </CustomButton>
-          <CustomButton>저장</CustomButton>
+          <CustomButton disabled={isLoading} onClick={handleSaveButtonClick}>
+            저장
+          </CustomButton>
         </DialogActions>
       </CustomDialog>
     </>
@@ -75,3 +113,9 @@ const ThicknessSetMenu = () => {
 };
 
 export default ThicknessSetMenu;
+
+const tempConditionText = {
+  COOL: '시원하게',
+  NORMAL: '적당하게',
+  WARM: '따뜻하게',
+};

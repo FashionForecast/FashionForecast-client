@@ -1,4 +1,5 @@
 import { SelectedTime } from '@/pages/Home';
+import { TempCondition } from '@/pages/Home/components/ClothesSection';
 import { TimeSetOption } from '@/pages/User/components/TabSection/MySetting/TimeSetMenu';
 
 export async function getAccessToken() {
@@ -119,6 +120,34 @@ export async function setUserRegion(
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ region: region }),
+      }
+    );
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
+
+export async function setUserTempCondition(
+  option: TempCondition,
+  accessToken: string | null
+) {
+  try {
+    if (!accessToken) throw new Error('로그인을 해주세요.');
+
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/member/temp-condition`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ tempCondition: option }),
       }
     );
     const json = await res.json();
