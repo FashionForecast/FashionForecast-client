@@ -39,7 +39,7 @@ const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
               key={outfit.memberOutfitId}
             >
               <S.ClothesItem key={outfit.memberOutfitId}>
-                <S.Top>
+                <S.Top data-top={outfit.topType}>
                   {getClothesImageJSX(outfit.topType, outfit.topColor)}
                 </S.Top>
                 {getClothesImageJSX(outfit.bottomType, outfit.bottomColor)}
