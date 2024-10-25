@@ -10,6 +10,7 @@ import { goelocationActions } from '@/redux/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
 import { storeAccessToken, storeUser } from '@/utils/auth';
 import useAppSelector from '@/hooks/useAppSelector';
+import regions from '@/assets/actualRegionCoordinates.json';
 
 export default function RootLayout() {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
@@ -42,15 +43,23 @@ export default function RootLayout() {
       return;
     }
 
-    const myRegion = localStorage.getItem(MY_REGION);
+    if (user?.region === 'DEFAULT') {
+      updateGPSRegion();
+      return;
+    }
 
-    if (myRegion) {
-      dispatch(goelocationActions.updateGeolocation(JSON.parse(myRegion)));
+    const userRegion =
+      user?.region && regions.find((region) => region.region === user.region);
+    const localRegion = localStorage.getItem(MY_REGION);
+    const basicRegion = localRegion && JSON.parse(localRegion);
+
+    if (userRegion || basicRegion) {
+      dispatch(goelocationActions.updateGeolocation(userRegion || basicRegion));
       return;
     }
 
     updateGPSRegion();
-  }, []);
+  }, [user?.region]);
 
   // 이전에 로그인 한 사용자의 로그인 처리
   useEffect(() => {
