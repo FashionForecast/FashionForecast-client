@@ -3,20 +3,19 @@ import { C } from './style';
 import CloseIcon from '@/components/icon/CloseIcon';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearch } from '@/service/search';
-import { GUEST_UUID, MY_REGION } from '@/constants/localStorage/key';
-import useAppDispatch from '@/hooks/useAppDispatch';
+import { GUEST_UUID } from '@/constants/localStorage/key';
 import { Region } from '@/types/region';
-import { useNavigate } from 'react-router-dom';
-import { goelocationActions } from '@/redux/slice/geolocationSlice';
 
 type RecentSearchListProps = {
   regions: Region[];
+  handleRegionClick: (regionData: Region) => void;
 };
 
-const RecentSearchList = ({ regions }: RecentSearchListProps) => {
+const RecentSearchList = ({
+  regions,
+  handleRegionClick,
+}: RecentSearchListProps) => {
   const queryClient = useQueryClient();
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const { data } = useQuery({
     queryKey: ['recentSearch', localStorage.getItem(GUEST_UUID)],
@@ -28,14 +27,12 @@ const RecentSearchList = ({ regions }: RecentSearchListProps) => {
     mutationFn: deleteSearchWord,
   });
 
-  const handleRegionClick = (city: string, district: string) => () => {
-    const region = regions.find(
+  const handleClick = (city: string, district: string) => () => {
+    const regionData = regions.find(
       (region) => region.region === `${city} ${district}`
     );
-    if (region) {
-      dispatch(goelocationActions.updateGeolocation(region));
-      localStorage.setItem(MY_REGION, JSON.stringify(region));
-      navigate('/');
+    if (regionData) {
+      handleRegionClick(regionData);
     }
   };
 
@@ -59,7 +56,7 @@ const RecentSearchList = ({ regions }: RecentSearchListProps) => {
           <C.Item
             divider
             key={`${city} ${district}`}
-            onClick={handleRegionClick(city, district)}
+            onClick={handleClick(city, district)}
           >
             {city} {district}
             <IconButton onClick={handleDeleteClick(city, district)}>

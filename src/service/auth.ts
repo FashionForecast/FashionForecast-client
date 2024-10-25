@@ -102,3 +102,31 @@ export async function setUserTime(
     throw new Error(error as string);
   }
 }
+
+export async function setUserRegion(
+  region: string,
+  accessToken: string | null
+) {
+  try {
+    if (!accessToken) throw new Error('로그인을 해주세요.');
+
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/member/region`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ region: region }),
+      }
+    );
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${json.code}: ${json.message}`);
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
+}
