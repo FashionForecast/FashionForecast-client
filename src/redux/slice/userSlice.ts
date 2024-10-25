@@ -14,7 +14,7 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.info = action.payload;
     },
-    setGender: (state, action: PayloadAction<string>) => {
+    setGender: (state, action: PayloadAction<User['gender']>) => {
       if (state.info) {
         state.info.gender = action.payload;
       }
