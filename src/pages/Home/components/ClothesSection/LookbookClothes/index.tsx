@@ -52,7 +52,9 @@ const LookbookClothes = ({
           key={outfit.memberOutfitId}
           onClick={handleLookbookItemClick(outfit)}
         >
-          {getClothesImageJSX(outfit.topType, outfit.topColor)}
+          <S.Top data-top={outfit.topType}>
+            {getClothesImageJSX(outfit.topType, outfit.topColor)}
+          </S.Top>
           {getClothesImageJSX(outfit.bottomType, outfit.bottomColor)}
         </S.LookbookCard>
       ))}
