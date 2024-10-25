@@ -10,7 +10,7 @@ const User = () => {
     <S.UserWrap>
       <UserHeader />
 
-      <S.Heading>안녕하세요 {user?.nickname},</S.Heading>
+      <S.Heading>안녕하세요 {user?.nickname}님,</S.Heading>
 
       <TabSection />
     </S.UserWrap>
