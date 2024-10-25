@@ -5,7 +5,7 @@ import useGeolocation from '@/hooks/useGeolocation';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/Location';
 import useAppSelector from '@/hooks/useAppSelector';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { setUserRegion } from '@/service/auth';
 import { useState } from 'react';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
@@ -25,7 +25,6 @@ const CurrentRegionButton = () => {
   const { geolocation, updateGPSRegion } = useGeolocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const { state }: SearchLocationState = useLocation();
   const { openSnackbar } = useSnackbar();
 
@@ -52,7 +51,7 @@ const CurrentRegionButton = () => {
     setIsLoading(true);
     mutate(undefined, {
       onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['weather'] });
+        updateGPSRegion();
         await storeUser(accessToken, dispatch);
         navigate('/user?tab=set');
       },
