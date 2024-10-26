@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { TIME_LIST } from '@/constants/timeSelector/data';
 import { KSTDate } from '@/utils/date';
+import { useSnackbar } from '@/contexts/SnackbarProvider';
 
 const DAYS = ['오늘', '내일'];
 
@@ -22,6 +23,7 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
   const initialTime = useRef(selectedTime);
   const queryClient = useQueryClient();
   const currentHour = KSTDate().getHours();
+  const { openSnackbar } = useSnackbar();
 
   const startTimes = useMemo(
     () =>
@@ -39,6 +41,8 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
       setIsChange(false);
       initialTime.current = selectedTime;
       queryClient.invalidateQueries({ queryKey: ['weather'] });
+      const { day, start, end } = selectedTime;
+      openSnackbar(`${day} ${start} - ${end}에 맞는 옷차림이에요!`);
     }
   };
 
