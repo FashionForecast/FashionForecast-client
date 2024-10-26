@@ -10,6 +10,7 @@ import UserGender from './pages/UserGender';
 import User from './pages/User';
 import PrivateRouteLayout from './components/layout/PrivateRouteLayout';
 import UserLookbookCreate from './pages/UserLookbookCreate';
+import TermsOfService from './pages/TermsOfService';
 
 export const router = createBrowserRouter([
   {
@@ -50,4 +51,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  { path: '/terms-of-service', element: <TermsOfService /> },
 ]) as ReturnType<typeof createBrowserRouter>;
