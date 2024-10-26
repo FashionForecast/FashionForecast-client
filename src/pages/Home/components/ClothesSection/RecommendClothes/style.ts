@@ -64,9 +64,7 @@ function getChipColor(outfitType: OutfitType, theme: Theme) {
   let bgColor = '';
 
   switch (outfitType) {
-    case 'OUTER':
     case 'TOP':
-    case 'LAYERED':
       bgColor = theme.colors.amber[100];
       break;
     case 'BOTTOM':
