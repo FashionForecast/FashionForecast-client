@@ -7,6 +7,8 @@ import RegionSetMenu from './RegionSetMenu';
 import TimeSetMenu from './TimeSetMenu';
 import ThicknessSetMenu from './ThicknessSetMenu';
 import LogoutMenu from './LogoutMenu';
+import { Link } from 'react-router-dom';
+import WithdrawlButton from './WithdrawlButton';
 
 const MySetting = () => {
   return (
@@ -26,15 +28,17 @@ const MySetting = () => {
         </S.Ul>
 
         <S.Ul>
-          <MenuItem title='고객의 소리' icon={<FeedbackIcon />} />
+          <Link to={'/feedback'}>
+            <MenuItem title='고객의 소리' icon={<FeedbackIcon />} />
+          </Link>
         </S.Ul>
       </S.ContentWrap>
 
       <S.Footer>
-        <CustomButton color='inherit'>회원탈퇴</CustomButton>
-        <S.Divder />
+        <WithdrawlButton />
+        <S.Divider />
         <CustomButton color='inherit'>이용약관</CustomButton>
-        <S.Divder />
+        <S.Divider />
         <CustomButton color='inherit'>개인정보처리방침</CustomButton>
       </S.Footer>
     </S.MySettingWrap>
