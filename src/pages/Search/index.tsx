@@ -31,7 +31,8 @@ const Search = () => {
   const { openSnackbar } = useSnackbar();
 
   const { mutate: recentSearchMutate } = useMutation({
-    mutationFn: registerSearchWord,
+    mutationFn: (region: string) =>
+      registerSearchWord(region, user?.socialId, accessToken),
     onSuccess: async () =>
       await queryClient.invalidateQueries({ queryKey: ['recentSearch'] }),
   });
