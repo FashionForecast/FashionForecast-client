@@ -11,6 +11,7 @@ import User from './pages/User';
 import PrivateRouteLayout from './components/layout/PrivateRouteLayout';
 import UserLookbookCreate from './pages/UserLookbookCreate';
 import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 export const router = createBrowserRouter([
   {
@@ -52,4 +53,5 @@ export const router = createBrowserRouter([
     ],
   },
   { path: '/terms-of-service', element: <TermsOfService /> },
+  { path: '/privacy-policy', element: <PrivacyPolicy /> },
 ]) as ReturnType<typeof createBrowserRouter>;

@@ -32,12 +32,13 @@ const MySetting = () => {
       <S.Footer>
         <WithdrawlButton />
         <S.Divider />
-
         <Link to={'/terms-of-service'}>
           <CustomButton color='inherit'>이용약관</CustomButton>
         </Link>
         <S.Divider />
-        <CustomButton color='inherit'>개인정보처리방침</CustomButton>
+        <Link to={'/privacy-policy'}>
+          <CustomButton color='inherit'>개인정보처리방침</CustomButton>
+        </Link>
       </S.Footer>
     </S.MySettingWrap>
   );
