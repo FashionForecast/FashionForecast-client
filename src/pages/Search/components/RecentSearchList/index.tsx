@@ -5,6 +5,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearch } from '@/service/search';
 import { GUEST_UUID } from '@/constants/localStorage/key';
 import { Region } from '@/types/region';
+import useAppSelector from '@/hooks/useAppSelector';
+
+export type RegionName = {
+  city: string;
+  district: string;
+};
 
 type RecentSearchListProps = {
   regions: Region[];
@@ -15,16 +21,22 @@ const RecentSearchList = ({
   regions,
   handleRegionClick,
 }: RecentSearchListProps) => {
+  const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const user = useAppSelector((state) => state.user.info);
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
-    queryKey: ['recentSearch', localStorage.getItem(GUEST_UUID)],
-    queryFn: getRecentSearch,
+    queryKey: [
+      'recentSearch',
+      user?.socialId ? user.socialId : localStorage.getItem(GUEST_UUID),
+    ],
+    queryFn: () => getRecentSearch(user?.socialId, accessToken),
     retry: 1,
   });
 
   const { mutate } = useMutation({
-    mutationFn: deleteSearchWord,
+    mutationFn: (region: RegionName) =>
+      deleteSearchWord(region, user?.socialId, accessToken),
   });
 
   const handleClick = (city: string, district: string) => () => {

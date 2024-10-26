@@ -1,10 +1,15 @@
 import { GUEST_UUID } from '@/constants/localStorage/key';
 import { RecentSearchData, ResponseBase } from '@/types/search';
 import { guestLogin } from './login';
+import { RegionName } from '@/pages/Search/components/RecentSearchList';
 
-export async function getRecentSearch(): Promise<RecentSearchData> {
+export async function getRecentSearch(
+  memberId?: string,
+  accessToken?: string | null
+): Promise<RecentSearchData> {
   try {
-    const uuid = localStorage.getItem(GUEST_UUID);
+    const uuid =
+      memberId && accessToken ? memberId : localStorage.getItem(GUEST_UUID);
 
     const res = await fetch(
       `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`
@@ -12,8 +17,8 @@ export async function getRecentSearch(): Promise<RecentSearchData> {
     const json: ResponseBase<RecentSearchData> = await res.json();
 
     if (!res.ok) {
-      // 유효하지 않은 uuid인 경우, 새로운 uuid 발급
-      if (json.code === 'S002') {
+      // 유효하지 않은 비회원 uuid인 경우, 새로운 uuid 발급
+      if (json.code === 'S002' && !memberId && !accessToken) {
         const data = await guestLogin();
         if (data.data.uuid) {
           localStorage.setItem(GUEST_UUID, data.data.uuid);
@@ -29,9 +34,14 @@ export async function getRecentSearch(): Promise<RecentSearchData> {
   }
 }
 
-export async function registerSearchWord(region: string) {
+export async function registerSearchWord(
+  region: string,
+  memberId?: string,
+  accessToken?: string | null
+) {
   try {
-    const uuid = localStorage.getItem(GUEST_UUID);
+    const uuid =
+      memberId && accessToken ? memberId : localStorage.getItem(GUEST_UUID);
     const [city, district1, district2] = region.split(' ');
     const district = district2 ? `${district1} ${district2}` : district1;
 
@@ -58,13 +68,15 @@ export async function registerSearchWord(region: string) {
   }
 }
 
-type RegionName = {
-  city: string;
-  district: string;
-};
-export async function deleteSearchWord({ city, district }: RegionName) {
+export async function deleteSearchWord(
+  { city, district }: RegionName,
+  memberId?: string,
+  accessToken?: string | null
+) {
   try {
-    const uuid = localStorage.getItem(GUEST_UUID);
+    const uuid =
+      memberId && accessToken ? memberId : localStorage.getItem(GUEST_UUID);
+
     const res = await fetch(
       `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`,
       {
