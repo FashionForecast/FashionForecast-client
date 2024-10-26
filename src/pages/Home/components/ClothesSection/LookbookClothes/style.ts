@@ -21,11 +21,6 @@ const LookbookCard = styled.li<{ $content?: 'lookbook' | 'add' }>`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
 
-  & svg:first-of-type {
-    position: relative;
-    top: 2px;
-  }
-
   ${({ $content = 'lookbook', theme }) =>
     $content === 'add' &&
     css`
@@ -41,6 +36,17 @@ const LookbookCard = styled.li<{ $content?: 'lookbook' | 'add' }>`
     `}
 `;
 
+const Top = styled.div`
+  position: relative;
+  top: 2px;
+  display: flex;
+  align-items: flex-end;
+
+  &[data-top*='코트'] {
+    top: 10px;
+  }
+`;
+
 const IconWrap = styled.div`
   position: absolute;
   top: 35%;
@@ -53,4 +59,4 @@ const IconWrap = styled.div`
   }
 `;
 
-export const S = { LookbookList, LookbookCard, IconWrap };
+export const S = { LookbookList, LookbookCard, Top, IconWrap };

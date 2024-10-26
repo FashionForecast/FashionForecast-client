@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { userActions } from '@/redux/slice/userSlice';
 import 바지 from '@/components/clothes/바지';
+import { Gender } from '@/types/user';
 
 const BUTTONS = [
   { text: '남자', value: 'MALE', icon: <MaleImage /> },
@@ -20,7 +21,7 @@ const BUTTONS = [
 const UserGender = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState<Gender | ''>('');
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
@@ -60,7 +61,7 @@ const UserGender = () => {
             <S.GenderButton
               type='button'
               key={text}
-              onClick={() => setGender(value)}
+              onClick={() => setGender(value as Gender)}
               $select={gender === value}
             >
               <div className='icon'>{icon}</div>

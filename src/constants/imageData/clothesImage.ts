@@ -19,6 +19,8 @@ import 겉옷장우산 from '@/components/clothes/겉옷장우산';
 import 겉옷접이식우산 from '@/components/clothes/겉옷접이식우산';
 
 import { ClothesImageName, ClothesProps } from '@/types/clothes';
+import 치마 from '@/components/clothes/치마';
+import 긴치마 from '@/components/clothes/긴치마';
 
 const clothesImage: Partial<
   Record<
@@ -38,6 +40,8 @@ const clothesImage: Partial<
   슬랙스: 바지,
   면바지: 바지,
   청바지,
+  치마,
+  긴치마,
   겉옷,
   장우산,
   히트텍,
