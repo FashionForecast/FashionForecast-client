@@ -8,6 +8,7 @@ import TimeSetMenu from './TimeSetMenu';
 import ThicknessSetMenu from './ThicknessSetMenu';
 import LogoutMenu from './LogoutMenu';
 import { Link } from 'react-router-dom';
+import WithdrawlButton from './WithdrawlButton';
 
 const MySetting = () => {
   return (
@@ -34,7 +35,7 @@ const MySetting = () => {
       </S.ContentWrap>
 
       <S.Footer>
-        <CustomButton color='inherit'>회원탈퇴</CustomButton>
+        <WithdrawlButton />
         <S.Divider />
         <CustomButton color='inherit'>이용약관</CustomButton>
         <S.Divider />
