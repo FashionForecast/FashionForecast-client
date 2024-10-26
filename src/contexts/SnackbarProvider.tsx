@@ -9,12 +9,14 @@ const SnackbarContext = createContext<SnackbarContextType | null>(null);
 
 type SnackbarProviedProps = { children: React.ReactNode };
 export const SnackbarProvider = ({ children }: SnackbarProviedProps) => {
+  const [key, setKey] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
 
   const openSnackbar = (message: string) => {
     setMessage(message);
     setIsOpen(true);
+    setKey((prev) => prev + 1);
   };
 
   const handleSnackbarClose = () => {
@@ -25,9 +27,11 @@ export const SnackbarProvider = ({ children }: SnackbarProviedProps) => {
     <SnackbarContext.Provider value={{ openSnackbar }}>
       {children}
       <SnackbarStyle
+        key={key}
         open={isOpen}
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
+        handleCloseOnSwipe={handleSnackbarClose}
         message={message}
       />
     </SnackbarContext.Provider>

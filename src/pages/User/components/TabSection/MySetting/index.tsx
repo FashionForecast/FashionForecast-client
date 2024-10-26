@@ -1,4 +1,3 @@
-import UserFillIcon from '@/assets/svg/userFill.svg?react';
 import FeedbackIcon from '@/assets/svg/feedback.svg?react';
 import { S } from './style';
 import CustomButton from '@/components/CustomMui/CustomButton';
@@ -9,6 +8,7 @@ import ThicknessSetMenu from './ThicknessSetMenu';
 import LogoutMenu from './LogoutMenu';
 import { Link } from 'react-router-dom';
 import WithdrawlButton from './WithdrawlButton';
+import GenderMenu from './GenderMenu';
 
 const MySetting = () => {
   return (
@@ -18,12 +18,7 @@ const MySetting = () => {
           <RegionSetMenu />
           <TimeSetMenu />
           <ThicknessSetMenu />
-          <MenuItem
-            title='성별'
-            value='남성'
-            icon={<UserFillIcon />}
-            dividerThick
-          />
+          <GenderMenu />
           <LogoutMenu />
         </S.Ul>
 
@@ -37,9 +32,13 @@ const MySetting = () => {
       <S.Footer>
         <WithdrawlButton />
         <S.Divider />
-        <CustomButton color='inherit'>이용약관</CustomButton>
+        <Link to={'/terms-of-service'}>
+          <CustomButton color='inherit'>이용약관</CustomButton>
+        </Link>
         <S.Divider />
-        <CustomButton color='inherit'>개인정보처리방침</CustomButton>
+        <Link to={'/privacy-policy'}>
+          <CustomButton color='inherit'>개인정보처리방침</CustomButton>
+        </Link>
       </S.Footer>
     </S.MySettingWrap>
   );
