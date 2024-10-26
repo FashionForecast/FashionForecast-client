@@ -44,7 +44,6 @@ const Showcase = ({
     []
   );
 
-  // console.log(user);
   const bottomClothesList =
     user?.gender === 'FEMALE' ? WOMAN_BOTTOM_CLOTHES : MAN_BOTTOM_CLOTHES;
 
