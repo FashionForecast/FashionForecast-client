@@ -35,27 +35,23 @@ const RecommendClothes = ({ clothes }: RecommendClothesProps) => {
 
 export default RecommendClothes;
 
-const outFitName = {
-  OUTER: '상의',
+const outFitName: Record<OutfitType, string> = {
   TOP: '상의',
-  LAYERED: '상의',
   BOTTOM: '하의',
   ETC: '꼭 챙기세요!',
-  BASIC_UMBRELLA: '꼭 챙기세요!',
-  FOLDING_UMBRELLA: '꼭 챙기세요!',
 } as const;
 
 function getClothesImage(outfitType: OutfitType, names: ClothesImageName[]) {
   let Image;
 
   /** 대표 이미지가 둘 이상 포함되어 있는 경우, 특정 옷의 이미지를 보여줌 */
-  if (outFitName[outfitType] === '상의' && names.length === 2) {
+  if (outfitType === 'TOP' && names.length === 2) {
     if (names.includes('민소매') && names.includes('반팔티')) {
       Image = clothesImage.민소매;
     }
   }
 
-  if (outFitName[outfitType] === '하의') {
+  if (outfitType === 'BOTTOM') {
     if (names.length === 3) Image = clothesImage.바지;
     else if (names.length === 2) {
       if (names.includes('반바지') && names.includes('슬랙스')) {
@@ -66,7 +62,7 @@ function getClothesImage(outfitType: OutfitType, names: ClothesImageName[]) {
     }
   }
 
-  if (outFitName[outfitType] === '꼭 챙기세요!' && names.length === 2) {
+  if (outfitType === 'ETC' && names.length === 2) {
     if (names.includes('접이식 우산')) {
       Image = clothesImage.겉옷접이식우산;
     } else if (names.includes('장우산')) {

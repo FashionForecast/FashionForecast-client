@@ -29,14 +29,7 @@ export type ClothesImageName =
   | '히트텍'
   | '목도리';
 
-export type OutfitType =
-  | 'OUTER'
-  | 'TOP'
-  | 'BOTTOM'
-  | 'ETC'
-  | 'BASIC_UMBRELLA'
-  | 'FOLDING_UMBRELLA'
-  | 'LAYERED';
+export type OutfitType = 'TOP' | 'BOTTOM' | 'ETC';
 
 export type ClothesResponseData = Array<{
   names: Array<ClothesImageName | string>;
