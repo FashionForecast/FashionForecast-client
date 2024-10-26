@@ -31,6 +31,7 @@ export const SnackbarProvider = ({ children }: SnackbarProviedProps) => {
         open={isOpen}
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
+        handleCloseOnSwipe={handleSnackbarClose}
         message={message}
       />
     </SnackbarContext.Provider>
