@@ -32,7 +32,9 @@ export async function getRecentSearch(): Promise<RecentSearchData> {
 export async function registerSearchWord(region: string) {
   try {
     const uuid = localStorage.getItem(GUEST_UUID);
-    const [city, district] = region.split(' ');
+    const [city, district1, district2] = region.split(' ');
+    const district = district2 ? `${district1} ${district2}` : district1;
+
     const res = await fetch(
       `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`,
       {
