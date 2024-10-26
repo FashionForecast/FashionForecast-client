@@ -35,7 +35,7 @@ const IconBtn = styled(IconButton)`
 
 const ClothesList = styled.ol`
   display: flex;
-  gap: 12px;
+  gap: 20px;
   margin-top: 8px;
 `;
 
@@ -48,10 +48,16 @@ const ClothesItem = styled.li`
 `;
 
 const Top = styled.div`
+  position: relative;
+  top: 3px;
   display: flex;
   align-items: end;
   justify-content: center;
   height: 64px;
+
+  &[data-top*='코트'] {
+    top: 10px;
+  }
 `;
 
 const LookbookLink = styled(Link)`

@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import { SliderType } from '.';
 
-const TOP = '28px';
+const TOP = '31px';
 
 const ShowcaseWrap = styled.section<{ $isFocussing: SliderType }>`
   position: relative;
-  padding: 46px 0;
   padding: calc(46px - ${TOP}) 0 46px;
   margin: 0 16px;
   overflow: hidden;
