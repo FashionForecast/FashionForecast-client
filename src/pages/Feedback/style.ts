@@ -5,7 +5,7 @@ const FeedbackWrap = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: 0 16px 16px;
 `;
 

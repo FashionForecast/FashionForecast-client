@@ -5,6 +5,8 @@ import TimeCarousel from './TimeCarousel';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { TIME_LIST } from '@/constants/timeSelector/data';
+import { KSTDate } from '@/utils/date';
+import { useSnackbar } from '@/contexts/SnackbarProvider';
 
 const DAYS = ['오늘', '내일'];
 
@@ -20,13 +22,13 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
   const [isChange, setIsChange] = useState(false);
   const initialTime = useRef(selectedTime);
   const queryClient = useQueryClient();
+  const currentHour = KSTDate().getHours();
+  const { openSnackbar } = useSnackbar();
 
   const startTimes = useMemo(
     () =>
-      selectedTime.day === '오늘'
-        ? TIME_LIST.slice(TIME_LIST.indexOf(selectedTime.start))
-        : TIME_LIST,
-    [selectedTime.day]
+      selectedTime.day === '오늘' ? TIME_LIST.slice(currentHour) : TIME_LIST,
+    [selectedTime.day, currentHour]
   );
 
   const endTimes = useMemo(
@@ -39,6 +41,8 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
       setIsChange(false);
       initialTime.current = selectedTime;
       queryClient.invalidateQueries({ queryKey: ['weather'] });
+      const { day, start, end } = selectedTime;
+      openSnackbar(`${day} ${start} - ${end}에 맞는 옷차림이에요!`);
     }
   };
 
@@ -54,12 +58,14 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
         <TimeCarousel
           times={DAYS}
           type='day'
+          selectedTime={selectedTime.day}
           updateSelectedTime={updateSelectedTime}
         />
 
         <TimeCarousel
           times={startTimes}
           type='start'
+          selectedTime={selectedTime.start}
           updateSelectedTime={updateSelectedTime}
         />
 
@@ -68,6 +74,7 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
         <TimeCarousel
           times={endTimes}
           type='end'
+          selectedTime={selectedTime.end}
           updateSelectedTime={updateSelectedTime}
         />
 

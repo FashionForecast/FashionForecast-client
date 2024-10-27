@@ -2,8 +2,8 @@ import useAppSelector from '@/hooks/useAppSelector';
 import { getWeather } from '@/service/weather';
 import { useQuery } from '@tanstack/react-query';
 import WeatherCard from './components/WeatherCard';
-import Header from './components/Header';
-import RecommendClothes from './components/RecommendClothes';
+import MainHeader from './components/MainHeader';
+import ClothesSection from './components/ClothesSection';
 import TimeSelector from './components/TimeSelector';
 import { useState } from 'react';
 import WeatherTimeLine from './components/WeatherTimeLine';
@@ -12,6 +12,8 @@ import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeSelector/data';
 import HomeLoading from './loading';
 import NetworkError from '@/components/NetworkError';
+import 'keen-slider/keen-slider.min.css';
+import { User } from '@/types/user';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -19,16 +21,12 @@ export type SelectedTime = {
   end: string;
 };
 
-const defaultSelectedTime: SelectedTime = {
-  day: '오늘',
-  start: defaultTime('start'),
-  end: defaultTime('end'),
-};
-
 const Home = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
-  const [selectedTime, setSelectedTime] =
-    useState<SelectedTime>(defaultSelectedTime);
+  const user = useAppSelector((state) => state.user.info);
+  const [selectedTime, setSelectedTime] = useState<SelectedTime>(() =>
+    getSelectedTime(user)
+  );
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['weather', geolocation?.region],
@@ -50,14 +48,14 @@ const Home = () => {
 
   return (
     <S.HomeWrap>
-      <Header />
+      <MainHeader />
 
       {isError && <NetworkError handleRefetch={refetch} />}
-
       {isLoading && <HomeLoading />}
+
       {data && (
         <>
-          <RecommendClothes
+          <ClothesSection
             weather={{
               extremumTmp: data.extremumTmp,
               maxMinTmpDiff: data.maxMinTmpDiff,
@@ -88,6 +86,12 @@ const Home = () => {
 
 export default Home;
 
+const defaultSelectedTime: SelectedTime = {
+  day: '오늘',
+  start: defaultTime('start'),
+  end: defaultTime('end'),
+};
+
 function defaultTime(type: 'start' | 'end') {
   const KST = KSTDate();
   let hour = KST.getHours();
@@ -98,4 +102,48 @@ function defaultTime(type: 'start' | 'end') {
   }
 
   return TIME_LIST[hour];
+}
+
+/**
+ * @example
+ * 오전 00시 → return 0
+ * 오전 03시 → return 3
+ * 오후 12시 → return 12
+ * 오후 03시 → return 15
+ */
+function getHour(time: string) {
+  const [AMPM, userTime] = time.split(' ');
+  let hour = Number(userTime.replace(/\D/g, ''));
+
+  if (AMPM === '오후') {
+    if (hour === 12) return hour;
+    else hour = 12 + hour;
+  }
+
+  return hour;
+}
+
+function getSelectedTime(user: User | null): SelectedTime {
+  if (!user || user.outingStartTime === 'DEFAULT') {
+    return defaultSelectedTime;
+  }
+
+  const { outingStartTime, outingEndTime } = user;
+  const userStartHour = getHour(outingStartTime);
+  const userEndHour = getHour(outingEndTime);
+  const currentHour = KSTDate().getHours();
+
+  let day: SelectedTime['day'] = '오늘';
+  let start = outingStartTime;
+  const end = outingEndTime;
+
+  if (currentHour > userStartHour && currentHour <= userEndHour) {
+    start = TIME_LIST[currentHour];
+  }
+
+  if (currentHour > userEndHour) {
+    day = '내일';
+  }
+
+  return { day, start, end };
 }

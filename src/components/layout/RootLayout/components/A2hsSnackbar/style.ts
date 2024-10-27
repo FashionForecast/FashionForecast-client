@@ -5,15 +5,10 @@ import styled from '@emotion/styled';
 const Snackbar = styled(CustomSnackbar)`
   position: fixed;
   bottom: 80px;
-  width: 100%;
-  max-width: 768px;
-  padding: 0 16px;
-  touch-action: none;
-  cursor: grab;
-  user-select: none;
 
   & .MuiPaper-root {
     display: flex;
+    flex-wrap: nowrap;
     justify-content: space-between;
     width: 100%;
     height: 42px;

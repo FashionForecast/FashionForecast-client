@@ -26,7 +26,7 @@ const Feedback = () => {
     mutate(undefined, {
       onSuccess: () => {
         openSnackbar('피드백을 성공적으로 남겼어요');
-        navigate('/');
+        navigate('/user?tab=set');
       },
     });
   };
@@ -34,7 +34,7 @@ const Feedback = () => {
   return (
     <S.FeedbackWrap>
       <S.Header>
-        <Link to={'/'}>
+        <Link to={'/user?tab=set'}>
           <GoBackButton />
         </Link>
         <h6>고객의 소리</h6>

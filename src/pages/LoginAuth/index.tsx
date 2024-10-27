@@ -1,32 +1,40 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import NotFound from '../NotFound';
+import useAppDispatch from '@/hooks/useAppDispatch';
+import { storeAccessToken, storeUser } from '@/utils/auth';
 
 const LoginAuth = () => {
   const [searchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isLoginSucess = JSON.parse(searchParams.get('social-login') || 'false');
 
   useEffect(() => {
+    async function handleLogin() {
+      try {
+        const accessToken = await storeAccessToken(dispatch);
+        const user = await storeUser(accessToken, dispatch);
+
+        if (!user?.gender) {
+          navigate('/user/gender');
+          return;
+        }
+
+        navigate('/user');
+      } catch {
+        console.error('인증 과정중 문제가 발생했습니다.');
+        navigate('/login');
+      }
+    }
+
     if (isLoginSucess) {
-      getAccessToken();
-      navigate('/');
+      handleLogin();
     }
   }, []);
 
-  if (isLoginSucess) return <div>로딩중</div>;
-  return <div>페이지가 존재하지 않습니다</div>;
+  if (isLoginSucess) return <></>;
+  return <NotFound />;
 };
 
 export default LoginAuth;
-
-async function getAccessToken() {
-  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-  });
-  const json = await res.json();
-  console.log(json);
-}

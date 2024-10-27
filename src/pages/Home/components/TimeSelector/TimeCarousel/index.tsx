@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ITEM_HEIGHT, S } from './style';
 import { SelectedTime } from '../../..';
 
 type TimeCarouselProps = {
   times: string[];
   type: keyof SelectedTime;
+  selectedTime: string;
+  initial?: number;
   updateSelectedTime: (
     key: keyof SelectedTime,
     value: SelectedTime[keyof SelectedTime]
@@ -14,48 +16,58 @@ type TimeCarouselProps = {
 const TimeCarousel = ({
   times,
   type,
+  selectedTime,
   updateSelectedTime,
 }: TimeCarouselProps) => {
-  const [currentIndex, setCurrentIndex] = useState(
-    type === 'end' ? Math.min(times.length - 1, 8) : 0
+  const [currentIndex, setCurrentIndex] = useState(() =>
+    getInitialIndex(times, selectedTime)
   );
   const [userSelected, setUserSelected] = useState(times[currentIndex]);
   const [isDragging, setIsDragging] = useState(false);
-  const [prevPageY, setPrevPageY] = useState(0);
-  const [prevScrollTop, setPrevScrollTop] = useState(0);
+  const startPageYRef = useRef(0);
+  const startScrollTopRef = useRef(0);
   const carouselRef = useRef<HTMLOListElement>(null);
   const itemsRef = useRef<Array<HTMLElement | null>>([]);
 
-  const handleDragging = (e: React.PointerEvent) => {
-    if (!carouselRef.current || !isDragging) return;
-    e.preventDefault();
+  const handleDragging = useCallback(
+    (e: PointerEvent) => {
+      e.preventDefault();
+      if (!carouselRef.current || !isDragging) return;
 
-    const positionDiff = e.pageY - prevPageY;
-    carouselRef.current.scrollTop = prevScrollTop - positionDiff;
+      const positionDiff = e.pageY - startPageYRef.current;
+      carouselRef.current.scrollTop = startScrollTopRef.current - positionDiff;
 
-    if (Math.abs(positionDiff) > ITEM_HEIGHT / 3) {
-      const index = Math.round(carouselRef.current.scrollTop / ITEM_HEIGHT);
-      setCurrentIndex(index);
-    }
-  };
+      if (Math.abs(positionDiff) > ITEM_HEIGHT / 3) {
+        const index = Math.round(carouselRef.current.scrollTop / ITEM_HEIGHT);
+        setCurrentIndex(index);
+      }
+    },
+    [isDragging]
+  );
 
   const handleDragStart = (e: React.PointerEvent) => {
-    if (!carouselRef.current) return;
     e.preventDefault();
+    if (!carouselRef.current) return;
+
     setIsDragging(true);
-    setPrevPageY(e.pageY);
-    setPrevScrollTop(carouselRef.current.scrollTop);
+    startPageYRef.current = e.pageY;
+    startScrollTopRef.current = carouselRef.current.scrollTop;
   };
 
-  const handleDragStop = (e: React.PointerEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    setUserSelected(times[currentIndex]);
-    updateSelectedTime(type, times[currentIndex]);
-    itemsRef.current[currentIndex]?.scrollIntoView({
-      block: 'center',
-    });
-  };
+  const handleDragStop = useCallback(
+    (e: PointerEvent) => {
+      e.preventDefault();
+      if (!isDragging) return;
+
+      setIsDragging(false);
+      setUserSelected(times[currentIndex]);
+      updateSelectedTime(type, times[currentIndex]);
+      itemsRef.current[currentIndex]?.scrollIntoView({
+        block: 'center',
+      });
+    },
+    [times, currentIndex, isDragging]
+  );
 
   useEffect(() => {
     const selectedIndex = times.indexOf(userSelected);
@@ -68,20 +80,19 @@ const TimeCarousel = ({
     });
   }, [times, userSelected]);
 
+  useEffect(() => {
+    window.addEventListener('pointermove', handleDragging);
+    window.addEventListener('pointerup', handleDragStop);
+
+    return () => {
+      window.removeEventListener('pointermove', handleDragging);
+      window.removeEventListener('pointerup', handleDragStop);
+    };
+  }, [handleDragging, handleDragStop]);
+
   return (
     <>
-      {/* {
-        <div>
-          {userSelected} {currentIndex}
-        </div>
-      } */}
-      <S.Carousel
-        ref={carouselRef}
-        onPointerMove={handleDragging}
-        onPointerDown={handleDragStart}
-        onPointerUp={handleDragStop}
-        onPointerLeave={handleDragStop}
-      >
+      <S.Carousel ref={carouselRef} onPointerDown={handleDragStart}>
         {times.map((time, index) => (
           <S.Item
             key={time}
@@ -100,3 +111,7 @@ const TimeCarousel = ({
 };
 
 export default TimeCarousel;
+
+function getInitialIndex(times: string[], selectedTime: string) {
+  return times.findIndex((time) => time === selectedTime);
+}
