@@ -13,9 +13,9 @@ const Drawer = styled.div<{ $isDragging: boolean }>`
   flex-direction: column;
   width: 100%;
   max-width: ${MAX_WIDTH};
-  height: calc(100vh - 56px - 72px - 8px - 320px);
-  min-height: calc(100vh - 56px - 72px - 8px - 320px);
-  max-height: calc(100vh - 56px - 72px - 8px);
+  height: calc(100dvh - 56px - 72px - 8px - 320px);
+  min-height: calc(100dvh - 56px - 72px - 8px - 320px);
+  max-height: calc(100dvh - 56px - 72px - 8px);
   font-size: 18px;
   touch-action: none;
   user-select: none;
