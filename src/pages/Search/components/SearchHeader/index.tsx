@@ -1,10 +1,10 @@
-import { C, S } from './style';
-import { Link } from 'react-router-dom';
+import { S } from './style';
+import { Link, useLocation } from 'react-router-dom';
 import CancelIcon from '@/assets/svg/cancle.svg?react';
-import CustomPaper from '@/components/CustomMui/CustomPaper';
-import CustomToolbar from '@/components/CustomMui/CustomToolbar';
 import CustomTextField from '@/components/CustomMui/CustomTextField';
 import GoBackButton from '@/components/GoBackButton';
+import Header from '@/components/Header';
+import { SearchLocationState } from '../CurrentRegionButton';
 
 type SearchHeaderProps = {
   keyword: string;
@@ -17,31 +17,28 @@ const SearchHeader = ({
   onInputChange,
   onKeywordResetClick,
 }: SearchHeaderProps) => {
-  return (
-    <C.AppBar>
-      <CustomPaper>
-        <CustomToolbar>
-          <Link to={'/'}>
-            <GoBackButton />
-          </Link>
+  const { state }: SearchLocationState = useLocation();
 
-          <S.InputWrapper>
-            <CustomTextField
-              variant='filled'
-              value={keyword}
-              onChange={onInputChange}
-              fullWidth
-              size='small'
-            />
-            {keyword && (
-              <S.CancleButton type='button' onClick={onKeywordResetClick}>
-                <CancelIcon />
-              </S.CancleButton>
-            )}
-          </S.InputWrapper>
-        </CustomToolbar>
-      </CustomPaper>
-    </C.AppBar>
+  return (
+    <Header color='white' position='fixed'>
+      <Link to={state?.mode === 'set' ? '/user?tab=set' : '/'}>
+        <GoBackButton />
+      </Link>
+      <S.InputWrapper>
+        <CustomTextField
+          variant='filled'
+          value={keyword}
+          onChange={onInputChange}
+          fullWidth
+          size='small'
+        />
+        {keyword && (
+          <S.CancleButton type='button' onClick={onKeywordResetClick}>
+            <CancelIcon />
+          </S.CancleButton>
+        )}
+      </S.InputWrapper>
+    </Header>
   );
 };
 

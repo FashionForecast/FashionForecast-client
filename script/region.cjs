@@ -2,6 +2,14 @@ const xlsx = require('xlsx');
 const fs = require('fs');
 
 /**
+ * @desc 경기도 수원시장안구 → 경기도 수원시 장안구
+ * @desc 경기도 안양시만안구 → 경기도 안양시 만안구
+ */
+function transformRegionName(regionName) {
+  return regionName.replace(/(\S+시)(\S+)/, '$1 $2');
+}
+
+/**
  * 파일 생성 명령어: pnpm region
  *
  * 위경도 엑셀 파일은 아래 링크의 참고 문서에서 가져왔습니다.
@@ -25,8 +33,10 @@ const localCoordinates = [];
 for (const v of data) {
   if (!v['2단계'] || v['3단계']) continue;
 
+  const regionName = transformRegionName(`${v['1단계']} ${v['2단계']}`);
+
   const region = {
-    region: `${v['1단계']} ${v['2단계']}`,
+    region: regionName,
     nx: Number(v['위도(초/100)']),
     ny: Number(v['경도(초/100)']),
   };
@@ -65,7 +75,9 @@ const weatherCoordinateList = {};
 for (const v of weatherData) {
   if (!v['district'] || v['neighborhood']) continue;
 
-  weatherCoordinateList[`${v['city']} ${v['district']}`] = {
+  const regionName = transformRegionName(`${v['city']} ${v['district']}`);
+
+  weatherCoordinateList[regionName] = {
     weatherNx: v['nx'],
     weatherNy: v['ny'],
   };

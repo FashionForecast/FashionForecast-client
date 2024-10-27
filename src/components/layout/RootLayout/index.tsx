@@ -1,17 +1,24 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import * as S from './style';
-import { GUEST_UUID, MY_REGION } from '@/constants/localStorage/key';
+import { GUEST_UUID, LOGIN, MY_REGION } from '@/constants/localStorage/key';
 import { useMutation } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { guestLogin } from '@/service/login';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import A2hsSnackbar from './components/A2hsSnackbar';
 import { goelocationActions } from '@/redux/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
+import { storeAccessToken, storeUser } from '@/utils/auth';
+import useAppSelector from '@/hooks/useAppSelector';
+import regions from '@/assets/actualRegionCoordinates.json';
 
 export default function RootLayout() {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
+  const user = useAppSelector((state) => state.user.info);
+  const [isLoggingIn, setIsLoggingIn] = useState(true);
+  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { mutate: guestLoginMutate } = useMutation({
     mutationFn: guestLogin,
@@ -36,16 +43,56 @@ export default function RootLayout() {
       return;
     }
 
-    const myRegion = localStorage.getItem(MY_REGION);
+    if (user?.region === 'DEFAULT') {
+      updateGPSRegion();
+      return;
+    }
 
-    if (myRegion) {
-      dispatch(goelocationActions.updateGeolocation(JSON.parse(myRegion)));
+    const userRegion =
+      user?.region && regions.find((region) => region.region === user.region);
+    const localRegion = localStorage.getItem(MY_REGION);
+    const basicRegion = localRegion && JSON.parse(localRegion);
+
+    if (userRegion || basicRegion) {
+      dispatch(goelocationActions.updateGeolocation(userRegion || basicRegion));
       return;
     }
 
     updateGPSRegion();
+  }, [user?.region]);
+
+  // 이전에 로그인 한 사용자의 로그인 처리
+  useEffect(() => {
+    async function handleLogin() {
+      try {
+        const accessToken = await storeAccessToken(dispatch);
+        await storeUser(accessToken, dispatch);
+      } catch (error) {
+        console.error('자동 로그인에 실패했습니다.');
+        navigate('/login');
+      } finally {
+        setIsLoggingIn(false);
+      }
+    }
+
+    const isPrevLoggedIn = localStorage.getItem(LOGIN);
+
+    if (isPrevLoggedIn) {
+      handleLogin();
+      return;
+    }
+
+    setIsLoggingIn(false);
   }, []);
 
+  // 성별이 설정되어 있지 않으면, 성별 설정 페이지로 이동
+  useEffect(() => {
+    if (user && !user.gender) {
+      navigate('/user/gender');
+    }
+  }, [pathname, user?.gender]);
+
+  if (isLoggingIn) return <></>;
   return (
     <S.Main>
       <Outlet />

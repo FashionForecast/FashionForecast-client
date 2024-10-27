@@ -306,31 +306,31 @@ const weatherCoordinateList: Record<
     "weatherNx": 66,
     "weatherNy": 103
   },
-  "경기도 수원시장안구": {
+  "경기도 수원시 장안구": {
     "weatherNx": 60,
     "weatherNy": 121
   },
-  "경기도 수원시권선구": {
+  "경기도 수원시 권선구": {
     "weatherNx": 60,
     "weatherNy": 120
   },
-  "경기도 수원시팔달구": {
+  "경기도 수원시 팔달구": {
     "weatherNx": 61,
     "weatherNy": 121
   },
-  "경기도 수원시영통구": {
+  "경기도 수원시 영통구": {
     "weatherNx": 61,
     "weatherNy": 120
   },
-  "경기도 성남시수정구": {
+  "경기도 성남시 수정구": {
     "weatherNx": 63,
     "weatherNy": 124
   },
-  "경기도 성남시중원구": {
+  "경기도 성남시 중원구": {
     "weatherNx": 63,
     "weatherNy": 124
   },
-  "경기도 성남시분당구": {
+  "경기도 성남시 분당구": {
     "weatherNx": 62,
     "weatherNy": 123
   },
@@ -338,23 +338,23 @@ const weatherCoordinateList: Record<
     "weatherNx": 61,
     "weatherNy": 130
   },
-  "경기도 안양시만안구": {
+  "경기도 안양시 만안구": {
     "weatherNx": 59,
     "weatherNy": 123
   },
-  "경기도 안양시동안구": {
+  "경기도 안양시 동안구": {
     "weatherNx": 59,
     "weatherNy": 123
   },
-  "경기도 부천시원미구": {
+  "경기도 부천시 원미구": {
     "weatherNx": 57,
     "weatherNy": 125
   },
-  "경기도 부천시소사구": {
+  "경기도 부천시 소사구": {
     "weatherNx": 57,
     "weatherNy": 125
   },
-  "경기도 부천시오정구": {
+  "경기도 부천시 오정구": {
     "weatherNx": 57,
     "weatherNy": 126
   },
@@ -370,23 +370,23 @@ const weatherCoordinateList: Record<
     "weatherNx": 61,
     "weatherNy": 134
   },
-  "경기도 안산시상록구": {
+  "경기도 안산시 상록구": {
     "weatherNx": 58,
     "weatherNy": 121
   },
-  "경기도 안산시단원구": {
+  "경기도 안산시 단원구": {
     "weatherNx": 57,
     "weatherNy": 121
   },
-  "경기도 고양시덕양구": {
+  "경기도 고양시 덕양구": {
     "weatherNx": 57,
     "weatherNy": 128
   },
-  "경기도 고양시일산동구": {
+  "경기도 고양시 일산동구": {
     "weatherNx": 56,
     "weatherNy": 129
   },
-  "경기도 고양시일산서구": {
+  "경기도 고양시 일산서구": {
     "weatherNx": 56,
     "weatherNy": 129
   },
@@ -422,15 +422,15 @@ const weatherCoordinateList: Record<
     "weatherNx": 64,
     "weatherNy": 126
   },
-  "경기도 용인시처인구": {
+  "경기도 용인시 처인구": {
     "weatherNx": 64,
     "weatherNy": 119
   },
-  "경기도 용인시기흥구": {
+  "경기도 용인시 기흥구": {
     "weatherNx": 62,
     "weatherNy": 120
   },
-  "경기도 용인시수지구": {
+  "경기도 용인시 수지구": {
     "weatherNx": 62,
     "weatherNy": 121
   },
@@ -482,19 +482,19 @@ const weatherCoordinateList: Record<
     "weatherNx": 69,
     "weatherNy": 125
   },
-  "충청북도 청주시상당구": {
+  "충청북도 청주시 상당구": {
     "weatherNx": 69,
     "weatherNy": 106
   },
-  "충청북도 청주시서원구": {
+  "충청북도 청주시 서원구": {
     "weatherNx": 69,
     "weatherNy": 107
   },
-  "충청북도 청주시흥덕구": {
+  "충청북도 청주시 흥덕구": {
     "weatherNx": 67,
     "weatherNy": 106
   },
-  "충청북도 청주시청원구": {
+  "충청북도 청주시 청원구": {
     "weatherNx": 69,
     "weatherNy": 107
   },
@@ -538,11 +538,11 @@ const weatherCoordinateList: Record<
     "weatherNx": 84,
     "weatherNy": 115
   },
-  "충청남도 천안시동남구": {
+  "충청남도 천안시 동남구": {
     "weatherNx": 63,
     "weatherNy": 110
   },
-  "충청남도 천안시서북구": {
+  "충청남도 천안시 서북구": {
     "weatherNx": 63,
     "weatherNy": 112
   },
@@ -690,11 +690,11 @@ const weatherCoordinateList: Record<
     "weatherNx": 50,
     "weatherNy": 66
   },
-  "경상북도 포항시남구": {
+  "경상북도 포항시 남구": {
     "weatherNx": 102,
     "weatherNy": 94
   },
-  "경상북도 포항시북구": {
+  "경상북도 포항시 북구": {
     "weatherNx": 102,
     "weatherNy": 95
   },
@@ -782,23 +782,23 @@ const weatherCoordinateList: Record<
     "weatherNx": 127,
     "weatherNy": 127
   },
-  "경상남도 창원시의창구": {
+  "경상남도 창원시 의창구": {
     "weatherNx": 90,
     "weatherNy": 77
   },
-  "경상남도 창원시성산구": {
+  "경상남도 창원시 성산구": {
     "weatherNx": 91,
     "weatherNy": 76
   },
-  "경상남도 창원시마산합포구": {
+  "경상남도 창원시 마산합포구": {
     "weatherNx": 89,
     "weatherNy": 76
   },
-  "경상남도 창원시마산회원구": {
+  "경상남도 창원시 마산회원구": {
     "weatherNx": 89,
     "weatherNy": 76
   },
-  "경상남도 창원시진해구": {
+  "경상남도 창원시 진해구": {
     "weatherNx": 91,
     "weatherNy": 75
   },
@@ -950,11 +950,11 @@ const weatherCoordinateList: Record<
     "weatherNx": 88,
     "weatherNy": 138
   },
-  "전북특별자치도 전주시완산구": {
+  "전북특별자치도 전주시 완산구": {
     "weatherNx": 63,
     "weatherNy": 89
   },
-  "전북특별자치도 전주시덕진구": {
+  "전북특별자치도 전주시 덕진구": {
     "weatherNx": 63,
     "weatherNy": 89
   },
