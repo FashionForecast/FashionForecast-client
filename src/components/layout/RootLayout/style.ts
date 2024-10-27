@@ -6,6 +6,6 @@ export const Main = styled.main`
   width: 100%;
   max-width: ${MAX_WIDTH};
   height: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #fff;
 `;

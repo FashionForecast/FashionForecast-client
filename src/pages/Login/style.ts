@@ -7,7 +7,7 @@ const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
 `;
 
 const MainWrap = styled.div`

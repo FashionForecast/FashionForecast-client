@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 const UserGenderWrap = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
