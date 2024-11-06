@@ -3,7 +3,7 @@ import { WeatherResponseData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { C, S } from './style';
 import { ToggleButtonGroup } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 import RecommendClothesLoading from './loading';
 import NetworkError from '@/components/NetworkError';
@@ -42,7 +42,11 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   const tempParamOption = searchParams.get('option');
   const weatherType = getWeatehrType(weather.extremumTmp);
   const [tempCondition, setTempCondition] = useState<TempCondition>(() =>
-    getInitialTempCondition(tempParamOption, user?.tempCondition)
+    initializeTempCondition(
+      weather.extremumTmp,
+      user?.tempCondition,
+      tempParamOption
+    )
   );
   const [currentSlider, setCurrentSlider] = useState(0);
 
@@ -81,6 +85,12 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     if (!condition) return;
     setTempCondition(condition);
   };
+
+  useEffect(() => {
+    setTempCondition(
+      initializeTempCondition(weather.extremumTmp, user?.tempCondition)
+    );
+  }, [weather.extremumTmp, user?.tempCondition]);
 
   if (isError) return <NetworkError handleRefetch={refetch} />;
   return (
@@ -152,12 +162,28 @@ function getWeatehrType(temp: number): WeatherType {
   return '8';
 }
 
-function getInitialTempCondition(
-  tempParamOption: string | null,
-  userTempCondition?: TempCondition
+function initializeTempCondition(
+  extremumTmp: number,
+  userTempCondition?: TempCondition,
+  tempParamOption?: string | null
 ): TempCondition {
   if (tempParamOption && Options.has(tempParamOption))
     return tempParamOption as TempCondition;
 
+  if (!isValidTempCondition(extremumTmp, userTempCondition)) return 'NORMAL';
+
   return userTempCondition ? userTempCondition : 'NORMAL';
+}
+
+export function isValidTempCondition(
+  extremumTmp: number,
+  userTempCondition?: TempCondition
+) {
+  if (
+    (extremumTmp < 5 && userTempCondition === 'WARM') ||
+    (extremumTmp >= 28 && userTempCondition === 'COOL')
+  )
+    return false;
+
+  return true;
 }
