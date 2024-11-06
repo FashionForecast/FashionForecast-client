@@ -1,5 +1,6 @@
 import {
   ClothesForWeather,
+  isValidTempCondition,
   TempCondition,
 } from '@/pages/Home/components/ClothesSection';
 import {
@@ -12,8 +13,12 @@ import { LookbookSelect } from '@/pages/UserLookbookCreate';
 
 export async function getDefaultClothes(
   weather: ClothesForWeather & { tempCondition: TempCondition }
-): Promise<ClothesResponseData> {
+): Promise<ClothesResponseData | null> {
   try {
+    if (!isValidTempCondition(weather.extremumTmp, weather.tempCondition)) {
+      return null;
+    }
+
     const params: Record<string, string> = {};
     Object.entries(weather).forEach(([key, value]) => {
       params[key] = String(value);
@@ -177,8 +182,12 @@ export async function getUserLookbookByTemp(
   temp: ClothesForWeather['extremumTmp'],
   tempCondition: TempCondition,
   accessToken: string | null
-): Promise<Outfits[]> {
+): Promise<Outfits[] | null> {
   try {
+    if (!isValidTempCondition(temp, tempCondition)) {
+      return null;
+    }
+
     const res = await fetch(
       `${
         import.meta.env.VITE_API_BASE_URL
