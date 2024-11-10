@@ -18,6 +18,7 @@ import { Region } from '@/types/region';
 import { MY_REGION } from '@/constants/localStorage/key';
 import { goelocationActions } from '@/redux/slice/geolocationSlice';
 import { storeUser } from '@/utils/auth';
+import HeadHelmet from '@/components/HeadHelmet';
 
 const Search = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
@@ -89,33 +90,41 @@ const Search = () => {
   };
 
   return (
-    <S.SearchWrapper>
-      <SearchHeader
-        keyword={keyword}
-        onInputChange={handleInputChange}
-        onKeywordResetClick={handleKeywordResetClick}
+    <>
+      <HeadHelmet
+        title='위치 설정'
+        description='위치를 설정하여 추천 옷차림과 날씨를 확인해보세요.'
+        urlPath='/search'
       />
 
-      <CurrentRegionButton />
-
-      {!keyword && (
-        <RecentSearchList
-          regions={regions}
-          handleRegionClick={handleRegionClick}
+      <S.SearchWrapper>
+        <SearchHeader
+          keyword={keyword}
+          onInputChange={handleInputChange}
+          onKeywordResetClick={handleKeywordResetClick}
         />
-      )}
 
-      <C.RegionList>
-        {matchItems.map((item) => (
-          <RegionItem
-            key={item.region}
-            keyword={keyword}
+        <CurrentRegionButton />
+
+        {!keyword && (
+          <RecentSearchList
+            regions={regions}
             handleRegionClick={handleRegionClick}
-            {...item}
           />
-        ))}
-      </C.RegionList>
-    </S.SearchWrapper>
+        )}
+
+        <C.RegionList>
+          {matchItems.map((item) => (
+            <RegionItem
+              key={item.region}
+              keyword={keyword}
+              handleRegionClick={handleRegionClick}
+              {...item}
+            />
+          ))}
+        </C.RegionList>
+      </S.SearchWrapper>
+    </>
   );
 };
 
