@@ -12,6 +12,7 @@ import useAppDispatch from '@/hooks/useAppDispatch';
 import { userActions } from '@/redux/slice/userSlice';
 import 바지 from '@/components/clothes/바지';
 import { Gender } from '@/types/user';
+import HeadHelmet from '@/components/HeadHelmet';
 
 const BUTTONS = [
   { text: '남자', value: 'MALE', icon: <MaleImage /> },
@@ -41,48 +42,56 @@ const UserGender = () => {
   };
 
   return (
-    <S.UserGenderWrap>
-      <UserGenderHeader />
+    <>
+      <HeadHelmet
+        title='성별 설정'
+        description='성별을 설정해주세요.'
+        urlPath='/user/gender'
+      />
 
-      <S.SectionWrap>
-        <S.ImageWrap>
-          <바지 />
-        </S.ImageWrap>
-        <h3>거의 다 왔어요!</h3>
+      <S.UserGenderWrap>
+        <UserGenderHeader />
 
-        <p>
-          나에게 딱 맞는 옷차림을 알려줄 수 있도록
-          <br />
-          성별 정보를 입력해주세요
-        </p>
+        <S.SectionWrap>
+          <S.ImageWrap>
+            <바지 />
+          </S.ImageWrap>
+          <h3>거의 다 왔어요!</h3>
 
-        <S.ButtonWrap>
-          {BUTTONS.map(({ text, value, icon }) => (
-            <S.GenderButton
-              type='button'
-              key={text}
-              onClick={() => setGender(value as Gender)}
-              $select={gender === value}
-            >
-              <div className='icon'>{icon}</div>
-              {text}
-            </S.GenderButton>
-          ))}
-        </S.ButtonWrap>
-      </S.SectionWrap>
+          <p>
+            나에게 딱 맞는 옷차림을 알려줄 수 있도록
+            <br />
+            성별 정보를 입력해주세요
+          </p>
 
-      <S.SubmitButtonWrap>
-        <CustomButton
-          variant='contained'
-          size='large'
-          fullWidth
-          disabled={!gender}
-          onClick={handleSubmitClick}
-        >
-          개인화된 OOTC 시작하기
-        </CustomButton>
-      </S.SubmitButtonWrap>
-    </S.UserGenderWrap>
+          <S.ButtonWrap>
+            {BUTTONS.map(({ text, value, icon }) => (
+              <S.GenderButton
+                type='button'
+                key={text}
+                onClick={() => setGender(value as Gender)}
+                $select={gender === value}
+              >
+                <div className='icon'>{icon}</div>
+                {text}
+              </S.GenderButton>
+            ))}
+          </S.ButtonWrap>
+        </S.SectionWrap>
+
+        <S.SubmitButtonWrap>
+          <CustomButton
+            variant='contained'
+            size='large'
+            fullWidth
+            disabled={!gender}
+            onClick={handleSubmitClick}
+          >
+            개인화된 OOTC 시작하기
+          </CustomButton>
+        </S.SubmitButtonWrap>
+      </S.UserGenderWrap>
+    </>
   );
 };
 
