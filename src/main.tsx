@@ -10,19 +10,22 @@ import './styles/font.css';
 import MuiThemeProvider from './contexts/MuiThemeProvider.tsx';
 import EmotionThemeProvider from './contexts/EmotionThemeProvider.tsx';
 import { SnackbarProvider } from './contexts/SnackbarProvider.tsx';
+import { HelmetProvider } from 'react-helmet-async';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <MuiThemeProvider>
-      <EmotionThemeProvider>
-        <ReduxProvider>
-          <TanstackQueryProvider>
-            <SnackbarProvider>
-              <RouterProvider router={router} />
-            </SnackbarProvider>
-          </TanstackQueryProvider>
-        </ReduxProvider>
-      </EmotionThemeProvider>
-    </MuiThemeProvider>
+    <HelmetProvider>
+      <MuiThemeProvider>
+        <EmotionThemeProvider>
+          <ReduxProvider>
+            <TanstackQueryProvider>
+              <SnackbarProvider>
+                <RouterProvider router={router} />
+              </SnackbarProvider>
+            </TanstackQueryProvider>
+          </ReduxProvider>
+        </EmotionThemeProvider>
+      </MuiThemeProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );

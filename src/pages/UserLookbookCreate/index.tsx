@@ -8,6 +8,7 @@ import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/Lookbook/data';
 import { useState } from 'react';
 import { Outfits } from '@/types/clothes';
 import { TempCondition } from '../Home/components/ClothesSection';
+import HeadHelmet from '@/components/HeadHelmet';
 
 export type LookbookSelect = {
   top: { name: string; color: string };
@@ -42,20 +43,28 @@ const UserLookbookCreate = () => {
 
   if (isInvalidParam(typeParam)) return <Navigate to={'/user'} />;
   return (
-    <S.PageWrap>
-      <LookbookCreateHeader
-        weatherType={typeParam as WeatherType}
-        select={select}
+    <>
+      <HeadHelmet
+        title='룩북 만들기'
+        description='나만의 계절별 룩북을 만들어보세요.'
+        urlPath='/user/lookbook/create'
       />
 
-      <TypeHeadline weatherType={typeParam as WeatherType} />
+      <S.PageWrap>
+        <LookbookCreateHeader
+          weatherType={typeParam as WeatherType}
+          select={select}
+        />
 
-      <Edit
-        weatherType={typeParam as WeatherType}
-        select={select}
-        updateSelect={updateSelect}
-      />
-    </S.PageWrap>
+        <TypeHeadline weatherType={typeParam as WeatherType} />
+
+        <Edit
+          weatherType={typeParam as WeatherType}
+          select={select}
+          updateSelect={updateSelect}
+        />
+      </S.PageWrap>
+    </>
   );
 };
 

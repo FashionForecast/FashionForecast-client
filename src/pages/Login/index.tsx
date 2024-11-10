@@ -7,6 +7,7 @@ import 바지 from '@/components/clothes/바지';
 import 반팔티 from '@/components/clothes/반팔티';
 import 코트 from '@/components/clothes/코트';
 import { C, S } from './style';
+import HeadHelmet from '@/components/HeadHelmet';
 
 export type SocialType = {
   provider: 'kakao' | 'google';
@@ -27,48 +28,56 @@ const Login = () => {
   };
 
   return (
-    <S.LoginWrap>
-      <LoginHeader />
+    <>
+      <HeadHelmet
+        title='로그인'
+        description='나만의 계절별 룩북을 만들어보세요.'
+        urlPath='/login'
+      />
 
-      <S.MainWrap>
-        <S.ImageSection>
-          <S.ImageWrap>
-            <코트 color='#53616F' />
-            <반팔티 color='#FB9FE1' />
-          </S.ImageWrap>
-          <S.ImageWrap>
-            <바지 color='#FFEF9B' />
-            <청바지 color='#2160A9' />
-          </S.ImageWrap>
-        </S.ImageSection>
+      <S.LoginWrap>
+        <LoginHeader />
 
-        <h3>나의 옷장을 날씨에 담아보세요</h3>
+        <S.MainWrap>
+          <S.ImageSection>
+            <S.ImageWrap>
+              <코트 color='#53616F' />
+              <반팔티 color='#FB9FE1' />
+            </S.ImageWrap>
+            <S.ImageWrap>
+              <바지 color='#FFEF9B' />
+              <청바지 color='#2160A9' />
+            </S.ImageWrap>
+          </S.ImageSection>
 
-        <p>
-          오늘 날씨를 고민할 필요 없이
-          <br />
-          1분만에 오늘의 옷차림을 결정하세요
-        </p>
+          <h3>나의 옷장을 날씨에 담아보세요</h3>
 
-        <S.ButtonWrap>
-          {SOCIAL_LOGIN.map(({ provider, text, icon }) => (
-            <C.SocialButton
-              key={provider}
-              $provider={provider}
-              variant='contained'
-              color='inherit'
-              size='large'
-              startIcon={icon}
-              onClick={handleLoginClick(provider)}
-            >
-              {text} 계정으로 계속하기
-            </C.SocialButton>
-          ))}
-        </S.ButtonWrap>
-      </S.MainWrap>
+          <p>
+            오늘 날씨를 고민할 필요 없이
+            <br />
+            1분만에 오늘의 옷차림을 결정하세요
+          </p>
 
-      <LoginFooter />
-    </S.LoginWrap>
+          <S.ButtonWrap>
+            {SOCIAL_LOGIN.map(({ provider, text, icon }) => (
+              <C.SocialButton
+                key={provider}
+                $provider={provider}
+                variant='contained'
+                color='inherit'
+                size='large'
+                startIcon={icon}
+                onClick={handleLoginClick(provider)}
+              >
+                {text} 계정으로 계속하기
+              </C.SocialButton>
+            ))}
+          </S.ButtonWrap>
+        </S.MainWrap>
+
+        <LoginFooter />
+      </S.LoginWrap>
+    </>
   );
 };
 
