@@ -11,15 +11,16 @@ const DEFAULT_REGION = {
 
 /** 사용자의 위치를 설정하는 hook */
 const useGeolocation = () => {
-  const { value } = useAppSelector((state) => state.geolocation);
+  const { value, status } = useAppSelector((state) => state.geolocation);
   const dispatch = useAppDispatch();
 
-  const { updateGeolocation } = goelocationActions;
+  const { updateGeolocation, updateStatus } = goelocationActions;
 
   const updateDefaultRegion = () => dispatch(updateGeolocation(DEFAULT_REGION));
   const updateGPSRegion = () => {
     const gpsSuccess = (position: GeolocationPosition) => {
       const { closestRegion, nx, ny } = getClosestRegion(position);
+      dispatch(updateStatus('available'));
       dispatch(
         updateGeolocation({
           region: closestRegion,
@@ -30,8 +31,8 @@ const useGeolocation = () => {
       );
     };
 
-    const gpsError = (error: GeolocationPositionError) => {
-      alert(`위치 권한이 거부되었거나 오류가 발생했습니다. [${error.code}]`);
+    const gpsError = () => {
+      dispatch(updateStatus('error'));
       dispatch(updateGeolocation(DEFAULT_REGION));
     };
 
@@ -42,8 +43,10 @@ const useGeolocation = () => {
 
   return {
     geolocation: value,
+    status,
     updateDefaultRegion,
     updateGPSRegion,
+    updateStatus,
   };
 };
 
