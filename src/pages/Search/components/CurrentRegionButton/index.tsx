@@ -11,6 +11,8 @@ import { useState } from 'react';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import { storeUser } from '@/utils/auth';
 import useAppDispatch from '@/hooks/useAppDispatch';
+import CustomDialog from '@/components/CustomMui/CustomDialog';
+import { DialogActions, DialogContent } from '@mui/material';
 
 export type SearchLocationState = {
   state?: {
@@ -21,8 +23,13 @@ export type SearchLocationState = {
 const CurrentRegionButton = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { geolocation, updateGPSRegion } = useGeolocation();
+  const {
+    geolocation,
+    status: geolocationStatus,
+    updateGPSRegion,
+  } = useGeolocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { state }: SearchLocationState = useLocation();
@@ -32,7 +39,16 @@ const CurrentRegionButton = () => {
     mutationFn: () => setUserRegion('DEFAULT', accessToken),
   });
 
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+  };
+
   const handleClick = () => {
+    if (geolocationStatus === 'error') {
+      setIsDialogOpen(true);
+      return;
+    }
+
     if (state?.mode === 'set') {
       updatePersonalRegionSetting();
       return;
@@ -64,21 +80,32 @@ const CurrentRegionButton = () => {
     isLoading || (state?.mode !== 'set' && geolocation?.isGPS);
 
   return (
-    <S.Wrapper>
-      <CustomButton
-        variant='outlined'
-        disabled={isDisabled()}
-        color='inherit'
-        size='large'
-        fullWidth
-        startIcon={
-          <LocationIcon color={isDisabled() ? 'disabled' : 'default'} />
-        }
-        onClick={handleClick}
-      >
-        현재 위치로 설정하기
-      </CustomButton>
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        <CustomButton
+          variant='outlined'
+          disabled={isDisabled()}
+          color='inherit'
+          size='large'
+          fullWidth
+          startIcon={
+            <LocationIcon color={isDisabled() ? 'disabled' : 'default'} />
+          }
+          onClick={handleClick}
+        >
+          현재 위치로 설정하기
+        </CustomButton>
+      </S.Wrapper>
+
+      <CustomDialog fullWidth onClose={handleDialogClose} open={isDialogOpen}>
+        <DialogContent>
+          위치 기능을 활성화하거나 브라우저 위치 권한을 확인해주세요.
+        </DialogContent>
+        <DialogActions>
+          <CustomButton onClick={handleDialogClose}>확인</CustomButton>
+        </DialogActions>
+      </CustomDialog>
+    </>
   );
 };
 
