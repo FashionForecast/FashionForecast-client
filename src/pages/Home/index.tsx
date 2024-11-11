@@ -14,6 +14,7 @@ import HomeLoading from './loading';
 import NetworkError from '@/components/NetworkError';
 import 'keen-slider/keen-slider.min.css';
 import { User } from '@/types/user';
+import HeadHelmet from '@/components/HeadHelmet';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -47,40 +48,44 @@ const Home = () => {
   };
 
   return (
-    <S.HomeWrap>
-      <MainHeader />
+    <>
+      <HeadHelmet />
 
-      {isError && <NetworkError handleRefetch={refetch} />}
-      {isLoading && <HomeLoading />}
+      <S.HomeWrap>
+        <MainHeader />
 
-      {data && (
-        <>
-          <ClothesSection
-            weather={{
-              extremumTmp: data.extremumTmp,
-              maxMinTmpDiff: data.maxMinTmpDiff,
-              maximumPop: data.maximumPop,
-              maximumPcp: data.maximumPcp,
-            }}
-          />
+        {isError && <NetworkError handleRefetch={refetch} />}
+        {isLoading && <HomeLoading />}
 
-          <S.WeatherWrap>
-            <WeatherCard
-              extremumTmp={data.extremumTmp}
-              maximumPop={data.maximumPop}
-              maximumPcp={data.maximumPcp}
+        {data && (
+          <>
+            <ClothesSection
+              weather={{
+                extremumTmp: data.extremumTmp,
+                maxMinTmpDiff: data.maxMinTmpDiff,
+                maximumPop: data.maximumPop,
+                maximumPcp: data.maximumPcp,
+              }}
             />
 
-            <WeatherTimeLine forecasts={data.forecasts} />
-          </S.WeatherWrap>
+            <S.WeatherWrap>
+              <WeatherCard
+                extremumTmp={data.extremumTmp}
+                maximumPop={data.maximumPop}
+                maximumPcp={data.maximumPcp}
+              />
 
-          <TimeSelector
-            selectedTime={selectedTime}
-            updateSelectedTime={updateSelectedTime}
-          />
-        </>
-      )}
-    </S.HomeWrap>
+              <WeatherTimeLine forecasts={data.forecasts} />
+            </S.WeatherWrap>
+
+            <TimeSelector
+              selectedTime={selectedTime}
+              updateSelectedTime={updateSelectedTime}
+            />
+          </>
+        )}
+      </S.HomeWrap>
+    </>
   );
 };
 
