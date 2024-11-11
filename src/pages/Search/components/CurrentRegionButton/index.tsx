@@ -98,7 +98,9 @@ const CurrentRegionButton = () => {
       </S.Wrapper>
 
       <CustomDialog fullWidth onClose={handleDialogClose} open={isDialogOpen}>
-        <DialogContent>위치 권한을 확인해주세요</DialogContent>
+        <DialogContent>
+          위치 기능을 활성화하거나 브라우저 위치 권한을 확인해주세요.
+        </DialogContent>
         <DialogActions>
           <CustomButton onClick={handleDialogClose}>확인</CustomButton>
         </DialogActions>
