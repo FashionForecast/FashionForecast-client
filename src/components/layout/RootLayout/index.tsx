@@ -38,7 +38,7 @@ export default function RootLayout() {
   // 직접 선택한 지역이 없다면 GPS 지역을 현재 지역으로 설정
   useEffect(() => {
     if (!navigator.geolocation) {
-      alert('위치 권한을 사용할 수 없는 브라우저 입니다.');
+      dispatch(goelocationActions.updateStatus('error'));
       updateDefaultRegion();
       return;
     }
