@@ -1,12 +1,10 @@
 import useAppSelector from '@/hooks/useAppSelector';
 import { getWeather } from '@/service/weather';
 import { useQuery } from '@tanstack/react-query';
-import WeatherCard from './components/WeatherCard';
 import MainHeader from './components/MainHeader';
 import ClothesSection from './components/ClothesSection';
 import TimeSelector from './components/TimeSelector';
-import { useState } from 'react';
-import WeatherTimeLine from './components/WeatherTimeLine';
+import { useCallback, useState } from 'react';
 import { S } from './style';
 import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeSelector/data';
@@ -15,6 +13,7 @@ import NetworkError from '@/components/NetworkError';
 import 'keen-slider/keen-slider.min.css';
 import { User } from '@/types/user';
 import HeadHelmet from '@/components/HeadHelmet';
+import WeatherInfo from './components/WeatherInfo';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -35,17 +34,17 @@ const Home = () => {
     enabled: !!geolocation,
   });
 
-  const updateSelectedTime = (
-    key: keyof SelectedTime,
-    value: SelectedTime[keyof SelectedTime]
-  ) => {
-    if ((value as SelectedTime['day']) === '오늘') {
-      setSelectedTime(defaultSelectedTime);
-      return;
-    }
+  const updateSelectedTime = useCallback(
+    (key: keyof SelectedTime, value: SelectedTime[keyof SelectedTime]) => {
+      if ((value as SelectedTime['day']) === '오늘') {
+        setSelectedTime(defaultSelectedTime);
+        return;
+      }
 
-    setSelectedTime((prev) => ({ ...prev, [key]: value }));
-  };
+      setSelectedTime((prev) => ({ ...prev, [key]: value }));
+    },
+    []
+  );
 
   return (
     <>
@@ -59,24 +58,9 @@ const Home = () => {
 
         {data && (
           <>
-            <ClothesSection
-              weather={{
-                extremumTmp: data.extremumTmp,
-                maxMinTmpDiff: data.maxMinTmpDiff,
-                maximumPop: data.maximumPop,
-                maximumPcp: data.maximumPcp,
-              }}
-            />
+            <ClothesSection weather={data} />
 
-            <S.WeatherWrap>
-              <WeatherCard
-                extremumTmp={data.extremumTmp}
-                maximumPop={data.maximumPop}
-                maximumPcp={data.maximumPcp}
-              />
-
-              <WeatherTimeLine forecasts={data.forecasts} />
-            </S.WeatherWrap>
+            <WeatherInfo weather={data} />
 
             <TimeSelector
               selectedTime={selectedTime}

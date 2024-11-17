@@ -2,7 +2,7 @@ import { getDefaultClothes } from '@/service/clothes';
 import { WeatherResponseData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { S } from './style';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 import RecommendClothesLoading from './loading';
 import NetworkError from '@/components/NetworkError';
@@ -135,7 +135,7 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   );
 };
 
-export default ClothesSection;
+export default memo(ClothesSection);
 
 function getWeatehrType(temp: number): WeatherType {
   if (temp >= 28) return '1';
