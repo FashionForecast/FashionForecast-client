@@ -22,7 +22,7 @@ type ShowcaseProps = {
   select: LookbookSelect;
   focussingSlider: FocussingSliderType;
   updateFocussingSlider: (sliderType: FocussingSliderType) => void;
-  changeClothesName: (clothesType: ClothesType) => (name: string) => void;
+  changeClothesName: (type: ClothesType, name: string) => void;
 };
 
 const Showcase = ({
@@ -72,21 +72,23 @@ const Showcase = ({
           onClick={detectSliderClick('top')}
         >
           <ClothesSlider
+            type={'top'}
             items={MAN_TOP_COLTHES}
             initial={topSliderInitial}
             clothesColor={select.top.color}
             $isFocussingSlider={focussingSlider === 'top'}
-            changeClothesName={changeClothesName('top')}
+            changeClothesName={changeClothesName}
           />
         </S.SliderWrap>
 
         <S.SliderWrap onClick={detectSliderClick('bottom')}>
           <ClothesSlider
+            type={'bottom'}
             items={bottomClothesList}
             initial={bottomSliderInitial}
             clothesColor={select.bottom.color}
             $isFocussingSlider={focussingSlider === 'bottom'}
-            changeClothesName={changeClothesName('bottom')}
+            changeClothesName={changeClothesName}
           />
         </S.SliderWrap>
       </S.ShowcaseWrap>

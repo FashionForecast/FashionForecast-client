@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
 import UserAvatar from '@/components/UserAvatar';
 import Header from '@/components/Header';
+import { memo } from 'react';
 
 const MainHeader = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
@@ -36,4 +37,4 @@ const MainHeader = () => {
   );
 };
 
-export default MainHeader;
+export default memo(MainHeader);

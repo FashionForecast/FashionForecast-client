@@ -5,7 +5,7 @@ import TypeHeadline from './components/TypeHeadline';
 import { WeatherType } from '@/types/weather';
 import Edit from './components/Edit';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/Lookbook/data';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Outfits } from '@/types/clothes';
 import { TempCondition } from '../Home/components/ClothesSection';
 import HeadHelmet from '@/components/HeadHelmet';
@@ -35,11 +35,12 @@ const UserLookbookCreate = () => {
     defaultSelect(typeParam, userOutfit)
   );
 
-  const updateSelect = (
-    select: LookbookSelect | ((prev: LookbookSelect) => LookbookSelect)
-  ) => {
-    setSelect(select);
-  };
+  const updateSelect = useCallback(
+    (select: LookbookSelect | ((prev: LookbookSelect) => LookbookSelect)) => {
+      setSelect(select);
+    },
+    []
+  );
 
   if (isInvalidParam(typeParam)) return <Navigate to={'/user'} />;
   return (

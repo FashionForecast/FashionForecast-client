@@ -1,18 +1,20 @@
 import { useKeenSlider } from 'keen-slider/react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { S } from './style';
 import 'keen-slider/keen-slider.min.css';
-import { ClothesSliderItem } from '@/types/clothes';
+import { ClothesSliderItem, ClothesType } from '@/types/clothes';
 
 type ClotehsSliderProps = {
+  type: 'top' | 'bottom';
   items: ClothesSliderItem[];
   initial: number;
   clothesColor: string;
   $isFocussingSlider: boolean;
-  changeClothesName: (name: string) => void;
+  changeClothesName: (type: ClothesType, name: string) => void;
 };
 
 const ClothesSlider = ({
+  type,
   items,
   clothesColor,
   $isFocussingSlider,
@@ -32,7 +34,7 @@ const ClothesSlider = ({
       const index = slider.track.details.rel;
 
       setCurrentItem(index);
-      changeClothesName(items[index].name);
+      changeClothesName(type, items[index].name);
     },
   });
 
@@ -58,4 +60,4 @@ const ClothesSlider = ({
   );
 };
 
-export default ClothesSlider;
+export default memo(ClothesSlider);

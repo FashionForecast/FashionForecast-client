@@ -8,6 +8,7 @@ import { WeatherType } from '@/types/weather';
 import { useNavigate } from 'react-router-dom';
 import { getClothesImageJSX } from '@/utils/clothes';
 import AddIcon from '@/assets/svg/add.svg?react';
+import { memo } from 'react';
 
 type LookbookClothesProps = {
   weather: ClothesForWeather;
@@ -71,4 +72,4 @@ const LookbookClothes = ({
   );
 };
 
-export default LookbookClothes;
+export default memo(LookbookClothes);

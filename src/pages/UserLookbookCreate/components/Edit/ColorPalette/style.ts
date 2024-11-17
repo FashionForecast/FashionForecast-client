@@ -1,6 +1,4 @@
 import { MAX_WIDTH } from '@/constants/css/value';
-import CustomButton from '@/components/CustomMui/CustomButton';
-import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
@@ -106,30 +104,6 @@ const PaletteWrap = styled.div<{ $isColor: boolean }>`
     `}
 `;
 
-const ColorButton = styled(CustomButton, forwardPropOption)<{
-  $color: string;
-}>`
-  position: relative;
-  min-width: 44px;
-  min-height: 42px;
-  padding: 0;
-  margin: 6px;
-
-  &.MuiButton-colorPrimary {
-    background-color: ${({ $color }) => $color};
-
-    &:hover {
-      background-color: ${({ $color }) => $color};
-    }
-  }
-`;
-
-const Mark = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const S = {
   ColorPaletteWrap,
   HandleBar,
@@ -138,7 +112,5 @@ export const S = {
   Info,
   Icon,
   PaletteWrap,
-  ColorButton,
-  Mark,
   Drawer,
 };

@@ -1,20 +1,20 @@
 import { getDefaultClothes } from '@/service/clothes';
 import { WeatherResponseData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
-import { C, S } from './style';
-import { ToggleButtonGroup } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { S } from './style';
+import { memo, useCallback, useEffect, useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 import RecommendClothesLoading from './loading';
 import NetworkError from '@/components/NetworkError';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
 import { useSearchParams } from 'react-router-dom';
 import RecommendClothes from './RecommendClothes';
 import LookbookClothes from './LookbookClothes';
+import OptionButtons from './OptionButtons';
+import Headline from './Headline';
 
-const COOL = 'COOL',
+export const COOL = 'COOL',
   NORMAL = 'NORMAL',
   WARM = 'WARM';
 
@@ -78,13 +78,13 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     instanceRef.current?.moveToIdx(index);
   };
 
-  const handleTempConditionChange = (
-    _e: React.MouseEvent<HTMLElement>,
-    condition: TempCondition
-  ) => {
-    if (!condition) return;
-    setTempCondition(condition);
-  };
+  const handleTempConditionChange = useCallback(
+    (_e: React.MouseEvent<HTMLElement>, condition: TempCondition) => {
+      if (!condition) return;
+      setTempCondition(condition);
+    },
+    []
+  );
 
   useEffect(() => {
     setTempCondition(
@@ -95,10 +95,7 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
   if (isError) return <NetworkError handleRefetch={refetch} />;
   return (
     <S.Section>
-      <S.TitleWrap>
-        <h6>{LOOKBOOK_WEATHER_TYPE[weatherType].title}</h6>
-        <span>{LOOKBOOK_WEATHER_TYPE[weatherType].subtitle}</span>
-      </S.TitleWrap>
+      <Headline weatherType={weatherType} />
 
       <ul ref={sliderRef} className='keen-slider'>
         <S.SliderItem className='keen-slider__slide'>
@@ -129,27 +126,16 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
         )}
       </ul>
 
-      <S.ButtonWrap>
-        <ToggleButtonGroup
-          fullWidth
-          exclusive
-          value={tempCondition}
-          onChange={handleTempConditionChange}
-        >
-          <C.ToggleButon value={COOL} disabled={weather.extremumTmp >= 28}>
-            시원하게
-          </C.ToggleButon>
-          <C.ToggleButon value={NORMAL}>적당하게</C.ToggleButon>
-          <C.ToggleButon value={WARM} disabled={weather.extremumTmp < 5}>
-            따뜻하게
-          </C.ToggleButon>
-        </ToggleButtonGroup>
-      </S.ButtonWrap>
+      <OptionButtons
+        tempCondition={tempCondition}
+        extremumTmp={weather.extremumTmp}
+        handleTempConditionChange={handleTempConditionChange}
+      />
     </S.Section>
   );
 };
 
-export default ClothesSection;
+export default memo(ClothesSection);
 
 function getWeatehrType(temp: number): WeatherType {
   if (temp >= 28) return '1';
