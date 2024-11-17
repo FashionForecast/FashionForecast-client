@@ -4,6 +4,7 @@ import { S } from './style';
 import { useLocation } from 'react-router-dom';
 import { LocationState } from '../..';
 import { TempCondition } from '@/pages/Home/components/ClothesSection';
+import { memo } from 'react';
 
 type TypeHeadlineProps = {
   weatherType: WeatherType;
@@ -26,7 +27,7 @@ const TypeHeadline = ({ weatherType }: TypeHeadlineProps) => {
   );
 };
 
-export default TypeHeadline;
+export default memo(TypeHeadline);
 
 function getStandardMark(weatherType: WeatherType, tempOption?: TempCondition) {
   if (!tempOption || tempOption === 'NORMAL') return;

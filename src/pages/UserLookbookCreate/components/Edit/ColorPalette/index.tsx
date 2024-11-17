@@ -2,10 +2,9 @@ import TshirtIcon from '@/components/icon/TshirtIcon';
 import ShortsIcon from '@/assets/svg/shorts.svg?react';
 import { FocussingSliderType } from '..';
 import { S } from './style';
-import { ColorPalettes } from '@/constants/Lookbook/data';
 import { memo, useEffect, useRef, useState } from 'react';
-import CheckCircleIcon from '@/components/icon/CheckCircle';
 import CustomButton from '@/components/CustomMui/CustomButton';
+import ColorButtons from './ColorButtons';
 
 type ColorPaletteProps = {
   focussingSlider: FocussingSliderType;
@@ -136,23 +135,12 @@ const ColorPalette = ({
           $isColor={focussingSlider ? true : false}
         >
           {!focussingSlider && <span>상의 또는 하의를 먼저 선택해 주세요</span>}
-          {focussingSlider &&
-            ColorPalettes.map((color) => (
-              <S.ColorButton
-                key={color}
-                variant='contained'
-                $color={color}
-                onClick={changeClothesColor(color)}
-              >
-                {clothesColor === color && (
-                  <S.Mark>
-                    <CheckCircleIcon
-                      color={color == '#F9FAFB' ? 'dark' : 'white'}
-                    />
-                  </S.Mark>
-                )}
-              </S.ColorButton>
-            ))}
+          {focussingSlider && (
+            <ColorButtons
+              clothesColor={clothesColor}
+              changeClothesColor={changeClothesColor}
+            />
+          )}
         </S.PaletteWrap>
       </S.ColorPaletteWrap>
     </S.Drawer>
