@@ -1,4 +1,3 @@
-import CustomToggleButton from '@/components/CustomMui/CustomToggleButton';
 import styled from '@emotion/styled';
 
 import { css } from '@mui/material';
@@ -8,42 +7,9 @@ const Section = styled.section`
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
-const TitleWrap = styled.div`
-  padding: 0 16px;
-  margin-bottom: 16px;
-
-  & h6 {
-    ${({ theme }) => theme.typo['subtitle-1']}
-  }
-
-  & span {
-    ${({ theme }) => theme.typo['body-2']}
-    color: ${({ theme }) => theme.colors.text.secondary};
-  }
-`;
-
 const SliderItem = styled.li`
   padding: 0 16px;
   margin-bottom: 16px;
-`;
-
-const ToggleButon = styled(CustomToggleButton)`
-  height: 40px;
-
-  &.MuiToggleButtonGroup-middleButton {
-    border-right: 1px solid ${({ theme }) => theme.colors.primary.main};
-    border-left: 1px solid ${({ theme }) => theme.colors.primary.main};
-  }
-
-  &:first-of-type {
-    border-top-left-radius: 16px;
-    border-bottom-left-radius: 16px;
-  }
-
-  &:last-of-type {
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-  }
 `;
 
 const MoveButton = styled.div<{ $position?: 'left' | 'right' }>`
@@ -71,18 +37,8 @@ const MoveButton = styled.div<{ $position?: 'left' | 'right' }>`
     `}
 `;
 
-const ButtonWrap = styled.div`
-  padding: 0 16px;
-`;
-
-export const C = {
-  ToggleButon,
-};
-
 export const S = {
   Section,
-  TitleWrap,
   SliderItem,
   MoveButton,
-  ButtonWrap,
 };
