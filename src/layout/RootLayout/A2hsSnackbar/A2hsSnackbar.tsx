@@ -1,4 +1,4 @@
-import { C } from './style';
+import { C } from './A2hsSnackbar.style';
 import useA2HS from './hooks/useA2HS';
 
 const A2hsSnackbar = () => {

@@ -1,4 +1,4 @@
-import { GUEST_UUID } from '@/constants/localStorage/key';
+import { GUEST_UUID } from '@/constants/localStorageKey';
 import { RecentSearchData, ResponseBase } from '@/types/search';
 import { guestLogin } from './login';
 import { RegionName } from '@/pages/Search/RecentSearchList/RecentSearchList';

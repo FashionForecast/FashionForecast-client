@@ -2,11 +2,10 @@ import { useMemo, useRef } from 'react';
 import { S } from './Showcase.style';
 import ClothesSlider from './components/ClothesSlider/ClothesSlider';
 import {
-  DEFAULT_CLOTHES_BY_WEATHER,
   MAN_BOTTOM_CLOTHES,
   MAN_TOP_COLTHES,
   WOMAN_BOTTOM_CLOTHES,
-} from '@/constants/Lookbook/data';
+} from '@/constants/clothesList';
 import { ClothesType, Outfits } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { FocussingSliderType } from '../EditSection';
@@ -17,6 +16,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
 import { User } from '@/types/user';
+import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/lookbook';
 
 export type SliderType = ClothesType | null;
 

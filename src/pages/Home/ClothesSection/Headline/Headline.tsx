@@ -1,4 +1,4 @@
-import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
+import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';
 import { S } from './Headline.style';
 import { WeatherType } from '@/types/weather';
 import { memo } from 'react';

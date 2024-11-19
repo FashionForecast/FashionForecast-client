@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { logout } from '@/services/auth';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
-import { LOGIN } from '@/constants/localStorage/key';
+import { LOGIN } from '@/constants/localStorageKey';
 
 const LogoutMenu = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);

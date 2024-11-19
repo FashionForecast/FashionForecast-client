@@ -7,7 +7,7 @@ import TimeSelector from './TimeSelector/TimeSelector';
 import { useCallback, useState } from 'react';
 import { S } from './HomePage.style';
 import { KSTDate } from '@/utils/date';
-import { TIME_LIST } from '@/constants/timeSelector/data';
+import { TIME_LIST } from '@/constants/timeList';
 import HomeLoading from './HomeLoading';
 import NetworkError from '@/components/NetworkError';
 import { User } from '@/types/user';

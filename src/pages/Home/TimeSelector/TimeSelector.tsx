@@ -4,7 +4,7 @@ import { SelectedTime } from '../HomePage';
 import TimeCarousel from './TimeCarousel/TimeCarousel';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { TIME_LIST } from '@/constants/timeSelector/data';
+import { TIME_LIST } from '@/constants/timeList';
 import { KSTDate } from '@/utils/date';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 

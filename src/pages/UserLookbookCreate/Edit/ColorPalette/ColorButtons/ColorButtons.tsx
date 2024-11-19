@@ -1,6 +1,6 @@
-import { ColorPalettes } from '@/constants/Lookbook/data';
 import { C, S } from './ColorButtons.style';
 import CheckCircleIcon from '@/components/icon/CheckCircle';
+import { COLOR_PALETTES } from '@/constants/colorPalettes';
 import { memo } from 'react';
 
 type ColorButtonsProps = {
@@ -14,7 +14,7 @@ const ColorButtons = ({
 }: ColorButtonsProps) => {
   return (
     <>
-      {ColorPalettes.map((color) => (
+      {COLOR_PALETTES.map((color) => (
         <C.ColorButton
           key={color}
           variant='contained'

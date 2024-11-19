@@ -1,6 +1,6 @@
 import { S } from './CurrentRegionButton.style';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MY_REGION } from '@/constants/localStorage/key';
+import { MY_REGION } from '@/constants/localStorageKey';
 import useGeolocation from '@/hooks/useGeolocation';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/Location';

@@ -15,7 +15,7 @@ import { setUserRegion } from '@/services/auth';
 import useAppSelector from '@/hooks/useAppSelector';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { Region } from '@/types/region';
-import { MY_REGION } from '@/constants/localStorage/key';
+import { MY_REGION } from '@/constants/localStorageKey';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 import { storeUser } from '@/utils/auth';
 import HeadHelmet from '@/components/HeadHelmet';

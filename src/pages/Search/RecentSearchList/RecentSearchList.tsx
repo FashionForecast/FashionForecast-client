@@ -3,7 +3,7 @@ import { C } from './RecentSearchList.style';
 import CloseIcon from '@/components/icon/CloseIcon';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearch } from '@/services/search';
-import { GUEST_UUID } from '@/constants/localStorage/key';
+import { GUEST_UUID } from '@/constants/localStorageKey';
 import { Region } from '@/types/region';
 import useAppSelector from '@/hooks/useAppSelector';
 

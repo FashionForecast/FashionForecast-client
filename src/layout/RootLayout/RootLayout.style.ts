@@ -1,4 +1,4 @@
-import { MAX_WIDTH } from '@/constants/css/value';
+import { MAX_WIDTH } from '@/constants/css';
 import styled from '@emotion/styled';
 
 export const Main = styled.main`

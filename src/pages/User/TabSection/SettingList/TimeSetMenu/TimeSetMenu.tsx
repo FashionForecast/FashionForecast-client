@@ -11,7 +11,7 @@ import { useRef, useState } from 'react';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
-import { TIME_LIST } from '@/constants/timeSelector/data';
+import { TIME_LIST } from '@/constants/timeList';
 import { SelectedTime } from '@/pages/Home/HomePage';
 import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
 import { C } from './TimeSetMenu.style';

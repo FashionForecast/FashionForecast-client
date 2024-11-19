@@ -1,4 +1,4 @@
-import { TIME_LIST } from '@/constants/timeSelector/data';
+import { TIME_LIST } from '@/constants/timeList';
 import { SelectedTime } from '@/pages/Home/HomePage';
 import TimeCarousel from '@/pages/Home/TimeSelector/TimeCarousel/TimeCarousel';
 import { useMemo } from 'react';

@@ -1,4 +1,4 @@
-import { LOGIN } from '@/constants/localStorage/key';
+import { LOGIN } from '@/constants/localStorageKey';
 import { authActions } from '@/store/slice/authSlice';
 import { userActions } from '@/store/slice/userSlice';
 import { AppDispatch } from '@/store/store';

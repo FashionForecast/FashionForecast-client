@@ -2,9 +2,9 @@ import Add from '@/assets/svg/add.svg?react';
 import { S, C } from './style';
 import { Link } from 'react-router-dom';
 import { WeatherType } from '@/types/weather';
-import { LOOKBOOK_WEATHER_TYPE } from '@/constants/Lookbook/data';
 import { Outfits } from '@/types/clothes';
 import { getClothesImageJSX } from '@/utils/clothes';
+import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';
 
 type LookbookCardProps = {
   type: WeatherType;

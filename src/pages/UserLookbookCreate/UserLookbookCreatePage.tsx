@@ -4,11 +4,11 @@ import { S } from './UserLookbookCreatePage.style';
 import WeatherHeadline from './WeatherHeadline/WeatherHeadline';
 import { WeatherType } from '@/types/weather';
 import EditSection from './Edit/EditSection';
-import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/Lookbook/data';
 import { useCallback, useState } from 'react';
 import { Outfits } from '@/types/clothes';
 import { TempCondition } from '../Home/ClothesSection/ClothesSection';
 import HeadHelmet from '@/components/HeadHelmet';
+import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/lookbook';
 
 export type LookbookSelect = {
   top: { name: string; color: string };
