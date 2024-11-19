@@ -6,7 +6,7 @@ import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/Location';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useMutation } from '@tanstack/react-query';
-import { setUserRegion } from '@/service/auth';
+import { setUserRegion } from '@/services/auth';
 import { useState } from 'react';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import { storeUser } from '@/utils/auth';

@@ -5,7 +5,7 @@ import { C, S } from './style';
 import { LocationState, LookbookSelect } from '../..';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { WeatherType } from '@/types/weather';
-import { saveLookbook } from '@/service/clothes';
+import { saveLookbook } from '@/services/clothes';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import { useState } from 'react';

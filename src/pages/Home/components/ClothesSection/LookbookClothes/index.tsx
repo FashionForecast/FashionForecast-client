@@ -1,4 +1,4 @@
-import { getUserLookbookByTemp } from '@/service/clothes';
+import { getUserLookbookByTemp } from '@/services/clothes';
 import { S } from './style';
 import { useQuery } from '@tanstack/react-query';
 import useAppSelector from '@/hooks/useAppSelector';

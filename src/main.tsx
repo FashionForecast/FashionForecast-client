@@ -7,6 +7,7 @@ import ReduxProvider from './contexts/ReduxProvider.tsx';
 import './styles/normalize.css';
 import './styles/reset.css';
 import './styles/font.css';
+import 'keen-slider/keen-slider.min.css';
 import MuiThemeProvider from './contexts/MuiThemeProvider.tsx';
 import EmotionThemeProvider from './contexts/EmotionThemeProvider.tsx';
 import { SnackbarProvider } from './contexts/SnackbarProvider.tsx';

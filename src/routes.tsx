@@ -1,14 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import RootLayout from './components/layout/RootLayout';
+import RootLayout from './layout/RootLayout';
 import Search from './pages/Search';
 import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 import LoginAuth from './pages/LoginAuth';
 import UserGender from './pages/UserGender';
 import User from './pages/User';
-import PrivateRouteLayout from './components/layout/PrivateRouteLayout';
+import PrivateRouteLayout from './layout/PrivateRouteLayout';
 import UserLookbookCreate from './pages/UserLookbookCreate';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';

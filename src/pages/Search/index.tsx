@@ -10,13 +10,13 @@ import CurrentRegionButton, {
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
-import { registerSearchWord } from '@/service/search';
-import { setUserRegion } from '@/service/auth';
+import { registerSearchWord } from '@/services/search';
+import { setUserRegion } from '@/services/auth';
 import useAppSelector from '@/hooks/useAppSelector';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { Region } from '@/types/region';
 import { MY_REGION } from '@/constants/localStorage/key';
-import { goelocationActions } from '@/redux/slice/geolocationSlice';
+import { goelocationActions } from '@/store/slice/geolocationSlice';
 import { storeUser } from '@/utils/auth';
 import HeadHelmet from '@/components/HeadHelmet';
 

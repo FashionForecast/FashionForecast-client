@@ -15,7 +15,7 @@ import TshirtIcon from '@/components/icon/TshirtIcon';
 import useAppSelector from '@/hooks/useAppSelector';
 import { TempCondition } from '@/pages/Home/components/ClothesSection';
 import { useMutation } from '@tanstack/react-query';
-import { setUserTempCondition } from '@/service/auth';
+import { setUserTempCondition } from '@/services/auth';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import { storeUser } from '@/utils/auth';
 import useAppDispatch from '@/hooks/useAppDispatch';

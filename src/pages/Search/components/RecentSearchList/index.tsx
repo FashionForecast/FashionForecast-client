@@ -2,7 +2,7 @@ import { IconButton } from '@mui/material';
 import { C } from './style';
 import CloseIcon from '@/components/icon/CloseIcon';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { deleteSearchWord, getRecentSearch } from '@/service/search';
+import { deleteSearchWord, getRecentSearch } from '@/services/search';
 import { GUEST_UUID } from '@/constants/localStorage/key';
 import { Region } from '@/types/region';
 import useAppSelector from '@/hooks/useAppSelector';

@@ -1,7 +1,6 @@
 import { useKeenSlider } from 'keen-slider/react';
 import { memo, useState } from 'react';
 import { S } from './style';
-import 'keen-slider/keen-slider.min.css';
 import { ClothesSliderItem, ClothesType } from '@/types/clothes';
 
 type ClotehsSliderProps = {

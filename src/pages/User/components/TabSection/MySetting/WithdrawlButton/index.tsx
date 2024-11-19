@@ -3,7 +3,7 @@ import CustomDialog from '@/components/CustomMui/CustomDialog';
 import { LOGIN } from '@/constants/localStorage/key';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import useAppSelector from '@/hooks/useAppSelector';
-import { withdrawlAccount } from '@/service/auth';
+import { withdrawlAccount } from '@/services/auth';
 import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';

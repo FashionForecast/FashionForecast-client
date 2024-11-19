@@ -1,7 +1,7 @@
 import LookbookCard from './LookbookCard';
 import { useQuery } from '@tanstack/react-query';
 import useAppSelector from '@/hooks/useAppSelector';
-import { getLookbookList } from '@/service/clothes';
+import { getLookbookList } from '@/services/clothes';
 import { WeatherType } from '@/types/weather';
 
 const LookbookList = () => {

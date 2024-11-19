@@ -5,7 +5,7 @@ import CustomDialog from '@/components/CustomMui/CustomDialog';
 import { DialogActions, DialogContent } from '@mui/material';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { useMutation } from '@tanstack/react-query';
-import { logout } from '@/service/auth';
+import { logout } from '@/services/auth';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN } from '@/constants/localStorage/key';

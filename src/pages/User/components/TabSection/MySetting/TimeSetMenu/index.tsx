@@ -17,7 +17,7 @@ import UserTimeSelector from './UserTimeSelector';
 import { C } from './style';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { setUserTime } from '@/service/auth';
+import { setUserTime } from '@/services/auth';
 import { storeUser } from '@/utils/auth';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { useSnackbar } from '@/contexts/SnackbarProvider';

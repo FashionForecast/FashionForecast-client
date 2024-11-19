@@ -1,5 +1,5 @@
 import useAppSelector from '@/hooks/useAppSelector';
-import { getWeather } from '@/service/weather';
+import { getWeather } from '@/services/weather';
 import { useQuery } from '@tanstack/react-query';
 import MainHeader from './components/MainHeader';
 import ClothesSection from './components/ClothesSection';
@@ -10,7 +10,6 @@ import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeSelector/data';
 import HomeLoading from './loading';
 import NetworkError from '@/components/NetworkError';
-import 'keen-slider/keen-slider.min.css';
 import { User } from '@/types/user';
 import HeadHelmet from '@/components/HeadHelmet';
 import WeatherInfo from './components/WeatherInfo';

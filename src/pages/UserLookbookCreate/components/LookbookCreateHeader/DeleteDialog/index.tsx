@@ -3,7 +3,7 @@ import CustomDialog from '@/components/CustomMui/CustomDialog';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import useAppSelector from '@/hooks/useAppSelector';
 import { LocationState } from '@/pages/UserLookbookCreate';
-import { deleteLookbook } from '@/service/clothes';
+import { deleteLookbook } from '@/services/clothes';
 import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';

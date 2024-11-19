@@ -1,4 +1,4 @@
-import { getDefaultClothes } from '@/service/clothes';
+import { getDefaultClothes } from '@/services/clothes';
 import { WeatherResponseData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { S } from './style';
@@ -7,7 +7,6 @@ import useAppSelector from '@/hooks/useAppSelector';
 import RecommendClothesLoading from './loading';
 import NetworkError from '@/components/NetworkError';
 import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
 import { useSearchParams } from 'react-router-dom';
 import RecommendClothes from './RecommendClothes';
 import LookbookClothes from './LookbookClothes';
