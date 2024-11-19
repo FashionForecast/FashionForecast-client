@@ -1,5 +1,5 @@
 import meteorologicalCoordinateList from '@/assets/meteorologicalRegionCoordinates';
-import { SelectedTime } from '@/pages/Home';
+import { SelectedTime } from '@/pages/Home/HomePage';
 import { WeatherResponseData } from '@/types/weather';
 import { dateToISO, KSTDate } from '@/utils/date';
 

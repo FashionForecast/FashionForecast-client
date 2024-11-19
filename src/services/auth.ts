@@ -1,6 +1,6 @@
-import { SelectedTime } from '@/pages/Home';
-import { TempCondition } from '@/pages/Home/components/ClothesSection';
-import { TimeSetOption } from '@/pages/User/components/TabSection/MySetting/TimeSetMenu';
+import { SelectedTime } from '@/pages/Home/HomePage';
+import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
+import { TimeSetOption } from '@/pages/User/TabSection/SettingList/TimeSetMenu/TimeSetMenu';
 
 export async function getAccessToken() {
   try {

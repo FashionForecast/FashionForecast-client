@@ -2,14 +2,14 @@ import {
   ClothesForWeather,
   isValidTempCondition,
   TempCondition,
-} from '@/pages/Home/components/ClothesSection';
+} from '@/pages/Home/ClothesSection/ClothesSection';
 import {
   ClothesResponseData,
   LookbookListResponseData,
   Outfits,
 } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
-import { LookbookSelect } from '@/pages/UserLookbookCreate';
+import { LookbookSelect } from '@/pages/UserLookbookCreate/UserLookbookCreatePage';
 
 export async function getDefaultClothes(
   weather: ClothesForWeather & { tempCondition: TempCondition }

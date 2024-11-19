@@ -1,7 +1,7 @@
 import { GUEST_UUID } from '@/constants/localStorage/key';
 import { RecentSearchData, ResponseBase } from '@/types/search';
 import { guestLogin } from './login';
-import { RegionName } from '@/pages/Search/components/RecentSearchList';
+import { RegionName } from '@/pages/Search/RecentSearchList/RecentSearchList';
 
 export async function getRecentSearch(
   memberId?: string,

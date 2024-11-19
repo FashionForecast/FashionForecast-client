@@ -1,4 +1,4 @@
-import { TempCondition } from '@/pages/Home/components/ClothesSection';
+import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 
 export type Gender = 'MALE' | 'FEMALE';
 
