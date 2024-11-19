@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { ITEM_HEIGHT, S } from './style';
 import { SelectedTime } from '../../..';
 
@@ -110,7 +110,7 @@ const TimeCarousel = ({
   );
 };
 
-export default TimeCarousel;
+export default memo(TimeCarousel);
 
 function getInitialIndex(times: string[], selectedTime: string) {
   return times.findIndex((time) => time === selectedTime);

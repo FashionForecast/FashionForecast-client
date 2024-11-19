@@ -6,6 +6,7 @@ import {
 import { C, S } from './style';
 import clothesImage from '@/constants/imageData/clothesImage';
 import { Chip } from '@mui/material';
+import { memo } from 'react';
 
 type RecommendClothesProps = {
   clothes: ClothesResponseData;
@@ -33,7 +34,7 @@ const RecommendClothes = ({ clothes }: RecommendClothesProps) => {
   );
 };
 
-export default RecommendClothes;
+export default memo(RecommendClothes);
 
 const outFitName: Record<OutfitType, string> = {
   TOP: '상의',

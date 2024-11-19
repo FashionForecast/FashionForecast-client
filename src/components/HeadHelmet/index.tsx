@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 type HeadHelmetProps = {
@@ -33,4 +34,4 @@ const HeadHelmet = ({
   );
 };
 
-export default HeadHelmet;
+export default memo(HeadHelmet);
