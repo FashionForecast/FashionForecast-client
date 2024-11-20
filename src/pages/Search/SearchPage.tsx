@@ -18,7 +18,7 @@ import { Region } from '@/types/region';
 import { MY_REGION } from '@/constants/localStorageKey';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 import { storeUser } from '@/utils/auth';
-import HeadHelmet from '@/components/HeadHelmet';
+import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
 const SearchPage = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);

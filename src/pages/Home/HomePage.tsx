@@ -9,9 +9,9 @@ import { S } from './HomePage.style';
 import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeList';
 import HomeLoading from './HomeLoading';
-import NetworkError from '@/components/NetworkError';
+import NetworkError from '@/components/NetworkError/NetworkError';
 import { User } from '@/types/user';
-import HeadHelmet from '@/components/HeadHelmet';
+import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import WeatherInfo from './WeatherInfo/WeatherInfo';
 
 export type SelectedTime = {

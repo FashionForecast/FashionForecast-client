@@ -5,8 +5,8 @@ import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/Location';
 import { Link } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
-import UserAvatar from '@/components/UserAvatar';
-import Header from '@/components/Header';
+import UserAvatar from '@/components/UserAvatar/UserAvatar';
+import Header from '@/components/Header/Header';
 import { memo } from 'react';
 
 const MainHeader = () => {

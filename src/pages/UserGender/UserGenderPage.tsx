@@ -12,7 +12,7 @@ import useAppDispatch from '@/hooks/useAppDispatch';
 import { userActions } from '@/store/slice/userSlice';
 import 바지 from '@/components/clothes/바지';
 import { Gender } from '@/types/user';
-import HeadHelmet from '@/components/HeadHelmet';
+import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
 const BUTTONS = [
   { text: '남자', value: 'MALE', icon: <MaleImage /> },

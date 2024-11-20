@@ -7,7 +7,7 @@ import 바지 from '@/components/clothes/바지';
 import 반팔티 from '@/components/clothes/반팔티';
 import 코트 from '@/components/clothes/코트';
 import { C, S } from './LoginPage.style';
-import HeadHelmet from '@/components/HeadHelmet';
+import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
 export type SocialType = {
   provider: 'kakao' | 'google';

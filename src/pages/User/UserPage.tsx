@@ -2,7 +2,7 @@ import UserHeader from './UserHeader/UserHeader';
 import { S } from './UserPage.style';
 import TabSection from './TabSection/TabSection';
 import useAppSelector from '@/hooks/useAppSelector';
-import HeadHelmet from '@/components/HeadHelmet';
+import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
 const UserPage = () => {
   const user = useAppSelector((state) => state.user.info);

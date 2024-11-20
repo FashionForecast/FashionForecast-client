@@ -7,7 +7,7 @@ import EditSection from './Edit/EditSection';
 import { useCallback, useState } from 'react';
 import { Outfits } from '@/types/clothes';
 import { TempCondition } from '../Home/ClothesSection/ClothesSection';
-import HeadHelmet from '@/components/HeadHelmet';
+import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/lookbook';
 
 export type LookbookSelect = {

@@ -5,7 +5,7 @@ import { S } from './ClothesSection.style';
 import { memo, useCallback, useEffect, useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 import RecommendClothesLoading from './RecommendList/RecommendListLoading';
-import NetworkError from '@/components/NetworkError';
+import NetworkError from '@/components/NetworkError/NetworkError';
 import { useKeenSlider } from 'keen-slider/react';
 import { useSearchParams } from 'react-router-dom';
 import RecommendList from './RecommendList/RecommendList';

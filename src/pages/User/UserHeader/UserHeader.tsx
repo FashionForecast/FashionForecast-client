@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@/components/icon/CloseIcon';
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 
 const UserHeader = () => {
   return (

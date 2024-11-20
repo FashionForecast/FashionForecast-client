@@ -1,5 +1,5 @@
 import CustomToolbar from '../CustomMui/CustomToolbar';
-import { C } from './style';
+import { C } from './Header.style';
 import CustomPaper from '../CustomMui/CustomPaper';
 import { AppBarOwnProps } from '@mui/material';
 

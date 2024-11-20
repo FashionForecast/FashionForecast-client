@@ -1,7 +1,7 @@
-import UserAvatar from '@/components/UserAvatar';
+import UserAvatar from '@/components/UserAvatar/UserAvatar';
 import { IconButton } from '@mui/material';
 import useAppSelector from '@/hooks/useAppSelector';
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 
 const UserGenderHeader = () => {
   const user = useAppSelector((state) => state.user.info);

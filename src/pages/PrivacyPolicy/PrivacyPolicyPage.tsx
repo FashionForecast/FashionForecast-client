@@ -1,4 +1,4 @@
-import HeadHelmet from '@/components/HeadHelmet';
+import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
 const PrivacyPolicyPage = () => {
   return (

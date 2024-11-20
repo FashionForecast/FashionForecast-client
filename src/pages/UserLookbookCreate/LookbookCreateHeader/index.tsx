@@ -1,5 +1,5 @@
-import GoBackButton from '@/components/GoBackButton';
-import Header from '@/components/Header';
+import GoBackButton from '@/components/GoBackButton/GoBackButton';
+import Header from '@/components/Header/Header';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { C, S } from './style';
 import { LocationState, LookbookSelect } from '../UserLookbookCreatePage';

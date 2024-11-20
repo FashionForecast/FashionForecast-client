@@ -1,7 +1,7 @@
 import CloseIcon from '@/components/icon/CloseIcon';
 import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 
 const LoginHeader = () => {
   return (
