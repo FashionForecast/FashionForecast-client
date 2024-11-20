@@ -1,8 +1,8 @@
-import { LOGIN } from '@/constants/localStorage/key';
-import { authActions } from '@/redux/slice/authSlice';
-import { userActions } from '@/redux/slice/userSlice';
-import { AppDispatch } from '@/redux/store';
-import { getAccessToken, getUser } from '@/service/auth';
+import { LOGIN } from '@/constants/localStorageKey';
+import { authActions } from '@/store/slice/authSlice';
+import { userActions } from '@/store/slice/userSlice';
+import { AppDispatch } from '@/store/store';
+import { getAccessToken, getUser } from '@/services/auth';
 import { User } from '@/types/user';
 
 export async function storeAccessToken(dispatch: AppDispatch): Promise<string> {

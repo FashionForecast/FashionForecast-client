@@ -1,4 +1,4 @@
-import { MAX_WIDTH } from '@/constants/css/value';
+import { MAX_WIDTH } from '@/constants/css';
 import styled from '@emotion/styled';
 import { Snackbar, SnackbarProps } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';

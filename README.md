@@ -8,8 +8,6 @@ e.g) feature/#5-login
 
 gitflow 전략을 따르지만, release 브랜치가 없는 형태
 
-gitflow 전략을 따르지만, release 브랜치가 없는 형태
-
 main : 최종 배포 브랜치
 
 develop : 개발 단계 브랜치 (디폴트)
@@ -32,24 +30,26 @@ develop : 개발 단계 브랜치 (디폴트)
 ### 폴더 구조
 
 ```
+script/  # 스크립트 파일
+  │
+  │
 src/
   │  main.tsx
   │  routes.tsx
   │
-  ├─ script  # 스크립트 파일
-  │   └─ region.cjs
   │
   ├─ assets/  # 이미지, json 파일 등
   │   └─ svg/
   │
-  ├─ components/  # 전역으로 재사용 가능한 컴포넌트 및 레이아웃
+  ├─ components/  # 전역으로 재사용 가능한 컴포넌트
   │   ├─ CustomMui/
   │   │    └─  CustomButton.tsx
   │   └─ layout/
   │        └─  RootLayout/
   │
+  ├─ layout/  # 레이아웃
+  │
   ├─ constants/  # 상수
-  │   └─  localStorage/
   │
   │
   ├─ contexts/  # react context 및 라이브러리 provider
@@ -62,14 +62,14 @@ src/
   │
   ├─ pages/  # 각 라우트에 해당하는 페이지 컴포넌트
   │   ├─ Home/
-  │   │   ├─ components/
-  │   │   │    └─ Header/
-  │   │   └─ index.tsx
+  │   │   ├─ ClothesSection/
+  │   │   │    └─ ClothesSection.tsx
+  │   │   └─ HomePage.tsx
   │   │
   │   └─ NotFound/
-  │        └─ index.tsx
+  │        └─ NotFound.tsx
   │
-  ├─ redux/  # redux 전역 상태 관리
+  ├─ store/  # 전역 상태 관리
   │   ├─ slice/
   │   │   └─ currentRegionSlice.ts
   │   └─ store.ts
