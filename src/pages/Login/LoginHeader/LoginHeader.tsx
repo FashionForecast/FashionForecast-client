@@ -1,4 +1,4 @@
-import CloseIcon from '@/components/icon/CloseIcon';
+import XIcon from '@/components/icon/XIcon';
 import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header/Header';
@@ -14,7 +14,7 @@ const LoginHeader = () => {
 
       <Link to={'/'}>
         <IconButton>
-          <CloseIcon color='black' />
+          <XIcon color='black' />
         </IconButton>
       </Link>
     </Header>

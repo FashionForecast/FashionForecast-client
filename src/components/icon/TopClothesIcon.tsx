@@ -2,7 +2,7 @@ type IconProps = {
   color?: string;
 };
 
-const TshirtIcon = ({ color = '#0000008F' }: IconProps) => {
+const TopClothesIcon = ({ color = '#0000008F' }: IconProps) => {
   return (
     <svg
       width='22'
@@ -19,4 +19,4 @@ const TshirtIcon = ({ color = '#0000008F' }: IconProps) => {
   );
 };
 
-export default TshirtIcon;
+export default TopClothesIcon;

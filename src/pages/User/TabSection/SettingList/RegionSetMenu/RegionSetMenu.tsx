@@ -1,4 +1,4 @@
-import LocationIcon from '@/components/icon/Location';
+import LocationIcon from '@/components/icon/LocationIcon';
 import MenuItem from '../components/MenuItem/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';

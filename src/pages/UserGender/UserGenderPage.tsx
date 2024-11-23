@@ -1,7 +1,5 @@
 import { S } from './UserGenderPage.style';
 import UserGenderHeader from './UserGenderHeader/UserGenderHeader';
-import MaleImage from '@/assets/svg/gender/male.svg?react';
-import FemaleImage from '@/assets/svg/gender/female.svg?react';
 import { useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { useMutation } from '@tanstack/react-query';
@@ -13,10 +11,12 @@ import { userActions } from '@/store/slice/userSlice';
 import 바지 from '@/components/clothes/바지';
 import { Gender } from '@/types/user';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
+import FemaleIcon from '@/components/icon/gender/FemaleIcon';
+import MaleIcon from '@/components/icon/gender/maleIcon';
 
 const BUTTONS = [
-  { text: '남자', value: 'MALE', icon: <MaleImage /> },
-  { text: '여자', value: 'FEMALE', icon: <FemaleImage /> },
+  { text: '남자', value: 'MALE', icon: <MaleIcon /> },
+  { text: '여자', value: 'FEMALE', icon: <FemaleIcon /> },
 ];
 
 const UserGenderPage = () => {

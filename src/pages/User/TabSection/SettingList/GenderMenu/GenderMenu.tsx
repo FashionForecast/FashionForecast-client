@@ -1,7 +1,7 @@
 import useAppSelector from '@/hooks/useAppSelector';
 import MenuItem from '../components/MenuItem/MenuItem';
-import UserFillIcon from '@/assets/svg/userFill.svg?react';
 import { User } from '@/types/user';
+import UserFillIcon from '@/components/icon/UserFillIcon';
 
 const GenderMenu = () => {
   const user = useAppSelector((state) => state.user.info);

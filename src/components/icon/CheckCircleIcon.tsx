@@ -1,9 +1,7 @@
 import { theme } from '@/styles/theme';
 
-type Color = 'white' | 'dark';
-
 type CheckCircleProps = {
-  color?: Color;
+  color?: 'white' | 'dark';
 };
 
 const CheckCircleIcon = ({ color = 'white' }: CheckCircleProps) => {
@@ -25,9 +23,8 @@ const CheckCircleIcon = ({ color = 'white' }: CheckCircleProps) => {
 
 export default CheckCircleIcon;
 
-function getColor(color: Color) {
+function getColor(color: CheckCircleProps['color']) {
   if (color === 'dark') return theme.colors.primary.main;
-  else if (color === 'white') return theme.colors.white;
-
+  if (color === 'white') return theme.colors.white;
   return color;
 }

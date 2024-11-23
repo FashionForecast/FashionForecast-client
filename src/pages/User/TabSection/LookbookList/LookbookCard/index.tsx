@@ -1,10 +1,10 @@
-import Add from '@/assets/svg/add.svg?react';
 import { S, C } from './style';
 import { Link } from 'react-router-dom';
 import { WeatherType } from '@/types/weather';
 import { Outfits } from '@/types/clothes';
 import { getClothesImageJSX } from '@/utils/clothes';
 import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';
+import PlusIcon from '@/components/icon/PlusIcon';
 
 type LookbookCardProps = {
   type: WeatherType;
@@ -24,7 +24,7 @@ const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
         {outfits.length < 4 && (
           <Link to={`/user/lookbook/create?type=${type}`}>
             <C.IconBtn>
-              <Add />
+              <PlusIcon />
             </C.IconBtn>
           </Link>
         )}

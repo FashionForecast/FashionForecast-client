@@ -1,10 +1,10 @@
 import { S } from './SearchHeader.style';
 import { Link, useLocation } from 'react-router-dom';
-import CancelIcon from '@/assets/svg/cancle.svg?react';
 import CustomTextField from '@/components/CustomMui/CustomTextField';
 import GoBackButton from '@/components/GoBackButton/GoBackButton';
 import Header from '@/components/Header/Header';
 import { SearchLocationState } from '../CurrentRegionButton/CurrentRegionButton';
+import XCircleIcon from '@/components/icon/XCircleIcon';
 
 type SearchHeaderProps = {
   keyword: string;
@@ -34,7 +34,7 @@ const SearchHeader = ({
         />
         {keyword && (
           <S.CancleButton type='button' onClick={onKeywordResetClick}>
-            <CancelIcon />
+            <XCircleIcon />
           </S.CancleButton>
         )}
       </S.InputWrapper>

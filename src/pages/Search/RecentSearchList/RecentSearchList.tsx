@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material';
 import { C } from './RecentSearchList.style';
-import CloseIcon from '@/components/icon/CloseIcon';
+import XIcon from '@/components/icon/XIcon';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearch } from '@/services/search';
 import { GUEST_UUID } from '@/constants/localStorageKey';
@@ -72,7 +72,7 @@ const RecentSearchList = ({
           >
             {city} {district}
             <IconButton onClick={handleDeleteClick(city, district)}>
-              <CloseIcon />
+              <XIcon />
             </IconButton>
           </C.Item>
         ))}

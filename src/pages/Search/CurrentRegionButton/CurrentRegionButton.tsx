@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { MY_REGION } from '@/constants/localStorageKey';
 import useGeolocation from '@/hooks/useGeolocation';
 import CustomButton from '@/components/CustomMui/CustomButton';
-import LocationIcon from '@/components/icon/Location';
+import LocationIcon from '@/components/icon/LocationIcon';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useMutation } from '@tanstack/react-query';
 import { setUserRegion } from '@/services/auth';

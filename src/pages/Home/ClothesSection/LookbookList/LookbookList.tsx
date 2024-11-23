@@ -7,8 +7,8 @@ import { Outfits } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { useNavigate } from 'react-router-dom';
 import { getClothesImageJSX } from '@/utils/clothes';
-import AddIcon from '@/assets/svg/add.svg?react';
 import { memo } from 'react';
+import PlusIcon from '@/components/icon/PlusIcon';
 
 type LookbookListProps = {
   weather: ClothesForWeather;
@@ -63,7 +63,7 @@ const LookbookList = ({
       {(!data || data.length <= 3) && (
         <S.LookbookCard $content='add' onClick={handleLookbookItemClick()}>
           <S.IconWrap>
-            <AddIcon />
+            <PlusIcon />
           </S.IconWrap>
           <span>추가하기</span>
         </S.LookbookCard>

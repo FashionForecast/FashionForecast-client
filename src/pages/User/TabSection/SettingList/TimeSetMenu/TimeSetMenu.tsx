@@ -5,7 +5,6 @@ import {
   RadioGroup,
 } from '@mui/material';
 import MenuItem from '../components/MenuItem/MenuItem';
-import ClockIcon from '@/assets/svg/clock.svg?react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { useRef, useState } from 'react';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
@@ -22,6 +21,7 @@ import { storeUser } from '@/utils/auth';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import { User } from '@/types/user';
+import ClockIcon from '@/components/icon/ClockIcon';
 
 const DEFAULT = 'DEFAULT';
 const SET_IT = 'setIt';
