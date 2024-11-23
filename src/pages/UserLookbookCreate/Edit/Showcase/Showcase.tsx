@@ -119,5 +119,5 @@ function getInitialIndex(
   const clothesList = list[slider];
   const clothesName = slider === 'top' ? topName : bottomName;
 
-  return clothesList.findIndex(({ name }) => name === clothesName);
+  return clothesList.findIndex((name) => name === clothesName);
 }

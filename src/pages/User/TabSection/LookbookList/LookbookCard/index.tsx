@@ -2,9 +2,9 @@ import { S, C } from './style';
 import { Link } from 'react-router-dom';
 import { WeatherType } from '@/types/weather';
 import { Outfits } from '@/types/clothes';
-import { getClothesImageJSX } from '@/utils/clothes';
 import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';
 import PlusIcon from '@/components/icon/PlusIcon';
+import ClothesIcon from '@/components/icon/clothes/ClothesIcon';
 
 type LookbookCardProps = {
   type: WeatherType;
@@ -40,9 +40,12 @@ const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
             >
               <S.ClothesItem key={outfit.memberOutfitId}>
                 <S.Top data-top={outfit.topType}>
-                  {getClothesImageJSX(outfit.topType, outfit.topColor)}
+                  <ClothesIcon name={outfit.topType} color={outfit.topColor} />
                 </S.Top>
-                {getClothesImageJSX(outfit.bottomType, outfit.bottomColor)}
+                <ClothesIcon
+                  name={outfit.bottomType}
+                  color={outfit.bottomColor}
+                />
               </S.ClothesItem>
             </C.LookbookLink>
           ))}

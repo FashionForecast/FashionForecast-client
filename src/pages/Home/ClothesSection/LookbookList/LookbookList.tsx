@@ -6,9 +6,9 @@ import { ClothesForWeather, TempCondition } from '../ClothesSection';
 import { Outfits } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { useNavigate } from 'react-router-dom';
-import { getClothesImageJSX } from '@/utils/clothes';
 import { memo } from 'react';
 import PlusIcon from '@/components/icon/PlusIcon';
+import ClothesIcon from '@/components/icon/clothes/ClothesIcon';
 
 type LookbookListProps = {
   weather: ClothesForWeather;
@@ -54,9 +54,9 @@ const LookbookList = ({
           onClick={handleLookbookItemClick(outfit)}
         >
           <S.Top data-top={outfit.topType}>
-            {getClothesImageJSX(outfit.topType, outfit.topColor)}
+            <ClothesIcon name={outfit.topType} color={outfit.topColor} />
           </S.Top>
-          {getClothesImageJSX(outfit.bottomType, outfit.bottomColor)}
+          <ClothesIcon name={outfit.bottomType} color={outfit.bottomColor} />
         </S.LookbookCard>
       ))}
 

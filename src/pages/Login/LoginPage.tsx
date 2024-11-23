@@ -1,9 +1,9 @@
 import LoginFooter from './LoginFooter/LoginFooter';
 import LoginHeader from './LoginHeader/LoginHeader';
-import 청바지 from '@/components/clothes/청바지';
-import 바지 from '@/components/clothes/바지';
-import 반팔티 from '@/components/clothes/반팔티';
-import 코트 from '@/components/clothes/코트';
+import 청바지 from '@/components/icon/clothes/청바지';
+import 바지 from '@/components/icon/clothes/바지';
+import 반팔티 from '@/components/icon/clothes/반팔티';
+import 코트 from '@/components/icon/clothes/코트';
 import { C, S } from './LoginPage.style';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import KakaoIcon from '@/components/icon/social/KakaoIcon';

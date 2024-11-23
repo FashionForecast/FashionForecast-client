@@ -8,7 +8,7 @@ import useAppSelector from '@/hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { userActions } from '@/store/slice/userSlice';
-import 바지 from '@/components/clothes/바지';
+import 바지 from '@/components/icon/clothes/바지';
 import { Gender } from '@/types/user';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import FemaleIcon from '@/components/icon/gender/FemaleIcon';

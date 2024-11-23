@@ -1,24 +1,35 @@
 import {
-  ClothesImageName,
+  ClothesIconNames,
+  ClothesNames,
   ClothesResponseData,
   OutfitType,
 } from '@/types/clothes';
 import { C, S } from './RecommendList.style';
-import clothesImage from '@/constants/imageData/clothesImage';
 import { Chip } from '@mui/material';
 import { memo } from 'react';
+import ClothesIcon, {
+  clotehsIconsMap,
+} from '@/components/icon/clothes/ClothesIcon';
+import { WeatherType } from '@/types/weather';
 
 type RecommendListProps = {
   clothes: ClothesResponseData;
+  weatherType: WeatherType;
 };
 
-const RecommendList = ({ clothes }: RecommendListProps) => {
+const RecommendList = ({ clothes, weatherType }: RecommendListProps) => {
   return (
     <S.RecommendWrap>
       {clothes?.map(({ names, outfitType }) => (
         <C.ClothesCard elevation={0} key={outfitType} $outfitType={outfitType}>
           <S.ImageWrap>
-            {getClothesImage(outfitType, names as ClothesImageName[])}
+            <ClothesIcon
+              name={getClothesName(
+                outfitType,
+                names as ClothesNames[],
+                weatherType
+              )}
+            />
           </S.ImageWrap>
           <div>
             <h4>{outFitName[outfitType]}</h4>
@@ -42,45 +53,72 @@ const outFitName: Record<OutfitType, string> = {
   ETC: '꼭 챙기세요!',
 } as const;
 
-function getClothesImage(outfitType: OutfitType, names: ClothesImageName[]) {
-  let Image;
+const ThumbNailClothesList: Record<
+  WeatherType,
+  Record<Exclude<OutfitType, 'ETC'>, ClothesIconNames>
+> = {
+  '1': {
+    TOP: '민소매',
+    BOTTOM: '반바지',
+  },
+  '2': {
+    TOP: '반팔티',
+    BOTTOM: '슬랙스',
+  },
+  '3': {
+    TOP: '긴팔티',
+    BOTTOM: '면바지',
+  },
+  '4': {
+    TOP: '후드티',
+    BOTTOM: '청바지',
+  },
+  '5': {
+    TOP: '니트',
+    BOTTOM: '청바지',
+  },
+  '6': {
+    TOP: '트렌치 코트',
+    BOTTOM: '기모 바지',
+  },
+  '7': {
+    TOP: '코트',
+    BOTTOM: '기모 바지',
+  },
+  '8': {
+    TOP: '패딩',
+    BOTTOM: '기모 바지',
+  },
+};
 
-  /** 대표 이미지가 둘 이상 포함되어 있는 경우, 특정 옷의 이미지를 보여줌 */
-  if (outfitType === 'TOP' && names.length === 2) {
-    if (names.includes('민소매') && names.includes('반팔티')) {
-      Image = clothesImage.민소매;
-    }
+function getClothesName(
+  outfitType: OutfitType,
+  names: ClothesNames[],
+  weatherType: WeatherType
+) {
+  // 상의 항목
+  if (outfitType === 'TOP') {
+    return ThumbNailClothesList[weatherType].TOP;
   }
 
+  // 하의 항목
   if (outfitType === 'BOTTOM') {
-    if (names.length === 3) Image = clothesImage.바지;
-    else if (names.length === 2) {
-      if (names.includes('반바지') && names.includes('슬랙스')) {
-        Image = clothesImage.바지;
-      } else if (names.includes('면바지') && names.includes('청바지')) {
-        Image = clothesImage.청바지;
-      }
-    }
+    return ThumbNailClothesList[weatherType].BOTTOM;
   }
 
-  if (outfitType === 'ETC' && names.length === 2) {
-    if (names.includes('접이식 우산')) {
-      Image = clothesImage.겉옷접이식우산;
-    } else if (names.includes('장우산')) {
-      Image = clothesImage.겉옷장우산;
-    }
+  let ETCName: ClothesIconNames | null = null;
+
+  // 꼭 챙기세요! 항목: 우산이 포함된 경우
+  if (outfitType === 'ETC' && names.length >= 2) {
+    if (names.includes('접이식 우산')) return '겉옷접이식우산';
+    if (names.includes('장우산')) return '겉옷장우산';
   }
 
-  /** 위의 조건에서 찾지 못했을 때, 대표 이미지를 찾음 */
+  // 꼭 챙기세요! 항목: 우산이 포함되지 않은 경우
   for (const name of names) {
-    if (Image) break;
-
-    if (name === '슬랙스' || name === '면바지' || name === '기모 바지') {
-      Image = clothesImage.바지;
-    } else {
-      Image = clothesImage[name];
-    }
+    if (ETCName) break;
+    ETCName = clotehsIconsMap.has(name) ? name : null;
   }
 
-  return Image ? <Image /> : <img src='not' alt='.' />;
+  return ETCName;
 }

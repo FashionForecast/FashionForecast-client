@@ -100,7 +100,12 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
         <S.SliderItem className='keen-slider__slide'>
           {isLoading && <RecommendClothesLoading />}
 
-          {recommedClothes && <RecommendList clothes={recommedClothes} />}
+          {recommedClothes && (
+            <RecommendList
+              clothes={recommedClothes}
+              weatherType={weatherType}
+            />
+          )}
         </S.SliderItem>
 
         {user && (
