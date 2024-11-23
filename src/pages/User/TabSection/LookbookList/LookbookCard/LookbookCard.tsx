@@ -4,7 +4,7 @@ import { WeatherType } from '@/types/weather';
 import { Outfits } from '@/types/clothes';
 import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';
 import PlusIcon from '@/components/icon/PlusIcon';
-import ClothesIcon from '@/components/icon/clothes/ClothesIcon';
+import ClothesIcon from '@/components/ClothesIcon/ClothesIcon';
 
 type LookbookCardProps = {
   type: WeatherType;

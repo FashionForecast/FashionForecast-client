@@ -9,7 +9,7 @@ import { Chip } from '@mui/material';
 import { memo } from 'react';
 import ClothesIcon, {
   clotehsIconsMap,
-} from '@/components/icon/clothes/ClothesIcon';
+} from '@/components/ClothesIcon/ClothesIcon';
 import { WeatherType } from '@/types/weather';
 
 type RecommendListProps = {

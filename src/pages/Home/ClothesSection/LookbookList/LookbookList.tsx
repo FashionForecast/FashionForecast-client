@@ -8,7 +8,7 @@ import { WeatherType } from '@/types/weather';
 import { useNavigate } from 'react-router-dom';
 import { memo } from 'react';
 import PlusIcon from '@/components/icon/PlusIcon';
-import ClothesIcon from '@/components/icon/clothes/ClothesIcon';
+import ClothesIcon from '@/components/ClothesIcon/ClothesIcon';
 
 type LookbookListProps = {
   weather: ClothesForWeather;
