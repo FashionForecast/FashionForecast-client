@@ -21,6 +21,10 @@ const LookbookCard = styled.li<{ $content?: 'lookbook' | 'add' }>`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
 
+  & svg {
+    flex-shrink: 0;
+  }
+
   ${({ $content = 'lookbook', theme }) =>
     $content === 'add' &&
     css`
