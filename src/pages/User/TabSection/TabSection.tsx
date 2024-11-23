@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LookbookList from './LookbookList';
+import LookbookList from './LookbookList/LookbookList';
 import SettingList from './SettingList/SettingList';
 import { C, S } from './TabSection.style';
 import { useSearchParams } from 'react-router-dom';

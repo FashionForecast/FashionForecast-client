@@ -1,4 +1,4 @@
-import { S, C } from './style';
+import { S, C } from './LookbookCard.style';
 import { Link } from 'react-router-dom';
 import { WeatherType } from '@/types/weather';
 import { Outfits } from '@/types/clothes';

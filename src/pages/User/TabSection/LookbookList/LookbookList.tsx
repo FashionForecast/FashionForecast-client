@@ -1,4 +1,4 @@
-import LookbookCard from './LookbookCard';
+import LookbookCard from './LookbookCard/LookbookCard';
 import { useQuery } from '@tanstack/react-query';
 import useAppSelector from '@/hooks/useAppSelector';
 import { getLookbookList } from '@/services/clothes';
