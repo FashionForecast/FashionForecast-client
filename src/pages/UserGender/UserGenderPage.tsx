@@ -12,7 +12,7 @@ import 바지 from '@/components/icon/clothes/바지';
 import { Gender } from '@/types/user';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import FemaleIcon from '@/components/icon/gender/FemaleIcon';
-import MaleIcon from '@/components/icon/gender/maleIcon';
+import MaleIcon from '@/components/icon/gender/MaleIcon';
 
 const BUTTONS = [
   { text: '남자', value: 'MALE', icon: <MaleIcon /> },
