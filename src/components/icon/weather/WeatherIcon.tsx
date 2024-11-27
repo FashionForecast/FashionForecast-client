@@ -1,24 +1,6 @@
 import { RainType, SkyStatus } from '@/types/weather';
-import DayClearIcon from './DayClearIcon';
-import DayCloudyIcon from './DayCloudyIcon';
-import DayPartlyCloudyIcon from './DayPartlyCloudyIcon';
-import DayRainAndSnowFlurriesIcon from './DayRainAndSnowFlurriesIcon';
-import DayRainAndSnowIcon from './DayRainAndSnowIcon';
-import DayRainDropIcon from './DayRainDropIcon';
-import DayRainIcon from './DayRainIcon';
-import DayShowerIcon from './DayShowerIcon';
-import DaySnowFlurriesIcon from './DaySnowFlurriesIcon';
-import DaySnowIcon from './DaySnowIcon';
-import NightClearIcon from './NightClearIcon';
-import NightCloudyIcon from './NightCloudyIcon';
-import NightPartlyCloudyIcon from './NightPartlyCloudyIcon';
-import NightRainAndSnowFlurriesIcon from './NightRainAndSnowFlurriesIcon';
-import NightRainAndSnowIcon from './NightRainAndSnowIcon';
-import NightRainDropIcon from './NightRainDropIcon';
-import NightRainIcon from './NightRainIcon';
-import NightShowerIcon from './NightShowerIcon';
-import NightSnowFlurriesIcon from './NightSnowFlurriesIcon';
-import NightSnowIcon from './NightSnowIcon';
+import { lazy, Suspense } from 'react';
+import IconLoading from '@/components/IconLoading/IconLoading';
 
 type WeatherIconProps = {
   fcstTime: string;
@@ -37,33 +19,39 @@ const WeatherIcon = ({ fcstTime, skyStatus, rainType }: WeatherIconProps) => {
   if (rainType === 'NONE') Icon = icons[skyStatus];
   else Icon = icons[rainType];
 
-  return Icon ? <Icon /> : <img src='' alt='' />;
+  return Icon ? (
+    <Suspense fallback={<IconLoading $width={24} $height={24} />}>
+      <Icon />
+    </Suspense>
+  ) : (
+    <img src='' alt='' />
+  );
 };
 
 export default WeatherIcon;
 
 const DayIcons = {
-  CLEAR: DayClearIcon,
-  PARTLY_CLOUDY: DayPartlyCloudyIcon,
-  CLOUDY: DayCloudyIcon,
-  RAIN: DayRainIcon,
-  RAIN_DROP: DayRainDropIcon,
-  RAIN_AND_SNOW: DayRainAndSnowIcon,
-  RAIN_AND_SNOW_FLURRIES: DayRainAndSnowFlurriesIcon,
-  SHOWER: DayShowerIcon,
-  SNOW: DaySnowIcon,
-  SNOW_FLURRIES: DaySnowFlurriesIcon,
+  CLEAR: lazy(() => import('./DayClearIcon')),
+  PARTLY_CLOUDY: lazy(() => import('./DayPartlyCloudyIcon')),
+  CLOUDY: lazy(() => import('./DayCloudyIcon')),
+  RAIN: lazy(() => import('./DayRainIcon')),
+  RAIN_DROP: lazy(() => import('./DayRainDropIcon')),
+  RAIN_AND_SNOW: lazy(() => import('./DayRainAndSnowIcon')),
+  RAIN_AND_SNOW_FLURRIES: lazy(() => import('./DayRainAndSnowFlurriesIcon')),
+  SHOWER: lazy(() => import('./DayShowerIcon')),
+  SNOW: lazy(() => import('./DaySnowIcon')),
+  SNOW_FLURRIES: lazy(() => import('./DaySnowFlurriesIcon')),
 };
 
 const NightIcons = {
-  CLEAR: NightClearIcon,
-  PARTLY_CLOUDY: NightPartlyCloudyIcon,
-  CLOUDY: NightCloudyIcon,
-  RAIN: NightRainIcon,
-  RAIN_DROP: NightRainDropIcon,
-  RAIN_AND_SNOW: NightRainAndSnowIcon,
-  RAIN_AND_SNOW_FLURRIES: NightRainAndSnowFlurriesIcon,
-  SHOWER: NightShowerIcon,
-  SNOW: NightSnowIcon,
-  SNOW_FLURRIES: NightSnowFlurriesIcon,
+  CLEAR: lazy(() => import('./NightClearIcon')),
+  PARTLY_CLOUDY: lazy(() => import('./NightPartlyCloudyIcon')),
+  CLOUDY: lazy(() => import('./NightCloudyIcon')),
+  RAIN: lazy(() => import('./NightRainIcon')),
+  RAIN_DROP: lazy(() => import('./NightRainDropIcon')),
+  RAIN_AND_SNOW: lazy(() => import('./NightRainAndSnowIcon')),
+  RAIN_AND_SNOW_FLURRIES: lazy(() => import('./NightRainAndSnowFlurriesIcon')),
+  SHOWER: lazy(() => import('./NightShowerIcon')),
+  SNOW: lazy(() => import('./NightSnowIcon')),
+  SNOW_FLURRIES: lazy(() => import('./NightSnowFlurriesIcon')),
 };
