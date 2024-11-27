@@ -1,17 +1,24 @@
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import HomePage from './pages/Home/HomePage';
-import NotFoundPage from './pages/NotFound/NotFoundPage';
 import RootLayout from './layout/RootLayout/RootLayout';
-import SearchPage from './pages/Search/SearchPage';
-import FeedbackPage from './pages/Feedback/FeedbackPage';
-import LoginPage from './pages/Login/LoginPage';
-import LoginAuthPage from './pages/LoginAuth/LoginAuthPage';
-import UserGenderPage from './pages/UserGender/UserGenderPage';
-import UserPage from './pages/User/UserPage';
 import MemberAccessLayout from './layout/MemberAccessLayout/MemberAccessLayout';
-import UserLookbookCreatePage from './pages/UserLookbookCreate/UserLookbookCreatePage';
-import TermsOfServicePage from './pages/TermsOfService/TermsOfServicePage';
-import PrivacyPolicyPage from './pages/PrivacyPolicy/PrivacyPolicyPage';
+import HomePage from './pages/Home/HomePage';
+const NotFoundPage = lazy(() => import('./pages/NotFound/NotFoundPage'));
+const SearchPage = lazy(() => import('./pages/Search/SearchPage'));
+const FeedbackPage = lazy(() => import('./pages/Feedback/FeedbackPage'));
+const LoginPage = lazy(() => import('./pages/Login/LoginPage'));
+const LoginAuthPage = lazy(() => import('./pages/LoginAuth/LoginAuthPage'));
+const UserGenderPage = lazy(() => import('./pages/UserGender/UserGenderPage'));
+const UserPage = lazy(() => import('./pages/User/UserPage'));
+const UserLookbookCreatePage = lazy(
+  () => import('./pages/UserLookbookCreate/UserLookbookCreatePage')
+);
+const TermsOfServicePage = lazy(
+  () => import('./pages/TermsOfService/TermsOfServicePage')
+);
+const PrivacyPolicyPage = lazy(
+  () => import('./pages/PrivacyPolicy/PrivacyPolicyPage')
+);
 
 export const router = createBrowserRouter([
   {
