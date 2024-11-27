@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import ArrowIcon from '@/assets/svg/arrow.svg?react';
 import { IconButton } from '@mui/material';
+import ArrowIcon from '../icon/ArrowIcon';
 
 const GoBackButton = () => {
   return (

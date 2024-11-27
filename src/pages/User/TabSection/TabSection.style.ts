@@ -22,6 +22,10 @@ const Tabs = styled(CustomTabs)`
 const Tab = styled(CustomTab)`
   min-height: 42px;
   border-bottom: 2px solid rgb(94 95 97 / 30%);
+
+  & svg {
+    margin-right: 8px;
+  }
 `;
 
 export const S = { SectionWrap, ContentWrap };

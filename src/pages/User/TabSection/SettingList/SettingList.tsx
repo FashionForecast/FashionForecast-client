@@ -1,4 +1,3 @@
-import FeedbackIcon from '@/assets/svg/feedback.svg?react';
 import { S } from './SettingList.style';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import MenuItem from './components/MenuItem/MenuItem';
@@ -9,6 +8,7 @@ import LogoutMenu from './LogoutMenu/LogoutMenu';
 import { Link } from 'react-router-dom';
 import WithdrawlButton from './WithdrawlButton/WithdrawlButton';
 import GenderMenu from './GenderMenu/GenderMenu';
+import FeedbackIcon from '@/components/icon/FeedbackIcon';
 
 const SettingList = () => {
   return (

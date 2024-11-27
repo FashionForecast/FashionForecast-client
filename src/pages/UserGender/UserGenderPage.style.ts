@@ -78,7 +78,7 @@ const GenderButton = styled.button<{ $select: boolean }>`
     border-radius: 50%;
 
     & svg {
-      fill: ${({ $select, theme }) =>
+      color: ${({ $select, theme }) =>
         $select ? theme.colors.blueGrey[500] : theme.colors.white};
     }
   }

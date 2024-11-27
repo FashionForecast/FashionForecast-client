@@ -1,77 +1,36 @@
 import {
-  ClothesForWeather,
-  isValidTempCondition,
+  WeatherForRecommendClothes,
   TempCondition,
 } from '@/pages/Home/ClothesSection/ClothesSection';
 import {
-  ClothesResponseData,
-  LookbookListResponseData,
-  Outfits,
+  RecommendClothes,
+  AllLookbookListByWeather,
+  MemberLookbook,
 } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { LookbookSelect } from '@/pages/UserLookbookCreate/UserLookbookCreatePage';
+import { fetchAPI } from '@/utils/fetch';
 
-export async function getDefaultClothes(
-  weather: ClothesForWeather & { tempCondition: TempCondition }
-): Promise<ClothesResponseData | null> {
-  try {
-    if (!isValidTempCondition(weather.extremumTmp, weather.tempCondition)) {
-      return null;
-    }
+export async function getRecommnedClothes(
+  weather: WeatherForRecommendClothes & { tempCondition: TempCondition }
+) {
+  const params: Record<string, string> = {};
+  Object.entries(weather).forEach(([key, value]) => {
+    params[key] = String(value);
+  });
 
-    const params: Record<string, string> = {};
-    Object.entries(weather).forEach(([key, value]) => {
-      params[key] = String(value);
-    });
+  const queryString = new URLSearchParams(params).toString();
 
-    const queryString = new URLSearchParams(params).toString();
-
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/recommend/default?${queryString}`
-    );
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-
-    return json.data;
-  } catch (error) {
-    throw new Error(error as string);
-  }
+  return await fetchAPI<RecommendClothes>(`/recommend/default?${queryString}`);
 }
 
-export async function getLookbookList(
+export async function getAllLookbookListByWeather(
   accessToken: string | null
-): Promise<LookbookListResponseData> {
-  try {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/member/outfits`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-
-    return json.data;
-  } catch (error) {
-    throw new Error(error as string);
-  }
+): Promise<AllLookbookListByWeather> {
+  return fetchAPI<AllLookbookListByWeather>('/member/outfits', {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 }
-
-type SaveLookbookBodyData = {
-  topType: string;
-  topColor: string;
-  bottomType: string;
-  bottomColor: string;
-  tempStageLevel: number;
-};
 
 export async function saveLookbook(
   weatherType: WeatherType,
@@ -89,123 +48,74 @@ export async function saveLookbook(
       tempStageLevel: Number(weatherType),
     };
 
-    const service = outfitId ? updateLookbookItem : createLookbookItem;
-    await service(data, token, outfitId);
+    const handler = outfitId ? updateLookbookItem : createLookbookItem;
+    await handler(data, token, outfitId);
   } catch (error) {
     throw new Error(error as string);
   }
 }
 
+type LookbookItemData = {
+  topType: string;
+  topColor: string;
+  bottomType: string;
+  bottomColor: string;
+  tempStageLevel: number;
+};
+
 async function createLookbookItem(
-  data: SaveLookbookBodyData,
+  data: LookbookItemData,
   token: string | null
 ) {
-  try {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/member/outfit`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-    );
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-  } catch (error) {
-    throw new Error(error as string);
-  }
+  await fetchAPI('/member/outfit', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
 }
 
 async function updateLookbookItem(
-  data: SaveLookbookBodyData,
+  data: LookbookItemData,
   token: string | null,
   outfitId?: number
 ) {
-  try {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/member/outfits/${outfitId}`,
-      {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-    );
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-  } catch (error) {
-    throw new Error(error as string);
-  }
+  await fetchAPI(`/member/outfits/${outfitId}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
 }
 
-export async function deleteLookbook(
+export async function deleteLookbookItem(
   outfitId: number | undefined,
-  token: string | null
+  accessToken: string | null
 ) {
-  try {
-    if (!outfitId) throw new Error(`해당 룩북을 찾을 수 없습니다.`);
+  if (!outfitId) throw new Error(`해당 룩북을 찾을 수 없습니다.`);
 
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/member/outfits/${outfitId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-  } catch (error) {
-    throw new Error(error as string);
-  }
+  fetchAPI(`/member/outfits/${outfitId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }
 
-export async function getUserLookbookByTemp(
-  temp: ClothesForWeather['extremumTmp'],
+export async function getMemberLookbook(
+  temperature: WeatherForRecommendClothes['extremumTmp'],
   tempCondition: TempCondition,
   accessToken: string | null
-): Promise<Outfits[] | null> {
-  try {
-    if (!isValidTempCondition(temp, tempCondition)) {
-      return null;
-    }
+) {
+  const params = { extremumTmp: String(temperature), tempCondition };
+  const queryString = new URLSearchParams(params).toString();
 
-    const res = await fetch(
-      `${
-        import.meta.env.VITE_API_BASE_URL
-      }/member/outfits/temp-stage?extremumTmp=${temp}&tempCondition=${tempCondition}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-
-    return json.data;
-  } catch (error) {
-    throw new Error(error as string);
-  }
+  return await fetchAPI<MemberLookbook[]>(
+    `/member/outfits/temp-stage?${queryString}`,
+    { headers: { Authorization: `Bearer ${accessToken}` } }
+  );
 }

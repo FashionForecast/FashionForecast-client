@@ -3,10 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { MY_REGION } from '@/constants/localStorageKey';
 import useGeolocation from '@/hooks/useGeolocation';
 import CustomButton from '@/components/CustomMui/CustomButton';
-import LocationIcon from '@/components/icon/Location';
+import LocationIcon from '@/components/icon/LocationIcon';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useMutation } from '@tanstack/react-query';
-import { setUserRegion } from '@/services/auth';
+import { setMemberDefaultRegion } from '@/services/auth';
 import { useState } from 'react';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import { storeUser } from '@/utils/auth';
@@ -36,7 +36,7 @@ const CurrentRegionButton = () => {
   const { openSnackbar } = useSnackbar();
 
   const { mutate } = useMutation({
-    mutationFn: () => setUserRegion('DEFAULT', accessToken),
+    mutationFn: () => setMemberDefaultRegion('DEFAULT', accessToken),
   });
 
   const handleDialogClose = () => {

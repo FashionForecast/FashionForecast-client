@@ -1,10 +1,10 @@
-import TshirtIcon from '@/components/icon/TshirtIcon';
-import ShortsIcon from '@/assets/svg/shorts.svg?react';
+import TopClothesIcon from '@/components/icon/TopClothesIcon';
 import { FocussingSliderType } from '../EditSection';
 import { S } from './ColorPalette.style';
 import { memo, useEffect, useRef, useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import ColorButtons from './ColorButtons/ColorButtons';
+import BottomClothesIcon from '@/components/icon/BottomClothesIcon';
 
 type ColorPaletteProps = {
   focussingSlider: FocussingSliderType;
@@ -114,9 +114,9 @@ const ColorPalette = ({
             <S.Info>
               <S.Icon>
                 {focussingSlider === 'bottom' ? (
-                  <ShortsIcon />
+                  <BottomClothesIcon />
                 ) : (
-                  <TshirtIcon color='white' />
+                  <TopClothesIcon color='white' />
                 )}
               </S.Icon>
               <span>{`${getTitleText(focussingSlider)} 색상`}</span>

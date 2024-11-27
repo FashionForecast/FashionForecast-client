@@ -10,8 +10,8 @@ import CurrentRegionButton, {
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
-import { registerSearchWord } from '@/services/search';
-import { setUserRegion } from '@/services/auth';
+import { registerResentSearch } from '@/services/search';
+import { setMemberDefaultRegion } from '@/services/auth';
 import useAppSelector from '@/hooks/useAppSelector';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { Region } from '@/types/region';
@@ -33,13 +33,13 @@ const SearchPage = () => {
 
   const { mutate: recentSearchMutate } = useMutation({
     mutationFn: (region: string) =>
-      registerSearchWord(region, user?.socialId, accessToken),
+      registerResentSearch(region, user?.socialId, accessToken),
     onSuccess: async () =>
       await queryClient.invalidateQueries({ queryKey: ['recentSearch'] }),
   });
 
   const { mutate: userRegionMutate } = useMutation({
-    mutationFn: (region: string) => setUserRegion(region, accessToken),
+    mutationFn: (region: string) => setMemberDefaultRegion(region, accessToken),
   });
 
   const matchItems = keyword

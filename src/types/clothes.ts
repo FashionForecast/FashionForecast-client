@@ -2,12 +2,7 @@ export type ClothesProps = {
   color?: string;
 };
 
-export type ClothesSliderItem = {
-  name: string;
-  Clothes: (props: ClothesProps) => JSX.Element;
-};
-
-export type ClothesImageName =
+export type ClothesNames =
   | '민소매'
   | '반팔티'
   | '긴팔티'
@@ -29,24 +24,30 @@ export type ClothesImageName =
   | '히트텍'
   | '목도리';
 
+export type ClothesIconNames =
+  | ClothesNames
+  | '바지'
+  | '겉옷장우산'
+  | '겉옷접이식우산';
+
 export type OutfitType = 'TOP' | 'BOTTOM' | 'ETC';
 
-export type ClothesResponseData = Array<{
-  names: Array<ClothesImageName | string>;
+export type RecommendClothes = Array<{
+  names: Array<ClothesNames | string>;
   outfitType: OutfitType;
 }>;
 
 export type ClothesType = 'top' | 'bottom';
 
-export type Outfits = {
+export type MemberLookbook = {
   memberOutfitId: number;
-  topType: ClothesImageName;
+  topType: ClothesNames;
   topColor: string;
-  bottomType: ClothesImageName;
+  bottomType: ClothesNames;
   bottomColor: string;
 };
 
-export type LookbookListResponseData = Array<{
-  memberOutfits: Outfits[];
+export type AllLookbookListByWeather = Array<{
+  memberOutfits: MemberLookbook[];
   tempStageLevel: number;
 }>;

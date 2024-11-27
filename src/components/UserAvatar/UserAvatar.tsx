@@ -1,6 +1,6 @@
 import { Avatar as MuiAvatar, IconButton } from '@mui/material';
-import AccountIcon from '@/assets/svg/account.svg?react';
 import styled from '@emotion/styled';
+import DefaultAvatarIcon from '../icon/DefaultAvatarIcon';
 
 type UserAvatarProps = {
   imageUrl?: string | null;
@@ -10,9 +10,9 @@ const UserAvatar = ({ imageUrl }: UserAvatarProps) => {
   return (
     <IconButton>
       {imageUrl ? (
-        <Avatar src={imageUrl} alt='사용자 이미지' />
+        <ImageAvatar src={imageUrl} alt='사용자 이미지' />
       ) : (
-        <AccountIcon />
+        <DefaultAvatarIcon />
       )}
     </IconButton>
   );
@@ -20,7 +20,7 @@ const UserAvatar = ({ imageUrl }: UserAvatarProps) => {
 
 export default UserAvatar;
 
-const Avatar = styled(MuiAvatar)`
+const ImageAvatar = styled(MuiAvatar)`
   width: 24px;
   height: 24px;
 `;

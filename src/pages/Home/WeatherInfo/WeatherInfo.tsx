@@ -1,11 +1,11 @@
-import { WeatherResponseData } from '@/types/weather';
+import { WeatherData } from '@/types/weather';
 import WeatherCard from './WeatherCard/WeatherCard';
 import WeatherTimeLine from './WeatherTimeLine/WeatherTimeLine';
 import { S } from './WeatherInfo.style';
 import { memo } from 'react';
 
 type WeatherInfoProps = {
-  weather: WeatherResponseData;
+  weather: WeatherData;
 };
 
 const WeatherInfo = ({ weather }: WeatherInfoProps) => {

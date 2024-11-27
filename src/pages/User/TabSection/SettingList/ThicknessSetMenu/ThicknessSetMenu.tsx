@@ -11,11 +11,11 @@ import CustomButton from '@/components/CustomMui/CustomButton';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
-import TshirtIcon from '@/components/icon/TshirtIcon';
+import TopClothesIcon from '@/components/icon/TopClothesIcon';
 import useAppSelector from '@/hooks/useAppSelector';
 import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { useMutation } from '@tanstack/react-query';
-import { setUserTempCondition } from '@/services/auth';
+import { setMemberClothesThickness } from '@/services/auth';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import { storeUser } from '@/utils/auth';
 import useAppDispatch from '@/hooks/useAppDispatch';
@@ -33,7 +33,7 @@ const ThicknessSetMenu = () => {
   const { openSnackbar } = useSnackbar();
 
   const { mutate } = useMutation({
-    mutationFn: () => setUserTempCondition(option, accessToken),
+    mutationFn: () => setMemberClothesThickness(option, accessToken),
   });
 
   const handleClickOpen = () => {
@@ -68,7 +68,7 @@ const ThicknessSetMenu = () => {
       <MenuItem
         title='기본 옷차림 두께'
         value={tempConditionText[user?.tempCondition || 'NORMAL']}
-        icon={<TshirtIcon />}
+        icon={<TopClothesIcon />}
         handleClick={handleClickOpen}
       />
 
