@@ -2,7 +2,7 @@ import { getRecommnedClothes } from '@/services/clothes';
 import { WeatherData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { S } from './ClothesSection.style';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 import RecommendClothesLoading from './RecommendList/RecommendListLoading';
 import NetworkError from '@/components/NetworkError/NetworkError';
@@ -85,12 +85,6 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     []
   );
 
-  useEffect(() => {
-    setTempCondition(
-      initializeTempCondition(weather.extremumTmp, user?.tempCondition)
-    );
-  }, [weather.extremumTmp, user?.tempCondition]);
-
   if (isError) return <NetworkError handleRefetch={refetch} />;
   return (
     <S.Section>
@@ -155,23 +149,23 @@ function getWeatehrType(temp: number): WeatherType {
 function initializeTempCondition(
   extremumTmp: number,
   userTempCondition?: TempCondition,
-  tempParamOption?: string | null
+  tempParamOption?: TempCondition | string | null
 ): TempCondition {
-  if (tempParamOption && Options.has(tempParamOption))
-    return tempParamOption as TempCondition;
+  const tempCondition = tempParamOption ? tempParamOption : userTempCondition;
 
-  if (!isValidTempCondition(extremumTmp, userTempCondition)) return 'NORMAL';
-
-  return userTempCondition ? userTempCondition : 'NORMAL';
+  if (!isValidTempCondition(extremumTmp, tempCondition)) return 'NORMAL';
+  return tempCondition ? (tempCondition as TempCondition) : 'NORMAL';
 }
 
 function isValidTempCondition(
   extremumTmp: number,
-  userTempCondition?: TempCondition
+  tempCondition?: TempCondition | string
 ) {
+  if (tempCondition && !Options.has(tempCondition)) return false;
+
   if (
-    (extremumTmp < 5 && userTempCondition === 'WARM') ||
-    (extremumTmp >= 28 && userTempCondition === 'COOL')
+    (extremumTmp < 5 && tempCondition === 'WARM') ||
+    (extremumTmp >= 28 && tempCondition === 'COOL')
   )
     return false;
 
