@@ -1,9 +1,9 @@
-import { getUserLookbookByTemp } from '@/services/clothes';
+import { getMemberLookbook } from '@/services/clothes';
 import { S } from './LookbookList.style';
 import { useQuery } from '@tanstack/react-query';
 import useAppSelector from '@/hooks/useAppSelector';
-import { ClothesForWeather, TempCondition } from '../ClothesSection';
-import { Outfits } from '@/types/clothes';
+import { WeatherForRecommendClothes, TempCondition } from '../ClothesSection';
+import { MemberLookbook } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { useNavigate } from 'react-router-dom';
 import { memo } from 'react';
@@ -11,7 +11,7 @@ import PlusIcon from '@/components/icon/PlusIcon';
 import ClothesIcon from '@/components/ClothesIcon/ClothesIcon';
 
 type LookbookListProps = {
-  weather: ClothesForWeather;
+  weather: WeatherForRecommendClothes;
   weatherType: WeatherType;
   tempCondition: TempCondition;
 };
@@ -26,12 +26,12 @@ const LookbookList = ({
   const { data } = useQuery({
     queryKey: ['user', user?.socialId, 'lookbook', weather, tempCondition],
     queryFn: () =>
-      getUserLookbookByTemp(weather.extremumTmp, tempCondition, accessToken),
+      getMemberLookbook(weather.extremumTmp, tempCondition, accessToken),
     enabled: !!user,
   });
   const navigate = useNavigate();
 
-  const handleLookbookItemClick = (outfit?: Outfits) => () => {
+  const handleLookbookItemClick = (outfit?: MemberLookbook) => () => {
     let type = Number(weatherType);
 
     if (tempCondition === 'COOL') type = type - 1;

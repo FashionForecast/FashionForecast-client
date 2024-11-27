@@ -3,7 +3,7 @@ import CustomDialog from '@/components/CustomMui/CustomDialog';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 import useAppSelector from '@/hooks/useAppSelector';
 import { LocationState } from '@/pages/UserLookbookCreate/UserLookbookCreatePage';
-import { deleteLookbook } from '@/services/clothes';
+import { deleteLookbookItem } from '@/services/clothes';
 import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
 
   const { mutate } = useMutation({
     mutationFn: () =>
-      deleteLookbook(state?.outfit?.memberOutfitId, accessToken),
+      deleteLookbookItem(state?.outfit?.memberOutfitId, accessToken),
   });
 
   const handleClick = () => {

@@ -22,7 +22,7 @@ export default function RootLayout() {
 
   const { mutate: guestLoginMutate } = useMutation({
     mutationFn: guestLogin,
-    onSuccess: (data) => localStorage.setItem(GUEST_UUID, data.data.uuid),
+    onSuccess: (data) => localStorage.setItem(GUEST_UUID, data.uuid),
   });
 
   // 게스트의 uuid를 저장

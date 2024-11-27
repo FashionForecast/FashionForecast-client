@@ -1,8 +1,8 @@
-import { User } from '@/types/user';
+import { Member } from '@/types/member';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type UserState = {
-  info: User | null;
+  info: Member | null;
 };
 
 const userSlice = createSlice({
@@ -11,10 +11,10 @@ const userSlice = createSlice({
     info: null,
   } as UserState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
+    setUser: (state, action: PayloadAction<Member>) => {
       state.info = action.payload;
     },
-    setGender: (state, action: PayloadAction<User['gender']>) => {
+    setGender: (state, action: PayloadAction<Member['gender']>) => {
       if (state.info) {
         state.info.gender = action.payload;
       }

@@ -1,7 +1,7 @@
 import {
   ClothesIconNames,
   ClothesNames,
-  ClothesResponseData,
+  RecommendClothes,
   OutfitType,
 } from '@/types/clothes';
 import { C, S } from './RecommendList.style';
@@ -13,7 +13,7 @@ import ClothesIcon, {
 import { WeatherType } from '@/types/weather';
 
 type RecommendListProps = {
-  clothes: ClothesResponseData;
+  clothes: RecommendClothes;
   weatherType: WeatherType;
 };
 

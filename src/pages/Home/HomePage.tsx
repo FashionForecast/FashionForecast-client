@@ -1,5 +1,5 @@
 import useAppSelector from '@/hooks/useAppSelector';
-import { getWeather } from '@/services/weather';
+import { getWeatherData } from '@/services/weather';
 import { useQuery } from '@tanstack/react-query';
 import MainHeader from './MainHeader/MainHeader';
 import ClothesSection from './ClothesSection/ClothesSection';
@@ -10,7 +10,7 @@ import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeList';
 import HomeLoading from './HomeLoading';
 import NetworkError from '@/components/NetworkError/NetworkError';
-import { User } from '@/types/user';
+import { Member } from '@/types/member';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import WeatherInfo from './WeatherInfo/WeatherInfo';
 
@@ -29,7 +29,7 @@ const HomePage = () => {
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['weather', geolocation?.region],
-    queryFn: () => getWeather(selectedTime, geolocation!.region),
+    queryFn: () => getWeatherData(selectedTime, geolocation!.region),
     enabled: !!geolocation,
   });
 
@@ -111,7 +111,7 @@ function getHour(time: string) {
   return hour;
 }
 
-function getSelectedTime(user: User | null): SelectedTime {
+function getSelectedTime(user: Member | null): SelectedTime {
   if (!user || user.outingStartTime === 'DEFAULT') {
     return defaultSelectedTime;
   }

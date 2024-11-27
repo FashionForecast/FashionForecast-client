@@ -32,14 +32,14 @@ export type ClothesIconNames =
 
 export type OutfitType = 'TOP' | 'BOTTOM' | 'ETC';
 
-export type ClothesResponseData = Array<{
+export type RecommendClothes = Array<{
   names: Array<ClothesNames | string>;
   outfitType: OutfitType;
 }>;
 
 export type ClothesType = 'top' | 'bottom';
 
-export type Outfits = {
+export type MemberLookbook = {
   memberOutfitId: number;
   topType: ClothesNames;
   topColor: string;
@@ -47,7 +47,7 @@ export type Outfits = {
   bottomColor: string;
 };
 
-export type LookbookListResponseData = Array<{
-  memberOutfits: Outfits[];
+export type AllLookbookListByWeather = Array<{
+  memberOutfits: MemberLookbook[];
   tempStageLevel: number;
 }>;

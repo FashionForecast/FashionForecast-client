@@ -1,5 +1,5 @@
-import { getDefaultClothes } from '@/services/clothes';
-import { WeatherResponseData, WeatherType } from '@/types/weather';
+import { getRecommnedClothes } from '@/services/clothes';
+import { WeatherData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { S } from './ClothesSection.style';
 import { memo, useCallback, useEffect, useState } from 'react';
@@ -25,13 +25,13 @@ const Options = new Map([
 
 export type TempCondition = typeof COOL | typeof NORMAL | typeof WARM;
 
-export type ClothesForWeather = Pick<
-  WeatherResponseData,
+export type WeatherForRecommendClothes = Pick<
+  WeatherData,
   'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
 >;
 
 type ClothesSectionProps = {
-  weather: ClothesForWeather;
+  weather: WeatherForRecommendClothes;
 };
 
 const ClothesSection = ({ weather }: ClothesSectionProps) => {
@@ -56,7 +56,7 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     refetch,
   } = useQuery({
     queryKey: ['clothes', tempCondition, geolocation?.region, weather],
-    queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
+    queryFn: () => getRecommnedClothes({ ...weather, tempCondition }),
   });
 
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -165,7 +165,7 @@ function initializeTempCondition(
   return userTempCondition ? userTempCondition : 'NORMAL';
 }
 
-export function isValidTempCondition(
+function isValidTempCondition(
   extremumTmp: number,
   userTempCondition?: TempCondition
 ) {

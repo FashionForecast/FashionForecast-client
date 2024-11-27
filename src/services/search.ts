@@ -1,101 +1,59 @@
 import { GUEST_UUID } from '@/constants/localStorageKey';
-import { RecentSearchData, ResponseBase } from '@/types/search';
 import { guestLogin } from './login';
-import { RegionName } from '@/pages/Search/RecentSearchList/RecentSearchList';
+import { RecentSearchRegion } from '@/pages/Search/RecentSearchList/RecentSearchList';
+import { fetchAPI } from '@/utils/fetch';
+import { RecentSearchList } from '@/types/member';
 
-export async function getRecentSearch(
+export async function getRecentSearchList(
   memberId?: string,
   accessToken?: string | null
-): Promise<RecentSearchData> {
+) {
   try {
     const uuid =
       memberId && accessToken ? memberId : localStorage.getItem(GUEST_UUID);
 
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`
-    );
-    const json: ResponseBase<RecentSearchData> = await res.json();
-
-    if (!res.ok) {
-      // 유효하지 않은 비회원 uuid인 경우, 새로운 uuid 발급
-      if (json.code === 'S002' && !memberId && !accessToken) {
-        const data = await guestLogin();
-        if (data.data.uuid) {
-          localStorage.setItem(GUEST_UUID, data.data.uuid);
-        }
-      }
-
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-
-    return json.data;
+    return await fetchAPI<RecentSearchList>(`/search/${uuid}`);
   } catch (error) {
+    // FIXME: 서버 검증 로직 변경 시, 수정 필요
+    // 유효하지 않은 비회원 uuid인 경우, 새로운 uuid 발급
+    if (error === 'S002' && !memberId && !accessToken) {
+      const data = await guestLogin();
+      if (data.uuid) {
+        localStorage.setItem(GUEST_UUID, data.uuid);
+      }
+    }
     throw new Error(error as string);
   }
 }
 
-export async function registerSearchWord(
+export async function registerResentSearch(
   region: string,
   memberId?: string,
   accessToken?: string | null
 ) {
-  try {
-    const uuid =
-      memberId && accessToken ? memberId : localStorage.getItem(GUEST_UUID);
-    const [city, district1, district2] = region.split(' ');
-    const district = district2 ? `${district1} ${district2}` : district1;
+  const uuid =
+    memberId && accessToken ? memberId : localStorage.getItem(GUEST_UUID);
+  const [city, district1, district2] = region.split(' ');
+  const district = district2 ? `${district1} ${district2}` : district1;
 
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ city, district }),
-      }
-    );
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-
-    return json;
-  } catch (error) {
-    throw new Error(error as string);
-  }
+  await fetchAPI(`/search/${uuid}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ city, district }),
+  });
 }
 
 export async function deleteSearchWord(
-  { city, district }: RegionName,
+  region: RecentSearchRegion,
   memberId?: string,
   accessToken?: string | null
 ) {
-  try {
-    const uuid =
-      memberId && accessToken ? memberId : localStorage.getItem(GUEST_UUID);
+  const uuid =
+    memberId && accessToken ? memberId : localStorage.getItem(GUEST_UUID);
 
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/search/${uuid}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ city, district }),
-      }
-    );
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-
-    return json;
-  } catch (error) {
-    throw new Error(error as string);
-  }
+  await fetchAPI(`/search/${uuid}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(region),
+  });
 }

@@ -2,7 +2,7 @@ import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 
 export type Gender = 'MALE' | 'FEMALE';
 
-export type User = {
+export type Member = {
   socialId: string;
   nickname: string;
   region: 'DEFAULT' | string;
@@ -12,3 +12,8 @@ export type User = {
   gender: Gender | null;
   imageUrl: string | null;
 };
+
+export type RecentSearchList = Array<{
+  city: string;
+  district: string;
+}>;
