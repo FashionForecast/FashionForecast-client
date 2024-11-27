@@ -11,6 +11,7 @@ import useGeolocation from '@/hooks/useGeolocation';
 import { storeAccessToken, storeUser } from '@/utils/auth';
 import useAppSelector from '@/hooks/useAppSelector';
 import regions from '@/assets/actualRegionCoordinates.json';
+import PageLoading from '../PageLoading/PageLoading';
 
 export default function RootLayout() {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
@@ -92,7 +93,7 @@ export default function RootLayout() {
     }
   }, [pathname, user?.gender]);
 
-  if (isLoggingIn) return <></>;
+  if (isLoggingIn) return <PageLoading />;
   return (
     <S.Main>
       <Outlet />
