@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import MenuItem from '../components/MenuItem/MenuItem';
-import LogoutIcon from '@/assets/svg/logout.svg?react';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import { DialogActions, DialogContent } from '@mui/material';
 import CustomButton from '@/components/CustomMui/CustomButton';
@@ -9,6 +8,7 @@ import { logout } from '@/services/auth';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN } from '@/constants/localStorageKey';
+import LogoutIcon from '@/components/icon/LogoutIcon';
 
 const LogoutMenu = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);

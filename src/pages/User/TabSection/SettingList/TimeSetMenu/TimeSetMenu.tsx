@@ -5,7 +5,6 @@ import {
   RadioGroup,
 } from '@mui/material';
 import MenuItem from '../components/MenuItem/MenuItem';
-import ClockIcon from '@/assets/svg/clock.svg?react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { useRef, useState } from 'react';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
@@ -17,11 +16,12 @@ import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
 import { C } from './TimeSetMenu.style';
 import useAppSelector from '@/hooks/useAppSelector';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { setUserTime } from '@/services/auth';
+import { setMemberOutingTime } from '@/services/auth';
 import { storeUser } from '@/utils/auth';
 import useAppDispatch from '@/hooks/useAppDispatch';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
-import { User } from '@/types/user';
+import { Member } from '@/types/member';
+import ClockIcon from '@/components/icon/ClockIcon';
 
 const DEFAULT = 'DEFAULT';
 const SET_IT = 'setIt';
@@ -47,7 +47,7 @@ const TimeSetMenu = () => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: () => setUserTime(selectedTime, option, accessToken),
+    mutationFn: () => setMemberOutingTime(selectedTime, option, accessToken),
   });
 
   const handleClickOpen = () => {
@@ -154,7 +154,7 @@ const defaultSelectedTime: SelectedTime = {
   end: TIME_LIST[19],
 };
 
-function getSelectedTime(user: User | null): SelectedTime {
+function getSelectedTime(user: Member | null): SelectedTime {
   if (!user || user.outingStartTime === 'DEFAULT') return defaultSelectedTime;
 
   return { day: '오늘', start: user.outingStartTime, end: user.outingEndTime };

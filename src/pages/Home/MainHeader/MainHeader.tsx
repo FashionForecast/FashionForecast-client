@@ -1,13 +1,13 @@
-import TriangleIcon from '@/assets/svg/triangle.svg?react';
 import { IconButton } from '@mui/material';
 import { C } from './MainHeader.style';
 import CustomButton from '@/components/CustomMui/CustomButton';
-import LocationIcon from '@/components/icon/Location';
+import LocationIcon from '@/components/icon/LocationIcon';
 import { Link } from 'react-router-dom';
 import useAppSelector from '@/hooks/useAppSelector';
 import UserAvatar from '@/components/UserAvatar/UserAvatar';
 import Header from '@/components/Header/Header';
 import { memo } from 'react';
+import TriangleIcon from '@/components/icon/TriangleIcon';
 
 const MainHeader = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);

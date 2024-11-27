@@ -1,5 +1,5 @@
 import { C, S } from './ColorButtons.style';
-import CheckCircleIcon from '@/components/icon/CheckCircle';
+import CheckCircleIcon from '@/components/icon/CheckCircleIcon';
 import { COLOR_PALETTES } from '@/constants/colorPalettes';
 import { memo } from 'react';
 

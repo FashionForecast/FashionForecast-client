@@ -1,8 +1,8 @@
-import { getDefaultClothes } from '@/services/clothes';
-import { WeatherResponseData, WeatherType } from '@/types/weather';
+import { getRecommnedClothes } from '@/services/clothes';
+import { WeatherData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { S } from './ClothesSection.style';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import useAppSelector from '@/hooks/useAppSelector';
 import RecommendClothesLoading from './RecommendList/RecommendListLoading';
 import NetworkError from '@/components/NetworkError/NetworkError';
@@ -25,13 +25,13 @@ const Options = new Map([
 
 export type TempCondition = typeof COOL | typeof NORMAL | typeof WARM;
 
-export type ClothesForWeather = Pick<
-  WeatherResponseData,
+export type WeatherForRecommendClothes = Pick<
+  WeatherData,
   'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
 >;
 
 type ClothesSectionProps = {
-  weather: ClothesForWeather;
+  weather: WeatherForRecommendClothes;
 };
 
 const ClothesSection = ({ weather }: ClothesSectionProps) => {
@@ -56,7 +56,7 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     refetch,
   } = useQuery({
     queryKey: ['clothes', tempCondition, geolocation?.region, weather],
-    queryFn: () => getDefaultClothes({ ...weather, tempCondition }),
+    queryFn: () => getRecommnedClothes({ ...weather, tempCondition }),
   });
 
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -85,12 +85,6 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     []
   );
 
-  useEffect(() => {
-    setTempCondition(
-      initializeTempCondition(weather.extremumTmp, user?.tempCondition)
-    );
-  }, [weather.extremumTmp, user?.tempCondition]);
-
   if (isError) return <NetworkError handleRefetch={refetch} />;
   return (
     <S.Section>
@@ -100,7 +94,12 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
         <S.SliderItem className='keen-slider__slide'>
           {isLoading && <RecommendClothesLoading />}
 
-          {recommedClothes && <RecommendList clothes={recommedClothes} />}
+          {recommedClothes && (
+            <RecommendList
+              clothes={recommedClothes}
+              weatherType={weatherType}
+            />
+          )}
         </S.SliderItem>
 
         {user && (
@@ -150,23 +149,23 @@ function getWeatehrType(temp: number): WeatherType {
 function initializeTempCondition(
   extremumTmp: number,
   userTempCondition?: TempCondition,
-  tempParamOption?: string | null
+  tempParamOption?: TempCondition | string | null
 ): TempCondition {
-  if (tempParamOption && Options.has(tempParamOption))
-    return tempParamOption as TempCondition;
+  const tempCondition = tempParamOption ? tempParamOption : userTempCondition;
 
-  if (!isValidTempCondition(extremumTmp, userTempCondition)) return 'NORMAL';
-
-  return userTempCondition ? userTempCondition : 'NORMAL';
+  if (!isValidTempCondition(extremumTmp, tempCondition)) return 'NORMAL';
+  return tempCondition ? (tempCondition as TempCondition) : 'NORMAL';
 }
 
-export function isValidTempCondition(
+function isValidTempCondition(
   extremumTmp: number,
-  userTempCondition?: TempCondition
+  tempCondition?: TempCondition | string
 ) {
+  if (tempCondition && !Options.has(tempCondition)) return false;
+
   if (
-    (extremumTmp < 5 && userTempCondition === 'WARM') ||
-    (extremumTmp >= 28 && userTempCondition === 'COOL')
+    (extremumTmp < 5 && tempCondition === 'WARM') ||
+    (extremumTmp >= 28 && tempCondition === 'COOL')
   )
     return false;
 

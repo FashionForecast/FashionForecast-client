@@ -1,7 +1,7 @@
 import useAppSelector from '@/hooks/useAppSelector';
 import MenuItem from '../components/MenuItem/MenuItem';
-import UserFillIcon from '@/assets/svg/userFill.svg?react';
-import { User } from '@/types/user';
+import { Member } from '@/types/member';
+import UserFillIcon from '@/components/icon/UserFillIcon';
 
 const GenderMenu = () => {
   const user = useAppSelector((state) => state.user.info);
@@ -19,7 +19,7 @@ const GenderMenu = () => {
 
 export default GenderMenu;
 
-function getGender(gender?: User['gender']) {
+function getGender(gender?: Member['gender']) {
   if (!gender) return '-';
 
   if (gender === 'MALE') return '남성';

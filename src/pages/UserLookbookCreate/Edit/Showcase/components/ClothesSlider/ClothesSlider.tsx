@@ -1,11 +1,12 @@
 import { useKeenSlider } from 'keen-slider/react';
 import { memo, useState } from 'react';
 import { S } from './ClothesSlider.style';
-import { ClothesSliderItem, ClothesType } from '@/types/clothes';
+import { ClothesIconNames, ClothesType } from '@/types/clothes';
+import ClothesIcon from '@/components/ClothesIcon/ClothesIcon';
 
 type ClotehsSliderProps = {
   type: 'top' | 'bottom';
-  items: ClothesSliderItem[];
+  items: ClothesIconNames[];
   initial: number;
   clothesColor: string;
   $isFocussingSlider: boolean;
@@ -33,7 +34,7 @@ const ClothesSlider = ({
       const index = slider.track.details.rel;
 
       setCurrentItem(index);
-      changeClothesName(type, items[index].name);
+      changeClothesName(type, items[index]);
     },
   });
 
@@ -44,13 +45,16 @@ const ClothesSlider = ({
         $isFocussingSlider={$isFocussingSlider}
         className='keen-slider'
       >
-        {items.map(({ name, Clothes }, i) => (
+        {items.map((name, i) => (
           <S.SliderItem
             key={name}
             className='keen-slider__slide'
             $isSelected={currentItem === i}
           >
-            <Clothes color={currentItem === i ? clothesColor : 'transparent'} />
+            <ClothesIcon
+              name={name}
+              color={currentItem === i ? clothesColor : 'transparent'}
+            />
           </S.SliderItem>
         ))}
       </S.SliderList>

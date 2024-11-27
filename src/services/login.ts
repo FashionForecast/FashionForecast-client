@@ -1,26 +1,10 @@
-import { guestLoginResponse } from '@/types/login';
+import { Guest } from '@/types/auth';
+import { fetchAPI } from '@/utils/fetch';
 
-export async function guestLogin(): Promise<guestLoginResponse> {
-  try {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/guest/login`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ uuid: null }),
-      }
-    );
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-
-    return json;
-  } catch (error) {
-    throw new Error(error as string);
-  }
+export async function guestLogin() {
+  return fetchAPI<Guest>('/guest/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ uuid: null }),
+  });
 }

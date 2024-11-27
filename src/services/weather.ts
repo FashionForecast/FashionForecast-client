@@ -1,34 +1,27 @@
 import meteorologicalCoordinateList from '@/assets/meteorologicalRegionCoordinates';
 import { SelectedTime } from '@/pages/Home/HomePage';
-import { WeatherResponseData } from '@/types/weather';
+import { WeatherData } from '@/types/weather';
 import { dateToISO, KSTDate } from '@/utils/date';
+import { fetchAPI } from '@/utils/fetch';
 
-export async function getWeather(
+export async function getWeatherData(
   selectedTime: SelectedTime,
   region: string
-): Promise<WeatherResponseData> {
+): Promise<WeatherData> {
   const nowDateTime = dateToISO(KSTDate());
   const startDateTime = convertToTime(selectedTime.day, selectedTime.start);
   const endDateTime = convertToTime(selectedTime.day, selectedTime.end);
-
   const { weatherNx, weatherNy } = meteorologicalCoordinateList[region];
+  const params = {
+    nowDateTime,
+    startDateTime,
+    endDateTime,
+    nx: String(weatherNx),
+    ny: String(weatherNy),
+  };
+  const queryString = new URLSearchParams(params).toString();
 
-  try {
-    const res = await fetch(
-      `${
-        import.meta.env.VITE_API_BASE_URL
-      }/weather/forecast?nowDateTime=${nowDateTime}&startDateTime=${startDateTime}&endDateTime=${endDateTime}&nx=${weatherNx}&ny=${weatherNy}`
-    );
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw new Error(`${json.code}: ${json.message}`);
-    }
-
-    return json.data;
-  } catch (error) {
-    throw new Error(error as string);
-  }
+  return await fetchAPI(`/weather/forecast?${queryString}`);
 }
 
 function convertToTime(day: SelectedTime['day'], time: string) {

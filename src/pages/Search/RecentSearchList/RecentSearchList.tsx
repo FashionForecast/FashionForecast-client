@@ -1,13 +1,13 @@
 import { IconButton } from '@mui/material';
 import { C } from './RecentSearchList.style';
-import CloseIcon from '@/components/icon/CloseIcon';
+import XIcon from '@/components/icon/XIcon';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { deleteSearchWord, getRecentSearch } from '@/services/search';
+import { deleteSearchWord, getRecentSearchList } from '@/services/search';
 import { GUEST_UUID } from '@/constants/localStorageKey';
 import { Region } from '@/types/region';
 import useAppSelector from '@/hooks/useAppSelector';
 
-export type RegionName = {
+export type RecentSearchRegion = {
   city: string;
   district: string;
 };
@@ -30,12 +30,12 @@ const RecentSearchList = ({
       'recentSearch',
       user?.socialId ? user.socialId : localStorage.getItem(GUEST_UUID),
     ],
-    queryFn: () => getRecentSearch(user?.socialId, accessToken),
+    queryFn: () => getRecentSearchList(user?.socialId, accessToken),
     retry: 1,
   });
 
   const { mutate } = useMutation({
-    mutationFn: (region: RegionName) =>
+    mutationFn: (region: RecentSearchRegion) =>
       deleteSearchWord(region, user?.socialId, accessToken),
   });
 
@@ -72,7 +72,7 @@ const RecentSearchList = ({
           >
             {city} {district}
             <IconButton onClick={handleDeleteClick(city, district)}>
-              <CloseIcon />
+              <XIcon />
             </IconButton>
           </C.Item>
         ))}
