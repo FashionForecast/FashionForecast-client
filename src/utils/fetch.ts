@@ -9,7 +9,7 @@ export async function fetchAPI<T>(
     const json = await res.json();
 
     if (!res.ok) {
-      throw new Error(`${json.code}`);
+      throw new Error(`${json.code} ${json.message}`);
     }
 
     return json.data as T;
