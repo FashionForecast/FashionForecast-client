@@ -1,4 +1,4 @@
-import store from '@/redux/store';
+import store from '@/store/store';
 import { Provider } from 'react-redux';
 
 type ReduxProviderProps = {

@@ -1,7 +1,7 @@
 import regions from '@/assets/actualRegionCoordinates.json';
 import useAppSelector from './useAppSelector';
 import useAppDispatch from './useAppDispatch';
-import { goelocationActions } from '@/redux/slice/geolocationSlice';
+import { goelocationActions } from '@/store/slice/geolocationSlice';
 
 const DEFAULT_REGION = {
   region: '서울특별시 종로구',
