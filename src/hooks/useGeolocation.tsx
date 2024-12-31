@@ -1,4 +1,4 @@
-import regions from '@/assets/actualRegionCoordinates.json';
+import regionList from '@/assets/regionList.json';
 import useAppSelector from './useAppSelector';
 import useAppDispatch from './useAppDispatch';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
@@ -59,7 +59,7 @@ function getClosestRegion(position: GeolocationPosition) {
   let nx = 0;
   let ny = 0;
 
-  regions.forEach((region) => {
+  regionList.forEach((region) => {
     const distance = getDistance(
       position.coords.latitude,
       position.coords.longitude,

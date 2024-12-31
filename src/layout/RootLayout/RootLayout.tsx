@@ -10,7 +10,7 @@ import { goelocationActions } from '@/store/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
 import { storeAccessToken, storeUser } from '@/utils/auth';
 import useAppSelector from '@/hooks/useAppSelector';
-import regions from '@/assets/actualRegionCoordinates.json';
+import regionList from '@/assets/regionList.json';
 import PageLoading from '../PageLoading/PageLoading';
 
 export default function RootLayout() {
@@ -50,7 +50,8 @@ export default function RootLayout() {
     }
 
     const userRegion =
-      user?.region && regions.find((region) => region.region === user.region);
+      user?.region &&
+      regionList.find((region) => region.region === user.region);
     const localRegion = localStorage.getItem(MY_REGION);
     const basicRegion = localRegion && JSON.parse(localRegion);
 
