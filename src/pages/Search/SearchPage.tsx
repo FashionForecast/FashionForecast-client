@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import regions from '@/assets/actualRegionCoordinates.json';
+import regionList from '@/assets/regionList.json';
 import RegionItem from './components/RegionItem/RegionItem';
 import { C, S } from './SearchPage.style';
 import SearchHeader from './SearchHeader/SearchHeader';
@@ -43,7 +43,7 @@ const SearchPage = () => {
   });
 
   const matchItems = keyword
-    ? regions.filter((v) =>
+    ? regionList.filter((v) =>
         v.region.split(' ').some((v) => v.startsWith(keyword))
       )
     : [];
@@ -108,7 +108,7 @@ const SearchPage = () => {
 
         {!keyword && (
           <RecentSearchList
-            regions={regions}
+            regions={regionList}
             handleRegionClick={handleRegionClick}
           />
         )}

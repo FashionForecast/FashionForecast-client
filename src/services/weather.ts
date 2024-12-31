@@ -1,4 +1,4 @@
-import meteorologicalCoordinateList from '@/assets/meteorologicalRegionCoordinates';
+import regionCoordinateList from '@/assets/regionCoordinateList';
 import { SelectedTime } from '@/pages/Home/HomePage';
 import { WeatherData } from '@/types/weather';
 import { dateToISO, KSTDate } from '@/utils/date';
@@ -11,13 +11,13 @@ export async function getWeatherData(
   const nowDateTime = dateToISO(KSTDate());
   const startDateTime = convertToTime(selectedTime.day, selectedTime.start);
   const endDateTime = convertToTime(selectedTime.day, selectedTime.end);
-  const { weatherNx, weatherNy } = meteorologicalCoordinateList[region];
+  const { nx, ny } = regionCoordinateList[region];
   const params = {
     nowDateTime,
     startDateTime,
     endDateTime,
-    nx: String(weatherNx),
-    ny: String(weatherNy),
+    nx: String(nx),
+    ny: String(ny),
   };
   const queryString = new URLSearchParams(params).toString();
 
