@@ -2,103 +2,62 @@ const xlsx = require('xlsx');
 const fs = require('fs');
 
 /**
- * @desc 경기도 수원시장안구 → 경기도 수원시 장안구
- * @desc 경기도 안양시만안구 → 경기도 안양시 만안구
- */
-function transformRegionName(regionName) {
-  return regionName.replace(/(\S+시)(\S+)/, '$1 $2');
-}
-
-/**
  * 파일 생성 명령어: pnpm region
- *
- * 위경도 엑셀 파일은 아래 링크의 참고 문서에서 가져왔습니다.
- * script 폴더에 '위경도.xlsx' 파일을 넣어주세요.
- * @link https://www.data.go.kr/data/15084084/openapi.do
- *
- * 기상청 좌표 파일은 아래 링크의 csv파일을 변환했습니다.
- * scrirpt 폴더에 '기상청좌표.xlsx' 파일을 넣어주세요.
- * @link https://github.com/FashionForecast/FashionForecast-server/blob/develop/src/main/resources/national_forecast_regions.csv
+ * 지역 위경도 파일 생성 스크립트
  */
 
 const workbook = xlsx.readFile('./script/위경도.xlsx');
 const sheetName = workbook.SheetNames[0];
 const sheet = workbook.Sheets[sheetName];
 
-console.log('지역 실제 좌표 엑셀 데이터 변환중...');
-
 const data = xlsx.utils.sheet_to_json(sheet);
-const localCoordinates = [];
+const regionList = [];
+const regionCoordinateList = {};
 
 for (const v of data) {
-  if (!v['2단계'] || v['3단계']) continue;
+  let regionName = `${v['city']} ${v['district']}`;
 
-  const regionName = transformRegionName(`${v['1단계']} ${v['2단계']}`);
+  if (v['neighborhood'] !== 'NONE') {
+    regionName = `${regionName} ${v['neighborhood']}`;
+  }
 
-  const region = {
+  // regionList.json 파일 데이터
+  regionList.push({
     region: regionName,
-    nx: Number(v['위도(초/100)']),
-    ny: Number(v['경도(초/100)']),
-  };
+    nx: Number(v['latitude']),
+    ny: Number(v['longitude']),
+  });
 
-  localCoordinates.push(region);
-}
-
-console.log('actualRegionCoordinates.json 파일 생성중...');
-
-const regionJson = JSON.stringify(localCoordinates, null, 2);
-
-fs.writeFile(
-  './src/assets/actualRegionCoordinates.json',
-  regionJson,
-  'utf-8',
-  (err) => {
-    if (err) {
-      console.error('파일 생성 중 오류 발생: ', err);
-      return;
-    }
-
-    console.log('actualRegionCoordinates.json 파일이 생성되었습니다.');
-  }
-);
-
-console.log('기상청 지역 좌표 엑셀 데이터 변환중...');
-
-const weatherWorkbook = xlsx.readFile('./script/기상청좌표.xlsx');
-const weatherSheetName = weatherWorkbook.SheetNames[0];
-const weathersheet = weatherWorkbook.Sheets[weatherSheetName];
-
-const weatherData = xlsx.utils.sheet_to_json(weathersheet);
-
-const weatherCoordinateList = {};
-
-for (const v of weatherData) {
-  if (!v['district'] || v['neighborhood']) continue;
-
-  const regionName = transformRegionName(`${v['city']} ${v['district']}`);
-
-  weatherCoordinateList[regionName] = {
-    weatherNx: v['nx'],
-    weatherNy: v['ny'],
+  // regionCoordinateList.ts 파일 데이터
+  regionCoordinateList[regionName] = {
+    nx: Number(v['latitude']),
+    ny: Number(v['longitude']),
   };
 }
 
-localCoordinates.forEach((v) => {
-  if (!weatherCoordinateList[v.region]) {
-    throw Error(`${v.region}이 존재하지 않습니다. 확인해주세요.`);
+console.log('regionList.json 파일 생성중...');
+
+const regionListFile = JSON.stringify(regionList, null, 2);
+
+fs.writeFile('./src/assets/regionList.json', regionListFile, 'utf-8', (err) => {
+  if (err) {
+    console.error('파일 생성 중 오류 발생: ', err);
+    return;
   }
+
+  console.log('regionList.json 파일이 생성되었습니다.');
 });
 
-console.log('meteorologicalRegionCoordinates.ts 파일 생성중...');
+console.log('regionCoordinateList.ts 파일 생성중...');
 
-const listJson = JSON.stringify(weatherCoordinateList, null, 2);
-const listContent = `const weatherCoordinateList: Record<
+const listJson = JSON.stringify(regionCoordinateList, null, 2);
+const listContent = `const regionCoordinateList: Record<
   string,
-  { weatherNx: number; weatherNy: number }
-> = ${listJson}\n export default weatherCoordinateList`;
+  { nx: number; ny: number }
+> = ${listJson}\n export default regionCoordinateList`;
 
 fs.writeFile(
-  './src/assets/meteorologicalRegionCoordinates.ts',
+  './src/assets/regionCoordinateList.ts',
   listContent,
   'utf-8',
   (err) => {
@@ -107,6 +66,6 @@ fs.writeFile(
       return;
     }
 
-    console.log('meteorologicalRegionCoordinates.ts 파일이 생성되었습니다.');
+    console.log('regionCoordinateList.ts 파일이 생성되었습니다.');
   }
 );
