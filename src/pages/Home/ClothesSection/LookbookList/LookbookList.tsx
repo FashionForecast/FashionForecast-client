@@ -32,12 +32,7 @@ const LookbookList = ({
   const navigate = useNavigate();
 
   const handleLookbookItemClick = (outfit?: MemberLookbook) => () => {
-    let type = Number(weatherType);
-
-    if (tempCondition === 'COOL') type = type - 1;
-    else if (tempCondition === 'WARM') type = type + 1;
-
-    navigate(`/user/lookbook/create?type=${type}`, {
+    navigate(`/user/lookbook/create?type=${weatherType}`, {
       state: {
         outfit,
         referrer: `/?tab=lookbook&option=${tempCondition}`,
