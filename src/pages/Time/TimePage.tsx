@@ -3,6 +3,7 @@ import { S } from './TimePage.style';
 import { useCallback, useEffect, useState } from 'react';
 import SelectedRange from './SelectedRange/SelectedRange';
 import ClockSegment from './Segment';
+import PieChart24Sections from './PieChart24Sections/PieChart24Sections';
 
 export type Time = {
   startTime: string;
@@ -50,7 +51,6 @@ const TimePage = () => {
     if (!isDragging) return;
 
     setFocusedTimeInex(currentTimeIndex);
-
     setTimeRange(calcTimeRange(startTimeIndex, currentTimeIndex));
   };
 
@@ -143,6 +143,12 @@ const TimePage = () => {
               strokeLinecap='round'
             />
           )}
+
+          <PieChart24Sections
+            handlePointerMove={handlePointerMove}
+            handlePointerDown={handlePointerDown}
+            handleDelete={handleDelete}
+          />
 
           {TIME_LIST.map((time, i) => {
             const [AMPM, hour] = time.split(' ');
