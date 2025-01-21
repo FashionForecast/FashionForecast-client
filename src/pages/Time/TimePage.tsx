@@ -1,6 +1,6 @@
 import { TIME_LIST } from '@/constants/timeList';
 import { S } from './TimePage.style';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import SelectedRange from './SelectedRange/SelectedRange';
 import ClockSegment from './Segment';
 
@@ -14,29 +14,28 @@ const TimePage = () => {
   const [times, setTimes] = useState<Time[]>([]);
   const [startTimeIndex, setStartTimeIndex] = useState<number>(0);
   const [timeRange, setTimeRange] = useState(0);
-  const focusedTimeIndexRef = useRef<null | number>(0); // 포커스중인 시간의 인덱스
+  const [focusedTimeIndex, setFocusedTimeInex] = useState<null | number>(0); // 포커스중인 시간의 인덱스
   const [isDragging, setIsDragging] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState<null | number>(null);
   const timeRangeDegree = calcTimeRangeDegree(startTimeIndex); // TimeRange 각도
   const centerX = 0; // 시계 중심 X 좌표
   const centerY = 0; // 시계 중심 Y 좌표
   const radius = 120; // 시계 반지름
-  const deleteIndexRef = useRef<null | number>(null);
 
   const handlePointerDown = (startIndex: number) => {
-    deleteIndexRef.current = null;
+    setDeleteIndex(null);
     const matchingIndex = times.findIndex((time) =>
       time.indexes.includes(startIndex)
     );
 
     if (matchingIndex >= 0) {
-      deleteIndexRef.current = matchingIndex;
+      setDeleteIndex(matchingIndex);
       return;
     }
 
     setIsDragging(true);
-    // isdragging.current = true;
     setStartTimeIndex(startIndex);
-    focusedTimeIndexRef.current = startIndex;
+    setFocusedTimeInex(startIndex);
     setTimeRange(0);
     setTimes((prev) => [
       ...prev,
@@ -50,7 +49,7 @@ const TimePage = () => {
   const handlePointerMove = (currentTimeIndex: number) => {
     if (!isDragging) return;
 
-    focusedTimeIndexRef.current = currentTimeIndex;
+    setFocusedTimeInex(currentTimeIndex);
 
     setTimeRange(calcTimeRange(startTimeIndex, currentTimeIndex));
   };
@@ -58,20 +57,8 @@ const TimePage = () => {
   const handlePointerEnd = useCallback(() => {
     setIsDragging(false);
 
-    const focusedTimeIndex = focusedTimeIndexRef.current;
-    console.log(
-      'END',
-      'focusedTimeIndex',
-      focusedTimeIndex,
-      'deleteIndex',
-      deleteIndexRef.current
-    );
-
     // 유효한 focusedTimeIndex가 있고, 삭제 작업이 없을 경우에만 실행
-    if (
-      typeof focusedTimeIndex === 'number' &&
-      deleteIndexRef.current === null
-    ) {
+    if (typeof focusedTimeIndex === 'number' && deleteIndex === null) {
       // 상태 업데이트를 병합하여 중복된 setTimes 호출 제거
       setTimes((prev) => {
         const updatedTimes = prev.map((time, i) => {
@@ -90,17 +77,16 @@ const TimePage = () => {
       });
     }
 
-    focusedTimeIndexRef.current = null;
-  }, [startTimeIndex]);
+    setFocusedTimeInex(null);
+  }, [deleteIndex, focusedTimeIndex, startTimeIndex]);
 
   const handleDelete = () => {
-    const deleteIndex = deleteIndexRef.current;
     if (deleteIndex === null) return;
 
     if (deleteIndex >= 0) {
       setTimes((prev) => prev.filter((_, i) => i !== deleteIndex));
-      deleteIndexRef.current = null;
-      focusedTimeIndexRef.current = null;
+      setDeleteIndex(null);
+      setFocusedTimeInex(null);
     }
   };
 
