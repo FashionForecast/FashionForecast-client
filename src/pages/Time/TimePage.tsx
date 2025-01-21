@@ -12,10 +12,10 @@ export type Time = {
 
 const TimePage = () => {
   const [times, setTimes] = useState<Time[]>([]);
-  const [startTimeIndex, setStartTimeIndex] = useState(0);
+  const [startTimeIndex, setStartTimeIndex] = useState<number>(0);
   const [timeRange, setTimeRange] = useState(0);
   const focusedTimeIndexRef = useRef<null | number>(0); // 포커스중인 시간의 인덱스
-  const isdragging = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
   const timeRangeDegree = calcTimeRangeDegree(startTimeIndex); // TimeRange 각도
   const centerX = 0; // 시계 중심 X 좌표
   const centerY = 0; // 시계 중심 Y 좌표
@@ -23,6 +23,7 @@ const TimePage = () => {
   const deleteIndexRef = useRef<null | number>(null);
 
   const handlePointerDown = (startIndex: number) => {
+    deleteIndexRef.current = null;
     const matchingIndex = times.findIndex((time) =>
       time.indexes.includes(startIndex)
     );
@@ -32,7 +33,8 @@ const TimePage = () => {
       return;
     }
 
-    isdragging.current = true;
+    setIsDragging(true);
+    // isdragging.current = true;
     setStartTimeIndex(startIndex);
     focusedTimeIndexRef.current = startIndex;
     setTimeRange(0);
@@ -46,7 +48,7 @@ const TimePage = () => {
     ]);
   };
   const handlePointerMove = (currentTimeIndex: number) => {
-    if (!isdragging.current) return;
+    if (!isDragging) return;
 
     focusedTimeIndexRef.current = currentTimeIndex;
 
@@ -54,9 +56,16 @@ const TimePage = () => {
   };
 
   const handlePointerEnd = useCallback(() => {
-    isdragging.current = false;
+    setIsDragging(false);
 
     const focusedTimeIndex = focusedTimeIndexRef.current;
+    console.log(
+      'END',
+      'focusedTimeIndex',
+      focusedTimeIndex,
+      'deleteIndex',
+      deleteIndexRef.current
+    );
 
     // 유효한 focusedTimeIndex가 있고, 삭제 작업이 없을 경우에만 실행
     if (
@@ -135,7 +144,7 @@ const TimePage = () => {
             (time, i) => time.endTime && <SelectedRange key={i} time={time} />
           )}
 
-          {isdragging.current && (
+          {isDragging && (
             <S.TimeRange
               $degree={timeRangeDegree}
               $range={timeRange}
@@ -143,7 +152,7 @@ const TimePage = () => {
               cy={'0'}
               r={'144'}
               fill='transparent'
-              stroke='rgba(199, 219, 83, 0.6)'
+              stroke='rgba(5, 88, 83, 0.6)'
               strokeWidth={40}
               strokeLinecap='round'
             />
