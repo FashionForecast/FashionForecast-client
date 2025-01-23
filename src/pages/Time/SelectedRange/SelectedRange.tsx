@@ -26,7 +26,7 @@ const SelectedRange = ({ time }: SelectedRangeProps) => {
       cy={'0'}
       r={'144'}
       fill='transparent'
-      stroke='rgba(199, 219, 83, 0.6)'
+      stroke='#627384'
       strokeWidth={40}
       strokeLinecap='round'
     />

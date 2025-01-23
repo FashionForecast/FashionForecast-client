@@ -1,9 +1,8 @@
 import { TIME_LIST } from '@/constants/timeList';
 import { S } from './TimePage.style';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import SelectedRange from './SelectedRange/SelectedRange';
-import ClockSegment from './Segment';
-import PieChart24Sections from './PieChart24Sections/PieChart24Sections';
+import HourSections from './HourSections/HourSections';
 
 export type Time = {
   startTime: string;
@@ -19,9 +18,7 @@ const TimePage = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState<null | number>(null);
   const timeRangeDegree = calcTimeRangeDegree(startTimeIndex); // TimeRange 각도
-  const centerX = 0; // 시계 중심 X 좌표
-  const centerY = 0; // 시계 중심 Y 좌표
-  const radius = 120; // 시계 반지름
+  const visibleTimeText = useMemo(() => findVisibleTimeText(times), [times]);
 
   const handlePointerDown = (startIndex: number) => {
     setDeleteIndex(null);
@@ -100,8 +97,6 @@ const TimePage = () => {
 
   return (
     <div>
-      <ClockSegment startHour={5} endHour={9} />
-
       <S.Clock>
         <S.ClockFace width={'328'} height={'328'} viewBox='-164 -164 328 328'>
           <circle
@@ -144,40 +139,12 @@ const TimePage = () => {
             />
           )}
 
-          <PieChart24Sections
+          <HourSections
+            visibleTimeText={visibleTimeText}
             handlePointerMove={handlePointerMove}
             handlePointerDown={handlePointerDown}
             handleDelete={handleDelete}
           />
-
-          {TIME_LIST.map((time, i) => {
-            const [AMPM, hour] = time.split(' ');
-            const angle = -90 + i * 15; // 각도 계산
-            const x =
-              centerX + (radius + 26) * Math.cos((angle * Math.PI) / 180); // 숫자는 원 바깥쪽에
-            const y =
-              centerY + (radius + 26) * Math.sin((angle * Math.PI) / 180);
-
-            return (
-              <S.HourText
-                key={time}
-                x={x}
-                y={y}
-                textAnchor='middle'
-                fill='#333'
-                onPointerDown={() => handlePointerDown(i)}
-                onPointerMove={() => handlePointerMove(i)}
-                onClick={handleDelete}
-              >
-                <tspan x={x} dy={-2}>
-                  {AMPM}
-                </tspan>
-                <tspan x={x} dy={12}>
-                  {hour}
-                </tspan>
-              </S.HourText>
-            );
-          })}
         </S.ClockFace>
       </S.Clock>
     </div>
@@ -259,23 +226,12 @@ function mergeOverlappingRanges(times: Time[], startIndex: number) {
   return list;
 }
 
-/**
- * 두 배열에서 겹치는 요소가 있는지 확인
- * @param {number[]} arr1 - 첫 번째 배열
- * @param {number[]} arr2 - 두 번째 배열
- * @returns {boolean} - 겹치는 요소가 있으면 true, 없으면 false
- */
+/** 두 배열에서 겹치는 요소가 있는지 확인 */
 function hasOverlap(arr1: number[], arr2: number[]) {
   return arr1.some((item) => arr2.includes(item));
 }
 
-/**
- * 두 `indexes` 배열을 병합하고 필요한 시간 계산
- * @param {number[]} indexes1 - 첫 번째 indexes 배열
- * @param {number[]} indexes2 - 두 번째 indexes 배열
- * @param {number} startIndex - 시작 인덱스
- * @returns {number[]} - 병합된 indexes 배열
- */
+/** 두 `indexes` 배열을 병합하고 필요한 시간 계산 */
 function mergeIndexes(
   indexes1: number[],
   indexes2: number[],
@@ -295,3 +251,23 @@ function mergeIndexes(
     isTomorrow ? endIndex - 1 : combined.at(-1)!
   );
 }
+
+// 시간 텍스트의 visible 범위 계산
+const findVisibleTimeText = (times: Time[]): [number[], number[]] => {
+  const allIndexes = new Set();
+  const bothEnds: number[] = []; // 각 범위의 양 끝단
+
+  times.forEach((time) => {
+    bothEnds.push(time.indexes[0], time.indexes.at(-1) as number);
+    time.indexes.forEach((index) => {
+      allIndexes.add(index);
+    });
+  });
+
+  // 3의 배수이면서 사용자가 선택하지 않은 시간대의 텍스트
+  const alwaysVisible = Array.from({ length: 24 }, (_, i) => i).filter(
+    (index) => index % 3 === 0 && !allIndexes.has(index)
+  );
+
+  return [alwaysVisible, bothEnds];
+};

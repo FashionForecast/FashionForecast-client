@@ -3,12 +3,14 @@ import SectionArea from './SectionArea/SectionArea';
 import SectionText from './SectionText/SectionText';
 
 type HourSectionsProps = {
+  visibleTimeText: [number[], number[]];
   handlePointerDown: (index: number) => void;
   handlePointerMove: (index: number) => void;
   handleDelete: () => void;
 };
 
 const HourSections = ({
+  visibleTimeText,
   handlePointerDown,
   handlePointerMove,
   handleDelete,
@@ -51,7 +53,13 @@ const HourSections = ({
         ))}
       </g>
       {TIME_LIST.map((time, i) => (
-        <SectionText key={time} time={time} index={i} center={center} />
+        <SectionText
+          key={time}
+          time={time}
+          index={i}
+          center={center}
+          visibleTimeText={visibleTimeText}
+        />
       ))}
     </svg>
   );

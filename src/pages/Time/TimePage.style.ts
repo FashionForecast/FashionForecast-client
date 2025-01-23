@@ -16,15 +16,6 @@ const ClockFace = styled.svg`
   background-color: aqua;
 `;
 
-const HourText = styled.text`
-  font-size: 10px;
-  line-height: 14px;
-  letter-spacing: 0.46px;
-  pointer-events: none;
-  touch-action: none;
-  user-select: none;
-`;
-
 const TimeRange = styled.circle<{ $degree: number; $range: number }>`
   stroke-dasharray: 910;
   stroke-dashoffset: calc(
@@ -34,4 +25,4 @@ const TimeRange = styled.circle<{ $degree: number; $range: number }>`
   transform: rotate(${({ $degree }) => `${$degree}deg`}); /* -90deg 오전00사 */
 `;
 
-export const S = { Clock, ClockFace, HourText, TimeRange };
+export const S = { Clock, ClockFace, TimeRange };
