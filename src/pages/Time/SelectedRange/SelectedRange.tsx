@@ -41,10 +41,11 @@ const SelectedRange = ({ time }: SelectedRangeProps) => {
 export default SelectedRange;
 
 function calculatePath(start: number, end: number) {
-  if (Math.abs(start - end) <= 1) return;
+  if (start === end) return;
 
   const radius = 144;
   const center = 0;
+  const timeDiff = (end - start + 24) % 24;
 
   // -90도: 오전 0시
   const startAngle = start * 15 - 90 + 9;
@@ -55,7 +56,7 @@ function calculatePath(start: number, end: number) {
   const endX = center + radius * Math.cos((Math.PI / 180) * endAngle);
   const endY = center + radius * Math.sin((Math.PI / 180) * endAngle);
 
-  const largeArcFlag = end - start > 12 ? 1 : 0;
+  const largeArcFlag = timeDiff > 12 ? 1 : 0;
 
   return `M ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
 }
