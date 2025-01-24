@@ -13,7 +13,6 @@ const Clock = styled.div`
 
 const ClockFace = styled.svg`
   user-select: none;
-  background-color: aqua;
 `;
 
 const TimeRange = styled.circle<{ $degree: number; $range: number }>`

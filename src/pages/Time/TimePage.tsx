@@ -103,8 +103,8 @@ const TimePage = () => {
             cx={'0'}
             cy={'0'}
             r={'144'}
-            fill='transparent'
-            stroke='black'
+            fill='none'
+            stroke='#CED5DF'
             strokeWidth={4}
             pathLength={8}
             strokeDasharray={'0.7 0.3'}
@@ -114,8 +114,8 @@ const TimePage = () => {
             cx={'0'}
             cy={'0'}
             r={'144'}
-            fill='transparent'
-            stroke='red'
+            fill='none'
+            stroke='#95A7BA'
             strokeWidth={20}
             pathLength={24}
             strokeDasharray={'0 1 0.05 0.95 0.05 0.95'}
@@ -133,7 +133,7 @@ const TimePage = () => {
               cy={'0'}
               r={'144'}
               fill='transparent'
-              stroke='rgba(5, 88, 83, 0.6)'
+              stroke='rgba(149, 167, 186, 0.6)'
               strokeWidth={40}
               strokeLinecap='round'
             />
