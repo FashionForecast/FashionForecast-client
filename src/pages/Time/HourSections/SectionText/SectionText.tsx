@@ -5,6 +5,7 @@ type SectionTextProps = {
   index: number;
   center: number;
   visibleTimeText: [number[], number[]];
+  focusedTimeIndex: number | null;
 };
 
 const SectionText = ({
@@ -12,6 +13,7 @@ const SectionText = ({
   index,
   center,
   visibleTimeText,
+  focusedTimeIndex,
 }: SectionTextProps) => {
   const [AMPM, hour] = time.split(' ');
   const radius = 144;
@@ -19,7 +21,7 @@ const SectionText = ({
   const x = center + radius * Math.cos((angle * Math.PI) / 180); // 숫자는 원 바깥쪽에
   const y = center + radius * Math.sin((angle * Math.PI) / 180);
   const [always, bothEnds] = visibleTimeText;
-  const isHighlight = bothEnds.includes(index);
+  const isHighlight = bothEnds.includes(index) || focusedTimeIndex === index;
   const isVisibleText = isHighlight || always.includes(index);
 
   return (

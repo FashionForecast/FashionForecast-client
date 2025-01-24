@@ -4,6 +4,7 @@ import SectionText from './SectionText/SectionText';
 
 type HourSectionsProps = {
   visibleTimeText: [number[], number[]];
+  focusedTimeIndex: number | null;
   handlePointerDown: (index: number) => void;
   handlePointerMove: (index: number) => void;
   handleDelete: () => void;
@@ -11,6 +12,7 @@ type HourSectionsProps = {
 
 const HourSections = ({
   visibleTimeText,
+  focusedTimeIndex,
   handlePointerDown,
   handlePointerMove,
   handleDelete,
@@ -59,6 +61,7 @@ const HourSections = ({
           index={i}
           center={center}
           visibleTimeText={visibleTimeText}
+          focusedTimeIndex={focusedTimeIndex}
         />
       ))}
     </svg>

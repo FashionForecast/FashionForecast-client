@@ -14,7 +14,7 @@ const TimePage = () => {
   const [times, setTimes] = useState<Time[]>([]);
   const [startTimeIndex, setStartTimeIndex] = useState<number>(0);
   const [timeRange, setTimeRange] = useState(0);
-  const [focusedTimeIndex, setFocusedTimeInex] = useState<null | number>(0); // 포커스중인 시간의 인덱스
+  const [focusedTimeIndex, setFocusedTimeInex] = useState<null | number>(null); // 포커스중인 시간의 인덱스
   const [isDragging, setIsDragging] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState<null | number>(null);
   const timeRangeDegree = calcTimeRangeDegree(startTimeIndex); // TimeRange 각도
@@ -141,6 +141,7 @@ const TimePage = () => {
 
           <HourSections
             visibleTimeText={visibleTimeText}
+            focusedTimeIndex={focusedTimeIndex}
             handlePointerMove={handlePointerMove}
             handlePointerDown={handlePointerDown}
             handleDelete={handleDelete}
