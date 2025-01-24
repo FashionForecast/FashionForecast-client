@@ -8,6 +8,7 @@ export type Time = {
   startTime: string;
   endTime: string | null;
   indexes: number[];
+  isTomorrow?: boolean;
 };
 
 const TimePage = () => {
@@ -19,6 +20,7 @@ const TimePage = () => {
   const [deleteIndex, setDeleteIndex] = useState<null | number>(null);
   const timeRangeDegree = calcTimeRangeDegree(startTimeIndex); // TimeRange 각도
   const visibleTimeText = useMemo(() => findVisibleTimeText(times), [times]);
+  const tomorrowTime = times.find((v) => v.isTomorrow);
 
   const handlePointerDown = (startIndex: number) => {
     setDeleteIndex(null);
@@ -141,6 +143,8 @@ const TimePage = () => {
 
           <HourSections
             visibleTimeText={visibleTimeText}
+            tomorrowTime={tomorrowTime}
+            startTimeIndex={startTimeIndex}
             focusedTimeIndex={focusedTimeIndex}
             handlePointerMove={handlePointerMove}
             handlePointerDown={handlePointerDown}
@@ -224,7 +228,23 @@ function mergeOverlappingRanges(times: Time[], startIndex: number) {
     }
   }
 
-  return list;
+  // 시작시간을 기준으로 오름차순 정렬
+  const sorted = list.sort((a, b) => a.indexes[0] - b.indexes[0]);
+  const lastIndexes = sorted.at(-1)?.indexes;
+
+  // 마지막 시간대가 내일 여부 판별
+  if (
+    startIndex !== 0 &&
+    lastIndexes?.includes(0) &&
+    lastIndexes?.includes(23)
+  ) {
+    sorted[sorted.length - 1] = {
+      ...sorted[sorted.length - 1],
+      isTomorrow: true,
+    };
+  }
+
+  return sorted;
 }
 
 /** 두 배열에서 겹치는 요소가 있는지 확인 */

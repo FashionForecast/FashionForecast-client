@@ -5,7 +5,9 @@ type SectionTextProps = {
   index: number;
   center: number;
   visibleTimeText: [number[], number[]];
+  startTimeIndex: number;
   focusedTimeIndex: number | null;
+  tommrowIndexes: number[];
 };
 
 const SectionText = ({
@@ -13,7 +15,9 @@ const SectionText = ({
   index,
   center,
   visibleTimeText,
+  startTimeIndex,
   focusedTimeIndex,
+  tommrowIndexes,
 }: SectionTextProps) => {
   const [AMPM, hour] = time.split(' ');
   const radius = 144;
@@ -23,6 +27,12 @@ const SectionText = ({
   const [always, bothEnds] = visibleTimeText;
   const isHighlight = bothEnds.includes(index) || focusedTimeIndex === index;
   const isVisibleText = isHighlight || always.includes(index);
+  const isTommrow = isTommorrowText(
+    startTimeIndex,
+    focusedTimeIndex,
+    index,
+    tommrowIndexes
+  );
 
   return (
     <S.HourText
@@ -34,7 +44,7 @@ const SectionText = ({
       $isHighlight={isHighlight}
     >
       <tspan x={x} dy={-2}>
-        {AMPM}
+        {isTommrow ? '내일' : AMPM}
       </tspan>
       <tspan x={x} dy={12}>
         {hour}
@@ -44,3 +54,17 @@ const SectionText = ({
 };
 
 export default SectionText;
+
+const isTommorrowText = (
+  startIndex: number,
+  focuseIndex: number | null,
+  sectionIndex: number,
+  tommorrowIndexes: number[]
+) => {
+  const isDraggingStatus =
+    focuseIndex !== null &&
+    startIndex - focuseIndex > 0 &&
+    focuseIndex >= sectionIndex;
+
+  return isDraggingStatus || tommorrowIndexes.includes(sectionIndex);
+};

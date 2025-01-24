@@ -1,9 +1,12 @@
 import { TIME_LIST } from '@/constants/timeList';
 import SectionArea from './SectionArea/SectionArea';
 import SectionText from './SectionText/SectionText';
+import { Time } from '../TimePage';
 
 type HourSectionsProps = {
   visibleTimeText: [number[], number[]];
+  tomorrowTime?: Time;
+  startTimeIndex: number;
   focusedTimeIndex: number | null;
   handlePointerDown: (index: number) => void;
   handlePointerMove: (index: number) => void;
@@ -12,12 +15,18 @@ type HourSectionsProps = {
 
 const HourSections = ({
   visibleTimeText,
+  tomorrowTime,
+  startTimeIndex,
   focusedTimeIndex,
   handlePointerDown,
   handlePointerMove,
   handleDelete,
 }: HourSectionsProps) => {
   const center = 170; // SVG 중심 좌표 (x, y)
+  const tommrowIndexes =
+    tomorrowTime?.indexes.slice(
+      tomorrowTime.indexes.findIndex((i) => i === 0)
+    ) || [];
 
   const handlePointerMoveEvent = (event: React.PointerEvent) => {
     const { clientX, clientY } = event; // 포인터 위치 가져오기
@@ -61,7 +70,9 @@ const HourSections = ({
           index={i}
           center={center}
           visibleTimeText={visibleTimeText}
+          startTimeIndex={startTimeIndex}
           focusedTimeIndex={focusedTimeIndex}
+          tommrowIndexes={tommrowIndexes}
         />
       ))}
     </svg>
