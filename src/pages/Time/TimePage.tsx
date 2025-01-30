@@ -28,7 +28,10 @@ const TimePage = () => {
   const [timeToRemove, setTimeToRemove] = useState<null | number>(null);
   const [dragRangeStatus, setDragRangeStatus] =
     useState<DragRangeStatus>('today');
-  const visibleTimeText = useMemo(() => findVisibleTimeText(times), [times]);
+  const visibleTimeText = useMemo(
+    () => findVisibleTimeText(times, startTime, focusingTime),
+    [focusingTime, startTime, times]
+  );
   const tomorrowTime = times.find((v) => v.isTomorrow);
 
   const handlePointerDown = (startIndex: number) => {
@@ -259,9 +262,21 @@ function mergeIndexes(
 }
 
 // 시간 텍스트의 visible 범위 계산
-const findVisibleTimeText = (times: Time[]): [number[], number[]] => {
+const findVisibleTimeText = (
+  times: Time[],
+  start: number,
+  focusing: number | null
+): [number[], number[]] => {
   const allIndexes = new Set();
   const bothEnds: number[] = []; // 각 범위의 양 끝단
+
+  if (typeof focusing === 'number') {
+    const draggingIndexes = updateTimeIndexArray(start, focusing);
+
+    draggingIndexes.forEach((index) => {
+      allIndexes.add(index);
+    });
+  }
 
   times.forEach((time) => {
     bothEnds.push(time.indexes[0], time.indexes.at(-1) as number);
@@ -271,9 +286,12 @@ const findVisibleTimeText = (times: Time[]): [number[], number[]] => {
   });
 
   // 3의 배수이면서 사용자가 선택하지 않은 시간대의 텍스트
-  const alwaysVisible = Array.from({ length: 24 }, (_, i) => i).filter(
-    (index) => index % 3 === 0 && !allIndexes.has(index)
-  );
+  const alwaysVisible = [];
+  for (let i = 0; i < 24; i += 3) {
+    if (!allIndexes.has(i)) {
+      alwaysVisible.push(i);
+    }
+  }
 
   return [alwaysVisible, bothEnds];
 };
