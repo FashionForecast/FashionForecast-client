@@ -1,5 +1,5 @@
 import { TIME_LIST } from '@/constants/timeList';
-import { S } from './TimePage.style';
+import { S, C } from './TimePage.style';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import HourSections from './HourSections/HourSections';
 import TimeRanges from './TimeRanges/TimeRanges';
@@ -96,6 +96,10 @@ const TimePage = () => {
     }
   };
 
+  const handleDeleteButtonClick = () => {
+    setTimes([]);
+  };
+
   useEffect(() => {
     window.addEventListener('pointerup', handlePointerEnd);
 
@@ -154,6 +158,26 @@ const TimePage = () => {
             handleDelete={handleDelete}
           />
         </S.ClockFace>
+
+        <S.PhraseWrap>
+          {times.length === 0 && (
+            <div>
+              <S.DefaultPhrase>
+                가장 먼저 외출하는 <br />
+                시간부터 지정하세요.
+              </S.DefaultPhrase>
+            </div>
+          )}
+
+          {times.length > 0 && (
+            <S.CountingPhraseWrap>
+              <p>개수 상관없이 마음껏 지정하세요.</p>
+              <C.DeleteButton onClick={handleDeleteButtonClick}>
+                모두 지우기
+              </C.DeleteButton>
+            </S.CountingPhraseWrap>
+          )}
+        </S.PhraseWrap>
       </S.Clock>
     </div>
   );
