@@ -148,6 +148,7 @@ const TimePage = () => {
             startTimeIndex={startTime}
             focusedTimeIndex={focusingTime}
             isDragging={isDragging}
+            dragRangeStatus={dragRangeStatus}
             handlePointerMove={handlePointerMove}
             handlePointerDown={handlePointerDown}
             handleDelete={handleDelete}

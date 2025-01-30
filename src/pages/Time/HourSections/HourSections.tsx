@@ -1,13 +1,16 @@
 import { TIME_LIST } from '@/constants/timeList';
 import SectionArea from './SectionArea/SectionArea';
 import SectionText from './SectionText/SectionText';
-import { Time } from '../TimePage';
+import { DragRangeStatus, Time } from '../TimePage';
+import { useEffect, useState } from 'react';
 
 type HourSectionsProps = {
   visibleTimeText: [number[], number[]];
   tomorrowTime?: Time;
   startTimeIndex: number;
   focusedTimeIndex: number | null;
+  isDragging: boolean;
+  dragRangeStatus: DragRangeStatus;
   handlePointerDown: (index: number) => void;
   handlePointerMove: (index: number) => void;
   handleDelete: () => void;
@@ -18,10 +21,13 @@ const HourSections = ({
   tomorrowTime,
   startTimeIndex,
   focusedTimeIndex,
+  isDragging,
+  dragRangeStatus,
   handlePointerDown,
   handlePointerMove,
   handleDelete,
 }: HourSectionsProps) => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const center = 170; // SVG 중심 좌표 (x, y)
   const tommrowIndexes =
     tomorrowTime?.indexes.slice(
@@ -41,6 +47,12 @@ const HourSections = ({
     }
   };
 
+  useEffect(() => {
+    const hasTouchSupport =
+      'maxTouchPoints' in navigator && navigator.maxTouchPoints > 0;
+    setIsTouchDevice(hasTouchSupport);
+  }, []);
+
   return (
     <svg
       x={-170}
@@ -49,6 +61,7 @@ const HourSections = ({
       height={center * 2}
       viewBox={`0 0 ${center * 2} ${center * 2}`}
       onPointerMove={handlePointerMoveEvent}
+      fill='hotpink'
     >
       {/* -7도 회전 */}
       <g transform={`rotate(-7, ${center}, ${center})`}>
@@ -73,6 +86,9 @@ const HourSections = ({
           startTimeIndex={startTimeIndex}
           focusedTimeIndex={focusedTimeIndex}
           tommrowIndexes={tommrowIndexes}
+          isDragging={isDragging}
+          isTouchDevice={isTouchDevice}
+          dragRangeStatus={dragRangeStatus}
         />
       ))}
     </svg>

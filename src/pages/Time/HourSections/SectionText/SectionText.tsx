@@ -1,3 +1,4 @@
+import { DragRangeStatus, TIME_COLOR } from '../../TimePage';
 import { S } from './SectionText.style';
 
 type SectionTextProps = {
@@ -8,6 +9,9 @@ type SectionTextProps = {
   startTimeIndex: number;
   focusedTimeIndex: number | null;
   tommrowIndexes: number[];
+  isDragging: boolean;
+  isTouchDevice: boolean;
+  dragRangeStatus: DragRangeStatus;
 };
 
 const SectionText = ({
@@ -18,6 +22,9 @@ const SectionText = ({
   startTimeIndex,
   focusedTimeIndex,
   tommrowIndexes,
+  isDragging,
+  isTouchDevice,
+  dragRangeStatus,
 }: SectionTextProps) => {
   const [AMPM, hour] = time.split(' ');
   const radius = 144;
@@ -35,21 +42,32 @@ const SectionText = ({
   );
 
   return (
-    <S.HourText
-      key={time}
-      x={x}
-      y={y}
-      textAnchor='middle'
-      $isVisible={isVisibleText}
-      $isHighlight={isHighlight}
-    >
-      <tspan x={x} dy={-2}>
-        {isTommrow ? '내일' : AMPM}
-      </tspan>
-      <tspan x={x} dy={12}>
-        {hour}
-      </tspan>
-    </S.HourText>
+    <>
+      <S.HourText
+        x={x}
+        y={y}
+        textAnchor='middle'
+        $isVisible={isVisibleText}
+        $isHighlight={isHighlight}
+      >
+        <tspan x={x} dy={-2}>
+          {isTommrow ? '내일' : AMPM}
+        </tspan>
+        <tspan x={x} dy={12}>
+          {hour}
+        </tspan>
+      </S.HourText>
+      {isTouchDevice && isDragging && focusedTimeIndex === index && (
+        <>
+          <S.TooltipForeignObject x={x - 25} y={y - 60}>
+            <S.Tooltip $color={TIME_COLOR[dragRangeStatus]}>
+              <div>{isTommrow ? '내일' : AMPM}</div>
+              <div>{hour}</div>
+            </S.Tooltip>
+          </S.TooltipForeignObject>
+        </>
+      )}
+    </>
   );
 };
 
