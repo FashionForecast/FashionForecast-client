@@ -1,5 +1,53 @@
 import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
+import { DayButtonType } from './TimePage';
+import forwardPropOption from '@/utils/emotionForwardPropOption';
+import { css } from '@emotion/react';
+
+const DayWrap = styled.div`
+  padding: 8px 16px;
+`;
+
+const Heading = styled.h6`
+  ${({ theme }) => theme.typo['subtitle-1']};
+  font-weight: 800;
+`;
+
+const ButtonWrap = styled.div`
+  margin-right: 8px;
+`;
+
+const DayButton = styled(CustomButton, forwardPropOption)<{
+  $type: DayButtonType;
+  $isSelected: boolean;
+}>`
+  width: 60px;
+  min-width: 60px;
+  height: 40px;
+  margin-right: 8px;
+  color: ${({ theme }) => theme.colors.text.primary} !important;
+  background-color: ${({ theme }) => theme.colors.blueGrey[200]} !important;
+  border-radius: 16px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  ${({ $isSelected, $type, theme }) => {
+    if ($isSelected) {
+      return css`
+        color: ${theme.colors.white} !important;
+        background-color: ${theme.colors.primary.main} !important;
+      `;
+    }
+
+    if ($type === '모레') {
+      return css`
+        background-color: ${theme.colors.blue[300]} !important;
+      `;
+    }
+  }}
+`;
 
 const Clock = styled.div`
   position: relative;
@@ -63,8 +111,12 @@ export const S = {
   PhraseWrap,
   DefaultPhrase,
   CountingPhraseWrap,
+  ButtonWrap,
+  Heading,
+  DayWrap,
 };
 
 export const C = {
   DeleteButton,
+  DayButton,
 };

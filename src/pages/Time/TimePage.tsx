@@ -20,12 +20,20 @@ export const TIME_COLOR: Record<DragRangeStatus, string> = {
   error: theme.colors.error.main,
 };
 
+type TimeSelectorDayButton = {
+  type: DayButtonType;
+  text: string;
+  day: string;
+}[];
+export type DayButtonType = '오늘' | '내일' | '모레';
+
 const TimePage = () => {
   const [times, setTimes] = useState<Time[]>([]);
   const [startTime, setStartTime] = useState<number>(0);
   const [focusingTime, setFocusingTime] = useState<null | number>(null); // 포커스중인 시간의 인덱스
   const [isDragging, setIsDragging] = useState(false);
   const [timeToRemove, setTimeToRemove] = useState<null | number>(null);
+  const [day, setDay] = useState<DayButtonType>('오늘');
   const [dragRangeStatus, setDragRangeStatus] =
     useState<DragRangeStatus>('today');
   const visibleTimeText = useMemo(
@@ -33,6 +41,12 @@ const TimePage = () => {
     [focusingTime, startTime, times]
   );
   const tomorrowTime = times.find((v) => v.isTomorrow);
+  const [shortDate, longDate] = getFormattedDate(2);
+  const DAY_BUTTONS: TimeSelectorDayButton = [
+    { type: '오늘', text: '오늘', day: '오늘' },
+    { type: '내일', text: '내일', day: '내일' },
+    { type: '모레', text: shortDate, day: longDate },
+  ];
 
   const handlePointerDown = (startIndex: number) => {
     setTimeToRemove(null);
@@ -100,6 +114,10 @@ const TimePage = () => {
     setTimes([]);
   };
 
+  const handleDayButtonClick = (type: DayButtonType) => () => {
+    setDay(type);
+  };
+
   useEffect(() => {
     window.addEventListener('pointerup', handlePointerEnd);
 
@@ -110,6 +128,21 @@ const TimePage = () => {
 
   return (
     <div>
+      <S.DayWrap>
+        <S.Heading>날짜</S.Heading>
+        <S.ButtonWrap>
+          {DAY_BUTTONS.map((button) => (
+            <C.DayButton
+              key={button.type}
+              $type={button.type}
+              $isSelected={day === button.type}
+              onClick={handleDayButtonClick(button.type)}
+            >
+              {button.text}
+            </C.DayButton>
+          ))}
+        </S.ButtonWrap>
+      </S.DayWrap>
       <S.Clock>
         <S.ClockFace width={'328'} height={'328'} viewBox='-164 -164 328 328'>
           <circle
@@ -321,6 +354,7 @@ const findVisibleTimeText = (
   return [alwaysVisible, bothEnds];
 };
 
+//
 function updateDragRangeStatus(
   startTime: number,
   focusingTime: number,
@@ -355,4 +389,19 @@ const updateTimes = (
       indexes: updateTimeIndexArray(time.indexes[0], endTime),
     };
   });
+};
+
+const getFormattedDate = (daysToAdd: number) => {
+  const today = new Date();
+  const futureDate = new Date(today);
+  futureDate.setDate(today.getDate() + daysToAdd);
+
+  const isSameMonth = today.getMonth() === futureDate.getMonth();
+  const day = futureDate.getDate();
+  const month = futureDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+
+  const shortDate = isSameMonth ? `${day}일` : `${month}/${day}일`;
+  const longDate = `${month}월 ${day}일`;
+
+  return [shortDate, longDate];
 };
