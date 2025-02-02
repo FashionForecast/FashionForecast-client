@@ -5,7 +5,7 @@ import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { css } from '@emotion/react';
 
 const DayWrap = styled.div`
-  padding: 8px 16px;
+  padding: 8px 16px 0;
 `;
 
 const Heading = styled.h6`
@@ -14,7 +14,7 @@ const Heading = styled.h6`
 `;
 
 const ButtonWrap = styled.div`
-  margin-right: 8px;
+  padding: 8px 0;
 `;
 
 const DayButton = styled(CustomButton, forwardPropOption)<{
@@ -25,6 +25,7 @@ const DayButton = styled(CustomButton, forwardPropOption)<{
   min-width: 60px;
   height: 40px;
   margin-right: 8px;
+  font-size: 16px;
   color: ${({ theme }) => theme.colors.text.primary} !important;
   background-color: ${({ theme }) => theme.colors.blueGrey[200]} !important;
   border-radius: 16px;
