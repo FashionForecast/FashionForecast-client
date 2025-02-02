@@ -49,9 +49,16 @@ const DayButton = styled(CustomButton, forwardPropOption)<{
   }}
 `;
 
+const ClockWrap = styled.div`
+  & h6 {
+    padding: 8px 16px 0;
+  }
+`;
+
 const Clock = styled.div`
   position: relative;
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   overscroll-behavior: none;
 
@@ -104,7 +111,15 @@ const DeleteButton = styled(CustomButton)`
   border-radius: 100px;
 `;
 
+const SelectedTimeText = styled.div`
+  ${({ theme }) => theme.typo['subtitle-2']};
+  margin: 24px 0 8px;
+  font-weight: 700;
+  text-align: center;
+`;
+
 export const S = {
+  ClockWrap,
   Clock,
   ClockFace,
   TimeRange,
@@ -114,6 +129,7 @@ export const S = {
   ButtonWrap,
   Heading,
   DayWrap,
+  SelectedTimeText,
 };
 
 export const C = {

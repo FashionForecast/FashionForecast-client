@@ -47,6 +47,7 @@ const TimePage = () => {
     { type: '내일', text: '내일', day: '내일' },
     { type: '모레', text: shortDate, day: longDate },
   ];
+  const selectedTimeText = getSelectedTimeText(day, longDate, times);
 
   const handlePointerDown = (startIndex: number) => {
     setTimeToRemove(null);
@@ -143,75 +144,85 @@ const TimePage = () => {
           ))}
         </S.ButtonWrap>
       </S.DayWrap>
-      <S.Clock>
-        <S.ClockFace width={'328'} height={'328'} viewBox='-164 -164 328 328'>
-          <circle
-            cx={'0'}
-            cy={'0'}
-            r={'144'}
-            fill='none'
-            stroke={
-              dragRangeStatus === 'error'
-                ? '#FFC8C0'
-                : theme.colors.blueGrey[200]
-            }
-            strokeWidth={4}
-            pathLength={8}
-            strokeDasharray={'0.7 0.3'}
-            strokeDashoffset={0.85}
-          />
-          <circle
-            cx={'0'}
-            cy={'0'}
-            r={'144'}
-            fill='none'
-            stroke={theme.colors.blueGrey[400]}
-            strokeWidth={20}
-            pathLength={24}
-            strokeDasharray={'0 1 0.05 0.95 0.05 0.95'}
-          />
+      <S.ClockWrap>
+        <S.Heading>외출시간</S.Heading>
 
-          <TimeRanges
-            times={times}
-            isDragging={isDragging}
-            draggingStartTime={startTime}
-            focussingTime={focusingTime}
-            dragRangeStatus={dragRangeStatus}
-          />
+        <S.Clock>
+          <S.ClockFace width={'328'} height={'328'} viewBox='-164 -164 328 328'>
+            <circle
+              cx={'0'}
+              cy={'0'}
+              r={'144'}
+              fill='none'
+              stroke={
+                dragRangeStatus === 'error'
+                  ? '#FFC8C0'
+                  : theme.colors.blueGrey[200]
+              }
+              strokeWidth={4}
+              pathLength={8}
+              strokeDasharray={'0.7 0.3'}
+              strokeDashoffset={0.85}
+            />
+            <circle
+              cx={'0'}
+              cy={'0'}
+              r={'144'}
+              fill='none'
+              stroke={theme.colors.blueGrey[400]}
+              strokeWidth={20}
+              pathLength={24}
+              strokeDasharray={'0 1 0.05 0.95 0.05 0.95'}
+            />
 
-          <HourSections
-            visibleTimeText={visibleTimeText}
-            tomorrowTime={tomorrowTime}
-            startTimeIndex={startTime}
-            focusedTimeIndex={focusingTime}
-            isDragging={isDragging}
-            dragRangeStatus={dragRangeStatus}
-            handlePointerMove={handlePointerMove}
-            handlePointerDown={handlePointerDown}
-            handleDelete={handleDelete}
-          />
-        </S.ClockFace>
+            <TimeRanges
+              times={times}
+              isDragging={isDragging}
+              draggingStartTime={startTime}
+              focussingTime={focusingTime}
+              dragRangeStatus={dragRangeStatus}
+            />
 
-        <S.PhraseWrap>
-          {times.length === 0 && (
-            <div>
-              <S.DefaultPhrase>
-                가장 먼저 외출하는 <br />
-                시간부터 지정하세요.
-              </S.DefaultPhrase>
-            </div>
-          )}
+            <HourSections
+              visibleTimeText={visibleTimeText}
+              tomorrowTime={tomorrowTime}
+              startTimeIndex={startTime}
+              focusedTimeIndex={focusingTime}
+              isDragging={isDragging}
+              dragRangeStatus={dragRangeStatus}
+              handlePointerMove={handlePointerMove}
+              handlePointerDown={handlePointerDown}
+              handleDelete={handleDelete}
+            />
+          </S.ClockFace>
 
-          {times.length > 0 && (
-            <S.CountingPhraseWrap>
-              <p>개수 상관없이 마음껏 지정하세요.</p>
-              <C.DeleteButton onClick={handleDeleteButtonClick}>
-                모두 지우기
-              </C.DeleteButton>
-            </S.CountingPhraseWrap>
-          )}
-        </S.PhraseWrap>
-      </S.Clock>
+          <S.PhraseWrap>
+            {times.length === 0 && (
+              <div>
+                <S.DefaultPhrase>
+                  가장 먼저 외출하는 <br />
+                  시간부터 지정하세요.
+                </S.DefaultPhrase>
+              </div>
+            )}
+
+            {times.length > 0 && (
+              <S.CountingPhraseWrap>
+                <p>개수 상관없이 마음껏 지정하세요.</p>
+                <C.DeleteButton onClick={handleDeleteButtonClick}>
+                  모두 지우기
+                </C.DeleteButton>
+              </S.CountingPhraseWrap>
+            )}
+          </S.PhraseWrap>
+        </S.Clock>
+
+        {times.length > 0 && (
+          <S.SelectedTimeText>
+            <span>{selectedTimeText}</span>
+          </S.SelectedTimeText>
+        )}
+      </S.ClockWrap>
     </div>
   );
 };
@@ -354,7 +365,6 @@ const findVisibleTimeText = (
   return [alwaysVisible, bothEnds];
 };
 
-//
 function updateDragRangeStatus(
   startTime: number,
   focusingTime: number,
@@ -405,3 +415,36 @@ const getFormattedDate = (daysToAdd: number) => {
 
   return [shortDate, longDate];
 };
+
+// 선택된 시간대 텍스트 생성
+function getSelectedTimeText(
+  day: DayButtonType,
+  longDate: string,
+  times: Time[]
+) {
+  if (times.length === 0 || !times[0].endTime) return '';
+
+  const dayText = day === '모레' ? longDate : day;
+
+  const formatTimeZone = (startTime: string, endTime: string | null) => {
+    if (endTime === null) return '';
+    return `${startTime} - ${endTime.slice(3)}`;
+  };
+
+  const formattedTimes = times.map(({ startTime, endTime }) =>
+    formatTimeZone(startTime, endTime)
+  );
+
+  let timeText = '';
+  if (times.length === 1) {
+    timeText = formattedTimes[0];
+  } else if (times.length === 2) {
+    timeText = formattedTimes.join(', ');
+  } else if (times.length >= 3) {
+    timeText = `${formattedTimes[0]} ··· ${
+      formattedTimes[formattedTimes.length - 1]
+    }`;
+  }
+
+  return `${dayText} ${timeText}`;
+}
