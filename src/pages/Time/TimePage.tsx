@@ -4,12 +4,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import HourSections from './HourSections/HourSections';
 import TimeRanges from './TimeRanges/TimeRanges';
 import { theme } from '@/styles/theme';
+import TimeDivider from './TimeDivider/TimeDivider';
 
 export type Time = {
   startTime: string;
   endTime: string | null;
   indexes: number[];
   isTomorrow?: boolean;
+  isDefault?: boolean;
 };
 
 export type DragRangeStatus = 'today' | 'tommorow' | 'error';
@@ -36,9 +38,10 @@ const TimePage = () => {
   const [day, setDay] = useState<DayButtonType>('오늘');
   const [dragRangeStatus, setDragRangeStatus] =
     useState<DragRangeStatus>('today');
+  const isDefaultTime = times[0]?.isDefault ?? false;
   const visibleTimeText = useMemo(
-    () => findVisibleTimeText(times, startTime, focusingTime),
-    [focusingTime, startTime, times]
+    () => findVisibleTimeText(times, startTime, focusingTime, isDefaultTime),
+    [focusingTime, startTime, times, isDefaultTime]
   );
   const tomorrowTime = times.find((v) => v.isTomorrow);
   const [shortDate, longDate] = getFormattedDate(2);
@@ -51,13 +54,25 @@ const TimePage = () => {
 
   const handlePointerDown = (startIndex: number) => {
     setTimeToRemove(null);
-    const removeTarget = times.findIndex((time) =>
-      time.indexes.includes(startIndex)
-    );
 
-    if (removeTarget >= 0) {
-      setTimeToRemove(removeTarget);
+    const hasRemoveTarget = () => {
+      const target = times.findIndex((time) =>
+        time.indexes.includes(startIndex)
+      );
+
+      if (target >= 0) {
+        setTimeToRemove(target);
+        return true;
+      }
+      return false;
+    };
+
+    if (!isDefaultTime && hasRemoveTarget()) {
       return;
+    }
+
+    if (isDefaultTime) {
+      setTimes([]);
     }
 
     setIsDragging(true);
@@ -72,6 +87,7 @@ const TimePage = () => {
       },
     ]);
   };
+
   const handlePointerMove = (pointerTime: number) => {
     if (!isDragging) return;
 
@@ -127,6 +143,23 @@ const TimePage = () => {
     };
   }, [handlePointerEnd]);
 
+  useEffect(() => {
+    if (times.length >= 1) return;
+
+    const now = new Date();
+    const startHour = now.getHours();
+    const endHour = (startHour + 8) % 24;
+    const isTomorrow = endHour < startHour;
+    const newTime = {
+      startTime: TIME_LIST[startHour],
+      endTime: TIME_LIST[endHour],
+      indexes: Array.from({ length: 9 }, (_, i) => (startHour + i) % 24),
+      isTomorrow,
+      isDefault: true,
+    };
+    setTimes([newTime]);
+  }, [times]);
+
   return (
     <div>
       <S.DayWrap>
@@ -164,16 +197,7 @@ const TimePage = () => {
               strokeDasharray={'0.7 0.3'}
               strokeDashoffset={0.85}
             />
-            <circle
-              cx={'0'}
-              cy={'0'}
-              r={'144'}
-              fill='none'
-              stroke={theme.colors.blueGrey[400]}
-              strokeWidth={20}
-              pathLength={24}
-              strokeDasharray={'0 1 0.05 0.95 0.05 0.95'}
-            />
+            <TimeDivider />
 
             <TimeRanges
               times={times}
@@ -181,6 +205,7 @@ const TimePage = () => {
               draggingStartTime={startTime}
               focussingTime={focusingTime}
               dragRangeStatus={dragRangeStatus}
+              isDefaultTime={isDefaultTime}
             />
 
             <HourSections
@@ -197,7 +222,7 @@ const TimePage = () => {
           </S.ClockFace>
 
           <S.PhraseWrap>
-            {times.length === 0 && (
+            {isDefaultTime && (
               <div>
                 <S.DefaultPhrase>
                   가장 먼저 외출하는 <br />
@@ -206,7 +231,7 @@ const TimePage = () => {
               </div>
             )}
 
-            {times.length > 0 && (
+            {!isDefaultTime && (
               <S.CountingPhraseWrap>
                 <p>개수 상관없이 마음껏 지정하세요.</p>
                 <C.DeleteButton onClick={handleDeleteButtonClick}>
@@ -218,7 +243,7 @@ const TimePage = () => {
         </S.Clock>
 
         {times.length > 0 && (
-          <S.SelectedTimeText>
+          <S.SelectedTimeText $isDefaultTime={isDefaultTime}>
             <span>{selectedTimeText}</span>
           </S.SelectedTimeText>
         )}
@@ -334,7 +359,8 @@ function mergeIndexes(
 const findVisibleTimeText = (
   times: Time[],
   start: number,
-  focusing: number | null
+  focusing: number | null,
+  isDefaultTime: boolean
 ): [number[], number[]] => {
   const allIndexes = new Set();
   const bothEnds: number[] = []; // 각 범위의 양 끝단
@@ -347,12 +373,14 @@ const findVisibleTimeText = (
     });
   }
 
-  times.forEach((time) => {
-    bothEnds.push(time.indexes[0], time.indexes.at(-1) as number);
-    time.indexes.forEach((index) => {
-      allIndexes.add(index);
+  if (!isDefaultTime) {
+    times.forEach((time) => {
+      bothEnds.push(time.indexes[0], time.indexes.at(-1) as number);
+      time.indexes.forEach((index) => {
+        allIndexes.add(index);
+      });
     });
-  });
+  }
 
   // 3의 배수이면서 사용자가 선택하지 않은 시간대의 텍스트
   const alwaysVisible = [];

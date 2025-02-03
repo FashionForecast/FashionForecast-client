@@ -7,11 +7,18 @@ type TimeRangeProps = {
   startTime: number;
   endTime: number;
   dragRangeStatus?: DragRangeStatus;
+  isDefaultTime?: boolean;
 };
 
-const TimeRange = ({ startTime, endTime, dragRangeStatus }: TimeRangeProps) => {
+const TimeRange = ({
+  startTime,
+  endTime,
+  dragRangeStatus,
+  isDefaultTime,
+}: TimeRangeProps) => {
   const diff = calcTimeRange(startTime, endTime);
   const degree = -90 + startTime * 15;
+  const stroke = getStrockColor(dragRangeStatus, isDefaultTime);
 
   return (
     <>
@@ -22,27 +29,25 @@ const TimeRange = ({ startTime, endTime, dragRangeStatus }: TimeRangeProps) => {
         cy={'0'}
         r={'144'}
         fill='transparent'
-        stroke={
-          dragRangeStatus
-            ? TIME_COLOR[dragRangeStatus]
-            : theme.colors.blueGrey[600]
-        }
+        stroke={stroke}
         strokeWidth={40}
         strokeLinecap='round'
       />
 
-      <path
-        d={calculatePath(startTime, endTime)}
-        fill='none'
-        stroke={
-          dragRangeStatus === 'error'
-            ? TIME_COLOR[dragRangeStatus]
-            : theme.colors.blueGrey[400]
-        }
-        strokeWidth='2'
-        strokeDasharray='5 7'
-        strokeLinecap='round'
-      />
+      {!isDefaultTime && (
+        <path
+          d={calculatePath(startTime, endTime)}
+          fill='none'
+          stroke={
+            dragRangeStatus === 'error'
+              ? TIME_COLOR[dragRangeStatus]
+              : theme.colors.blueGrey[400]
+          }
+          strokeWidth='2'
+          strokeDasharray='5 7'
+          strokeLinecap='round'
+        />
+      )}
     </>
   );
 };
@@ -82,4 +87,15 @@ function calcTimeRange(startIndex: number, endTime: number): number {
 
   // 시작 시간이 종료 시간보다 큰 경우
   return diff > 0 ? (TIME_LIST.length - diff) * 4.15 : range;
+}
+
+function getStrockColor(
+  dragRangeStatus: DragRangeStatus | undefined,
+  isDefaultTime: boolean | undefined
+) {
+  if (isDefaultTime) return theme.colors.blueGrey[200];
+
+  return dragRangeStatus
+    ? TIME_COLOR[dragRangeStatus]
+    : theme.colors.blueGrey[600];
 }

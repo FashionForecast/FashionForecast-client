@@ -112,11 +112,17 @@ const DeleteButton = styled(CustomButton)`
   border-radius: 100px;
 `;
 
-const SelectedTimeText = styled.div`
+const SelectedTimeText = styled.div<{ $isDefaultTime: boolean }>`
   ${({ theme }) => theme.typo['subtitle-2']};
   margin: 24px 0 8px;
   font-weight: 700;
   text-align: center;
+
+  ${({ $isDefaultTime, theme }) =>
+    $isDefaultTime &&
+    css`
+      color: ${theme.colors.text.disabled};
+    `};
 `;
 
 export const S = {
