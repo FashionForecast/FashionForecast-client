@@ -161,94 +161,104 @@ const TimePage = () => {
   }, [times]);
 
   return (
-    <div>
-      <S.DayWrap>
-        <S.Heading>날짜</S.Heading>
-        <S.ButtonWrap>
-          {DAY_BUTTONS.map((button) => (
-            <C.DayButton
-              key={button.type}
-              $type={button.type}
-              $isSelected={day === button.type}
-              onClick={handleDayButtonClick(button.type)}
+    <>
+      <div>
+        <S.DayWrap>
+          <S.Heading>날짜</S.Heading>
+          <S.ButtonWrap>
+            {DAY_BUTTONS.map((button) => (
+              <C.DayButton
+                key={button.type}
+                $type={button.type}
+                $isSelected={day === button.type}
+                onClick={handleDayButtonClick(button.type)}
+              >
+                {button.text}
+              </C.DayButton>
+            ))}
+          </S.ButtonWrap>
+        </S.DayWrap>
+        <S.ClockWrap>
+          <S.Heading>외출시간</S.Heading>
+
+          <S.Clock>
+            <S.ClockFace
+              width={'328'}
+              height={'328'}
+              viewBox='-164 -164 328 328'
             >
-              {button.text}
-            </C.DayButton>
-          ))}
-        </S.ButtonWrap>
-      </S.DayWrap>
-      <S.ClockWrap>
-        <S.Heading>외출시간</S.Heading>
+              <circle
+                cx={'0'}
+                cy={'0'}
+                r={'144'}
+                fill='none'
+                stroke={
+                  dragRangeStatus === 'error'
+                    ? '#FFC8C0'
+                    : theme.colors.blueGrey[200]
+                }
+                strokeWidth={4}
+                pathLength={8}
+                strokeDasharray={'0.7 0.3'}
+                strokeDashoffset={0.85}
+              />
+              <TimeDivider />
 
-        <S.Clock>
-          <S.ClockFace width={'328'} height={'328'} viewBox='-164 -164 328 328'>
-            <circle
-              cx={'0'}
-              cy={'0'}
-              r={'144'}
-              fill='none'
-              stroke={
-                dragRangeStatus === 'error'
-                  ? '#FFC8C0'
-                  : theme.colors.blueGrey[200]
-              }
-              strokeWidth={4}
-              pathLength={8}
-              strokeDasharray={'0.7 0.3'}
-              strokeDashoffset={0.85}
-            />
-            <TimeDivider />
+              <TimeRanges
+                times={times}
+                isDragging={isDragging}
+                draggingStartTime={startTime}
+                focussingTime={focusingTime}
+                dragRangeStatus={dragRangeStatus}
+                isDefaultTime={isDefaultTime}
+              />
 
-            <TimeRanges
-              times={times}
-              isDragging={isDragging}
-              draggingStartTime={startTime}
-              focussingTime={focusingTime}
-              dragRangeStatus={dragRangeStatus}
-              isDefaultTime={isDefaultTime}
-            />
+              <HourSections
+                visibleTimeText={visibleTimeText}
+                tomorrowTime={tomorrowTime}
+                startTimeIndex={startTime}
+                focusedTimeIndex={focusingTime}
+                isDragging={isDragging}
+                dragRangeStatus={dragRangeStatus}
+                handlePointerMove={handlePointerMove}
+                handlePointerDown={handlePointerDown}
+                handleDelete={handleDelete}
+              />
+            </S.ClockFace>
 
-            <HourSections
-              visibleTimeText={visibleTimeText}
-              tomorrowTime={tomorrowTime}
-              startTimeIndex={startTime}
-              focusedTimeIndex={focusingTime}
-              isDragging={isDragging}
-              dragRangeStatus={dragRangeStatus}
-              handlePointerMove={handlePointerMove}
-              handlePointerDown={handlePointerDown}
-              handleDelete={handleDelete}
-            />
-          </S.ClockFace>
+            <S.PhraseWrap>
+              {isDefaultTime && (
+                <div>
+                  <S.DefaultPhrase>
+                    가장 먼저 외출하는 <br />
+                    시간부터 지정하세요.
+                  </S.DefaultPhrase>
+                </div>
+              )}
 
-          <S.PhraseWrap>
-            {isDefaultTime && (
-              <div>
-                <S.DefaultPhrase>
-                  가장 먼저 외출하는 <br />
-                  시간부터 지정하세요.
-                </S.DefaultPhrase>
-              </div>
-            )}
+              {!isDefaultTime && (
+                <S.CountingPhraseWrap>
+                  <p>개수 상관없이 마음껏 지정하세요.</p>
+                  <C.DeleteButton onClick={handleDeleteButtonClick}>
+                    모두 지우기
+                  </C.DeleteButton>
+                </S.CountingPhraseWrap>
+              )}
+            </S.PhraseWrap>
+          </S.Clock>
 
-            {!isDefaultTime && (
-              <S.CountingPhraseWrap>
-                <p>개수 상관없이 마음껏 지정하세요.</p>
-                <C.DeleteButton onClick={handleDeleteButtonClick}>
-                  모두 지우기
-                </C.DeleteButton>
-              </S.CountingPhraseWrap>
-            )}
-          </S.PhraseWrap>
-        </S.Clock>
+          {times.length > 0 && (
+            <S.SelectedTimeText $isDefaultTime={isDefaultTime}>
+              <span>{selectedTimeText}</span>
+            </S.SelectedTimeText>
+          )}
+        </S.ClockWrap>
+      </div>
 
-        {times.length > 0 && (
-          <S.SelectedTimeText $isDefaultTime={isDefaultTime}>
-            <span>{selectedTimeText}</span>
-          </S.SelectedTimeText>
-        )}
-      </S.ClockWrap>
-    </div>
+      <C.SubmitButton disabled={isDefaultTime}>
+        이 시간대에 맞는 옷차림 찾기
+      </C.SubmitButton>
+    </>
   );
 };
 

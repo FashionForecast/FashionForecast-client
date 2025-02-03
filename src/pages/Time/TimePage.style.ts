@@ -125,6 +125,15 @@ const SelectedTimeText = styled.div<{ $isDefaultTime: boolean }>`
     `};
 `;
 
+const SubmitButton = styled(CustomButton)`
+  position: absolute;
+  bottom: 16px;
+  width: calc(100% - 32px);
+  margin: 0 16px;
+  font-weight: 700;
+  border-radius: 100px;
+`;
+
 export const S = {
   ClockWrap,
   Clock,
@@ -142,4 +151,5 @@ export const S = {
 export const C = {
   DeleteButton,
   DayButton,
+  SubmitButton,
 };
