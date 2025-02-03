@@ -61,7 +61,6 @@ const HourSections = ({
       height={center * 2}
       viewBox={`0 0 ${center * 2} ${center * 2}`}
       onPointerMove={handlePointerMoveEvent}
-      fill='hotpink'
     >
       {/* -7도 회전 */}
       <g transform={`rotate(-7, ${center}, ${center})`}>

@@ -30,7 +30,11 @@ type TimeSelectorDayButton = {
 }[];
 export type DayButtonType = '오늘' | '내일' | '모레';
 
-const TimeSelector = () => {
+type TimeSelectorProps = {
+  closeTimeSelector: () => void;
+};
+
+const TimeSelector = ({ closeTimeSelector }: TimeSelectorProps) => {
   const [times, setTimes] = useState<Time[]>([]);
   const [startTime, setStartTime] = useState<number>(0);
   const [focusingTime, setFocusingTime] = useState<null | number>(null); // 포커스중인 시간의 인덱스
@@ -162,9 +166,9 @@ const TimeSelector = () => {
   }, [times]);
 
   return (
-    <>
-      <TimeHeader />
-      <div>
+    <S.TimeSelectorWrap>
+      <TimeHeader closeTimeSelector={closeTimeSelector} />
+      <S.Content>
         <S.DayWrap>
           <S.Heading>날짜</S.Heading>
           <S.ButtonWrap>
@@ -185,6 +189,8 @@ const TimeSelector = () => {
 
           <S.Clock>
             <S.ClockFace
+              x={164}
+              y={164}
               width={'328'}
               height={'328'}
               viewBox='-164 -164 328 328'
@@ -255,12 +261,12 @@ const TimeSelector = () => {
             </S.SelectedTimeText>
           )}
         </S.ClockWrap>
-      </div>
+      </S.Content>
 
       <C.SubmitButton disabled={isDefaultTime}>
         이 시간대에 맞는 옷차림 찾기
       </C.SubmitButton>
-    </>
+    </S.TimeSelectorWrap>
   );
 };
 

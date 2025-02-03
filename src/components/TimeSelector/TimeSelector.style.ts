@@ -1,8 +1,29 @@
+import { MAX_WIDTH } from './../../constants/css';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
 import { DayButtonType } from './TimeSelector';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { css } from '@emotion/react';
+
+const TimeSelectorWrap = styled.section`
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 5000;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: ${MAX_WIDTH};
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+  transform: translateX(-50%);
+`;
+
+const Content = styled.div`
+  flex-grow: 1;
+`;
 
 const DayWrap = styled.div`
   padding: 8px 16px 0;
@@ -126,15 +147,14 @@ const SelectedTimeText = styled.div<{ $isDefaultTime: boolean }>`
 `;
 
 const SubmitButton = styled(CustomButton)`
-  position: absolute;
-  bottom: 16px;
-  width: calc(100% - 32px);
-  margin: 0 16px;
+  margin: 0 16px 16px;
   font-weight: 700;
   border-radius: 100px;
 `;
 
 export const S = {
+  TimeSelectorWrap,
+  Content,
   ClockWrap,
   Clock,
   ClockFace,

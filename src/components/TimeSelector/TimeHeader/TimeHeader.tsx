@@ -1,14 +1,16 @@
 import GoBackButton from '@/components/GoBackButton/GoBackButton';
-import { Link } from 'react-router-dom';
 import { S } from './TimeHeader.style';
 import Header from '@/components/Header/Header';
 
-const TimeHeader = () => {
+type TimeHeaderProps = {
+  closeTimeSelector: () => void;
+};
+
+const TimeHeader = ({ closeTimeSelector }: TimeHeaderProps) => {
   return (
     <Header>
-      <Link to='/'>
-        <GoBackButton />
-      </Link>
+      <GoBackButton onClick={closeTimeSelector} />
+
       <S.Title>외출시간 고르기</S.Title>
     </Header>
   );

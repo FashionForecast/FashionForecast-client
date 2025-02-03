@@ -3,8 +3,8 @@ import { getWeatherData } from '@/services/weather';
 import { useQuery } from '@tanstack/react-query';
 import MainHeader from './MainHeader/MainHeader';
 import ClothesSection from './ClothesSection/ClothesSection';
-import TimeSelector from './TimeSelector/TimeSelector';
-import { useCallback, useState } from 'react';
+// import TimeSelector from './TimeSelector/TimeSelector';
+import { useCallback, useEffect, useState } from 'react';
 import { S } from './HomePage.style';
 import { KSTDate } from '@/utils/date';
 import { TIME_LIST } from '@/constants/timeList';
@@ -13,6 +13,8 @@ import NetworkError from '@/components/NetworkError/NetworkError';
 import { Member } from '@/types/member';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import WeatherInfo from './WeatherInfo/WeatherInfo';
+import TimeSelector from '@/components/TimeSelector/TimeSelector';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -21,11 +23,14 @@ export type SelectedTime = {
 };
 
 const HomePage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation(); // 현재 URL 정보 가져오기
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const user = useAppSelector((state) => state.user.info);
   const [selectedTime, setSelectedTime] = useState<SelectedTime>(() =>
     getSelectedTime(user)
   );
+  const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['weather', geolocation?.region],
@@ -45,6 +50,22 @@ const HomePage = () => {
     []
   );
 
+  const toggleTimeSelector = () => {
+    setIsTimeSelectorOpen((prev) => !prev);
+    setSearchParams({ time: isTimeSelectorOpen ? 'close' : 'open' });
+  };
+
+  useEffect(() => {
+    const timeParameter = searchParams.get('time');
+
+    if (timeParameter === null) {
+      setIsTimeSelectorOpen(false);
+      return;
+    }
+
+    setIsTimeSelectorOpen(timeParameter === 'open' ? true : false);
+  }, [isTimeSelectorOpen, searchParams, location.search]);
+
   return (
     <>
       <HeadHelmet />
@@ -58,14 +79,21 @@ const HomePage = () => {
         {data && (
           <>
             <ClothesSection weather={data} />
+            <button type='button' onClick={toggleTimeSelector}>
+              외출시간 변경하기
+            </button>
 
             <WeatherInfo weather={data} />
 
-            <TimeSelector
+            {/* <TimeSelector
               selectedTime={selectedTime}
               updateSelectedTime={updateSelectedTime}
-            />
+            /> */}
           </>
+        )}
+
+        {isTimeSelectorOpen && (
+          <TimeSelector closeTimeSelector={toggleTimeSelector} />
         )}
       </S.HomeWrap>
     </>
