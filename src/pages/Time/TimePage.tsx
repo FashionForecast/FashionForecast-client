@@ -5,6 +5,7 @@ import HourSections from './HourSections/HourSections';
 import TimeRanges from './TimeRanges/TimeRanges';
 import { theme } from '@/styles/theme';
 import TimeDivider from './TimeDivider/TimeDivider';
+import TimeHeader from './TimeHeader/TimeHeader';
 
 export type Time = {
   startTime: string;
@@ -162,6 +163,7 @@ const TimePage = () => {
 
   return (
     <>
+      <TimeHeader />
       <div>
         <S.DayWrap>
           <S.Heading>날짜</S.Heading>
