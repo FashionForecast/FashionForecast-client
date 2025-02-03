@@ -1,5 +1,7 @@
+import { createPortal } from 'react-dom';
 import { DragRangeStatus, TIME_COLOR } from '../../TimeSelector';
 import { S } from './SectionText.style';
+import { useEffect, useRef, useState } from 'react';
 
 type SectionTextProps = {
   time: string;
@@ -34,12 +36,22 @@ const SectionText = ({
   const [always, bothEnds] = visibleTimeText;
   const isHighlight = bothEnds.includes(index) || focusedTimeIndex === index;
   const isVisibleText = isHighlight || always.includes(index);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const HourTextRef = useRef<SVGTextElement>(null);
   const isTommrow = isTommorrowText(
     startTimeIndex,
     focusedTimeIndex,
     index,
     tommrowIndexes
   );
+
+  useEffect(() => {
+    const HourTextEl = HourTextRef.current;
+    if (!HourTextEl) return;
+
+    const { top, left } = HourTextEl.getBoundingClientRect();
+    setPosition({ top: top - 50, left: left - 12 });
+  }, []);
 
   return (
     <>
@@ -49,6 +61,7 @@ const SectionText = ({
         textAnchor='middle'
         $isVisible={isVisibleText}
         $isHighlight={isHighlight}
+        ref={HourTextRef}
       >
         <tspan x={x} dy={-2}>
           {isTommrow ? '내일' : AMPM}
@@ -57,16 +70,21 @@ const SectionText = ({
           {hour}
         </tspan>
       </S.HourText>
-      {isTouchDevice && isDragging && focusedTimeIndex === index && (
-        <>
-          <S.TooltipForeignObject x={x - 25} y={y - 60}>
-            <S.Tooltip $color={TIME_COLOR[dragRangeStatus]}>
-              <div>{isTommrow ? '내일' : AMPM}</div>
-              <div>{hour}</div>
-            </S.Tooltip>
-          </S.TooltipForeignObject>
-        </>
-      )}
+
+      {isTouchDevice &&
+        isDragging &&
+        focusedTimeIndex === index &&
+        createPortal(
+          <S.Tooltip
+            $color={TIME_COLOR[dragRangeStatus]}
+            $top={position.top}
+            $left={position.left}
+          >
+            <div>{isTommrow ? '내일' : AMPM}</div>
+            <div>{hour}</div>
+          </S.Tooltip>,
+          document.body
+        )}
     </>
   );
 };

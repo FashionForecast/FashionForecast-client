@@ -20,44 +20,27 @@ const HourText = styled.text<{ $isVisible: boolean; $isHighlight: boolean }>`
     `}
 `;
 
-const TooltipForeignObject = styled.foreignObject`
-  width: 45px;
-  height: 45px;
-  pointer-events: none;
-  touch-action: none;
-  user-select: none;
-  border-radius: 50%;
-`;
-
-const Tooltip = styled.div<{ $color: string }>`
+const Tooltip = styled.div<{ $color: string; $top: number; $left: number }>`
+  position: fixed;
+  top: ${({ $top }) => $top}px;
+  left: ${({ $left }) => $left}px;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 45px;
+  height: 45px;
   font-size: 10px;
   font-weight: 700;
   line-height: 14px;
   color: ${({ theme }) => theme.colors.white};
+  pointer-events: none;
+  touch-action: none;
+  user-select: none;
   background-color: ${({ $color }) => $color};
   border: 3px solid ${({ theme }) => theme.colors.white};
   border-radius: 50%;
 `;
 
-const TextTooltip = styled.text`
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 14px;
-  color: ${({ theme }) => theme.colors.white};
-  letter-spacing: 0.46px;
-  pointer-events: none;
-  touch-action: none;
-  user-select: none;
-`;
-
-export const S = { HourText, TooltipForeignObject, TextTooltip, Tooltip };
+export const S = { HourText, Tooltip };
