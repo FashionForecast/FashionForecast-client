@@ -1,4 +1,4 @@
-import { DragRangeStatus, TIME_COLOR } from '../../TimePage';
+import { DragRangeStatus, TIME_COLOR } from '../../TimeSelector';
 import { S } from './SectionText.style';
 
 type SectionTextProps = {

@@ -1,4 +1,7 @@
-import { TIME_COLOR, DragRangeStatus } from '@/pages/Time/TimePage';
+import {
+  TIME_COLOR,
+  DragRangeStatus,
+} from '@/components/TimeSelector/TimeSelector';
 import { S } from './TimeRange.style';
 import { TIME_LIST } from '@/constants/timeList';
 import { theme } from '@/styles/theme';

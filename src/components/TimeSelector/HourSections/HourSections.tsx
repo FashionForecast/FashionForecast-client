@@ -1,7 +1,7 @@
 import { TIME_LIST } from '@/constants/timeList';
 import SectionArea from './SectionArea/SectionArea';
 import SectionText from './SectionText/SectionText';
-import { DragRangeStatus, Time } from '../TimePage';
+import { DragRangeStatus, Time } from '../TimeSelector';
 import { useEffect, useState } from 'react';
 
 type HourSectionsProps = {

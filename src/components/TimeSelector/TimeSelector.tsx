@@ -1,5 +1,5 @@
 import { TIME_LIST } from '@/constants/timeList';
-import { S, C } from './TimePage.style';
+import { S, C } from './TimeSelector.style';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import HourSections from './HourSections/HourSections';
 import TimeRanges from './TimeRanges/TimeRanges';
@@ -30,7 +30,7 @@ type TimeSelectorDayButton = {
 }[];
 export type DayButtonType = '오늘' | '내일' | '모레';
 
-const TimePage = () => {
+const TimeSelector = () => {
   const [times, setTimes] = useState<Time[]>([]);
   const [startTime, setStartTime] = useState<number>(0);
   const [focusingTime, setFocusingTime] = useState<null | number>(null); // 포커스중인 시간의 인덱스
@@ -264,7 +264,7 @@ const TimePage = () => {
   );
 };
 
-export default TimePage;
+export default TimeSelector;
 
 /** 시간대 배열을 업데이트하는 함수 */
 function updateTimeIndexArray(startIndex: number, endIndex: number) {

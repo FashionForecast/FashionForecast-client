@@ -1,4 +1,4 @@
-import { Time, DragRangeStatus } from '../TimePage';
+import { Time, DragRangeStatus } from '../TimeSelector';
 import TimeRange from './TimeRange/TimeRange';
 import TimeDivider from '../TimeDivider/TimeDivider';
 

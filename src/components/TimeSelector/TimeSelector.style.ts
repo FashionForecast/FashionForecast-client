@@ -1,6 +1,6 @@
 import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
-import { DayButtonType } from './TimePage';
+import { DayButtonType } from './TimeSelector';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { css } from '@emotion/react';
 
