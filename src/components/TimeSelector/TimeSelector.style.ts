@@ -5,7 +5,7 @@ import { DayButtonType } from './TimeSelector';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { css } from '@emotion/react';
 
-const TimeSelectorWrap = styled.section`
+const TimeSelectorWrap = styled.section<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 50%;
@@ -17,8 +17,17 @@ const TimeSelectorWrap = styled.section`
   height: 100%;
   overflow-y: auto;
   overscroll-behavior: none;
+  visibility: hidden;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+  opacity: 0;
   transform: translateX(-50%);
+
+  ${({ $isOpen }) =>
+    $isOpen &&
+    css`
+      visibility: visible;
+      opacity: 1;
+    `}
 `;
 
 const Content = styled.div`

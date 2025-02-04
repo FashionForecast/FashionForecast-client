@@ -31,16 +31,26 @@ type TimeSelectorDayButton = {
 export type DayButtonType = '오늘' | '내일' | '모레';
 
 type TimeSelectorProps = {
+  isOpen: boolean;
+  times: Time[];
+  setTimes: React.Dispatch<React.SetStateAction<Time[]>>;
+  day: DayButtonType;
+  setDay: React.Dispatch<React.SetStateAction<DayButtonType>>;
   closeTimeSelector: () => void;
 };
 
-const TimeSelector = ({ closeTimeSelector }: TimeSelectorProps) => {
-  const [times, setTimes] = useState<Time[]>([]);
+const TimeSelector = ({
+  isOpen,
+  times,
+  setTimes,
+  day,
+  setDay,
+  closeTimeSelector,
+}: TimeSelectorProps) => {
   const [startTime, setStartTime] = useState<number>(0);
   const [focusingTime, setFocusingTime] = useState<null | number>(null); // 포커스중인 시간의 인덱스
   const [isDragging, setIsDragging] = useState(false);
   const [timeToRemove, setTimeToRemove] = useState<null | number>(null);
-  const [day, setDay] = useState<DayButtonType>('오늘');
   const [dragRangeStatus, setDragRangeStatus] =
     useState<DragRangeStatus>('today');
   const isDefaultTime = times[0]?.isDefault ?? false;
@@ -120,7 +130,7 @@ const TimeSelector = ({ closeTimeSelector }: TimeSelectorProps) => {
     });
     setFocusingTime(null);
     setDragRangeStatus('today');
-  }, [focusingTime, timeToRemove, startTime, dragRangeStatus]);
+  }, [focusingTime, timeToRemove, setTimes, dragRangeStatus, startTime]);
 
   const handleDelete = () => {
     if (timeToRemove === null) return;
@@ -163,10 +173,10 @@ const TimeSelector = ({ closeTimeSelector }: TimeSelectorProps) => {
       isDefault: true,
     };
     setTimes([newTime]);
-  }, [times]);
+  }, [setTimes, times]);
 
   return (
-    <S.TimeSelectorWrap>
+    <S.TimeSelectorWrap $isOpen={isOpen}>
       <TimeHeader closeTimeSelector={closeTimeSelector} />
       <S.Content>
         <S.DayWrap>
