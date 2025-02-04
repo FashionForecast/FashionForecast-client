@@ -46,11 +46,20 @@ const SectionText = ({
   );
 
   useEffect(() => {
-    const HourTextEl = HourTextRef.current;
-    if (!HourTextEl) return;
+    const updatePosition = () => {
+      const HourTextEl = HourTextRef.current;
+      if (!HourTextEl) return;
 
-    const { top, left } = HourTextEl.getBoundingClientRect();
-    setPosition({ top: top - 50, left: left - 12 });
+      const { top, left } = HourTextEl.getBoundingClientRect();
+      setPosition({ top: top - 50, left: left - 12 });
+    };
+
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+    };
   }, []);
 
   return (
