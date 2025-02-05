@@ -38,7 +38,6 @@ const TimeRanges = ({
           <TimeRange
             startTime={times[0].indexes[0]}
             endTime={times[0].indexes[times[0].indexes.length - 1]}
-            dragRangeStatus={dragRangeStatus}
             isDefaultTime={isDefaultTime}
           />
           <TimeDivider />

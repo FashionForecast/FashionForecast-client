@@ -41,11 +41,7 @@ const TimeRange = ({
         <path
           d={calculatePath(startTime, endTime)}
           fill='none'
-          stroke={
-            dragRangeStatus === 'error'
-              ? TIME_COLOR[dragRangeStatus]
-              : theme.colors.blueGrey[400]
-          }
+          stroke={theme.colors.blueGrey[400]}
           strokeWidth='2'
           strokeDasharray='5 7'
           strokeLinecap='round'
