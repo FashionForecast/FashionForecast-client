@@ -106,7 +106,11 @@ const TimeSelector = ({
   const handlePointerMove = (pointerTime: number) => {
     if (!isDragging) return;
 
-    setFocusingTime(pointerTime);
+    const isTomorrow = startTime > pointerTime;
+
+    if (isTomorrow) setFocusingTime(Math.min(pointerTime, times[0].indexes[0]));
+    else setFocusingTime(pointerTime);
+
     setDragRangeStatus(
       updateDragRangeStatus(startTime, pointerTime, times[0].indexes[0])
     );
