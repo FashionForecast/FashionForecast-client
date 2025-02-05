@@ -31,7 +31,12 @@ const TimeSelectorWrap = styled.section<{ $isOpen: boolean }>`
 `;
 
 const Content = styled.div`
-  flex-grow: 1;
+  height: calc(
+    100% - 56px - 40px - 16px
+  ); /* header(56px),  submitButton(40px + 16px) */
+
+  overflow-y: auto;
+  overscroll-behavior: 'contain';
 `;
 
 const DayWrap = styled.div`
@@ -81,6 +86,10 @@ const DayButton = styled(CustomButton, forwardPropOption)<{
 `;
 
 const ClockWrap = styled.div`
+  /* height: 70%; */
+
+  /* overflow: auto; */
+
   & h6 {
     padding: 8px 16px 0;
   }
@@ -156,7 +165,11 @@ const SelectedTimeText = styled.div<{ $isDefaultTime: boolean }>`
 `;
 
 const SubmitButton = styled(CustomButton)`
-  margin: 0 16px 16px;
+  position: fixed;
+  bottom: 16px;
+  width: calc(100% - 32px);
+  height: 40px;
+  margin: 0 16px;
   font-weight: 700;
   border-radius: 100px;
 `;
