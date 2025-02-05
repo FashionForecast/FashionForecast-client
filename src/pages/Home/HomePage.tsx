@@ -37,8 +37,11 @@ const HomePage = () => {
   });
 
   const toggleTimeSelector = () => {
-    setIsTimeSelectorOpen((prev) => !prev);
-    setSearchParams({ time: isTimeSelectorOpen ? 'close' : 'open' });
+    const isOpen = isTimeSelectorOpen;
+    setIsTimeSelectorOpen(!isOpen);
+    setSearchParams({ time: isOpen ? 'close' : 'open' });
+
+    document.body.style.overflow = isOpen ? '' : 'hidden';
   };
 
   useEffect(() => {
