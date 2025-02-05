@@ -486,13 +486,21 @@ function getSelectedTimeText(
 
   const dayText = day === '모레' ? longDate : day;
 
-  const formatTimeZone = (startTime: string, endTime: string | null) => {
+  const formatTimeZone = (
+    startTime: string,
+    endTime: string | null,
+    isTomorrow?: boolean
+  ) => {
     if (endTime === null) return '';
-    return `${startTime} - ${endTime.slice(3)}`;
+    const isSameAMPM = startTime.slice(0, 2) === endTime.slice(0, 2);
+    const tomorrowText = isTomorrow ? '내일' : '';
+    const endText = endTime.slice(isSameAMPM ? 3 : 0);
+
+    return `${startTime} - ${tomorrowText} ${endText}`;
   };
 
-  const formattedTimes = times.map(({ startTime, endTime }) =>
-    formatTimeZone(startTime, endTime)
+  const formattedTimes = times.map(({ startTime, endTime, isTomorrow }) =>
+    formatTimeZone(startTime, endTime, isTomorrow)
   );
 
   let timeText = '';
