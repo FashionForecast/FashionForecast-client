@@ -1,4 +1,4 @@
-import { TIME_LIST } from '@/constants/timeList';
+import { compactTimeList } from '@/constants/timeList';
 import { S, C } from './TimeSelector.style';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import HourSections from './HourSections/HourSections';
@@ -96,7 +96,7 @@ const TimeSelector = ({
     setTimes((prev) => [
       ...prev,
       {
-        startTime: TIME_LIST[startIndex],
+        startTime: compactTimeList[startIndex],
         endTime: null,
         indexes: [startIndex],
       },
@@ -170,8 +170,8 @@ const TimeSelector = ({
     const endHour = (startHour + 8) % 24;
     const isTomorrow = endHour < startHour;
     const newTime = {
-      startTime: TIME_LIST[startHour],
-      endTime: TIME_LIST[endHour],
+      startTime: compactTimeList[startHour],
+      endTime: compactTimeList[endHour],
       indexes: Array.from({ length: 9 }, (_, i) => (startHour + i) % 24),
       isTomorrow,
       isDefault: true,
@@ -324,8 +324,8 @@ function mergeOverlappingRanges(times: Time[], startIndex: number) {
 
         // 병합 데이터 업데이트
         list[i] = {
-          startTime: TIME_LIST[mergedIndexes[0]],
-          endTime: TIME_LIST[mergedIndexes.at(-1)!],
+          startTime: compactTimeList[mergedIndexes[0]],
+          endTime: compactTimeList[mergedIndexes.at(-1)!],
           indexes: mergedIndexes,
         };
 
@@ -455,7 +455,7 @@ const updateTimes = (
 
     return {
       ...time,
-      endTime: TIME_LIST[endTime],
+      endTime: compactTimeList[endTime],
       indexes: updateTimeIndexArray(time.indexes[0], endTime),
     };
   });

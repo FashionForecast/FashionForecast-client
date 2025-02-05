@@ -1,4 +1,4 @@
-import { TIME_LIST } from '@/constants/timeList';
+import { paddedTimeList } from '@/constants/timeList';
 import { SelectedTime } from '@/pages/Home/HomePage';
 import TimeCarousel from '@/pages/Home/TimeSelector/TimeCarousel/TimeCarousel';
 import { useMemo } from 'react';
@@ -21,7 +21,7 @@ const UserTimeSelector = ({
   updateSelectedTime,
 }: UserTimeSelectorProps) => {
   const endTimes = useMemo(
-    () => TIME_LIST.slice(TIME_LIST.indexOf(selectedTime.start)),
+    () => paddedTimeList.slice(paddedTimeList.indexOf(selectedTime.start)),
     [selectedTime.start]
   );
 
@@ -35,7 +35,7 @@ const UserTimeSelector = ({
       />
 
       <TimeCarousel
-        times={TIME_LIST}
+        times={paddedTimeList}
         type='start'
         selectedTime={selectedTime.start}
         updateSelectedTime={updateSelectedTime}

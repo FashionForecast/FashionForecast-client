@@ -3,7 +3,6 @@ import {
   DragRangeStatus,
 } from '@/components/TimeSelector/TimeSelector';
 import { S } from './TimeRange.style';
-import { TIME_LIST } from '@/constants/timeList';
 import { theme } from '@/styles/theme';
 
 type TimeRangeProps = {
@@ -85,7 +84,7 @@ function calcTimeRange(startIndex: number, endTime: number): number {
   const range = Math.abs(diff) * 4.15;
 
   // 시작 시간이 종료 시간보다 큰 경우
-  return diff > 0 ? (TIME_LIST.length - diff) * 4.15 : range;
+  return diff > 0 ? (24 - diff) * 4.15 : range;
 }
 
 function getStrockColor(

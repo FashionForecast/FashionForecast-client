@@ -5,7 +5,7 @@ import MainHeader from './MainHeader/MainHeader';
 import ClothesSection from './ClothesSection/ClothesSection';
 import { useEffect, useState } from 'react';
 import { S } from './HomePage.style';
-import { TIME_LIST } from '@/constants/timeList';
+import { paddedTimeList } from '@/constants/timeList';
 import HomeLoading from './HomeLoading';
 import NetworkError from '@/components/NetworkError/NetworkError';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
@@ -159,8 +159,8 @@ function getTimes() {
   const endHour = (startHour + 8) % 24;
   const isTomorrow = endHour < startHour;
   const newTime = {
-    startTime: TIME_LIST[startHour],
-    endTime: TIME_LIST[endHour],
+    startTime: paddedTimeList[startHour],
+    endTime: paddedTimeList[endHour],
     indexes: Array.from({ length: 9 }, (_, i) => (startHour + i) % 24),
     isTomorrow,
     isDefault: true,

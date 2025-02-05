@@ -1,4 +1,4 @@
-import { TIME_LIST } from '@/constants/timeList';
+import { compactTimeList } from '@/constants/timeList';
 import SectionArea from './SectionArea/SectionArea';
 import SectionText from './SectionText/SectionText';
 import { DragRangeStatus, Time } from '../TimeSelector';
@@ -64,18 +64,18 @@ const HourSections = ({
     >
       {/* -7도 회전 */}
       <g transform={`rotate(-7, ${center}, ${center})`}>
-        {TIME_LIST.map((_, i) => (
+        {compactTimeList.map((_, i) => (
           <SectionArea
             key={i}
             index={i}
-            sections={TIME_LIST.length}
+            sections={compactTimeList.length}
             center={center}
             handlePointerDown={handlePointerDown}
             handleDelete={handleDelete}
           />
         ))}
       </g>
-      {TIME_LIST.map((time, i) => (
+      {compactTimeList.map((time, i) => (
         <SectionText
           key={time}
           time={time}
