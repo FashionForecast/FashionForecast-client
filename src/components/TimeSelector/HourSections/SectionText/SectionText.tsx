@@ -73,7 +73,7 @@ const SectionText = ({
         ref={HourTextRef}
       >
         <tspan x={x} dy={-2}>
-          {isTommrow ? '내일' : AMPM}
+          {isTommrow ? '다음날' : AMPM}
         </tspan>
         <tspan x={x} dy={12}>
           {hour}
@@ -89,7 +89,7 @@ const SectionText = ({
             $top={position.top}
             $left={position.left}
           >
-            <div>{isTommrow ? '내일' : AMPM}</div>
+            <div>{isTommrow ? '다음날' : AMPM}</div>
             <div>{hour}</div>
           </S.Tooltip>,
           document.body
