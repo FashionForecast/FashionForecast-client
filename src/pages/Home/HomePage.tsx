@@ -1,6 +1,6 @@
 import useAppSelector from '@/hooks/useAppSelector';
 import { getWeather } from '@/services/weather';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import MainHeader from './MainHeader/MainHeader';
 import ClothesSection from './ClothesSection/ClothesSection';
 import { useEffect, useState } from 'react';
@@ -24,6 +24,7 @@ export type SelectedTime = {
 
 const HomePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const queryClient = useQueryClient();
   const location = useLocation(); // 현재 URL 정보 가져오기
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
@@ -35,6 +36,11 @@ const HomePage = () => {
     queryFn: () => getWeather(times, day, geolocation!.region),
     enabled: !!geolocation,
   });
+
+  const handleTimeSubmit = () => {
+    queryClient.invalidateQueries({ queryKey: ['weather'] });
+    toggleTimeSelector();
+  };
 
   const toggleTimeSelector = () => {
     const isOpen = isTimeSelectorOpen;
@@ -83,6 +89,7 @@ const HomePage = () => {
           day={day}
           setDay={setDay}
           closeTimeSelector={toggleTimeSelector}
+          onSubmit={handleTimeSubmit}
         />
       </S.HomeWrap>
     </>
@@ -90,68 +97,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-// const defaultSelectedTime: SelectedTime = {
-//   day: '오늘',
-//   start: defaultTime('start'),
-//   end: defaultTime('end'),
-// };
-
-// function defaultTime(type: 'start' | 'end') {
-//   const KST = KSTDate();
-//   let hour = KST.getHours();
-
-//   if (type === 'end') {
-//     if (hour + 8 >= 24) hour = 23;
-//     else hour = hour + 8;
-//   }
-
-//   return TIME_LIST[hour];
-// }
-
-/**
- * @example
- * 오전 00시 → return 0
- * 오전 03시 → return 3
- * 오후 12시 → return 12
- * 오후 03시 → return 15
- */
-// function getHour(time: string) {
-//   const [AMPM, userTime] = time.split(' ');
-//   let hour = Number(userTime.replace(/\D/g, ''));
-
-//   if (AMPM === '오후') {
-//     if (hour === 12) return hour;
-//     else hour = 12 + hour;
-//   }
-
-//   return hour;
-// }
-
-// function getSelectedTime(user: Member | null): SelectedTime {
-//   if (!user || user.outingStartTime === 'DEFAULT') {
-//     return defaultSelectedTime;
-//   }
-
-//   const { outingStartTime, outingEndTime } = user;
-//   const userStartHour = getHour(outingStartTime);
-//   const userEndHour = getHour(outingEndTime);
-//   const currentHour = KSTDate().getHours();
-
-//   let day: SelectedTime['day'] = '오늘';
-//   let start = outingStartTime;
-//   const end = outingEndTime;
-
-//   if (currentHour > userStartHour && currentHour <= userEndHour) {
-//     start = TIME_LIST[currentHour];
-//   }
-
-//   if (currentHour > userEndHour) {
-//     day = '내일';
-//   }
-
-//   return { day, start, end };
-// }
 
 function getTimes() {
   const now = new Date();

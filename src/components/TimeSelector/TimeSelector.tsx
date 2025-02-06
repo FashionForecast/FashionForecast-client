@@ -37,6 +37,7 @@ type TimeSelectorProps = {
   day: DayButtonType;
   setDay: React.Dispatch<React.SetStateAction<DayButtonType>>;
   closeTimeSelector: () => void;
+  onSubmit: () => void;
 };
 
 const TimeSelector = ({
@@ -46,6 +47,7 @@ const TimeSelector = ({
   day,
   setDay,
   closeTimeSelector,
+  onSubmit,
 }: TimeSelectorProps) => {
   const [startTime, setStartTime] = useState<number>(0);
   const [focusingTime, setFocusingTime] = useState<null | number>(null); // 포커스중인 시간의 인덱스
@@ -277,7 +279,7 @@ const TimeSelector = ({
         </S.ClockWrap>
       </S.Content>
 
-      <C.SubmitButton disabled={isDefaultTime}>
+      <C.SubmitButton disabled={isDefaultTime} onClick={onSubmit}>
         이 시간대에 맞는 옷차림 찾기
       </C.SubmitButton>
     </S.TimeSelectorWrap>
