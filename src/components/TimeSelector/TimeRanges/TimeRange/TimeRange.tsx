@@ -55,9 +55,9 @@ export default TimeRange;
 function calculatePath(startTime: number, end: number) {
   if (startTime === end) return;
 
-  const radius = 144;
   const center = 0;
   const timeDiff = (end - startTime + 24) % 24;
+  let radius = 144;
 
   // -90도: 오전 0시
   const startAngle = -90 + startTime * 15 + 9;
@@ -69,6 +69,7 @@ function calculatePath(startTime: number, end: number) {
   const endY = center + radius * Math.sin((Math.PI / 180) * endAngle);
 
   const largeArcFlag = timeDiff > 12 ? 1 : 0;
+  radius = timeDiff === 13 ? radius - 10 : radius;
 
   return `M ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
 }
