@@ -471,7 +471,7 @@ function getSelectedTimeText(day: DayButtonType, times: Time[]) {
   ) => {
     if (endTime === null) return '';
     const isSameAMPM = startTime.slice(0, 2) === endTime.slice(0, 2);
-    const tomorrowText = isTomorrow ? '내일' : '';
+    const tomorrowText = isTomorrow ? '다음날' : '';
     const endText = endTime.slice(isSameAMPM ? 3 : 0);
 
     return `${startTime} - ${tomorrowText} ${endText}`;
