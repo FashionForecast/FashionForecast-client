@@ -1,3 +1,5 @@
+import { S } from './SectionArea.style';
+
 type SectionAreaProps = {
   index: number;
   sections: number;
@@ -29,7 +31,7 @@ const SectionArea = ({
   const largeArcFlag = angleStep > 180 ? 1 : 0;
 
   return (
-    <path
+    <S.Section
       key={index}
       data-index={index}
       d={`
