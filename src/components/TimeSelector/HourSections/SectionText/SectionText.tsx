@@ -51,7 +51,7 @@ const SectionText = ({
       if (!HourTextEl) return;
 
       const { top, left } = HourTextEl.getBoundingClientRect();
-      setPosition({ top: top - 50, left: left - 12 });
+      setPosition({ top: top - 52, left: left - 13 });
     };
 
     updatePosition();

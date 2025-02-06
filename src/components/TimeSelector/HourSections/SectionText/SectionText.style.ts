@@ -25,13 +25,14 @@ const Tooltip = styled.div<{ $color: string; $top: number; $left: number }>`
   top: ${({ $top }) => $top}px;
   left: ${({ $left }) => $left}px;
   z-index: 9999;
+  box-sizing: content-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 45px;
-  height: 45px;
-  font-size: 10px;
+  width: 40px;
+  height: 40px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 14px;
   color: ${({ theme }) => theme.colors.white};
@@ -39,7 +40,7 @@ const Tooltip = styled.div<{ $color: string; $top: number; $left: number }>`
   touch-action: none;
   user-select: none;
   background-color: ${({ $color }) => $color};
-  border: 3px solid ${({ theme }) => theme.colors.white};
+  border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 50%;
 `;
 
