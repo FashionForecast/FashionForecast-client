@@ -1,7 +1,6 @@
 import { MAX_WIDTH } from './../../constants/css';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
-import { DayButtonType } from './TimeSelector';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { css } from '@emotion/react';
 
@@ -53,7 +52,6 @@ const ButtonWrap = styled.div`
 `;
 
 const DayButton = styled(CustomButton, forwardPropOption)<{
-  $type: DayButtonType;
   $isSelected: boolean;
 }>`
   width: 60px;
@@ -69,20 +67,12 @@ const DayButton = styled(CustomButton, forwardPropOption)<{
     margin-right: 0;
   }
 
-  ${({ $isSelected, $type, theme }) => {
-    if ($isSelected) {
-      return css`
-        color: ${theme.colors.white} !important;
-        background-color: ${theme.colors.primary.main} !important;
-      `;
-    }
-
-    if ($type === '모레') {
-      return css`
-        background-color: ${theme.colors.blue[300]} !important;
-      `;
-    }
-  }}
+  ${({ $isSelected, theme }) =>
+    $isSelected &&
+    css`
+      color: ${theme.colors.white} !important;
+      background-color: ${theme.colors.primary.main} !important;
+    `}
 `;
 
 const ClockWrap = styled.div`

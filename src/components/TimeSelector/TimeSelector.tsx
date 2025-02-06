@@ -26,7 +26,6 @@ export const TIME_COLOR: Record<DragRangeStatus, string> = {
 type TimeSelectorDayButton = {
   type: DayButtonType;
   text: string;
-  day: string;
 }[];
 export type DayButtonType = '오늘' | '내일' | '모레';
 
@@ -61,13 +60,12 @@ const TimeSelector = ({
     [focusingTime, startTime, times, isDefaultTime]
   );
   const tomorrowTime = times.find((v) => v.isTomorrow);
-  const [shortDate, longDate] = getFormattedDate(2);
   const DAY_BUTTONS: TimeSelectorDayButton = [
-    { type: '오늘', text: '오늘', day: '오늘' },
-    { type: '내일', text: '내일', day: '내일' },
-    { type: '모레', text: shortDate, day: longDate },
+    { type: '오늘', text: '오늘' },
+    { type: '내일', text: '내일' },
+    { type: '모레', text: '모레' },
   ];
-  const selectedTimeText = getSelectedTimeText(day, longDate, times);
+  const selectedTimeText = getSelectedTimeText(day, times);
 
   const handlePointerDown = (startIndex: number) => {
     setTimeToRemove(null);
@@ -191,7 +189,6 @@ const TimeSelector = ({
             {DAY_BUTTONS.map((button) => (
               <C.DayButton
                 key={button.type}
-                $type={button.type}
                 $isSelected={day === button.type}
                 onClick={handleDayButtonClick(button.type)}
               >
@@ -463,30 +460,9 @@ const updateTimes = (
   });
 };
 
-const getFormattedDate = (daysToAdd: number) => {
-  const today = new Date();
-  const futureDate = new Date(today);
-  futureDate.setDate(today.getDate() + daysToAdd);
-
-  const isSameMonth = today.getMonth() === futureDate.getMonth();
-  const day = futureDate.getDate();
-  const month = futureDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
-
-  const shortDate = isSameMonth ? `${day}일` : `${month}/${day}일`;
-  const longDate = `${month}월 ${day}일`;
-
-  return [shortDate, longDate];
-};
-
 // 선택된 시간대 텍스트 생성
-function getSelectedTimeText(
-  day: DayButtonType,
-  longDate: string,
-  times: Time[]
-) {
+function getSelectedTimeText(day: DayButtonType, times: Time[]) {
   if (times.length === 0 || !times[0].endTime) return '';
-
-  const dayText = day === '모레' ? longDate : day;
 
   const formatTimeZone = (
     startTime: string,
@@ -516,5 +492,5 @@ function getSelectedTimeText(
     }`;
   }
 
-  return `${dayText} ${timeText}`;
+  return `${day} ${timeText}`;
 }
