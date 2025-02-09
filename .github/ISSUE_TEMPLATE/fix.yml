@@ -1,12 +1,11 @@
-name: '✨ feature'
-description: '새로운 기능 작업'
-labels: 'feature'
+name: '🐞 fix'
+description: '버그 발생 및 수정 작업'
+labels: 'fix'
 body:
   - type: textarea
     attributes:
-      label: 📄 Describe
-      description: 새로운 기능에 대한 설명을 작성해 주세요.
-      placeholder: 자세히 적을수록 좋습니다!
+      label: 🐞 버그 설명
+      description: 버그에 대한 설명을 작성해 주세요.
     validations:
       required: true
 
@@ -17,6 +16,16 @@ body:
       placeholder: 최대한 세분화 해서 적어주세요!
     validations:
       required: true
+
+  - type: textarea
+    attributes:
+      label: 🌏 환경
+      description: 버그가 발생한 환경에 대해 작성해 주세요.
+      placeholder: |
+        기기: 모바일
+        브라우저: 크롬
+    validations:
+      required: false
 
   - type: textarea
     attributes:
