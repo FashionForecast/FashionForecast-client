@@ -4,7 +4,7 @@ import { SelectedTime } from '../HomePage';
 import TimeCarousel from './TimeCarousel/TimeCarousel';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { TIME_LIST } from '@/constants/timeList';
+import { paddedTimeList } from '@/constants/timeList';
 import { KSTDate } from '@/utils/date';
 import { useSnackbar } from '@/contexts/SnackbarProvider';
 
@@ -27,12 +27,14 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
 
   const startTimes = useMemo(
     () =>
-      selectedTime.day === '오늘' ? TIME_LIST.slice(currentHour) : TIME_LIST,
+      selectedTime.day === '오늘'
+        ? paddedTimeList.slice(currentHour)
+        : paddedTimeList,
     [selectedTime.day, currentHour]
   );
 
   const endTimes = useMemo(
-    () => TIME_LIST.slice(TIME_LIST.indexOf(selectedTime.start)),
+    () => paddedTimeList.slice(paddedTimeList.indexOf(selectedTime.start)),
     [selectedTime.start]
   );
 

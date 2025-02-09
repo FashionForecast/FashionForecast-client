@@ -2,9 +2,13 @@ import styled from '@emotion/styled';
 import { IconButton } from '@mui/material';
 import ArrowIcon from '../icon/ArrowIcon';
 
-const GoBackButton = () => {
+type GoBackButtonProps = {
+  onClick?: () => void;
+};
+
+const GoBackButton = ({ onClick }: GoBackButtonProps) => {
   return (
-    <GoBackButtonBase size='large'>
+    <GoBackButtonBase size='large' onClick={onClick}>
       <ArrowIcon />
     </GoBackButtonBase>
   );

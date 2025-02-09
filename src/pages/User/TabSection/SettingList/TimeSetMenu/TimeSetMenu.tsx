@@ -10,7 +10,7 @@ import { useRef, useState } from 'react';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
-import { TIME_LIST } from '@/constants/timeList';
+import { paddedTimeList } from '@/constants/timeList';
 import { SelectedTime } from '@/pages/Home/HomePage';
 import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
 import { C } from './TimeSetMenu.style';
@@ -150,8 +150,8 @@ export default TimeSetMenu;
 
 const defaultSelectedTime: SelectedTime = {
   day: '오늘',
-  start: TIME_LIST[8],
-  end: TIME_LIST[19],
+  start: paddedTimeList[8],
+  end: paddedTimeList[19],
 };
 
 function getSelectedTime(user: Member | null): SelectedTime {
