@@ -1,57 +1,54 @@
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import RootLayout from './components/layout/RootLayout';
-import Search from './pages/Search';
-import Feedback from './pages/Feedback';
-import Login from './pages/Login';
-import LoginAuth from './pages/LoginAuth';
-import UserGender from './pages/UserGender';
-import User from './pages/User';
-import PrivateRouteLayout from './components/layout/PrivateRouteLayout';
-import UserLookbookCreate from './pages/UserLookbookCreate';
-import TermsOfService from './pages/TermsOfService';
-import PrivacyPolicy from './pages/PrivacyPolicy';
+import RootLayout from './layout/RootLayout/RootLayout';
+import MemberAccessLayout from './layout/MemberAccessLayout/MemberAccessLayout';
+import HomePage from './pages/Home/HomePage';
+const NotFoundPage = lazy(() => import('./pages/NotFound/NotFoundPage'));
+const SearchPage = lazy(() => import('./pages/Search/SearchPage'));
+const FeedbackPage = lazy(() => import('./pages/Feedback/FeedbackPage'));
+const LoginPage = lazy(() => import('./pages/Login/LoginPage'));
+const LoginAuthPage = lazy(() => import('./pages/LoginAuth/LoginAuthPage'));
+const UserGenderPage = lazy(() => import('./pages/UserGender/UserGenderPage'));
+const UserPage = lazy(() => import('./pages/User/UserPage'));
+const UserLookbookCreatePage = lazy(
+  () => import('./pages/UserLookbookCreate/UserLookbookCreatePage')
+);
+const TermsOfServicePage = lazy(
+  () => import('./pages/TermsOfService/TermsOfServicePage')
+);
+const PrivacyPolicyPage = lazy(
+  () => import('./pages/PrivacyPolicy/PrivacyPolicyPage')
+);
 
 export const router = createBrowserRouter([
   {
     element: <RootLayout />,
-    errorElement: <NotFound />,
+    errorElement: <NotFoundPage />,
     children: [
-      { path: '/', index: true, element: <Home /> },
+      { path: '/', index: true, element: <HomePage /> },
       {
         path: '/search',
-        element: <Search />,
+        element: <SearchPage />,
       },
-      { path: '/feedback', element: <Feedback /> },
-      { path: '/login', element: <Login /> },
-      { path: '/login/auth', element: <LoginAuth /> },
+      { path: '/feedback', element: <FeedbackPage /> },
+      {
+        path: '/login',
+        children: [
+          { index: true, element: <LoginPage /> },
+          { path: 'auth', element: <LoginAuthPage /> },
+        ],
+      },
       {
         path: '/user',
-        element: (
-          <PrivateRouteLayout>
-            <User />
-          </PrivateRouteLayout>
-        ),
-      },
-      {
-        path: '/user/gender',
-        element: (
-          <PrivateRouteLayout>
-            <UserGender />
-          </PrivateRouteLayout>
-        ),
-      },
-      {
-        path: '/user/lookbook/create',
-        element: (
-          <PrivateRouteLayout>
-            <UserLookbookCreate />
-          </PrivateRouteLayout>
-        ),
+        element: <MemberAccessLayout />,
+        children: [
+          { index: true, element: <UserPage /> },
+          { path: 'gender', element: <UserGenderPage /> },
+          { path: 'lookbook/create', element: <UserLookbookCreatePage /> },
+        ],
       },
     ],
   },
-  { path: '/terms-of-service', element: <TermsOfService /> },
-  { path: '/privacy-policy', element: <PrivacyPolicy /> },
+  { path: '/terms-of-service', element: <TermsOfServicePage /> },
+  { path: '/privacy-policy', element: <PrivacyPolicyPage /> },
 ]) as ReturnType<typeof createBrowserRouter>;

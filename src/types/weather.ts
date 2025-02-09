@@ -10,7 +10,7 @@ export type RainType =
 
 export type SkyStatus = 'CLEAR' | 'PARTLY_CLOUDY' | 'CLOUDY';
 
-export type WeatherResponseData = {
+export type WeatherData = {
   season: string;
   extremumTmp: number;
   maxMinTmpDiff: number;
