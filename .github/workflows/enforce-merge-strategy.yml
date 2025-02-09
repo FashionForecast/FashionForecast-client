@@ -1,18 +1,21 @@
 name: Enforce Merge Strategy
 
 on:
-  pull_request: # PR이 생성되거나 업데이트될 때 실행
-    types: [opened, synchronize, reopened]
+  pull_request:
+    types: [closed] # PR이 닫힐(closed) 때만 실행
 
 jobs:
   enforce_merge_strategy:
-    runs-on: ubuntu-latest # 실행 환경
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Check merge strategy
+      - name: Check if PR is merged
+        if: github.event.pull_request.merged == true # 머지된 경우에만 실행
         run: |
           # 현재 PR의 타겟 브랜치 확인
           BASE_BRANCH="${{ github.base_ref }}"
+
+          # 허용할 머지 방식 지정
           if [[ "$BASE_BRANCH" == "develop" ]]; then
             ALLOWED_METHOD="squash"
           elif [[ "$BASE_BRANCH" == "main" ]]; then
@@ -21,11 +24,9 @@ jobs:
             exit 0  # 다른 브랜치는 검사하지 않음
           fi
 
-          # PR에서 사용된 머지 방식 확인
-          MERGE_METHOD="${{ github.event.pull_request.mergeable_state }}"
-
-          # 잘못된 머지 방식이면 실패 처리
-          if [[ "$MERGE_METHOD" != "$ALLOWED_METHOD" ]]; then
+          # PR의 머지 전략 확인
+          MERGE_METHOD="${{ github.event.pull_request.merge_commit_sha }}"
+          if [[ -z "$MERGE_METHOD" ]]; then
             echo "❌ 잘못된 머지 방식입니다! '$BASE_BRANCH' 브랜치에는 '$ALLOWED_METHOD' 방식으로만 머지해야 합니다."
             exit 1  # GitHub Actions 실패 처리
           fi
