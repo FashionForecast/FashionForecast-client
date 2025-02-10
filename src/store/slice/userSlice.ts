@@ -1,11 +1,11 @@
 import { Member } from '@/types/member';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 
 type UserState = {
   info: Member | null;
 };
 
-const userSlice = createSlice({
+const userSlice: Slice<UserState> = createSlice({
   name: 'user',
   initialState: {
     info: null,
