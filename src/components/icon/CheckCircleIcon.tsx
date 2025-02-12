@@ -1,4 +1,4 @@
-import { theme } from '@/styles/theme';
+import { theme } from '@/shared/styles';
 
 type CheckCircleProps = {
   color?: 'white' | 'dark';

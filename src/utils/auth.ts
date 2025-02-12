@@ -1,7 +1,6 @@
 import { LOGIN } from '@/constants/localStorageKey';
 import { authActions } from '@/store/slice/authSlice';
 import { userActions } from '@/store/slice/userSlice';
-import { AppDispatch } from '@/store/store';
 import { getAccessToken, getMember } from '@/services/auth';
 
 export async function storeAccessToken(dispatch: AppDispatch) {

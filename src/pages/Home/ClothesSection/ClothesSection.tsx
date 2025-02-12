@@ -3,7 +3,7 @@ import { WeatherData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { S } from './ClothesSection.style';
 import { memo, useCallback, useState } from 'react';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import RecommendClothesLoading from './RecommendList/RecommendListLoading';
 import NetworkError from '@/components/NetworkError/NetworkError';
 import { useKeenSlider } from 'keen-slider/react';

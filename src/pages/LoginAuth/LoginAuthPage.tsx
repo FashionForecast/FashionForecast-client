@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import NotFoundPage from '../NotFound/NotFoundPage';
-import useAppDispatch from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { storeAccessToken, storeUser } from '@/utils/auth';
 
 const LoginAuthPage = () => {

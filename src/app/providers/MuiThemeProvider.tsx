@@ -1,10 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material';
+import { PropsWithChildren } from 'react';
 
-/**
- * MUI Theming
- * @link https://mui.com/material-ui/customization/theming/
- */
-
+/** @link https://mui.com/material-ui/customization/theming/ */
 const theme = createTheme({
   typography: {
     fontFamily:
@@ -12,12 +9,6 @@ const theme = createTheme({
   },
 });
 
-type MuiThemeProviderProps = {
-  children: React.ReactNode;
-};
-
-const MuiThemeProvider = ({ children }: MuiThemeProviderProps) => {
+export const MuiThemeProvider = ({ children }: PropsWithChildren) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
-
-export default MuiThemeProvider;

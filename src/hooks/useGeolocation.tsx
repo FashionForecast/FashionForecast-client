@@ -1,6 +1,6 @@
 import regionList from '@/assets/regionList.json';
-import useAppSelector from './useAppSelector';
-import useAppDispatch from './useAppDispatch';
+import { useAppSelector } from '../shared/lib/useAppSelector';
+import { useAppDispatch } from '../shared/lib/useAppDispatch';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 
 const DEFAULT_REGION = {

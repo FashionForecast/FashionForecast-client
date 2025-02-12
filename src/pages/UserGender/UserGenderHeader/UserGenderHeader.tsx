@@ -1,6 +1,6 @@
 import UserAvatar from '@/components/UserAvatar/UserAvatar';
 import { IconButton } from '@mui/material';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import Header from '@/components/Header/Header';
 
 const UserGenderHeader = () => {

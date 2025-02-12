@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { PropsWithChildren } from 'react';
 
 const queryCleint = new QueryClient({
   defaultOptions: {
@@ -11,17 +12,11 @@ const queryCleint = new QueryClient({
   },
 });
 
-type TanstackQueryProviderProps = {
-  children: React.ReactNode;
-};
-
-export default function TanstackQueryProvider({
-  children,
-}: TanstackQueryProviderProps) {
+export const TanstackQueryProvider = ({ children }: PropsWithChildren) => {
   return (
     <QueryClientProvider client={queryCleint}>
       <ReactQueryDevtools buttonPosition='top-right' />
       {children}
     </QueryClientProvider>
   );
-}
+};

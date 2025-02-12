@@ -1,7 +1,7 @@
 import UserHeader from './UserHeader/UserHeader';
 import { S } from './UserPage.style';
 import TabSection from './TabSection/TabSection';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
 const UserPage = () => {

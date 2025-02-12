@@ -1,5 +1,5 @@
 import CustomSnackbar from '@/components/CustomMui/CustomSnackbar';
-import { createContext, useContext, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import styled from '@emotion/styled';
 
 type SnackbarContextType = {
@@ -7,8 +7,7 @@ type SnackbarContextType = {
 };
 const SnackbarContext = createContext<SnackbarContextType | null>(null);
 
-type SnackbarProviedProps = { children: React.ReactNode };
-export const SnackbarProvider = ({ children }: SnackbarProviedProps) => {
+export const SnackbarProvider = ({ children }: PropsWithChildren) => {
   const [key, setKey] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');

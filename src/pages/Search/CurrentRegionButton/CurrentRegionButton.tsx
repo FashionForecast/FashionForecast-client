@@ -4,13 +4,13 @@ import { MY_REGION } from '@/constants/localStorageKey';
 import useGeolocation from '@/hooks/useGeolocation';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/LocationIcon';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useMutation } from '@tanstack/react-query';
 import { setMemberDefaultRegion } from '@/services/auth';
 import { useState } from 'react';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { storeUser } from '@/utils/auth';
-import useAppDispatch from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import { DialogActions, DialogContent } from '@mui/material';
 

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colors } from '@/styles/colors';
+import { colors } from '@/app/styles/colors';
 import { css } from '@mui/material';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import CustomButton from '@/components/CustomMui/CustomButton';

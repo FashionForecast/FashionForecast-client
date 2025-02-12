@@ -3,7 +3,7 @@ import { C } from './MainHeader.style';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import LocationIcon from '@/components/icon/LocationIcon';
 import { Link } from 'react-router-dom';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import UserAvatar from '@/components/UserAvatar/UserAvatar';
 import Header from '@/components/Header/Header';
 import { memo } from 'react';

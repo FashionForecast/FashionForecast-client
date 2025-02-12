@@ -1,7 +1,7 @@
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-const MemberAccessLayout = () => {
+export const AuthGuard = () => {
   const user = useAppSelector((state) => state.user.info);
   const { pathname } = useLocation();
 
@@ -11,5 +11,3 @@ const MemberAccessLayout = () => {
 
   return <Outlet />;
 };
-
-export default MemberAccessLayout;

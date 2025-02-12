@@ -3,7 +3,7 @@ import {
   DragRangeStatus,
 } from '@/components/TimeSelector/TimeSelector';
 import { S } from './TimeRange.style';
-import { theme } from '@/styles/theme';
+import { theme } from '@/shared/styles';
 
 type TimeRangeProps = {
   startTime: number;

@@ -12,13 +12,13 @@ import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
 import TopClothesIcon from '@/components/icon/TopClothesIcon';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { useMutation } from '@tanstack/react-query';
 import { setMemberClothesThickness } from '@/services/auth';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { storeUser } from '@/utils/auth';
-import useAppDispatch from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 
 const ThicknessSetMenu = () => {
   const user = useAppSelector((state) => state.user.info);

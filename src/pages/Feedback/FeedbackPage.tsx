@@ -5,7 +5,7 @@ import { useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { useMutation } from '@tanstack/react-query';
 import { submitFeedback } from '@/services/feedback';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
 const FeedbackPage = () => {

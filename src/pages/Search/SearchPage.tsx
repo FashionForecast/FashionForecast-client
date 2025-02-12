@@ -9,11 +9,11 @@ import CurrentRegionButton, {
 } from './CurrentRegionButton/CurrentRegionButton';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { registerResentSearch } from '@/services/search';
 import { setMemberDefaultRegion } from '@/services/auth';
-import useAppSelector from '@/hooks/useAppSelector';
-import useAppDispatch from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { Region } from '@/types/region';
 import { MY_REGION } from '@/constants/localStorageKey';
 import { goelocationActions } from '@/store/slice/geolocationSlice';

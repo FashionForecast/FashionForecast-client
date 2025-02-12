@@ -3,9 +3,9 @@ import { S, C } from './TimeSelector.style';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import HourSections from './HourSections/HourSections';
 import TimeRanges from './TimeRanges/TimeRanges';
-import { theme } from '@/styles/theme';
 import TimeDivider from './TimeDivider/TimeDivider';
 import TimeHeader from './TimeHeader/TimeHeader';
+import { theme } from '@/shared/styles';
 
 export type Time = {
   startTime: string;

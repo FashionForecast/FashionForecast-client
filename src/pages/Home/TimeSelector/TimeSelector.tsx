@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { paddedTimeList } from '@/constants/timeList';
 import { KSTDate } from '@/utils/date';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
 
 const DAYS = ['오늘', '내일'];
 

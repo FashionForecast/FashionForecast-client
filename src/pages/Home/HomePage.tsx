@@ -1,4 +1,4 @@
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { getWeather } from '@/services/weather';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import MainHeader from './MainHeader/MainHeader';

@@ -1,7 +1,7 @@
 import { getMemberLookbook } from '@/services/clothes';
 import { S } from './LookbookList.style';
 import { useQuery } from '@tanstack/react-query';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { WeatherForRecommendClothes, TempCondition } from '../ClothesSection';
 import { MemberLookbook } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';

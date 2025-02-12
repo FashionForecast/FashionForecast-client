@@ -14,7 +14,7 @@ import {
   LookbookSelect,
 } from '@/pages/UserLookbookCreate/UserLookbookCreatePage';
 import { useLocation } from 'react-router-dom';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Member } from '@/types/member';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/lookbook';
 

@@ -1,19 +1,19 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import * as S from './RootLayout.style';
+import * as S from './BaseLayout.style';
 import { GUEST_UUID, LOGIN, MY_REGION } from '@/constants/localStorageKey';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { guestLogin } from '@/services/login';
-import useAppDispatch from '@/hooks/useAppDispatch';
-import A2hsSnackbar from './A2hsSnackbar/A2hsSnackbar';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import A2hsSnackbar from '../../layout/RootLayout/A2hsSnackbar/A2hsSnackbar';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
 import { storeAccessToken, storeUser } from '@/utils/auth';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import regionList from '@/assets/regionList.json';
-import PageLoading from '../PageLoading/PageLoading';
+import PageLoading from '../../layout/PageLoading/PageLoading';
 
-export default function RootLayout() {
+export const BaseLayout = () => {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
   const user = useAppSelector((state) => state.user.info);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
@@ -101,4 +101,4 @@ export default function RootLayout() {
       <A2hsSnackbar />
     </S.Main>
   );
-}
+};

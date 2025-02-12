@@ -1,4 +1,4 @@
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import MenuItem from '../components/MenuItem/MenuItem';
 import { Member } from '@/types/member';
 import UserFillIcon from '@/components/icon/UserFillIcon';

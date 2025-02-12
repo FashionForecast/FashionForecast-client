@@ -6,8 +6,8 @@ import { LocationState, LookbookSelect } from '../UserLookbookCreatePage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { WeatherType } from '@/types/weather';
 import { saveLookbook } from '@/services/clothes';
-import useAppSelector from '@/hooks/useAppSelector';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useState } from 'react';
 import DeleteDialog from './DeleteDialog/DeleteDialog';
 

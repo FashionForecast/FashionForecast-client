@@ -1,6 +1,6 @@
 import LookbookCard from './LookbookCard/LookbookCard';
 import { useQuery } from '@tanstack/react-query';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { getAllLookbookListByWeather } from '@/services/clothes';
 import { WeatherType } from '@/types/weather';
 

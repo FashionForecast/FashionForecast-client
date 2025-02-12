@@ -1,4 +1,4 @@
-import { ThemeType } from '@/styles/theme';
+import { ThemeType } from '@/app/styles/theme';
 import '@emotion/react';
 
 /** 프로젝트 theme 타입 설정 확장 */

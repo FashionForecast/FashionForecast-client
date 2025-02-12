@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearchList } from '@/services/search';
 import { GUEST_UUID } from '@/constants/localStorageKey';
 import { Region } from '@/types/region';
-import useAppSelector from '@/hooks/useAppSelector';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 
 export type RecentSearchRegion = {
   city: string;
