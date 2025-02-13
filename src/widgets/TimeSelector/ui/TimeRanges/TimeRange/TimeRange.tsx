@@ -1,9 +1,7 @@
-import {
-  TIME_COLOR,
-  DragRangeStatus,
-} from '@/components/TimeSelector/TimeSelector';
+import { DragRangeStatus } from '@/widgets/TimeSelector/model/types';
 import { S } from './TimeRange.style';
 import { theme } from '@/shared/styles';
+import { TIME_COLOR } from '@/widgets/TimeSelector/model/consts';
 
 type TimeRangeProps = {
   startTime: number;
@@ -12,7 +10,7 @@ type TimeRangeProps = {
   isDefaultTime?: boolean;
 };
 
-const TimeRange = ({
+export const TimeRange = ({
   startTime,
   endTime,
   dragRangeStatus,
@@ -49,8 +47,6 @@ const TimeRange = ({
     </>
   );
 };
-
-export default TimeRange;
 
 function calculatePath(startTime: number, end: number) {
   if (startTime === end) return;

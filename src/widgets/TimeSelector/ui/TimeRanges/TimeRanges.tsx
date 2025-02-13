@@ -1,6 +1,6 @@
-import { Time, DragRangeStatus } from '../TimeSelector';
-import TimeRange from './TimeRange/TimeRange';
-import TimeDivider from '../TimeDivider/TimeDivider';
+import { TimeRange } from './TimeRange/TimeRange';
+import { TimeDivider } from '../TimeDivider/TimeDivider';
+import { DragRangeStatus, Time } from '../../model/types';
 
 type TimeRangesProps = {
   times: Time[];
@@ -11,7 +11,7 @@ type TimeRangesProps = {
   isDefaultTime?: boolean;
 };
 
-const TimeRanges = ({
+export const TimeRanges = ({
   times,
   isDragging,
   draggingStartTime,
@@ -55,5 +55,3 @@ const TimeRanges = ({
     </>
   );
 };
-
-export default TimeRanges;

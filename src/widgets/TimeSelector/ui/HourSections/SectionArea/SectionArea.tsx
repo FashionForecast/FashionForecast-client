@@ -8,7 +8,7 @@ type SectionAreaProps = {
   handleDelete: () => void;
 };
 
-const SectionArea = ({
+export const SectionArea = ({
   index,
   sections,
   center,
@@ -49,8 +49,6 @@ const SectionArea = ({
     />
   );
 };
-
-export default SectionArea;
 
 // 극좌표를 직교 좌표로 변환하는 함수
 const polarToCartesian = (

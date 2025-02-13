@@ -10,10 +10,7 @@ import HomeLoading from '../../HomeLoading';
 import NetworkError from '@/components/NetworkError/NetworkError';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import WeatherInfo from '../../WeatherInfo/WeatherInfo';
-import TimeSelector, {
-  DayButtonType,
-  Time,
-} from '@/components/TimeSelector/TimeSelector';
+import { DayButtonType, Time, TimeSelector } from '@/widgets/TimeSelector/';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
 export type SelectedTime = {

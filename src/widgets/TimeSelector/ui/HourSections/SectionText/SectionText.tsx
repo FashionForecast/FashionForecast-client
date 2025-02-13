@@ -1,7 +1,8 @@
 import { createPortal } from 'react-dom';
-import { DragRangeStatus, TIME_COLOR } from '../../TimeSelector';
 import { S } from './SectionText.style';
 import { useEffect, useRef, useState } from 'react';
+import { DragRangeStatus } from '@/widgets/TimeSelector/model/types';
+import { TIME_COLOR } from '@/widgets/TimeSelector/model/consts';
 
 type SectionTextProps = {
   time: string;
@@ -16,7 +17,7 @@ type SectionTextProps = {
   dragRangeStatus: DragRangeStatus;
 };
 
-const SectionText = ({
+export const SectionText = ({
   time,
   index,
   center,
@@ -97,8 +98,6 @@ const SectionText = ({
     </>
   );
 };
-
-export default SectionText;
 
 const isTommorrowText = (
   startIndex: number,

@@ -1,5 +1,8 @@
 import regionCoordinateList from '@/assets/regionCoordinateList';
-import { DayButtonType, Time } from '@/components/TimeSelector/TimeSelector';
+import {
+  DayButtonType,
+  Time,
+} from '@/widgets/TimeSelector/ui/TimeSelector/TimeSelector';
 import { WeatherData } from '@/types/weather';
 import { dateToISO, KSTDate } from '@/utils/date';
 import { fetchAPI } from '@/utils/fetch';

@@ -1,6 +1,6 @@
 import { theme } from '@/shared/styles';
 
-const TimeDivider = () => {
+export const TimeDivider = () => {
   return (
     <circle
       cx={'0'}
@@ -14,5 +14,3 @@ const TimeDivider = () => {
     />
   );
 };
-
-export default TimeDivider;

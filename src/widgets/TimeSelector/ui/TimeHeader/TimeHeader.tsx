@@ -6,7 +6,7 @@ type TimeHeaderProps = {
   closeTimeSelector: () => void;
 };
 
-const TimeHeader = ({ closeTimeSelector }: TimeHeaderProps) => {
+export const TimeHeader = ({ closeTimeSelector }: TimeHeaderProps) => {
   return (
     <Header>
       <GoBackButton onClick={closeTimeSelector} />
@@ -15,5 +15,3 @@ const TimeHeader = ({ closeTimeSelector }: TimeHeaderProps) => {
     </Header>
   );
 };
-
-export default TimeHeader;

@@ -1,33 +1,13 @@
 import { compactTimeList } from '@/constants/timeList';
 import { S, C } from './TimeSelector.style';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import HourSections from './HourSections/HourSections';
-import TimeRanges from './TimeRanges/TimeRanges';
-import TimeDivider from './TimeDivider/TimeDivider';
-import TimeHeader from './TimeHeader/TimeHeader';
+import { HourSections } from '../HourSections/HourSections';
+import { TimeRanges } from '../TimeRanges/TimeRanges';
+import { TimeDivider } from '../TimeDivider/TimeDivider';
+import { TimeHeader } from '../TimeHeader/TimeHeader';
 import { theme } from '@/shared/styles';
-
-export type Time = {
-  startTime: string;
-  endTime: string | null;
-  indexes: number[];
-  isTomorrow?: boolean;
-  isDefault?: boolean;
-};
-
-export type DragRangeStatus = 'today' | 'tommorow' | 'error';
-
-export const TIME_COLOR: Record<DragRangeStatus, string> = {
-  today: theme.colors.blueGrey[600],
-  tommorow: theme.colors.info.main,
-  error: theme.colors.error.main,
-};
-
-type TimeSelectorDayButton = {
-  type: DayButtonType;
-  text: string;
-}[];
-export type DayButtonType = '오늘' | '내일' | '모레';
+import { DayButtonType, DragRangeStatus, Time } from '../../model/types';
+import { DAY_BUTTONS } from '../../model/consts';
 
 type TimeSelectorProps = {
   isOpen: boolean;
@@ -39,7 +19,7 @@ type TimeSelectorProps = {
   onSubmit: () => void;
 };
 
-const TimeSelector = ({
+export const TimeSelector = ({
   isOpen,
   times,
   setTimes,
@@ -60,11 +40,6 @@ const TimeSelector = ({
     [focusingTime, startTime, times, isDefaultTime]
   );
   const tomorrowTime = times.find((v) => v.isTomorrow);
-  const DAY_BUTTONS: TimeSelectorDayButton = [
-    { type: '오늘', text: '오늘' },
-    { type: '내일', text: '내일' },
-    { type: '모레', text: '모레' },
-  ];
   const selectedTimeText = getSelectedTimeText(day, times);
 
   const handlePointerDown = (startIndex: number) => {
@@ -282,8 +257,6 @@ const TimeSelector = ({
     </S.TimeSelectorWrap>
   );
 };
-
-export default TimeSelector;
 
 /** 시간대 배열을 업데이트하는 함수 */
 function updateTimeIndexArray(startIndex: number, endIndex: number) {

@@ -1,8 +1,8 @@
 import { compactTimeList } from '@/constants/timeList';
-import SectionArea from './SectionArea/SectionArea';
-import SectionText from './SectionText/SectionText';
-import { DragRangeStatus, Time } from '../TimeSelector';
+import { SectionArea } from './SectionArea/SectionArea';
+import { SectionText } from './SectionText/SectionText';
 import { useEffect, useState } from 'react';
+import { DragRangeStatus, Time } from '../../model/types';
 
 type HourSectionsProps = {
   visibleTimeText: [number[], number[]];
@@ -16,7 +16,7 @@ type HourSectionsProps = {
   handleDelete: () => void;
 };
 
-const HourSections = ({
+export const HourSections = ({
   visibleTimeText,
   tomorrowTime,
   startTimeIndex,
@@ -93,5 +93,3 @@ const HourSections = ({
     </svg>
   );
 };
-
-export default HourSections;

@@ -1,4 +1,4 @@
-import { MAX_WIDTH } from './../../constants/css';
+import { MAX_WIDTH } from '../../../../constants/css';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
