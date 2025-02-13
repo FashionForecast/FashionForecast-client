@@ -44,4 +44,4 @@ export const theme = {
   typo,
 };
 
-export type ThemeType = typeof theme;
+export type AppTheme = typeof theme;
