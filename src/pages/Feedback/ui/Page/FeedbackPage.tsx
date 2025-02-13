@@ -8,7 +8,7 @@ import { submitFeedback } from '@/services/feedback';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
-const FeedbackPage = () => {
+export const FeedbackPage = () => {
   const [feedback, setFeedback] = useState('');
   const navigate = useNavigate();
   const { openSnackbar } = useSnackbar();
@@ -79,5 +79,3 @@ const FeedbackPage = () => {
     </>
   );
 };
-
-export default FeedbackPage;

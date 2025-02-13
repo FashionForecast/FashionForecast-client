@@ -1,15 +1,15 @@
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { getWeather } from '@/services/weather';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import MainHeader from './MainHeader/MainHeader';
-import ClothesSection from './ClothesSection/ClothesSection';
+import MainHeader from '../../MainHeader/MainHeader';
+import ClothesSection from '../../ClothesSection/ClothesSection';
 import { useEffect, useState } from 'react';
 import { S } from './HomePage.style';
 import { paddedTimeList } from '@/constants/timeList';
-import HomeLoading from './HomeLoading';
+import HomeLoading from '../../HomeLoading';
 import NetworkError from '@/components/NetworkError/NetworkError';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
-import WeatherInfo from './WeatherInfo/WeatherInfo';
+import WeatherInfo from '../../WeatherInfo/WeatherInfo';
 import TimeSelector, {
   DayButtonType,
   Time,
@@ -22,7 +22,7 @@ export type SelectedTime = {
   end: string;
 };
 
-const HomePage = () => {
+export const HomePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryClient = useQueryClient();
   const location = useLocation(); // 현재 URL 정보 가져오기
@@ -67,10 +67,8 @@ const HomePage = () => {
 
       <S.HomeWrap>
         <MainHeader />
-
         {isError && <NetworkError handleRefetch={refetch} />}
         {isLoading && <HomeLoading />}
-
         {data && (
           <>
             <ClothesSection weather={data} />
@@ -81,7 +79,6 @@ const HomePage = () => {
             <WeatherInfo weather={data} />
           </>
         )}
-
         <TimeSelector
           isOpen={isTimeSelectorOpen}
           times={times}
@@ -95,8 +92,6 @@ const HomePage = () => {
     </>
   );
 };
-
-export default HomePage;
 
 function getTimes() {
   const now = new Date();

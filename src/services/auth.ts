@@ -1,4 +1,4 @@
-import { SelectedTime } from '@/pages/Home/HomePage';
+import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { TimeSetOption } from '@/pages/User/TabSection/SettingList/TimeSetMenu/TimeSetMenu';
 import { fetchAPI } from '@/utils/fetch';

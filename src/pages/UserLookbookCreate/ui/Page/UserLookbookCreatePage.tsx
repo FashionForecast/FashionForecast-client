@@ -1,14 +1,14 @@
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import { S } from './UserLookbookCreatePage.style';
-import WeatherHeadline from './WeatherHeadline/WeatherHeadline';
+import WeatherHeadline from '../../WeatherHeadline/WeatherHeadline';
 import { WeatherType } from '@/types/weather';
-import EditSection from './Edit/EditSection';
+import EditSection from '../../Edit/EditSection';
 import { useCallback, useState } from 'react';
 import { MemberLookbook } from '@/types/clothes';
-import { TempCondition } from '../Home/ClothesSection/ClothesSection';
+import { TempCondition } from '../../../Home/ClothesSection/ClothesSection';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/lookbook';
-import LookbookCreateHeader from './LookbookCreateHeader/LookbookCreateHeader';
+import LookbookCreateHeader from '../../LookbookCreateHeader/LookbookCreateHeader';
 
 export type LookbookSelect = {
   top: { name: string; color: string };
@@ -26,7 +26,7 @@ export type LocationState = {
   };
 };
 
-const UserLookbookCreatePage = () => {
+export const UserLookbookCreatePage = () => {
   const [searchParams] = useSearchParams();
   const { state }: LocationState = useLocation();
   const userOutfit = state?.outfit;
@@ -68,8 +68,6 @@ const UserLookbookCreatePage = () => {
     </>
   );
 };
-
-export default UserLookbookCreatePage;
 
 // type이 1~8 사이가 아니면, 유효하지 않은 parameter
 function isInvalidParam(typeParam: string | null) {

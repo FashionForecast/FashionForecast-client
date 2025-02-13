@@ -1,6 +1,6 @@
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
-const TermsOfServicePage = () => {
+export const TermsOfServicePage = () => {
   return (
     <>
       <HeadHelmet
@@ -178,5 +178,3 @@ const TermsOfServicePage = () => {
     </>
   );
 };
-
-export default TermsOfServicePage;

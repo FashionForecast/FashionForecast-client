@@ -11,7 +11,7 @@ import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
 import { paddedTimeList } from '@/constants/timeList';
-import { SelectedTime } from '@/pages/Home/HomePage';
+import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
 import { C } from './TimeSetMenu.style';
 import { useAppSelector } from '@/shared/lib/useAppSelector';

@@ -1,5 +1,5 @@
 import { S } from './UserGenderPage.style';
-import UserGenderHeader from './UserGenderHeader/UserGenderHeader';
+import UserGenderHeader from '../../UserGenderHeader/UserGenderHeader';
 import { useState } from 'react';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { useMutation } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ const BUTTONS = [
   { text: '여자', value: 'FEMALE', icon: <FemaleIcon /> },
 ];
 
-const UserGenderPage = () => {
+export const UserGenderPage = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
   const [gender, setGender] = useState<Gender | ''>('');
@@ -94,5 +94,3 @@ const UserGenderPage = () => {
     </>
   );
 };
-
-export default UserGenderPage;

@@ -1,10 +1,10 @@
-import UserHeader from './UserHeader/UserHeader';
+import UserHeader from '../../UserHeader/UserHeader';
 import { S } from './UserPage.style';
-import TabSection from './TabSection/TabSection';
+import TabSection from '../../TabSection/TabSection';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
-const UserPage = () => {
+export const UserPage = () => {
   const user = useAppSelector((state) => state.user.info);
 
   return (
@@ -25,5 +25,3 @@ const UserPage = () => {
     </>
   );
 };
-
-export default UserPage;

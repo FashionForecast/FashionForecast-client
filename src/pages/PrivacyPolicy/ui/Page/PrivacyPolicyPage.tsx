@@ -1,6 +1,6 @@
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
-const PrivacyPolicyPage = () => {
+export const PrivacyPolicyPage = () => {
   return (
     <>
       <HeadHelmet
@@ -148,5 +148,3 @@ const PrivacyPolicyPage = () => {
     </>
   );
 };
-
-export default PrivacyPolicyPage;

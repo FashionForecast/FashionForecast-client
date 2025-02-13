@@ -12,7 +12,7 @@ import { FocussingSliderType } from '../EditSection';
 import {
   LocationState,
   LookbookSelect,
-} from '@/pages/UserLookbookCreate/UserLookbookCreatePage';
+} from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Member } from '@/types/member';

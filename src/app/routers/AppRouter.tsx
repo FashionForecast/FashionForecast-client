@@ -2,25 +2,57 @@ import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { AuthGuard } from './AuthGuard';
-import HomePage from '../../pages/Home/HomePage';
 import { BaseLayout } from '../layouts';
-const NotFoundPage = lazy(() => import('../../pages/NotFound/NotFoundPage'));
-const SearchPage = lazy(() => import('../../pages/Search/SearchPage'));
-const FeedbackPage = lazy(() => import('../../pages/Feedback/FeedbackPage'));
-const LoginPage = lazy(() => import('../../pages/Login/LoginPage'));
-const LoginAuthPage = lazy(() => import('../../pages/LoginAuth/LoginAuthPage'));
-const UserGenderPage = lazy(
-  () => import('../../pages/UserGender/UserGenderPage')
+import { HomePage } from '@/pages/Home';
+const NotFoundPage = lazy(() =>
+  import('@/pages/NotFound').then((module) => ({
+    default: module.NotFoundPage,
+  }))
 );
-const UserPage = lazy(() => import('../../pages/User/UserPage'));
-const UserLookbookCreatePage = lazy(
-  () => import('../../pages/UserLookbookCreate/UserLookbookCreatePage')
+const SearchPage = lazy(() =>
+  import('@/pages/Search').then((module) => ({
+    default: module.SearchPage,
+  }))
 );
-const TermsOfServicePage = lazy(
-  () => import('../../pages/TermsOfService/TermsOfServicePage')
+const FeedbackPage = lazy(() =>
+  import('@/pages/Feedback').then((module) => ({
+    default: module.FeedbackPage,
+  }))
 );
-const PrivacyPolicyPage = lazy(
-  () => import('../../pages/PrivacyPolicy/PrivacyPolicyPage')
+const LoginPage = lazy(() =>
+  import('@/pages/Login').then((module) => ({
+    default: module.LoginPage,
+  }))
+);
+const LoginAuthPage = lazy(() =>
+  import('@/pages/LoginAuth').then((module) => ({
+    default: module.LoginAuthPage,
+  }))
+);
+const UserGenderPage = lazy(() =>
+  import('@/pages/UserGender').then((module) => ({
+    default: module.UserGenderPage,
+  }))
+);
+const UserPage = lazy(() =>
+  import('@/pages/User').then((module) => ({
+    default: module.UserPage,
+  }))
+);
+const UserLookbookCreatePage = lazy(() =>
+  import('@/pages/UserLookbookCreate').then((module) => ({
+    default: module.UserLookbookCreatePage,
+  }))
+);
+const TermsOfServicePage = lazy(() =>
+  import('@/pages/TermsOfService').then((module) => ({
+    default: module.TermsOfServicePage,
+  }))
+);
+const PrivacyPolicyPage = lazy(() =>
+  import('@/pages/PrivacyPolicy').then((module) => ({
+    default: module.PrivacyPolicyPage,
+  }))
 );
 
 const router = createBrowserRouter([
@@ -49,6 +81,10 @@ const router = createBrowserRouter([
           { path: 'gender', element: <UserGenderPage /> },
           { path: 'lookbook/create', element: <UserLookbookCreatePage /> },
         ],
+      },
+      {
+        path: '/not-found',
+        element: <NotFoundPage />,
       },
     ],
   },

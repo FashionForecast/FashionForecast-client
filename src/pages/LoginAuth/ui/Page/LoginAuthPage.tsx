@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import NotFoundPage from '../NotFound/NotFoundPage';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { storeAccessToken, storeUser } from '@/utils/auth';
 
-const LoginAuthPage = () => {
+export const LoginAuthPage = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -34,7 +33,5 @@ const LoginAuthPage = () => {
   }, []);
 
   if (isLoginSucess) return <></>;
-  return <NotFoundPage />;
+  return <Navigate to={'/not-found'} replace />;
 };
-
-export default LoginAuthPage;

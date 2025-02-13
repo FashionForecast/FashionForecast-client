@@ -1,7 +1,7 @@
 import { WeatherType } from '@/types/weather';
 import { S } from './WeatherHeadline.style';
 import { useLocation } from 'react-router-dom';
-import { LocationState } from '../UserLookbookCreatePage';
+import { LocationState } from '../ui/Page/UserLookbookCreatePage';
 import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { memo } from 'react';
 import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';

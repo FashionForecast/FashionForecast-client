@@ -1,5 +1,5 @@
 import { paddedTimeList } from '@/constants/timeList';
-import { SelectedTime } from '@/pages/Home/HomePage';
+import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 import TimeCarousel from '@/pages/Home/TimeSelector/TimeCarousel/TimeCarousel';
 import { useMemo } from 'react';
 import { S } from './UserTimeSelector.style';

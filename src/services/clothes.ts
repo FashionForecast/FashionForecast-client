@@ -8,7 +8,7 @@ import {
   MemberLookbook,
 } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
-import { LookbookSelect } from '@/pages/UserLookbookCreate/UserLookbookCreatePage';
+import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 import { fetchAPI } from '@/utils/fetch';
 
 export async function getRecommnedClothes(

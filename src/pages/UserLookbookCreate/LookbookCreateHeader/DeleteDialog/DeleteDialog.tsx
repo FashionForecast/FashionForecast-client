@@ -2,7 +2,7 @@ import CustomButton from '@/components/CustomMui/CustomButton';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { LocationState } from '@/pages/UserLookbookCreate/UserLookbookCreatePage';
+import { LocationState } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 import { deleteLookbookItem } from '@/services/clothes';
 import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

@@ -3,7 +3,7 @@ import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-const NotFoundPage = () => {
+export const NotFoundPage = () => {
   return (
     <>
       <HeadHelmet
@@ -20,8 +20,6 @@ const NotFoundPage = () => {
     </>
   );
 };
-
-export default NotFoundPage;
 
 const NotFoundWrap = styled.div`
   display: flex;

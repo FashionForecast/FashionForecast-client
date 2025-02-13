@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import regionList from '@/assets/regionList.json';
-import RegionItem from './components/RegionItem/RegionItem';
+import RegionItem from '../../components/RegionItem/RegionItem';
 import { C, S } from './SearchPage.style';
-import SearchHeader from './SearchHeader/SearchHeader';
-import RecentSearchList from './RecentSearchList/RecentSearchList';
+import SearchHeader from '../../SearchHeader/SearchHeader';
+import RecentSearchList from '../../RecentSearchList/RecentSearchList';
 import CurrentRegionButton, {
   SearchLocationState,
-} from './CurrentRegionButton/CurrentRegionButton';
+} from '../../CurrentRegionButton/CurrentRegionButton';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
@@ -20,7 +20,7 @@ import { goelocationActions } from '@/store/slice/geolocationSlice';
 import { storeUser } from '@/utils/auth';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
-const SearchPage = () => {
+export const SearchPage = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const user = useAppSelector((state) => state.user.info);
   const [keyword, setKeyword] = useState('');
@@ -127,5 +127,3 @@ const SearchPage = () => {
     </>
   );
 };
-
-export default SearchPage;

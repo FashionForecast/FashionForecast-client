@@ -2,7 +2,10 @@ import GoBackButton from '@/components/GoBackButton/GoBackButton';
 import Header from '@/components/Header/Header';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { C, S } from './LookbookCreateHeader.style';
-import { LocationState, LookbookSelect } from '../UserLookbookCreatePage';
+import {
+  LocationState,
+  LookbookSelect,
+} from '../ui/Page/UserLookbookCreatePage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { WeatherType } from '@/types/weather';
 import { saveLookbook } from '@/services/clothes';

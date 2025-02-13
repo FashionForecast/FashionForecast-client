@@ -1,5 +1,5 @@
-import LoginFooter from './LoginFooter/LoginFooter';
-import LoginHeader from './LoginHeader/LoginHeader';
+import LoginFooter from '../../LoginFooter/LoginFooter';
+import LoginHeader from '../../LoginHeader/LoginHeader';
 import 청바지 from '@/components/icon/clothes/청바지';
 import 바지 from '@/components/icon/clothes/바지';
 import 반팔티 from '@/components/icon/clothes/반팔티';
@@ -20,7 +20,7 @@ const SOCIAL_LOGIN: Array<SocialType> = [
   { provider: 'google', text: '구글', icon: <GoogleIcon /> },
 ];
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const handleLoginClick = (provider: string) => () => {
     window.location.href = `${
       import.meta.env.VITE_SERVER_URL
@@ -80,5 +80,3 @@ const LoginPage = () => {
     </>
   );
 };
-
-export default LoginPage;
