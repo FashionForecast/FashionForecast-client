@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { guestLogin } from '@/services/login';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
-import useGeolocation from '@/hooks/useGeolocation';
+import { useGeolocation } from '@/shared/lib';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import regionList from '@/shared/consts/regionList.json';
 import { storeAccessToken, storeUser } from '@/shared/lib';

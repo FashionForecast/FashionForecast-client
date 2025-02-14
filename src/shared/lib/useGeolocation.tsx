@@ -1,6 +1,6 @@
 import regionList from '@/shared/consts/regionList.json';
-import { useAppSelector } from '../shared/lib/useAppSelector';
-import { useAppDispatch } from '../shared/lib/useAppDispatch';
+import { useAppSelector } from './useAppSelector';
+import { useAppDispatch } from './useAppDispatch';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 
 const DEFAULT_REGION = {
@@ -10,7 +10,7 @@ const DEFAULT_REGION = {
 };
 
 /** 사용자의 위치를 설정하는 hook */
-const useGeolocation = () => {
+export const useGeolocation = () => {
   const { value, status } = useAppSelector((state) => state.geolocation);
   const dispatch = useAppDispatch();
 
@@ -49,8 +49,6 @@ const useGeolocation = () => {
     updateStatus,
   };
 };
-
-export default useGeolocation;
 
 /** 사용자의 위치를 특정하는 함수 */
 function getClosestRegion(position: GeolocationPosition) {
