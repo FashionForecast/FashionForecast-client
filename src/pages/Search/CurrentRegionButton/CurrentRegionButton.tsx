@@ -9,7 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 import { setMemberDefaultRegion } from '@/services/auth';
 import { useState } from 'react';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { storeUser } from '@/utils/auth';
+import { storeUser } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import { DialogActions, DialogContent } from '@mui/material';

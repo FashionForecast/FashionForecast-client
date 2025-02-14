@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import { colors } from '@/app/styles/colors';
 import { css } from '@mui/material';
-import forwardPropOption from '@/utils/emotionForwardPropOption';
+import { forwardPropOption } from '@/shared/lib';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import { MAX_WIDTH } from '@/shared/consts';
 
@@ -27,7 +26,7 @@ const TimeRange = styled.div`
   align-items: center;
   width: 100%;
   padding: 16px;
-  background-color: ${colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const Hypen = styled.div`

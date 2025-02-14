@@ -17,7 +17,7 @@ import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { Region } from '@/types/region';
 import { MY_REGION } from '@/shared/consts';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
-import { storeUser } from '@/utils/auth';
+import { storeUser } from '@/shared/lib';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
 
 export const SearchPage = () => {

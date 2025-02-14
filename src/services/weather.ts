@@ -1,8 +1,8 @@
 import { regionCoordinateList } from '@/shared/consts';
 import { DayButtonType, Time } from '@/widgets/TimeSelector';
 import { WeatherData } from '@/types/weather';
-import { dateToISO, KSTDate } from '@/utils/date';
-import { fetchAPI } from '@/utils/fetch';
+import { dateToISO, KSTDate } from '@/shared/lib';
+import { fetchAPI } from '@/shared/lib';
 
 export async function getWeather(
   times: Time[],

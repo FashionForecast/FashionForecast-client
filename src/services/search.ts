@@ -1,7 +1,7 @@
 import { GUEST_UUID } from '@/shared/consts';
 import { guestLogin } from './login';
 import { RecentSearchRegion } from '@/pages/Search/RecentSearchList/RecentSearchList';
-import { fetchAPI } from '@/utils/fetch';
+import { fetchAPI } from '@/shared/lib';
 import { RecentSearchList } from '@/types/member';
 
 export async function getRecentSearchList(

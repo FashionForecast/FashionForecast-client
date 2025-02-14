@@ -9,7 +9,7 @@ import {
 } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
-import { fetchAPI } from '@/utils/fetch';
+import { fetchAPI } from '@/shared/lib';
 
 export async function getRecommnedClothes(
   weather: WeatherForRecommendClothes & { tempCondition: TempCondition }

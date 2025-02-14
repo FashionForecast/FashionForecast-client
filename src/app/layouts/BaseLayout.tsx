@@ -8,10 +8,10 @@ import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import A2hsSnackbar from '../../layout/RootLayout/A2hsSnackbar/A2hsSnackbar';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
-import { storeAccessToken, storeUser } from '@/utils/auth';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import regionList from '@/shared/consts/regionList.json';
 import PageLoading from '../../layout/PageLoading/PageLoading';
+import { storeAccessToken, storeUser } from '@/shared/lib';
 
 export const BaseLayout = () => {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();

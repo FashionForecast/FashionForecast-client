@@ -1,6 +1,6 @@
 import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
-import forwardPropOption from '@/utils/emotionForwardPropOption';
+import { forwardPropOption } from '@/shared/lib';
 import { css } from '@emotion/react';
 import { MAX_WIDTH } from '@/shared/consts';
 

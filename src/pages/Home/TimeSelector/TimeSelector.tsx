@@ -5,7 +5,7 @@ import TimeCarousel from './TimeCarousel/TimeCarousel';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { paddedTimeList } from '@/shared/consts/timeList';
-import { KSTDate } from '@/utils/date';
+import { KSTDate } from '@/shared/lib';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 
 const DAYS = ['오늘', '내일'];

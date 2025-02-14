@@ -17,7 +17,7 @@ import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { useMutation } from '@tanstack/react-query';
 import { setMemberClothesThickness } from '@/services/auth';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { storeUser } from '@/utils/auth';
+import { storeUser } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 
 const ThicknessSetMenu = () => {

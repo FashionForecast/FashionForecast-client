@@ -1,7 +1,7 @@
 import { LOGIN } from '@/shared/consts';
 import { authActions } from '@/store/slice/authSlice';
 import { userActions } from '@/store/slice/userSlice';
-import { getAccessToken, getMember } from '@/services/auth';
+import { getAccessToken, getMember } from '../api/auth';
 
 export async function storeAccessToken(dispatch: AppDispatch) {
   try {

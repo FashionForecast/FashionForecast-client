@@ -17,7 +17,7 @@ import { C } from './TimeSetMenu.style';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { setMemberOutingTime } from '@/services/auth';
-import { storeUser } from '@/utils/auth';
+import { storeUser } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { Member } from '@/types/member';

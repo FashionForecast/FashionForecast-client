@@ -1,23 +1,7 @@
 import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { TimeSetOption } from '@/pages/User/TabSection/SettingList/TimeSetMenu/TimeSetMenu';
-import { fetchAPI } from '@/utils/fetch';
-import { AccessToken } from '@/types/auth';
-import { Member } from '@/types/member';
-
-export async function getAccessToken() {
-  return await fetchAPI<AccessToken>('/login/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-  });
-}
-
-export async function getMember(accessToken: string) {
-  return await fetchAPI<Member>('/member', {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
-}
+import { fetchAPI } from '@/shared/lib';
 
 export async function logout(accessToken: string | null) {
   if (!accessToken) throw new Error('로그인을 해주세요.');

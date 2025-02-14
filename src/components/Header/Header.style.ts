@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import CustomAppBar from '../CustomMui/CustomAppBar';
-import forwardPropOption from '@/utils/emotionForwardPropOption';
+import { forwardPropOption } from '@/shared/lib';
 import { HeaderColor, HeaderPosition } from './Header';
 import { css, Theme } from '@emotion/react';
 import { MAX_WIDTH } from '@/shared/consts';

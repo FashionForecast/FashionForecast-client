@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { storeAccessToken, storeUser } from '@/utils/auth';
+import { storeAccessToken, storeUser } from '@/shared/lib';
 
 export const LoginAuthPage = () => {
   const [searchParams] = useSearchParams();

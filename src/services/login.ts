@@ -1,5 +1,5 @@
 import { Guest } from '@/types/auth';
-import { fetchAPI } from '@/utils/fetch';
+import { fetchAPI } from '@/shared/lib';
 
 export async function guestLogin() {
   return fetchAPI<Guest>('/guest/login', {

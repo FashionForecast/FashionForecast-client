@@ -1,4 +1,4 @@
-import { fetchAPI } from '@/utils/fetch';
+import { fetchAPI } from '@/shared/lib';
 
 export async function submitFeedback(feedback: string) {
   await fetchAPI('/board', {
