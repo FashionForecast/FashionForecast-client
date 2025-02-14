@@ -1,6 +1,6 @@
 import { C, S } from './ColorButtons.style';
 import CheckCircleIcon from '@/components/icon/CheckCircleIcon';
-import { COLOR_PALETTES } from '@/constants/colorPalettes';
+import { COLOR_PALETTES } from '@/shared/consts';
 import { memo } from 'react';
 
 type ColorButtonsProps = {

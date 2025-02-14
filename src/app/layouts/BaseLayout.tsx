@@ -1,6 +1,6 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import * as S from './BaseLayout.style';
-import { GUEST_UUID, LOGIN, MY_REGION } from '@/constants/localStorageKey';
+import { GUEST_UUID, LOGIN, MY_REGION } from '@/shared/consts';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { guestLogin } from '@/services/login';
@@ -10,7 +10,7 @@ import { goelocationActions } from '@/store/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
 import { storeAccessToken, storeUser } from '@/utils/auth';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import regionList from '@/assets/regionList.json';
+import regionList from '@/shared/consts/regionList.json';
 import PageLoading from '../../layout/PageLoading/PageLoading';
 
 export const BaseLayout = () => {

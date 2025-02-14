@@ -1,4 +1,4 @@
-import { GUEST_UUID } from '@/constants/localStorageKey';
+import { GUEST_UUID } from '@/shared/consts';
 import { guestLogin } from './login';
 import { RecentSearchRegion } from '@/pages/Search/RecentSearchList/RecentSearchList';
 import { fetchAPI } from '@/utils/fetch';

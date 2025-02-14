@@ -1,4 +1,4 @@
-const regionCoordinateList: Record<
+export const regionCoordinateList: Record<
   string,
   { nx: number; ny: number }
 > = {
@@ -1011,4 +1011,3 @@ const regionCoordinateList: Record<
     "ny": 126.56
   }
 }
- export default regionCoordinateList

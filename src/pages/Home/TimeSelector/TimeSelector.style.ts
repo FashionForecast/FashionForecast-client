@@ -3,7 +3,7 @@ import { colors } from '@/app/styles/colors';
 import { css } from '@mui/material';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import CustomButton from '@/components/CustomMui/CustomButton';
-import { MAX_WIDTH } from '@/constants/css';
+import { MAX_WIDTH } from '@/shared/consts';
 
 const TimeSelector = styled.section`
   position: fixed;

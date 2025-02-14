@@ -1,4 +1,4 @@
-import { LOGIN } from '@/constants/localStorageKey';
+import { LOGIN } from '@/shared/consts';
 import { authActions } from '@/store/slice/authSlice';
 import { userActions } from '@/store/slice/userSlice';
 import { getAccessToken, getMember } from '@/services/auth';

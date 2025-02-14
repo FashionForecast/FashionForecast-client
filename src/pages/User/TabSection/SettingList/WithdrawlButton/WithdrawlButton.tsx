@@ -1,6 +1,6 @@
 import CustomButton from '@/components/CustomMui/CustomButton';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
-import { LOGIN } from '@/constants/localStorageKey';
+import { LOGIN } from '@/shared/consts';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { withdrawlAccount } from '@/services/auth';

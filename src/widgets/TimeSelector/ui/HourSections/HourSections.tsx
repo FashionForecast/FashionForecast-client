@@ -1,4 +1,4 @@
-import { compactTimeList } from '@/constants/timeList';
+import { compactTimeList } from '@/shared/consts/timeList';
 import { SectionArea } from './SectionArea/SectionArea';
 import { SectionText } from './SectionText/SectionText';
 import { useEffect, useState } from 'react';

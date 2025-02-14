@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 import { MemberLookbook } from '@/types/clothes';
 import { TempCondition } from '../../../Home/ClothesSection/ClothesSection';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
-import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/lookbook';
+import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import LookbookCreateHeader from '../../LookbookCreateHeader/LookbookCreateHeader';
 
 export type LookbookSelect = {

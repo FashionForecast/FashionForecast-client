@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { logout } from '@/services/auth';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useNavigate } from 'react-router-dom';
-import { LOGIN } from '@/constants/localStorageKey';
+import { LOGIN } from '@/shared/consts';
 import LogoutIcon from '@/components/icon/LogoutIcon';
 
 const LogoutMenu = () => {

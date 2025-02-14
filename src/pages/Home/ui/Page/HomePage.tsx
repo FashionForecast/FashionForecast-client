@@ -5,7 +5,7 @@ import MainHeader from '../../MainHeader/MainHeader';
 import ClothesSection from '../../ClothesSection/ClothesSection';
 import { useEffect, useState } from 'react';
 import { S } from './HomePage.style';
-import { paddedTimeList } from '@/constants/timeList';
+import { paddedTimeList } from '@/shared/consts/timeList';
 import HomeLoading from '../../HomeLoading';
 import NetworkError from '@/components/NetworkError/NetworkError';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';

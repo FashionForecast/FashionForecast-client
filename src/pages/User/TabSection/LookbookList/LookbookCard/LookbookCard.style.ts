@@ -1,4 +1,4 @@
-import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';
+import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
 import { WeatherType } from '@/types/weather';
 import styled from '@emotion/styled';
 import { IconButton } from '@mui/material';

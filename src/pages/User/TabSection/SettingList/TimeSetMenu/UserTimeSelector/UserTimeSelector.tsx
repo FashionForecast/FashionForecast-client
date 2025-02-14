@@ -1,4 +1,4 @@
-import { paddedTimeList } from '@/constants/timeList';
+import { paddedTimeList } from '@/shared/consts/timeList';
 import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 import TimeCarousel from '@/pages/Home/TimeSelector/TimeCarousel/TimeCarousel';
 import { useMemo } from 'react';

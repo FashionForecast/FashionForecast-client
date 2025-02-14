@@ -10,7 +10,7 @@ import { useRef, useState } from 'react';
 import CustomDialog from '@/components/CustomMui/CustomDialog';
 import CustomRadio from '@/components/CustomMui/CustomRadio';
 import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
-import { paddedTimeList } from '@/constants/timeList';
+import { paddedTimeList } from '@/shared/consts/timeList';
 import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
 import { C } from './TimeSetMenu.style';

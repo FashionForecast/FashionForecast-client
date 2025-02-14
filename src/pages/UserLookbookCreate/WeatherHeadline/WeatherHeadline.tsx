@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { LocationState } from '../ui/Page/UserLookbookCreatePage';
 import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { memo } from 'react';
-import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';
+import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
 
 type WeatherHeadlineProps = {
   weatherType: WeatherType;

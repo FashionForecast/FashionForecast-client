@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import regionList from '@/assets/regionList.json';
+import regionList from '@/shared/consts/regionList.json';
 import RegionItem from '../../components/RegionItem/RegionItem';
 import { C, S } from './SearchPage.style';
 import SearchHeader from '../../SearchHeader/SearchHeader';
@@ -15,7 +15,7 @@ import { setMemberDefaultRegion } from '@/services/auth';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { Region } from '@/types/region';
-import { MY_REGION } from '@/constants/localStorageKey';
+import { MY_REGION } from '@/shared/consts';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 import { storeUser } from '@/utils/auth';
 import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';

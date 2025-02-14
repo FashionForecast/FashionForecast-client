@@ -1,4 +1,4 @@
-import { compactTimeList } from '@/constants/timeList';
+import { compactTimeList } from '@/shared/consts/timeList';
 import { S, C } from './TimeSelector.style';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { HourSections } from '../HourSections/HourSections';

@@ -3,7 +3,7 @@ import { C } from './RecentSearchList.style';
 import XIcon from '@/components/icon/XIcon';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearchList } from '@/services/search';
-import { GUEST_UUID } from '@/constants/localStorageKey';
+import { GUEST_UUID } from '@/shared/consts';
 import { Region } from '@/types/region';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 

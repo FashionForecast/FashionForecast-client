@@ -1,4 +1,4 @@
-import { MAX_WIDTH } from '@/constants/css';
+import { MAX_WIDTH } from '@/shared/consts';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 

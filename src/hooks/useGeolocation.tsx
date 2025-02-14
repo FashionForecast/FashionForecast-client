@@ -1,4 +1,4 @@
-import regionList from '@/assets/regionList.json';
+import regionList from '@/shared/consts/regionList.json';
 import { useAppSelector } from '../shared/lib/useAppSelector';
 import { useAppDispatch } from '../shared/lib/useAppDispatch';
 import { goelocationActions } from '@/store/slice/geolocationSlice';

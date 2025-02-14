@@ -5,7 +5,7 @@ import {
   MAN_BOTTOM_CLOTHES,
   MAN_TOP_COLTHES,
   WOMAN_BOTTOM_CLOTHES,
-} from '@/constants/clothesList';
+} from '@/shared/consts';
 import { ClothesType, MemberLookbook } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { FocussingSliderType } from '../EditSection';
@@ -16,7 +16,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Member } from '@/types/member';
-import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/lookbook';
+import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 
 export type SliderType = ClothesType | null;
 

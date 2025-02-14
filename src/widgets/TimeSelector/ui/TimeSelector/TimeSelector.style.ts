@@ -1,8 +1,8 @@
-import { MAX_WIDTH } from '../../../../constants/css';
 import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
 import forwardPropOption from '@/utils/emotionForwardPropOption';
 import { css } from '@emotion/react';
+import { MAX_WIDTH } from '@/shared/consts';
 
 const TimeSelectorWrap = styled.section<{ $isOpen: boolean }>`
   position: fixed;
