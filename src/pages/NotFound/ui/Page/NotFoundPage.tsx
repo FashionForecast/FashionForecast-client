@@ -1,5 +1,5 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
-import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
+import { CustomButton } from '@/shared/ui';
+import { HeadHelmet } from '@/shared/ui';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 

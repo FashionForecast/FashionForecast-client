@@ -1,4 +1,4 @@
-import CustomSnackbar from '@/components/CustomMui/CustomSnackbar';
+import { CustomSnackbar } from '@/shared/ui';
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import styled from '@emotion/styled';
 

@@ -7,11 +7,11 @@ import {
 } from '@mui/material';
 import MenuItem from '../components/MenuItem/MenuItem';
 import { useRef, useState } from 'react';
-import CustomButton from '@/components/CustomMui/CustomButton';
-import CustomDialog from '@/components/CustomMui/CustomDialog';
-import CustomRadio from '@/components/CustomMui/CustomRadio';
-import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
-import TopClothesIcon from '@/components/icon/TopClothesIcon';
+import { CustomButton } from '@/shared/ui';
+import { CustomDialog } from '@/shared/ui';
+import { CustomRadio } from '@/shared/ui';
+import { CustomFormControlLabel } from '@/shared/ui';
+import { TopClothesIcon } from '@/shared/ui';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { useMutation } from '@tanstack/react-query';

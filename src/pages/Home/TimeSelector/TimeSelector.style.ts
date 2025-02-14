@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { css } from '@mui/material';
 import { forwardPropOption } from '@/shared/lib';
-import CustomButton from '@/components/CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import { MAX_WIDTH } from '@/shared/consts';
 
 const TimeSelector = styled.section`

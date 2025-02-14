@@ -2,8 +2,8 @@ import { S } from './CurrentRegionButton.style';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MY_REGION } from '@/shared/consts';
 import useGeolocation from '@/hooks/useGeolocation';
-import CustomButton from '@/components/CustomMui/CustomButton';
-import LocationIcon from '@/components/icon/LocationIcon';
+import { CustomButton } from '@/shared/ui';
+import { LocationIcon } from '@/shared/ui';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useMutation } from '@tanstack/react-query';
 import { setMemberDefaultRegion } from '@/services/auth';
@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { storeUser } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import CustomDialog from '@/components/CustomMui/CustomDialog';
+import { CustomDialog } from '@/shared/ui';
 import { DialogActions, DialogContent } from '@mui/material';
 
 export type SearchLocationState = {

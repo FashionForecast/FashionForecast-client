@@ -1,5 +1,5 @@
-import GoBackButton from '@/components/GoBackButton/GoBackButton';
-import Header from '@/components/Header/Header';
+import { GoBackButton } from '@/shared/ui';
+import { Header } from '@/shared/ui';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { C, S } from './LookbookCreateHeader.style';
 import {

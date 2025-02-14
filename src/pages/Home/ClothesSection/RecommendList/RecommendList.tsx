@@ -7,10 +7,9 @@ import {
 import { C, S } from './RecommendList.style';
 import { Chip } from '@mui/material';
 import { memo } from 'react';
-import ClothesIcon, {
-  clotehsIconsMap,
-} from '@/components/ClothesIcon/ClothesIcon';
+import { ClothesIcon } from '@/shared/ui';
 import { WeatherType } from '@/types/weather';
+import { clothesIconNameList } from '@/shared/consts';
 
 type RecommendListProps = {
   clothes: RecommendClothes;
@@ -117,7 +116,7 @@ function getClothesName(
   // 꼭 챙기세요! 항목: 우산이 포함되지 않은 경우
   for (const name of names) {
     if (ETCName) break;
-    ETCName = clotehsIconsMap.has(name) ? name : null;
+    ETCName = clothesIconNameList.has(name) ? name : null;
   }
 
   return ETCName;

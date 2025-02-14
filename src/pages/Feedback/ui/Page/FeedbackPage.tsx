@@ -1,12 +1,12 @@
-import GoBackButton from '@/components/GoBackButton/GoBackButton';
+import { GoBackButton } from '@/shared/ui';
 import { S, C } from './FeedbackPage.style';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import CustomButton from '@/components/CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import { useMutation } from '@tanstack/react-query';
 import { submitFeedback } from '@/services/feedback';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
+import { HeadHelmet } from '@/shared/ui';
 
 export const FeedbackPage = () => {
   const [feedback, setFeedback] = useState('');

@@ -1,4 +1,4 @@
-import CustomToggleButton from '@/components/CustomMui/CustomToggleButton';
+import { CustomToggleButton } from '@/shared/ui';
 import styled from '@emotion/styled';
 
 const ToggleButton = styled(CustomToggleButton)`

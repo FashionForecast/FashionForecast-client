@@ -2,7 +2,7 @@ import { C } from './RegionItem.style';
 import { IconButton } from '@mui/material';
 import { Region } from '@/types/region';
 
-import CheckIcon from '@/components/icon/CheckIcon';
+import { CheckIcon } from '@/shared/ui';
 
 type RegionItemProps = Region & {
   keyword: string;

@@ -1,6 +1,6 @@
-import GoBackButton from '@/components/GoBackButton/GoBackButton';
+import { GoBackButton } from '@/shared/ui';
 import { S } from './TimeHeader.style';
-import Header from '@/components/Header/Header';
+import { Header } from '@/shared/ui';
 
 type TimeHeaderProps = {
   closeTimeSelector: () => void;

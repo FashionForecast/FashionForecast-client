@@ -7,8 +7,8 @@ import { MemberLookbook } from '@/types/clothes';
 import { WeatherType } from '@/types/weather';
 import { useNavigate } from 'react-router-dom';
 import { memo } from 'react';
-import PlusIcon from '@/components/icon/PlusIcon';
-import ClothesIcon from '@/components/ClothesIcon/ClothesIcon';
+import { PlusIcon } from '@/shared/ui';
+import { ClothesIcon } from '@/shared/ui';
 
 type LookbookListProps = {
   weather: WeatherForRecommendClothes;

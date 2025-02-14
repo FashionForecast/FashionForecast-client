@@ -1,5 +1,5 @@
 import { S } from './SettingList.style';
-import CustomButton from '@/components/CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import MenuItem from './components/MenuItem/MenuItem';
 import RegionSetMenu from './RegionSetMenu/RegionSetMenu';
 import TimeSetMenu from './TimeSetMenu/TimeSetMenu';
@@ -8,7 +8,7 @@ import LogoutMenu from './LogoutMenu/LogoutMenu';
 import { Link } from 'react-router-dom';
 import WithdrawlButton from './WithdrawlButton/WithdrawlButton';
 import GenderMenu from './GenderMenu/GenderMenu';
-import FeedbackIcon from '@/components/icon/FeedbackIcon';
+import { FeedbackIcon } from '@/shared/ui';
 
 const SettingList = () => {
   return (

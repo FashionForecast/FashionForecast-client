@@ -1,4 +1,4 @@
-import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
+import { HeadHelmet } from '@/shared/ui';
 
 export const PrivacyPolicyPage = () => {
   return (

@@ -2,7 +2,7 @@ import { useKeenSlider } from 'keen-slider/react';
 import { memo, useState } from 'react';
 import { S } from './ClothesSlider.style';
 import { ClothesIconNames, ClothesType } from '@/types/clothes';
-import ClothesIcon from '@/components/ClothesIcon/ClothesIcon';
+import { ClothesIcon } from '@/shared/ui';
 
 type ClotehsSliderProps = {
   type: 'top' | 'bottom';

@@ -5,7 +5,7 @@ import { S } from './ClothesSection.style';
 import { memo, useCallback, useState } from 'react';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import RecommendClothesLoading from './RecommendList/RecommendListLoading';
-import NetworkError from '@/components/NetworkError/NetworkError';
+import { FetchError } from '@/widgets/error';
 import { useKeenSlider } from 'keen-slider/react';
 import { useSearchParams } from 'react-router-dom';
 import RecommendList from './RecommendList/RecommendList';
@@ -88,7 +88,7 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     []
   );
 
-  if (isError) return <NetworkError handleRefetch={refetch} />;
+  if (isError) return <FetchError handleRefetch={refetch} />;
   return (
     <S.Section>
       <Headline weatherType={originType} />

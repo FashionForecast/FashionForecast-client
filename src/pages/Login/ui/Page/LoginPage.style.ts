@@ -1,4 +1,4 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import { forwardPropOption } from '@/shared/lib';
 import styled from '@emotion/styled';
 import { SocialType } from './LoginPage';

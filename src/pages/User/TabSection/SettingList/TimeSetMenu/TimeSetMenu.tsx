@@ -5,11 +5,11 @@ import {
   RadioGroup,
 } from '@mui/material';
 import MenuItem from '../components/MenuItem/MenuItem';
-import CustomButton from '@/components/CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import { useRef, useState } from 'react';
-import CustomDialog from '@/components/CustomMui/CustomDialog';
-import CustomRadio from '@/components/CustomMui/CustomRadio';
-import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
+import { CustomDialog } from '@/shared/ui';
+import { CustomRadio } from '@/shared/ui';
+import { CustomFormControlLabel } from '@/shared/ui';
 import { paddedTimeList } from '@/shared/consts/timeList';
 import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
@@ -21,7 +21,7 @@ import { storeUser } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { Member } from '@/types/member';
-import ClockIcon from '@/components/icon/ClockIcon';
+import { ClockIcon } from '@/shared/ui';
 
 const DEFAULT = 'DEFAULT';
 const SET_IT = 'setIt';

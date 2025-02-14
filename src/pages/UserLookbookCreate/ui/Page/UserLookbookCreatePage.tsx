@@ -6,7 +6,7 @@ import EditSection from '../../Edit/EditSection';
 import { useCallback, useState } from 'react';
 import { MemberLookbook } from '@/types/clothes';
 import { TempCondition } from '../../../Home/ClothesSection/ClothesSection';
-import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
+import { HeadHelmet } from '@/shared/ui';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import LookbookCreateHeader from '../../LookbookCreateHeader/LookbookCreateHeader';
 

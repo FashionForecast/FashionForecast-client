@@ -1,4 +1,4 @@
-import CustomTextField from '@/components/CustomMui/CustomTextField';
+import { CustomTextField } from '@/shared/ui';
 import styled from '@emotion/styled';
 
 const FeedbackWrap = styled.div`

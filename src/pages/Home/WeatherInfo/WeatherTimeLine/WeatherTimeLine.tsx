@@ -1,6 +1,6 @@
 import { WeatherData } from '@/types/weather';
 import { S } from './WeatherTimeLine.style';
-import WeatherIcon from '@/components/icon/weather/WeatherIcon';
+import { WeatherIcon } from '@/shared/ui';
 
 type WeatherTimeLimeProps = Pick<WeatherData, 'forecasts'>;
 

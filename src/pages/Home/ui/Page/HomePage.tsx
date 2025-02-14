@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import { S } from './HomePage.style';
 import { paddedTimeList } from '@/shared/consts/timeList';
 import HomeLoading from '../../HomeLoading';
-import NetworkError from '@/components/NetworkError/NetworkError';
-import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
+import { FetchError } from '@/widgets/error';
+import { HeadHelmet } from '@/shared/ui';
 import WeatherInfo from '../../WeatherInfo/WeatherInfo';
 import { DayButtonType, Time, TimeSelector } from '@/widgets/TimeSelector/';
 import { useLocation, useSearchParams } from 'react-router-dom';
@@ -64,7 +64,7 @@ export const HomePage = () => {
 
       <S.HomeWrap>
         <MainHeader />
-        {isError && <NetworkError handleRefetch={refetch} />}
+        {isError && <FetchError handleRefetch={refetch} />}
         {isLoading && <HomeLoading />}
         {data && (
           <>

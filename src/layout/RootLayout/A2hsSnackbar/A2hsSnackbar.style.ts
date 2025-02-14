@@ -1,5 +1,5 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
-import CustomSnackbar from '@/components/CustomMui/CustomSnackbar';
+import { CustomButton } from '@/shared/ui';
+import { CustomSnackbar } from '@/shared/ui';
 import styled from '@emotion/styled';
 
 const Snackbar = styled(CustomSnackbar)`

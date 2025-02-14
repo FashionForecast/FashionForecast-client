@@ -1,5 +1,5 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
-import CustomDialog from '@/components/CustomMui/CustomDialog';
+import { CustomButton } from '@/shared/ui';
+import { CustomDialog } from '@/shared/ui';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { LocationState } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';

@@ -1,4 +1,4 @@
-import LocationIcon from '@/components/icon/LocationIcon';
+import { LocationIcon } from '@/shared/ui';
 import MenuItem from '../components/MenuItem/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@/shared/lib/useAppSelector';

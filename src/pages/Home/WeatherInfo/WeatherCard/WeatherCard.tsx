@@ -1,8 +1,8 @@
 import { C, S } from './WeatherCard.style';
 import { WeatherData } from '@/types/weather';
-import PcpIcon from '@/components/icon/pcp/PcpIcon';
-import PopIcon from '@/components/icon/pop/PopIcon';
-import TemperatureIcon from '@/components/icon/temperature/TemperatureIcon';
+import { PcpIcon } from '@/shared/ui';
+import { PopIcon } from '@/shared/ui';
+import { TemperatureIcon } from '@/shared/ui';
 
 type WeatherCardProps = Partial<
   Pick<WeatherData, 'extremumTmp' | 'maximumPop' | 'maximumPcp'>

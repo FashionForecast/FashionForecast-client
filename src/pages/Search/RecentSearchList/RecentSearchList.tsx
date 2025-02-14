@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material';
 import { C } from './RecentSearchList.style';
-import XIcon from '@/components/icon/XIcon';
+import { XIcon } from '@/shared/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteSearchWord, getRecentSearchList } from '@/services/search';
 import { GUEST_UUID } from '@/shared/consts';

@@ -1,18 +1,18 @@
 import { S } from './UserGenderPage.style';
 import UserGenderHeader from '../../UserGenderHeader/UserGenderHeader';
 import { useState } from 'react';
-import CustomButton from '@/components/CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import { useMutation } from '@tanstack/react-query';
 import { setMemberGender } from '@/services/auth';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { userActions } from '@/store/slice/userSlice';
-import 바지 from '@/components/icon/clothes/바지';
 import { Gender } from '@/types/member';
-import HeadHelmet from '@/components/HeadHelmet/HeadHelmet';
-import FemaleIcon from '@/components/icon/gender/FemaleIcon';
-import MaleIcon from '@/components/icon/gender/MaleIcon';
+import { HeadHelmet } from '@/shared/ui';
+import { FemaleIcon } from '@/shared/ui';
+import { MaleIcon } from '@/shared/ui';
+import { ClothesIcon } from '@/shared/ui';
 
 const BUTTONS = [
   { text: '남자', value: 'MALE', icon: <MaleIcon /> },
@@ -54,7 +54,7 @@ export const UserGenderPage = () => {
 
         <S.SectionWrap>
           <S.ImageWrap>
-            <바지 />
+            <ClothesIcon name='바지' />
           </S.ImageWrap>
           <h3>거의 다 왔어요!</h3>
 

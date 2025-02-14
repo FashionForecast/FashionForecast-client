@@ -1,10 +1,10 @@
 import { S } from './SearchHeader.style';
 import { Link, useLocation } from 'react-router-dom';
-import CustomTextField from '@/components/CustomMui/CustomTextField';
-import GoBackButton from '@/components/GoBackButton/GoBackButton';
-import Header from '@/components/Header/Header';
+import { CustomTextField } from '@/shared/ui';
+import { GoBackButton } from '@/shared/ui';
+import { Header } from '@/shared/ui';
 import { SearchLocationState } from '../CurrentRegionButton/CurrentRegionButton';
-import XCircleIcon from '@/components/icon/XCircleIcon';
+import { XCircleIcon } from '@/shared/ui';
 
 type SearchHeaderProps = {
   keyword: string;

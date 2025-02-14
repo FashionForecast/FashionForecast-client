@@ -1,5 +1,5 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
-import CustomDialog from '@/components/CustomMui/CustomDialog';
+import { CustomButton } from '@/shared/ui';
+import { CustomDialog } from '@/shared/ui';
 import { LOGIN } from '@/shared/consts';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useAppSelector } from '@/shared/lib/useAppSelector';

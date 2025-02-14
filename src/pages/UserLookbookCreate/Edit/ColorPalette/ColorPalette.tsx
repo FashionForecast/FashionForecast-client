@@ -1,10 +1,10 @@
-import TopClothesIcon from '@/components/icon/TopClothesIcon';
+import { TopClothesIcon } from '@/shared/ui';
 import { FocussingSliderType } from '../EditSection';
 import { S } from './ColorPalette.style';
 import { memo, useEffect, useRef, useState } from 'react';
-import CustomButton from '@/components/CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import ColorButtons from './ColorButtons/ColorButtons';
-import BottomClothesIcon from '@/components/icon/BottomClothesIcon';
+import { BottomClothesIcon } from '@/shared/ui';
 
 type ColorPaletteProps = {
   focussingSlider: FocussingSliderType;

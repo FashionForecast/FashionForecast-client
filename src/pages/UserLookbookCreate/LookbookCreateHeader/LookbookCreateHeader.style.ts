@@ -1,4 +1,4 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import styled from '@emotion/styled';
 
 const TitleWrap = styled.div`
