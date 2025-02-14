@@ -1,7 +1,7 @@
 import { C } from './A2hsSnackbar.style';
-import useA2HS from './hooks/useA2HS';
+import useA2HS from '../../model/useA2HS';
 
-const A2hsSnackbar = () => {
+export const A2hsSnackbar = () => {
   const { deferredPrompt, installApp, clearPrompt: hideSnackbar } = useA2HS();
 
   return (
@@ -19,5 +19,3 @@ const A2hsSnackbar = () => {
     )
   );
 };
-
-export default A2hsSnackbar;

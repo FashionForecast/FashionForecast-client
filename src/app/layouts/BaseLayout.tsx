@@ -5,13 +5,13 @@ import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { guestLogin } from '@/services/login';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import A2hsSnackbar from '../../layout/RootLayout/A2hsSnackbar/A2hsSnackbar';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 import useGeolocation from '@/hooks/useGeolocation';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import regionList from '@/shared/consts/regionList.json';
-import PageLoading from '../../layout/PageLoading/PageLoading';
 import { storeAccessToken, storeUser } from '@/shared/lib';
+import { PageFallback } from '@/widgets/PageFallback';
+import { A2hsSnackbar } from '@/widgets/Snackbar';
 
 export const BaseLayout = () => {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
@@ -94,7 +94,7 @@ export const BaseLayout = () => {
     }
   }, [pathname, user?.gender]);
 
-  if (isLoggingIn) return <PageLoading />;
+  if (isLoggingIn) return <PageFallback />;
   return (
     <S.Main>
       <Outlet />

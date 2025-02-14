@@ -1,11 +1,9 @@
-import { S } from './pageLoading.style';
+import { S } from './pageFallback.style';
 
-const PageLoading = () => {
+export const PageFallback = () => {
   return (
     <S.Wrap>
       <S.Logo src='/logo.svg' alt='로고 이미지' />
     </S.Wrap>
   );
 };
-
-export default PageLoading;
