@@ -7,12 +7,12 @@ import {
   LookbookSelect,
 } from '../ui/Page/UserLookbookCreatePage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { WeatherType } from '@/entities/weather/model/weather';
-import { saveLookbook } from '@/services/clothes';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useState } from 'react';
 import DeleteDialog from './DeleteDialog/DeleteDialog';
+import { WeatherType } from '@/shared/types';
+import { saveLookbook } from '@/entities/clothes';
 
 type LookbookCreateHeaderProps = {
   weatherType: WeatherType;

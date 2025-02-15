@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import MenuItem from '../components/MenuItem/MenuItem';
-import { Member } from '@/shared/types/member';
 import { UserFillIcon } from '@/shared/ui';
+import { MemberDto } from '@/entities/member/model/types';
 
 const GenderMenu = () => {
   const user = useAppSelector((state) => state.member.info);
@@ -19,7 +19,7 @@ const GenderMenu = () => {
 
 export default GenderMenu;
 
-function getGender(gender?: Member['gender']) {
+function getGender(gender?: MemberDto['gender']) {
   if (!gender) return '-';
 
   if (gender === 'MALE') return '남성';

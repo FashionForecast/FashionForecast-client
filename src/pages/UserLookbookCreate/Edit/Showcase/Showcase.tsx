@@ -6,8 +6,6 @@ import {
   MAN_TOP_COLTHES,
   WOMAN_BOTTOM_CLOTHES,
 } from '@/shared/consts';
-import { ClothesType, MemberLookbook } from '@/shared/types/clothes';
-import { WeatherType } from '@/entities/weather/model/weather';
 import { FocussingSliderType } from '../EditSection';
 import {
   LocationState,
@@ -15,8 +13,10 @@ import {
 } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { Member } from '@/shared/types/member';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
+import { ClothesType, WeatherType } from '@/shared/types';
+import { MemberDto } from '@/entities/member/model/types';
+import { MemberLookbookDto } from '@/entities/clothes/model/types';
 
 export type SliderType = ClothesType | null;
 
@@ -102,8 +102,8 @@ export default Showcase;
 function getInitialIndex(
   type: WeatherType,
   slider: Exclude<SliderType, null>,
-  userOutfit?: MemberLookbook,
-  gender?: Member['gender']
+  userOutfit?: MemberLookbookDto,
+  gender?: MemberDto['gender']
 ) {
   const list = {
     top: MAN_TOP_COLTHES,

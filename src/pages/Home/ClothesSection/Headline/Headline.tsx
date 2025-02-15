@@ -1,7 +1,7 @@
 import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
 import { S } from './Headline.style';
-import { WeatherType } from '@/entities/weather/model/weather';
 import { memo } from 'react';
+import { WeatherType } from '@/shared/types';
 
 type HeadlineProps = {
   weatherType: WeatherType;

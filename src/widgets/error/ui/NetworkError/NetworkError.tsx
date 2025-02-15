@@ -1,4 +1,4 @@
-import { CustomButton } from '../CustomMui/CustomButton';
+import { CustomButton } from '@/shared/ui';
 import styled from '@emotion/styled';
 
 type ErrorProps = {

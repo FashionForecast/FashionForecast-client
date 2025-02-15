@@ -1,14 +1,14 @@
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import { S } from './UserLookbookCreatePage.style';
 import WeatherHeadline from '../../WeatherHeadline/WeatherHeadline';
-import { WeatherType } from '@/entities/weather/model/weather';
 import EditSection from '../../Edit/EditSection';
 import { useCallback, useState } from 'react';
-import { MemberLookbook } from '@/shared/types/clothes';
-import { TempCondition } from '../../../Home/ClothesSection/ClothesSection';
 import { HeadHelmet } from '@/shared/ui';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import LookbookCreateHeader from '../../LookbookCreateHeader/LookbookCreateHeader';
+import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { TempCondition } from '@/entities/member/model/types';
+import { WeatherType } from '@/shared/types';
 
 export type LookbookSelect = {
   top: { name: string; color: string };
@@ -20,7 +20,7 @@ export type LookbookSelect = {
 
 export type LocationState = {
   state?: {
-    outfit?: MemberLookbook;
+    outfit?: MemberLookbookDto;
     referrer?: string;
     tempOption?: TempCondition;
   };
@@ -83,7 +83,7 @@ function isInvalidParam(typeParam: string | null) {
 
 function defaultSelect(
   typeParam: string | null,
-  userOutfit: MemberLookbook | undefined
+  userOutfit: MemberLookbookDto | undefined
 ) {
   const type = (isInvalidParam(typeParam) ? '1' : typeParam) as WeatherType;
   const { top: defaultTop, bottom: defaultBottom } =

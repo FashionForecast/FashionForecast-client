@@ -4,10 +4,10 @@ import {
   LookbookItemData,
   MemberLookbookDto,
 } from '../model/types';
-import { WeatherType } from '@/entities/weather/model/weather';
 import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 import { WeatherForRecommendClothes } from '@/pages/Home/ClothesSection/ClothesSection';
 import { TempCondition } from '@/entities/member/model/types';
+import { WeatherType } from '@/shared/types';
 
 export async function getAllLookbookListByWeather(
   accessToken: string | null

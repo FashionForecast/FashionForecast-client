@@ -3,16 +3,16 @@ import UserGenderHeader from '../../UserGenderHeader/UserGenderHeader';
 import { useState } from 'react';
 import { CustomButton } from '@/shared/ui';
 import { useMutation } from '@tanstack/react-query';
-import { setMemberGender } from '@/entities/auth/api/auth';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { memberActions } from '@/entities/member/model/slice';
-import { Gender } from '@/shared/types/member';
 import { HeadHelmet } from '@/shared/ui';
 import { FemaleIcon } from '@/shared/ui';
 import { MaleIcon } from '@/shared/ui';
 import { ClothesIcon } from '@/shared/ui';
+import { Gender } from '@/entities/member/model/types';
+import { setMemberGender } from '@/entities/member';
 
 const BUTTONS = [
   { text: '남자', value: 'MALE', icon: <MaleIcon /> },

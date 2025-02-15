@@ -3,11 +3,11 @@ import { CustomDialog } from '@/shared/ui';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { LocationState } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
-import { deleteLookbookItem } from '@/services/clothes';
 import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { deleteLookbookItem } from '@/entities/clothes';
 
 type DeleteDialogProps = {
   isOpen: boolean;

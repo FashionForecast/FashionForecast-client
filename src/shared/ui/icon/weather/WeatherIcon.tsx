@@ -1,6 +1,6 @@
-import { RainType, SkyStatus } from '@/entities/weather/model/weather';
 import { lazy, Suspense } from 'react';
 import { IconLoading } from '@/shared/ui/IconLoading/IconLoading';
+import { RainType, SkyStatus } from '@/shared/types';
 
 type WeatherIconProps = {
   fcstTime: string;
