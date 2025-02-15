@@ -2,7 +2,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 export const AuthGuard = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const { pathname } = useLocation();
 
   if (!user) return <Navigate to={'/login'} replace />;

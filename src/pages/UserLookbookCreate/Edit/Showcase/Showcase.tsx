@@ -35,7 +35,7 @@ const Showcase = ({
   updateFocussingSlider,
   changeClothesName,
 }: ShowcaseProps) => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const { state }: LocationState = useLocation();
   const showcaseRef = useRef<HTMLElement>(null);
   const topSliderInitial = useMemo(

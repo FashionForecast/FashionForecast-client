@@ -1,11 +1,11 @@
 import LookbookCard from './LookbookCard/LookbookCard';
 import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { getAllLookbookListByWeather } from '@/services/clothes';
-import { WeatherType } from '@/entities/weather/model/weather';
+import { getAllLookbookListByWeather } from '@/entities/clothes';
+import { WeatherType } from '@/shared/types';
 
 const LookbookList = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const { data } = useQuery({
     queryKey: ['user', user?.socialId, 'lookbook'],

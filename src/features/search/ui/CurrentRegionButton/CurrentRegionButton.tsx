@@ -1,7 +1,6 @@
 import { S } from './CurrentRegionButton.style';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MY_REGION } from '@/shared/consts';
-import { useGeolocation } from '@/shared/lib';
 import { CustomButton } from '@/shared/ui';
 import { LocationIcon } from '@/shared/ui';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
@@ -11,8 +10,9 @@ import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { CustomDialog } from '@/shared/ui';
 import { DialogActions, DialogContent } from '@mui/material';
-import { setMemberDefaultRegion, storeUser } from '@/entities/member';
+import { setMemberDefaultRegion, storeMember } from '@/entities/member';
 import { SearchLocationState } from '../../model/types';
+import { useGeolocation } from '@/entities/geolocation';
 
 export const CurrentRegionButton = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
@@ -62,7 +62,7 @@ export const CurrentRegionButton = () => {
     mutate(undefined, {
       onSuccess: async () => {
         updateGPSRegion();
-        await storeUser(accessToken, dispatch);
+        await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },
       onError: () => openSnackbar('위치 설정 변경에 오류가 발생했어요'),

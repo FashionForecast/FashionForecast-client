@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 
 const RegionSetMenu = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const navigate = useNavigate();
 
   const handleClick = () => {

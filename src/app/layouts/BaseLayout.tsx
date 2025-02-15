@@ -5,19 +5,19 @@ import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { goelocationActions } from '@/store/slice/geolocationSlice';
-import { useGeolocation } from '@/shared/lib';
+import { goelocationActions } from '@/entities/geolocation/model/slice';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import regionList from '@/shared/consts/regionList.json';
 
 import { PageFallback } from '@/widgets/PageFallback';
 import { A2hsSnackbar } from '@/widgets/Snackbar';
 import { guestLogin, storeAccessToken } from '@/entities/auth';
-import { storeUser } from '@/entities/member';
+import { storeMember } from '@/entities/member';
+import { useGeolocation } from '@/entities/geolocation';
 
 export const BaseLayout = () => {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
@@ -70,7 +70,7 @@ export const BaseLayout = () => {
     async function handleLogin() {
       try {
         const accessToken = await storeAccessToken(dispatch);
-        await storeUser(accessToken, dispatch);
+        await storeMember(accessToken, dispatch);
       } catch (error) {
         console.error('자동 로그인에 실패했습니다.');
         navigate('/login');

@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import geolocationSlice from '../../store/slice/geolocationSlice';
-import authSlice from '../../store/slice/authSlice';
-import userSlice from '../../store/slice/userSlice';
+import { authSlice } from '@/entities/auth';
+import { geolocationSlice } from '@/entities/geolocation';
+import { memberSlice } from '@/entities/member/model/slice';
 
 export const store = configureStore({
-  reducer: { auth: authSlice, geolocation: geolocationSlice, user: userSlice },
+  reducer: {
+    auth: authSlice,
+    geolocation: geolocationSlice,
+    member: memberSlice,
+  },
 });

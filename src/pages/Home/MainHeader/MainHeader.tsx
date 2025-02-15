@@ -11,7 +11,7 @@ import { TriangleIcon } from '@/shared/ui';
 
 const MainHeader = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
 
   return (
     <Header>

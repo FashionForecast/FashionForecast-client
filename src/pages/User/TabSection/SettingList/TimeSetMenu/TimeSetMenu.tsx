@@ -16,12 +16,11 @@ import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
 import { C } from './TimeSetMenu.style';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { setMemberOutingTime } from '@/entities/auth/api/auth';
-import { storeUser } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { Member } from '@/shared/types/member';
 import { ClockIcon } from '@/shared/ui';
+import { setMemberOutingTime, storeMember } from '@/entities/member';
+import { MemberDto } from '@/entities/member/model/types';
 
 const DEFAULT = 'DEFAULT';
 const SET_IT = 'setIt';
@@ -29,7 +28,7 @@ const SET_IT = 'setIt';
 export type TimeSetOption = typeof DEFAULT | typeof SET_IT;
 
 const TimeSetMenu = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
   const [selectedTime, setSelectedTime] = useState<SelectedTime>(() =>
@@ -77,7 +76,7 @@ const TimeSetMenu = () => {
 
     mutate(undefined, {
       onSuccess: async () => {
-        const user = await storeUser(accessToken, dispatch);
+        const user = await storeMember(accessToken, dispatch);
         queryClient.invalidateQueries({ queryKey: ['weather'] });
         setSelectedTime(getSelectedTime(user));
         setOpen(false);
@@ -154,7 +153,7 @@ const defaultSelectedTime: SelectedTime = {
   end: paddedTimeList[19],
 };
 
-function getSelectedTime(user: Member | null): SelectedTime {
+function getSelectedTime(user: MemberDto | null): SelectedTime {
   if (!user || user.outingStartTime === 'DEFAULT') return defaultSelectedTime;
 
   return { day: '오늘', start: user.outingStartTime, end: user.outingEndTime };

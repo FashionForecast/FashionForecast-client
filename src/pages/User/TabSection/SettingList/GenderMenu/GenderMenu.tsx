@@ -4,7 +4,7 @@ import { Member } from '@/shared/types/member';
 import { UserFillIcon } from '@/shared/ui';
 
 const GenderMenu = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const gender = getGender(user?.gender);
 
   return (

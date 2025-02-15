@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { storeAccessToken, storeUser } from '@/shared/lib';
+import { storeAccessToken } from '@/entities/auth';
+import { storeMember } from '@/entities/member';
 
 export const LoginAuthPage = () => {
   const [searchParams] = useSearchParams();
@@ -13,7 +14,7 @@ export const LoginAuthPage = () => {
     async function handleLogin() {
       try {
         const accessToken = await storeAccessToken(dispatch);
-        const user = await storeUser(accessToken, dispatch);
+        const user = await storeMember(accessToken, dispatch);
 
         if (!user?.gender) {
           navigate('/user/gender');

@@ -25,7 +25,7 @@ export const RecentSearchList = ({
   handleRegionClick,
 }: RecentSearchListProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const queryClient = useQueryClient();
 
   const { data } = useQuery({

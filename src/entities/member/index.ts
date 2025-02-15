@@ -6,4 +6,4 @@ export {
   setMemberOutingTime,
 } from './api/member';
 
-export { storeUser } from './lib/storeUser';
+export { storeMember } from './lib/storeMember';

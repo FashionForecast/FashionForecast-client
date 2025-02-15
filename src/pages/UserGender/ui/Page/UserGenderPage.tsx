@@ -7,7 +7,7 @@ import { setMemberGender } from '@/entities/auth/api/auth';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { userActions } from '@/store/slice/userSlice';
+import { memberActions } from '@/entities/member/model/slice';
 import { Gender } from '@/shared/types/member';
 import { HeadHelmet } from '@/shared/ui';
 import { FemaleIcon } from '@/shared/ui';
@@ -34,7 +34,7 @@ export const UserGenderPage = () => {
 
     mutate(accessToken, {
       onSuccess: () => {
-        dispatch(userActions.setGender(gender));
+        dispatch(memberActions.setGender(gender));
         navigate('/user');
       },
       onError: () => navigate('/login'),

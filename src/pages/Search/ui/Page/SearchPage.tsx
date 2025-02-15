@@ -10,7 +10,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { Region } from '@/shared/types/region';
 import { MY_REGION } from '@/shared/consts';
-import { goelocationActions } from '@/store/slice/geolocationSlice';
+import { goelocationActions } from '@/entities/geolocation/model/slice';
 import { HeadHelmet } from '@/shared/ui';
 import {
   CurrentRegionButton,
@@ -18,11 +18,11 @@ import {
   SearchLocationState,
 } from '@/features/search';
 import { RegionItem } from '@/entities/search';
-import { setMemberDefaultRegion, storeUser } from '@/entities/member';
+import { setMemberDefaultRegion, storeMember } from '@/entities/member';
 
 export const SearchPage = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const [keyword, setKeyword] = useState('');
 
   const dispatch = useAppDispatch();
@@ -82,7 +82,7 @@ export const SearchPage = () => {
     userRegionMutate(regionData.region, {
       onSuccess: async () => {
         dispatch(goelocationActions.updateGeolocation(regionData));
-        await storeUser(accessToken, dispatch);
+        await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },
       onError: () => openSnackbar('위치 설정 변경에 오류가 발생했어요'),

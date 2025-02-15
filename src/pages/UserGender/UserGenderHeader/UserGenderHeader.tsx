@@ -4,7 +4,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Header } from '@/shared/ui';
 
 const UserGenderHeader = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
 
   return (
     <Header>

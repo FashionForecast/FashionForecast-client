@@ -23,7 +23,7 @@ const LookbookList = ({
   tempCondition,
 }: LookbookListProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const { data } = useQuery({
     queryKey: ['user', user?.socialId, 'lookbook', weather, tempCondition],
     queryFn: () =>

@@ -13,15 +13,14 @@ import { CustomRadio } from '@/shared/ui';
 import { CustomFormControlLabel } from '@/shared/ui';
 import { TopClothesIcon } from '@/shared/ui';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { useMutation } from '@tanstack/react-query';
-import { setMemberClothesThickness } from '@/entities/auth/api/auth';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { storeUser } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { TempCondition } from '@/entities/member/model/types';
+import { setMemberClothesThickness, storeMember } from '@/entities/member';
 
 const ThicknessSetMenu = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
   const [option, setOption] = useState<TempCondition>(
@@ -54,7 +53,7 @@ const ThicknessSetMenu = () => {
     setIsLoading(true);
     mutate(undefined, {
       onSuccess: async () => {
-        const user = await storeUser(accessToken, dispatch);
+        const user = await storeMember(accessToken, dispatch);
         setOption(user.tempCondition);
         setOpen(false);
       },
@@ -67,7 +66,7 @@ const ThicknessSetMenu = () => {
     <>
       <MenuItem
         title='기본 옷차림 두께'
-        value={tempConditionText[user?.tempCondition || 'NORMAL']}
+        value={tempConditionText[option || 'NORMAL']}
         icon={<TopClothesIcon />}
         handleClick={handleClickOpen}
       />

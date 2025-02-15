@@ -5,7 +5,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { HeadHelmet } from '@/shared/ui';
 
 export const UserPage = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
 
   return (
     <>

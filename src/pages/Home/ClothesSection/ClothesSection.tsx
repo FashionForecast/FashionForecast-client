@@ -36,7 +36,7 @@ type ClothesSectionProps = {
 
 const ClothesSection = ({ weather }: ClothesSectionProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const [searchParams] = useSearchParams();
   const tempParamOption = searchParams.get('option');
   const [tempCondition, setTempCondition] = useState<TempCondition>(() =>

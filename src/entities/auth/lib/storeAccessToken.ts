@@ -1,4 +1,4 @@
-import { authActions } from '@/store/slice/authSlice';
+import { authActions } from '@/entities/auth/model/slice';
 import { getAccessToken } from '../api/auth';
 import { LOGIN } from '@/shared/consts';
 
