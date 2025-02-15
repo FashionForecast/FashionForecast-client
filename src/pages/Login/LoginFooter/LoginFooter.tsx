@@ -1,6 +1,8 @@
-import { CustomButton } from '@/shared/ui';
-import { S } from './LoginFooter.style';
 import { Link } from 'react-router-dom';
+
+import { CustomButton } from '@/shared/ui';
+
+import { S } from './LoginFooter.style';
 
 const LoginFooter = () => {
   return (

@@ -1,4 +1,5 @@
 import { theme } from '@/shared/styles';
+
 import { DragRangeStatus, TimeSelectorDayButton } from './types';
 
 export const TIME_COLOR: Record<DragRangeStatus, string> = {

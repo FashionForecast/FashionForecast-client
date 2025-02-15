@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { css } from '@mui/material';
+
+import { MAX_WIDTH } from '@/shared/consts';
 import { forwardPropOption } from '@/shared/lib';
 import { CustomButton } from '@/shared/ui';
-import { MAX_WIDTH } from '@/shared/consts';
 
 const TimeSelector = styled.section`
   position: fixed;

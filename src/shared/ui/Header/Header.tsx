@@ -1,7 +1,9 @@
-import { CustomToolbar } from '../CustomMui/CustomToolbar';
-import { C } from './Header.style';
-import { CustomPaper } from '../CustomMui/CustomPaper';
 import { AppBarOwnProps } from '@mui/material';
+
+import { CustomPaper } from '../CustomMui/CustomPaper';
+import { CustomToolbar } from '../CustomMui/CustomToolbar';
+
+import { C } from './Header.style';
 
 export type HeaderColor = 'blueGrey' | 'white';
 export type HeaderPosition = Extract<

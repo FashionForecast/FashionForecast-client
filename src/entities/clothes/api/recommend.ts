@@ -1,6 +1,9 @@
-import { TempCondition } from '@/entities/member/model/types';
 import { WeatherForRecommendClothes } from '@/pages/Home/ClothesSection/ClothesSection';
+
+import { TempCondition } from '@/entities/member/model/types';
+
 import { fetchAPI } from '@/shared/lib';
+
 import { RecommendClothesDto } from '../model/types';
 
 export async function getRecommnedClothes(

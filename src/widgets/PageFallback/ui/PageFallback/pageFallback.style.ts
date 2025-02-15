@@ -1,6 +1,7 @@
-import { MAX_WIDTH } from '@/shared/consts';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import { MAX_WIDTH } from '@/shared/consts';
 
 const Wrap = styled.div`
   display: flex;

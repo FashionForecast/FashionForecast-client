@@ -1,5 +1,6 @@
-import { C } from './A2hsSnackbar.style';
 import useA2HS from '../../model/useA2HS';
+
+import { C } from './A2hsSnackbar.style';
 
 export const A2hsSnackbar = () => {
   const { deferredPrompt, installApp, clearPrompt: hideSnackbar } = useA2HS();

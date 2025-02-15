@@ -1,5 +1,6 @@
-import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 
 export const AuthGuard = () => {
   const user = useAppSelector((state) => state.member.info);

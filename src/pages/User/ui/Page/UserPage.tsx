@@ -1,8 +1,10 @@
-import UserHeader from '../../UserHeader/UserHeader';
-import { S } from './UserPage.style';
-import TabSection from '../../TabSection/TabSection';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { HeadHelmet } from '@/shared/ui';
+
+import TabSection from '../../TabSection/TabSection';
+import UserHeader from '../../UserHeader/UserHeader';
+
+import { S } from './UserPage.style';
 
 export const UserPage = () => {
   const user = useAppSelector((state) => state.member.info);

@@ -1,5 +1,6 @@
-import { IconLoading } from '@/shared/ui';
 import { lazy, Suspense } from 'react';
+
+import { IconLoading } from '@/shared/ui';
 const Pop0Icon = lazy(() => import('./Pop0Icon'));
 const Pop10Icon = lazy(() => import('./Pop10Icon'));
 const Pop20Icon = lazy(() => import('./Pop20Icon'));

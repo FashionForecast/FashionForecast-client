@@ -1,7 +1,7 @@
-import { CustomButton } from '@/shared/ui';
-import { HeadHelmet } from '@/shared/ui';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+
+import { CustomButton, HeadHelmet } from '@/shared/ui';
 
 export const NotFoundPage = () => {
   return (

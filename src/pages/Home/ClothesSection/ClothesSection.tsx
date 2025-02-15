@@ -1,19 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
-import { S } from './ClothesSection.style';
-import { memo, useCallback, useState } from 'react';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
-import RecommendClothesLoading from './RecommendList/RecommendListLoading';
-import { FetchError } from '@/widgets/error';
 import { useKeenSlider } from 'keen-slider/react';
+import { memo, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import RecommendList from './RecommendList/RecommendList';
-import LookbookList from './LookbookList/LookbookList';
+
+import { FetchError } from '@/widgets/error';
+
+import { getRecommnedClothes } from '@/entities/clothes';
+import { TempCondition } from '@/entities/member';
+import { WeatherDto } from '@/entities/weather';
+
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { WeatherType } from '@/shared/types';
+
+import { S } from './ClothesSection.style';
 import ConditionButtonGroup from './ConditionButtonGroup/ConditionButtonGroup';
 import Headline from './Headline/Headline';
-import { WeatherDto } from '@/entities/weather/model/weather';
-import { TempCondition } from '@/entities/member/model/types';
-import { getRecommnedClothes } from '@/entities/clothes';
-import { WeatherType } from '@/shared/types';
+import LookbookList from './LookbookList/LookbookList';
+import RecommendList from './RecommendList/RecommendList';
+import RecommendClothesLoading from './RecommendList/RecommendListLoading';
 
 export const COOL = 'COOL',
   NORMAL = 'NORMAL',

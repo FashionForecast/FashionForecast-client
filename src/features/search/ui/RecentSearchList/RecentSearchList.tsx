@@ -1,19 +1,19 @@
 import { IconButton } from '@mui/material';
-import { C } from './RecentSearchList.style';
-import { XIcon } from '@/shared/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import {
   deleteSearchWord,
   getRecentSearchList,
 } from '@/features/search/api/search';
-import { GUEST_UUID } from '@/shared/consts';
-import { Region } from '@/shared/types/region';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
 
-export type RecentSearchRegion = {
-  city: string;
-  district: string;
-};
+import { GUEST_UUID } from '@/shared/consts';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { Region } from '@/shared/types/region';
+import { XIcon } from '@/shared/ui';
+
+import { RecentSearchRegion } from '../../model/types';
+
+import { C } from './RecentSearchList.style';
 
 type RecentSearchListProps = {
   regions: Region[];

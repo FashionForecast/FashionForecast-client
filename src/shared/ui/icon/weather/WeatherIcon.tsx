@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
-import { IconLoading } from '@/shared/ui/IconLoading/IconLoading';
+
 import { RainType, SkyStatus } from '@/shared/types';
+import { IconLoading } from '@/shared/ui/IconLoading/IconLoading';
 
 type WeatherIconProps = {
   fcstTime: string;

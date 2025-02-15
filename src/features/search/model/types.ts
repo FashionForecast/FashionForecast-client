@@ -8,3 +8,8 @@ export type SearchLocationState = {
     mode?: 'set';
   };
 };
+
+export type RecentSearchRegion = {
+  city: string;
+  district: string;
+};

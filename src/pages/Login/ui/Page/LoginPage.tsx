@@ -1,13 +1,13 @@
-import LoginFooter from '../../LoginFooter/LoginFooter';
-import LoginHeader from '../../LoginHeader/LoginHeader';
-import 청바지 from '@/shared/ui/icon/clothes/청바지';
+import { HeadHelmet, KakaoIcon, GoogleIcon } from '@/shared/ui';
 import 바지 from '@/shared/ui/icon/clothes/바지';
 import 반팔티 from '@/shared/ui/icon/clothes/반팔티';
+import 청바지 from '@/shared/ui/icon/clothes/청바지';
 import 코트 from '@/shared/ui/icon/clothes/코트';
+
+import LoginFooter from '../../LoginFooter/LoginFooter';
+import LoginHeader from '../../LoginHeader/LoginHeader';
+
 import { C, S } from './LoginPage.style';
-import { HeadHelmet } from '@/shared/ui';
-import { KakaoIcon } from '@/shared/ui';
-import { GoogleIcon } from '@/shared/ui';
 
 export type SocialType = {
   provider: 'kakao' | 'google';

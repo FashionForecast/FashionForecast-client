@@ -1,13 +1,16 @@
-import { compactTimeList } from '@/shared/consts/timeList';
-import { S, C } from './TimeSelector.style';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { compactTimeList } from '@/shared/consts/timeList';
+import { theme } from '@/shared/styles';
+
+import { DAY_BUTTONS } from '../../model/consts';
+import { DayButtonType, DragRangeStatus, Time } from '../../model/types';
 import { HourSections } from '../HourSections/HourSections';
-import { TimeRanges } from '../TimeRanges/TimeRanges';
 import { TimeDivider } from '../TimeDivider/TimeDivider';
 import { TimeHeader } from '../TimeHeader/TimeHeader';
-import { theme } from '@/shared/styles';
-import { DayButtonType, DragRangeStatus, Time } from '../../model/types';
-import { DAY_BUTTONS } from '../../model/consts';
+import { TimeRanges } from '../TimeRanges/TimeRanges';
+
+import { S, C } from './TimeSelector.style';
 
 type TimeSelectorProps = {
   isOpen: boolean;

@@ -1,7 +1,7 @@
-import regionList from '@/shared/consts/regionList.json';
-import { useAppSelector } from '../../../shared/lib/useAppSelector';
-import { useAppDispatch } from '../../../shared/lib/useAppDispatch';
 import { goelocationActions } from '@/entities/geolocation/model/slice';
+
+import regionList from '@/shared/consts/regionList.json';
+import { useAppDispatch, useAppSelector } from '@/shared/lib';
 
 const DEFAULT_REGION = {
   region: '서울특별시 종로구',

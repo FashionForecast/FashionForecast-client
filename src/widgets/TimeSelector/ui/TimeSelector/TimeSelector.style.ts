@@ -1,8 +1,9 @@
-import { CustomButton } from '@/shared/ui';
-import styled from '@emotion/styled';
-import { forwardPropOption } from '@/shared/lib';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
 import { MAX_WIDTH } from '@/shared/consts';
+import { forwardPropOption } from '@/shared/lib';
+import { CustomButton } from '@/shared/ui';
 
 const TimeSelectorWrap = styled.section<{ $isOpen: boolean }>`
   position: fixed;

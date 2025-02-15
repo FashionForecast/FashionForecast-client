@@ -1,6 +1,8 @@
 import { memberActions } from '@/entities/member/model/slice';
-import { getMember } from '../api/member';
+
 import { LOGIN } from '@/shared/consts';
+
+import { getMember } from '../api/member';
 
 export async function storeMember(
   accessToken: string | null,

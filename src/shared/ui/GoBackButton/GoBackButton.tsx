@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { IconButton } from '@mui/material';
+
 import { ArrowIcon } from '../icon/ArrowIcon';
 
 type GoBackButtonProps = {

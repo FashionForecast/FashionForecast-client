@@ -1,13 +1,17 @@
 import { IconButton } from '@mui/material';
-import { C } from './MainHeader.style';
-import { CustomButton } from '@/shared/ui';
-import { LocationIcon } from '@/shared/ui';
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { UserAvatar } from '@/shared/ui';
-import { Header } from '@/shared/ui';
 import { memo } from 'react';
-import { TriangleIcon } from '@/shared/ui';
+import { Link } from 'react-router-dom';
+
+import { useAppSelector } from '@/shared/lib';
+import {
+  CustomButton,
+  LocationIcon,
+  UserAvatar,
+  Header,
+  TriangleIcon,
+} from '@/shared/ui';
+
+import { C } from './MainHeader.style';
 
 const MainHeader = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);

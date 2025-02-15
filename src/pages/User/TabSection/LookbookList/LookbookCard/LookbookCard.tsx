@@ -1,9 +1,12 @@
-import { S, C } from './LookbookCard.style';
 import { Link } from 'react-router-dom';
-import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
-import { ClothesIcon, PlusIcon } from '@/shared/ui';
-import { WeatherType } from '@/shared/types';
+
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
+
+import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
+import { WeatherType } from '@/shared/types';
+import { ClothesIcon, PlusIcon } from '@/shared/ui';
+
+import { S, C } from './LookbookCard.style';
 
 type LookbookCardProps = {
   type: WeatherType;

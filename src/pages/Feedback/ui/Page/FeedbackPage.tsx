@@ -1,9 +1,10 @@
-import { GoBackButton } from '@/shared/ui';
-import { S } from './FeedbackPage.style';
 import { Link } from 'react-router-dom';
 
-import { HeadHelmet } from '@/shared/ui';
 import { Feedback } from '@/features/feedback';
+
+import { GoBackButton, HeadHelmet } from '@/shared/ui';
+
+import { S } from './FeedbackPage.style';
 
 export const FeedbackPage = () => {
   return (

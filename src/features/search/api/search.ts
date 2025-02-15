@@ -1,8 +1,9 @@
-import { GUEST_UUID } from '@/shared/consts';
-import { RecentSearchRegion } from '@/features/search/ui/RecentSearchList/RecentSearchList';
-import { fetchAPI } from '@/shared/lib';
-import { RecentSearchListDto } from '../model/types';
 import { guestLogin } from '@/entities/auth';
+
+import { GUEST_UUID } from '@/shared/consts';
+import { fetchAPI } from '@/shared/lib';
+
+import { RecentSearchListDto, RecentSearchRegion } from '../model/types';
 
 export async function getRecentSearchList(
   memberId?: string,

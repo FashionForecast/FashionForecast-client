@@ -1,18 +1,24 @@
-import { S } from './UserGenderPage.style';
-import UserGenderHeader from '../../UserGenderHeader/UserGenderHeader';
-import { useState } from 'react';
-import { CustomButton } from '@/shared/ui';
 import { useMutation } from '@tanstack/react-query';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { memberActions } from '@/entities/member/model/slice';
-import { HeadHelmet } from '@/shared/ui';
-import { FemaleIcon } from '@/shared/ui';
-import { MaleIcon } from '@/shared/ui';
-import { ClothesIcon } from '@/shared/ui';
-import { Gender } from '@/entities/member/model/types';
+
 import { setMemberGender } from '@/entities/member';
+import { memberActions } from '@/entities/member/model/slice';
+import { Gender } from '@/entities/member/model/types';
+
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import {
+  CustomButton,
+  HeadHelmet,
+  FemaleIcon,
+  MaleIcon,
+  ClothesIcon,
+} from '@/shared/ui';
+
+import UserGenderHeader from '../../UserGenderHeader/UserGenderHeader';
+
+import { S } from './UserGenderPage.style';
 
 const BUTTONS = [
   { text: '남자', value: 'MALE', icon: <MaleIcon /> },

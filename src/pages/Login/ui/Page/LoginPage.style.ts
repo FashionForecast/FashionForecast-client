@@ -1,6 +1,8 @@
-import { CustomButton } from '@/shared/ui';
-import { forwardPropOption } from '@/shared/lib';
 import styled from '@emotion/styled';
+
+import { forwardPropOption } from '@/shared/lib';
+import { CustomButton } from '@/shared/ui';
+
 import { SocialType } from './LoginPage';
 
 const LoginWrap = styled.div`
@@ -12,8 +14,8 @@ const LoginWrap = styled.div`
 
 const MainWrap = styled.div`
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
+  flex-grow: 1;
   align-items: center;
   padding: 30px 16px 16px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};

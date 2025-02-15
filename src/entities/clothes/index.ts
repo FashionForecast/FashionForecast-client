@@ -7,4 +7,4 @@ export {
 
 export { getRecommnedClothes } from './api/recommend';
 
-export type {} from './model/types';
+export type { RecommendClothesDto } from './model/types';

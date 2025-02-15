@@ -1,6 +1,7 @@
-import { MAX_WIDTH } from '@/shared/consts';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import { MAX_WIDTH } from '@/shared/consts';
 
 const Drawer = styled.div<{ $isDragging: boolean }>`
   position: fixed;
@@ -30,8 +31,8 @@ const Drawer = styled.div<{ $isDragging: boolean }>`
 
 const ColorPaletteWrap = styled.section`
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 const DraggableArea = styled.div`

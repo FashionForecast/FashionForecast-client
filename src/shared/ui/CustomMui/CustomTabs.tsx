@@ -1,5 +1,5 @@
-import { Tabs as MuiTabs } from '@mui/material';
 import styled from '@emotion/styled';
+import { Tabs as MuiTabs } from '@mui/material';
 
 type MuiTabsProps = React.ComponentProps<typeof MuiTabs>;
 

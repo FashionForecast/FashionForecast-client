@@ -1,5 +1,6 @@
-import { UserCurrentRegion } from '@/shared/types/region';
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+
+import { UserCurrentRegion } from '@/shared/types/region';
 
 type geolocationState = {
   value: UserCurrentRegion | null;

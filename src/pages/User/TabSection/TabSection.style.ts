@@ -1,17 +1,17 @@
-import { CustomTab } from '@/shared/ui';
-import { CustomTabs } from '@/shared/ui';
 import styled from '@emotion/styled';
+
+import { CustomTab, CustomTabs } from '@/shared/ui';
 
 const SectionWrap = styled.section`
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 const ContentWrap = styled.div`
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 const Tabs = styled(CustomTabs)`

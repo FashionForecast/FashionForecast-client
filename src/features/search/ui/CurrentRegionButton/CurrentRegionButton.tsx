@@ -1,18 +1,21 @@
-import { S } from './CurrentRegionButton.style';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { MY_REGION } from '@/shared/consts';
-import { CustomButton } from '@/shared/ui';
-import { LocationIcon } from '@/shared/ui';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { CustomDialog } from '@/shared/ui';
-import { DialogActions, DialogContent } from '@mui/material';
-import { setMemberDefaultRegion, storeMember } from '@/entities/member';
-import { SearchLocationState } from '../../model/types';
+
 import { useGeolocation } from '@/entities/geolocation';
+import { setMemberDefaultRegion, storeMember } from '@/entities/member';
+
+import { MY_REGION } from '@/shared/consts';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { CustomButton, LocationIcon, CustomDialog } from '@/shared/ui';
+
+import { SearchLocationState } from '../../model/types';
+
+import { S } from './CurrentRegionButton.style';
 
 export const CurrentRegionButton = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);

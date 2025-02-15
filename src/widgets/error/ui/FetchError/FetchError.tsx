@@ -1,5 +1,6 @@
-import { CustomButton } from '@/shared/ui';
 import styled from '@emotion/styled';
+
+import { CustomButton } from '@/shared/ui';
 
 type ErrorProps = {
   handleRefetch: () => void;

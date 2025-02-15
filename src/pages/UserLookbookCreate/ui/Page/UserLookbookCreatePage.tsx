@@ -1,14 +1,18 @@
-import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
-import { S } from './UserLookbookCreatePage.style';
-import WeatherHeadline from '../../WeatherHeadline/WeatherHeadline';
-import EditSection from '../../Edit/EditSection';
 import { useCallback, useState } from 'react';
-import { HeadHelmet } from '@/shared/ui';
-import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
-import LookbookCreateHeader from '../../LookbookCreateHeader/LookbookCreateHeader';
+import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
+
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
 import { TempCondition } from '@/entities/member/model/types';
+
+import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { WeatherType } from '@/shared/types';
+import { HeadHelmet } from '@/shared/ui';
+
+import EditSection from '../../Edit/EditSection';
+import LookbookCreateHeader from '../../LookbookCreateHeader/LookbookCreateHeader';
+import WeatherHeadline from '../../WeatherHeadline/WeatherHeadline';
+
+import { S } from './UserLookbookCreatePage.style';
 
 export type LookbookSelect = {
   top: { name: string; color: string };

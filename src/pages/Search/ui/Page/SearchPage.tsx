@@ -1,24 +1,29 @@
-import { useState } from 'react';
-import regionList from '@/shared/consts/regionList.json';
-import { C, S } from './SearchPage.style';
-import SearchHeader from '../../SearchHeader/SearchHeader';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { registerResentSearch } from '@/features/search/api/search';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { Region } from '@/shared/types/region';
-import { MY_REGION } from '@/shared/consts';
-import { goelocationActions } from '@/entities/geolocation/model/slice';
-import { HeadHelmet } from '@/shared/ui';
+
 import {
   CurrentRegionButton,
   RecentSearchList,
   SearchLocationState,
 } from '@/features/search';
-import { RegionItem } from '@/entities/search';
+import { registerResentSearch } from '@/features/search/api/search';
+
+import { goelocationActions } from '@/entities/geolocation/model/slice';
 import { setMemberDefaultRegion, storeMember } from '@/entities/member';
+import { RegionItem } from '@/entities/search';
+
+import { MY_REGION } from '@/shared/consts';
+import regionList from '@/shared/consts/regionList.json';
+import { useAppDispatch, useAppSelector } from '@/shared/lib';
+import { Region } from '@/shared/types/region';
+import { HeadHelmet } from '@/shared/ui';
+
+import SearchHeader from '../../SearchHeader/SearchHeader';
+
+import { C, S } from './SearchPage.style';
 
 export const SearchPage = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);

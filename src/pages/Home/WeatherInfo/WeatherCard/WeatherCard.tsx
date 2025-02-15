@@ -1,8 +1,8 @@
+import { WeatherDto } from '@/entities/weather/model/types';
+
+import { PcpIcon, PopIcon, TemperatureIcon } from '@/shared/ui';
+
 import { C, S } from './WeatherCard.style';
-import { WeatherDto } from '@/entities/weather/model/weather';
-import { PcpIcon } from '@/shared/ui';
-import { PopIcon } from '@/shared/ui';
-import { TemperatureIcon } from '@/shared/ui';
 
 type WeatherCardProps = Partial<
   Pick<WeatherDto, 'extremumTmp' | 'maximumPop' | 'maximumPcp'>

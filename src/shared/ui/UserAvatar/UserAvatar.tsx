@@ -1,5 +1,6 @@
-import { Avatar as MuiAvatar, IconButton } from '@mui/material';
 import styled from '@emotion/styled';
+import { Avatar as MuiAvatar, IconButton } from '@mui/material';
+
 import { DefaultAvatarIcon } from '../icon/DefaultAvatarIcon';
 
 type UserAvatarProps = {

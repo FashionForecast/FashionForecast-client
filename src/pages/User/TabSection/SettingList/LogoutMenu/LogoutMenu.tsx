@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import MenuItem from '../components/MenuItem/MenuItem';
-import { CustomDialog } from '@/shared/ui';
 import { DialogActions, DialogContent } from '@mui/material';
-import { CustomButton } from '@/shared/ui';
 import { useMutation } from '@tanstack/react-query';
-import { logout } from '@/entities/auth/api/auth';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { logout } from '@/entities/auth/api/auth';
+
 import { LOGIN } from '@/shared/consts';
-import { LogoutIcon } from '@/shared/ui';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { CustomButton, CustomDialog, LogoutIcon } from '@/shared/ui';
+
+import MenuItem from '../components/MenuItem/MenuItem';
 
 const LogoutMenu = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);

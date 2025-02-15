@@ -1,6 +1,7 @@
-import { CustomButton } from '@/shared/ui';
-import { forwardPropOption } from '@/shared/lib';
 import styled from '@emotion/styled';
+
+import { forwardPropOption } from '@/shared/lib';
+import { CustomButton } from '@/shared/ui';
 
 const ColorButton = styled(CustomButton, forwardPropOption)<{
   $color: string;

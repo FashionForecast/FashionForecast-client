@@ -1,6 +1,7 @@
-import { CustomSnackbar } from '@/shared/ui';
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import styled from '@emotion/styled';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
+
+import { CustomSnackbar } from '@/shared/ui';
 
 type SnackbarContextType = {
   openSnackbar: (message: string) => void;

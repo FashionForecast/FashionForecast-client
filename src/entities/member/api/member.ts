@@ -1,6 +1,8 @@
 import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 import { TimeSetOption } from '@/pages/User/TabSection/SettingList/TimeSetMenu/TimeSetMenu';
+
 import { fetchAPI } from '@/shared/lib';
+
 import { MemberDto, TempCondition } from '../model/types';
 
 export async function getMember(accessToken: string) {

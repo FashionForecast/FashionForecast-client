@@ -1,6 +1,8 @@
 import { authActions } from '@/entities/auth/model/slice';
-import { getAccessToken } from '../api/auth';
+
 import { LOGIN } from '@/shared/consts';
+
+import { getAccessToken } from '../api/auth';
 
 export async function storeAccessToken(dispatch: AppDispatch) {
   try {

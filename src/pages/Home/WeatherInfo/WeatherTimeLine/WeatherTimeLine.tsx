@@ -1,6 +1,8 @@
-import { WeatherDto } from '@/entities/weather/model/weather';
-import { S } from './WeatherTimeLine.style';
+import { WeatherDto } from '@/entities/weather/model/types';
+
 import { WeatherIcon } from '@/shared/ui';
+
+import { S } from './WeatherTimeLine.style';
 
 type WeatherTimeLimeProps = Pick<WeatherDto, 'forecasts'>;
 

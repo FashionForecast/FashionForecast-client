@@ -1,7 +1,9 @@
-import { DragRangeStatus } from '@/widgets/TimeSelector/model/types';
-import { S } from './TimeRange.style';
-import { theme } from '@/shared/styles';
 import { TIME_COLOR } from '@/widgets/TimeSelector/model/consts';
+import { DragRangeStatus } from '@/widgets/TimeSelector/model/types';
+
+import { theme } from '@/shared/styles';
+
+import { S } from './TimeRange.style';
 
 type TimeRangeProps = {
   startTime: number;

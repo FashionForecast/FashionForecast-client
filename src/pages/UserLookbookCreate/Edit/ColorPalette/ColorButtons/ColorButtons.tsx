@@ -1,7 +1,9 @@
-import { C, S } from './ColorButtons.style';
-import { CheckCircleIcon } from '@/shared/ui';
-import { COLOR_PALETTES } from '@/shared/consts';
 import { memo } from 'react';
+
+import { COLOR_PALETTES } from '@/shared/consts';
+import { CheckCircleIcon } from '@/shared/ui';
+
+import { C, S } from './ColorButtons.style';
 
 type ColorButtonsProps = {
   clothesColor: string;

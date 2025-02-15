@@ -1,15 +1,18 @@
+import { Chip } from '@mui/material';
+import { memo } from 'react';
+
+import { RecommendClothesDto } from '@/entities/clothes';
+
+import { clothesIconNameList } from '@/shared/consts';
 import {
   ClothesIconNames,
   ClothesNames,
   OutfitType,
-} from '@/shared/types/clothes';
-import { C, S } from './RecommendList.style';
-import { Chip } from '@mui/material';
-import { memo } from 'react';
+  WeatherType,
+} from '@/shared/types';
 import { ClothesIcon } from '@/shared/ui';
-import { clothesIconNameList } from '@/shared/consts';
-import { RecommendClothesDto } from '@/entities/clothes/model/types';
-import { WeatherType } from '@/shared/types';
+
+import { C, S } from './RecommendList.style';
 
 type RecommendListProps = {
   clothes: RecommendClothesDto;

@@ -5,19 +5,25 @@ import {
   FormControl,
   RadioGroup,
 } from '@mui/material';
-import MenuItem from '../components/MenuItem/MenuItem';
-import { useRef, useState } from 'react';
-import { CustomButton } from '@/shared/ui';
-import { CustomDialog } from '@/shared/ui';
-import { CustomRadio } from '@/shared/ui';
-import { CustomFormControlLabel } from '@/shared/ui';
-import { TopClothesIcon } from '@/shared/ui';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useMutation } from '@tanstack/react-query';
+import { useRef, useState } from 'react';
+
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { TempCondition } from '@/entities/member/model/types';
+
 import { setMemberClothesThickness, storeMember } from '@/entities/member';
+import { TempCondition } from '@/entities/member/model/types';
+
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import {
+  CustomButton,
+  CustomDialog,
+  CustomRadio,
+  CustomFormControlLabel,
+  TopClothesIcon,
+} from '@/shared/ui';
+
+import MenuItem from '../components/MenuItem/MenuItem';
 
 const ThicknessSetMenu = () => {
   const user = useAppSelector((state) => state.member.info);

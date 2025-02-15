@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+
 import { storeAccessToken } from '@/entities/auth';
 import { storeMember } from '@/entities/member';
+
+import { useAppDispatch } from '@/shared/lib';
 
 export const LoginAuthPage = () => {
   const [searchParams] = useSearchParams();

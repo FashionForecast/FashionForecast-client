@@ -1,5 +1,6 @@
-import { CustomTextField } from '@/shared/ui';
 import styled from '@emotion/styled';
+
+import { CustomTextField } from '@/shared/ui';
 
 const Section = styled.section`
   ${({ theme }) => theme.typo['body-2']}

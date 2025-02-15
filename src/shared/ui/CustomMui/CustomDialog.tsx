@@ -1,5 +1,5 @@
-import { Dialog as MuiDialog } from '@mui/material';
 import styled from '@emotion/styled';
+import { Dialog as MuiDialog } from '@mui/material';
 
 type MuiDialogProps = React.ComponentProps<typeof MuiDialog>;
 

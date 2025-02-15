@@ -1,5 +1,6 @@
-import { MAX_WIDTH } from '@/shared/consts';
 import styled from '@emotion/styled';
+
+import { MAX_WIDTH } from '@/shared/consts';
 
 export const Main = styled.main`
   position: relative;

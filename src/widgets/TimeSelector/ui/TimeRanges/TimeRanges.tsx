@@ -1,6 +1,7 @@
-import { TimeRange } from './TimeRange/TimeRange';
-import { TimeDivider } from '../TimeDivider/TimeDivider';
 import { DragRangeStatus, Time } from '../../model/types';
+import { TimeDivider } from '../TimeDivider/TimeDivider';
+
+import { TimeRange } from './TimeRange/TimeRange';
 
 type TimeRangesProps = {
   times: Time[];

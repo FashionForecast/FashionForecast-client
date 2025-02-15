@@ -1,7 +1,9 @@
-import { useAppSelector } from '@/shared/lib/useAppSelector';
-import MenuItem from '../components/MenuItem/MenuItem';
-import { UserFillIcon } from '@/shared/ui';
 import { MemberDto } from '@/entities/member/model/types';
+
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { UserFillIcon } from '@/shared/ui';
+
+import MenuItem from '../components/MenuItem/MenuItem';
 
 const GenderMenu = () => {
   const user = useAppSelector((state) => state.member.info);

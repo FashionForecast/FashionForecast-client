@@ -1,5 +1,6 @@
-import { IconLoading } from '@/shared/ui';
 import { lazy, Suspense } from 'react';
+
+import { IconLoading } from '@/shared/ui';
 const ColdIcon = lazy(() =>
   import('./ColdIcon').then((module) => ({ default: module.ColdIcon }))
 );

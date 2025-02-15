@@ -1,9 +1,11 @@
 import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { AuthGuard } from './AuthGuard';
-import { BaseLayout } from '../layouts';
 import { HomePage } from '@/pages/Home';
+
+import { BaseLayout } from '../layouts';
+
+import { AuthGuard } from './AuthGuard';
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFound').then((module) => ({
     default: module.NotFoundPage,

@@ -1,5 +1,7 @@
-import { ClothesIconNames } from '@/shared/types/clothes';
 import { lazy, Suspense } from 'react';
+
+import { ClothesIconNames } from '@/shared/types/clothes';
+
 import { IconLoading } from '../IconLoading/IconLoading';
 
 type ClotehsIconProps = {

@@ -1,4 +1,5 @@
 import { IconButton } from '@mui/material';
+
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Header, UserAvatar } from '@/shared/ui';
 

@@ -1,5 +1,6 @@
-import { IconLoading } from '@/shared/ui';
 import { lazy, Suspense } from 'react';
+
+import { IconLoading } from '@/shared/ui';
 const PcpClearIcon = lazy(() => import('./PcpClearIcon'));
 const PcpRaindropIcon = lazy(() => import('./PcpRaindropIcon'));
 const PcpRainIcon = lazy(() => import('./PcpRainIcon'));

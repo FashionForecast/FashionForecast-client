@@ -1,17 +1,22 @@
-import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { getWeather } from '@/entities/weather/api/weather';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import MainHeader from '../../MainHeader/MainHeader';
-import ClothesSection from '../../ClothesSection/ClothesSection';
 import { useEffect, useState } from 'react';
-import { S } from './HomePage.style';
-import { paddedTimeList } from '@/shared/consts/timeList';
-import HomeLoading from '../../HomeLoading';
-import { FetchError } from '@/widgets/error';
-import { HeadHelmet } from '@/shared/ui';
-import WeatherInfo from '../../WeatherInfo/WeatherInfo';
-import { DayButtonType, Time, TimeSelector } from '@/widgets/TimeSelector/';
 import { useLocation, useSearchParams } from 'react-router-dom';
+
+import { FetchError } from '@/widgets/error';
+import { DayButtonType, Time, TimeSelector } from '@/widgets/TimeSelector/';
+
+import { getWeather } from '@/entities/weather/api/weather';
+
+import { paddedTimeList } from '@/shared/consts/timeList';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { HeadHelmet } from '@/shared/ui';
+
+import ClothesSection from '../../ClothesSection/ClothesSection';
+import HomeLoading from '../../HomeLoading';
+import MainHeader from '../../MainHeader/MainHeader';
+import WeatherInfo from '../../WeatherInfo/WeatherInfo';
+
+import { S } from './HomePage.style';
 
 export type SelectedTime = {
   day: '오늘' | '내일';

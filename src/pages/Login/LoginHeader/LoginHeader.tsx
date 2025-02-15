@@ -1,7 +1,7 @@
-import { XIcon } from '@/shared/ui';
 import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Header } from '@/shared/ui';
+
+import { XIcon, Header } from '@/shared/ui';
 
 const LoginHeader = () => {
   return (

@@ -1,6 +1,6 @@
-import { CustomButton } from '@/shared/ui';
-import { CustomSnackbar } from '@/shared/ui';
 import styled from '@emotion/styled';
+
+import { CustomButton, CustomSnackbar } from '@/shared/ui';
 
 const Snackbar = styled(CustomSnackbar)`
   position: fixed;

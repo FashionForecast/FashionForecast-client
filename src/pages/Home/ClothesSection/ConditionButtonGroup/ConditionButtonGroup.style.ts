@@ -1,5 +1,6 @@
-import { CustomToggleButton } from '@/shared/ui';
 import styled from '@emotion/styled';
+
+import { CustomToggleButton } from '@/shared/ui';
 
 const ToggleButton = styled(CustomToggleButton)`
   height: 40px;

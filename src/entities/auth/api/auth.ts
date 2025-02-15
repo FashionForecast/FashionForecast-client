@@ -1,4 +1,5 @@
 import { fetchAPI } from '@/shared/lib';
+
 import { AccessToken, Guest } from '../model/types';
 
 export async function getAccessToken() {

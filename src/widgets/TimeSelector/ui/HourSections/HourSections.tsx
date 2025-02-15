@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react';
+
 import { compactTimeList } from '@/shared/consts/timeList';
+
+import { DragRangeStatus, Time } from '../../model/types';
+
 import { SectionArea } from './SectionArea/SectionArea';
 import { SectionText } from './SectionText/SectionText';
-import { useEffect, useState } from 'react';
-import { DragRangeStatus, Time } from '../../model/types';
 
 type HourSectionsProps = {
   visibleTimeText: [number[], number[]];

@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import { C, S } from './Feedback.style';
-import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
+
 import { submitFeedback } from '@/features/feedback/api/feedback';
+
 import { CustomButton } from '@/shared/ui';
+
+import { C, S } from './Feedback.style';
 
 export const Feedback = () => {
   const [feedback, setFeedback] = useState('');

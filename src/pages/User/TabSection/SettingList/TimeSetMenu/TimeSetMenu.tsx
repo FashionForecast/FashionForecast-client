@@ -4,23 +4,31 @@ import {
   DialogTitle,
   RadioGroup,
 } from '@mui/material';
-import MenuItem from '../components/MenuItem/MenuItem';
-import { CustomButton } from '@/shared/ui';
-import { useRef, useState } from 'react';
-import { CustomDialog } from '@/shared/ui';
-import { CustomRadio } from '@/shared/ui';
-import { CustomFormControlLabel } from '@/shared/ui';
-import { paddedTimeList } from '@/shared/consts/timeList';
-import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
-import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
-import { C } from './TimeSetMenu.style';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { useRef, useState } from 'react';
+
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { ClockIcon } from '@/shared/ui';
+
+import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
+
 import { setMemberOutingTime, storeMember } from '@/entities/member';
 import { MemberDto } from '@/entities/member/model/types';
+
+import { paddedTimeList } from '@/shared/consts/timeList';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import {
+  CustomButton,
+  CustomDialog,
+  CustomRadio,
+  CustomFormControlLabel,
+  ClockIcon,
+} from '@/shared/ui';
+
+import MenuItem from '../components/MenuItem/MenuItem';
+
+import { C } from './TimeSetMenu.style';
+import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
 
 const DEFAULT = 'DEFAULT';
 const SET_IT = 'setIt';

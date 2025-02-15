@@ -1,22 +1,27 @@
 import { useMemo, useRef } from 'react';
-import { S } from './Showcase.style';
-import ClothesSlider from './components/ClothesSlider/ClothesSlider';
+import { useLocation } from 'react-router-dom';
+
+import {
+  LocationState,
+  LookbookSelect,
+} from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
+
+import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { MemberDto } from '@/entities/member/model/types';
+
 import {
   MAN_BOTTOM_CLOTHES,
   MAN_TOP_COLTHES,
   WOMAN_BOTTOM_CLOTHES,
 } from '@/shared/consts';
-import { FocussingSliderType } from '../EditSection';
-import {
-  LocationState,
-  LookbookSelect,
-} from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
-import { useLocation } from 'react-router-dom';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { ClothesType, WeatherType } from '@/shared/types';
-import { MemberDto } from '@/entities/member/model/types';
-import { MemberLookbookDto } from '@/entities/clothes/model/types';
+
+import { FocussingSliderType } from '../EditSection';
+
+import ClothesSlider from './components/ClothesSlider/ClothesSlider';
+import { S } from './Showcase.style';
 
 export type SliderType = ClothesType | null;
 

@@ -1,8 +1,9 @@
-import { OutfitType } from '@/shared/types/clothes';
-import { forwardPropOption } from '@/shared/lib';
 import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Card, css } from '@mui/material';
+
+import { forwardPropOption } from '@/shared/lib';
+import { OutfitType } from '@/shared/types/clothes';
 
 const RecommendWrap = styled.div`
   display: flex;

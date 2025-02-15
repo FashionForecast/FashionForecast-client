@@ -1,5 +1,5 @@
-import { FormControlLabel as MuiFormControlLabel } from '@mui/material';
 import styled from '@emotion/styled';
+import { FormControlLabel as MuiFormControlLabel } from '@mui/material';
 
 type MuiFormControlLabelProps = React.ComponentProps<
   typeof MuiFormControlLabel

@@ -1,19 +1,21 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import * as S from './BaseLayout.style';
-import { GUEST_UUID, LOGIN, MY_REGION } from '@/shared/consts';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-
-import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { goelocationActions } from '@/entities/geolocation/model/slice';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
-import regionList from '@/shared/consts/regionList.json';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { PageFallback } from '@/widgets/PageFallback';
 import { A2hsSnackbar } from '@/widgets/Snackbar';
+
 import { guestLogin, storeAccessToken } from '@/entities/auth';
-import { storeMember } from '@/entities/member';
 import { useGeolocation } from '@/entities/geolocation';
+import { goelocationActions } from '@/entities/geolocation/model/slice';
+import { storeMember } from '@/entities/member';
+
+import { GUEST_UUID, LOGIN, MY_REGION } from '@/shared/consts';
+import regionList from '@/shared/consts/regionList.json';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+
+import * as S from './BaseLayout.style';
 
 export const BaseLayout = () => {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();

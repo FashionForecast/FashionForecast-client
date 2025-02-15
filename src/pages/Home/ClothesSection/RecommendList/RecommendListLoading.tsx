@@ -1,5 +1,5 @@
-import { Skeleton } from '@mui/material';
 import styled from '@emotion/styled';
+import { Skeleton } from '@mui/material';
 
 const RecommendClothesLoading = () => {
   return (
