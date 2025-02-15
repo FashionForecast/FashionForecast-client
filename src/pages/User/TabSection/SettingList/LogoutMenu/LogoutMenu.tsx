@@ -4,7 +4,7 @@ import { CustomDialog } from '@/shared/ui';
 import { DialogActions, DialogContent } from '@mui/material';
 import { CustomButton } from '@/shared/ui';
 import { useMutation } from '@tanstack/react-query';
-import { logout } from '@/services/auth';
+import { logout } from '@/entities/auth/api/auth';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN } from '@/shared/consts';

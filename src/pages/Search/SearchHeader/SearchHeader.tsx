@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { CustomTextField } from '@/shared/ui';
 import { GoBackButton } from '@/shared/ui';
 import { Header } from '@/shared/ui';
-import { SearchLocationState } from '../CurrentRegionButton/CurrentRegionButton';
 import { XCircleIcon } from '@/shared/ui';
+import { SearchLocationState } from '@/features/search';
 
 type SearchHeaderProps = {
   keyword: string;

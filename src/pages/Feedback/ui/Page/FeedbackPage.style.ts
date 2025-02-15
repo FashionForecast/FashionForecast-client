@@ -1,4 +1,3 @@
-import { CustomTextField } from '@/shared/ui';
 import styled from '@emotion/styled';
 
 const FeedbackWrap = styled.div`
@@ -20,28 +19,7 @@ const Header = styled.header`
   }
 `;
 
-const Section = styled.section`
-  ${({ theme }) => theme.typo['body-2']}
-  flex-grow: 1;
-  padding: 16px 0;
-
-  p {
-    margin-bottom: 16px;
-  }
-`;
-
-const TextField = styled(CustomTextField)`
-  & .MuiFilledInput-root {
-    padding-top: 8px;
-  }
-`;
-
 export const S = {
   FeedbackWrap,
   Header,
-  Section,
-};
-
-export const C = {
-  TextField,
 };

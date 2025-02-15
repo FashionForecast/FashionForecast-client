@@ -1,4 +1,4 @@
-import { ClothesIconNames } from '@/types/clothes';
+import { ClothesIconNames } from '@/shared/types/clothes';
 
 export const MAN_TOP_COLTHES: ClothesIconNames[] = [
   '민소매',

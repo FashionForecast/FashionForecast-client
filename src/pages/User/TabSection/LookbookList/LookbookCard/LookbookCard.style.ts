@@ -1,5 +1,5 @@
 import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
-import { WeatherType } from '@/types/weather';
+import { WeatherType } from '@/entities/weather/model/weather';
 import styled from '@emotion/styled';
 import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';

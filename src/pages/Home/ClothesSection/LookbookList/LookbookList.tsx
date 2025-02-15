@@ -1,14 +1,15 @@
-import { getMemberLookbook } from '@/services/clothes';
 import { S } from './LookbookList.style';
 import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { WeatherForRecommendClothes, TempCondition } from '../ClothesSection';
-import { MemberLookbook } from '@/types/clothes';
-import { WeatherType } from '@/types/weather';
 import { useNavigate } from 'react-router-dom';
 import { memo } from 'react';
 import { PlusIcon } from '@/shared/ui';
 import { ClothesIcon } from '@/shared/ui';
+import { WeatherForRecommendClothes } from '../ClothesSection';
+import { WeatherType } from '@/shared/types';
+import { TempCondition } from '@/entities/member/model/types';
+import { getMemberLookbook } from '@/entities/clothes';
+import { MemberLookbookDto } from '@/entities/clothes/model/types';
 
 type LookbookListProps = {
   weather: WeatherForRecommendClothes;
@@ -31,7 +32,7 @@ const LookbookList = ({
   });
   const navigate = useNavigate();
 
-  const handleLookbookItemClick = (outfit?: MemberLookbook) => () => {
+  const handleLookbookItemClick = (outfit?: MemberLookbookDto) => () => {
     navigate(`/user/lookbook/create?type=${weatherType}`, {
       state: {
         outfit,

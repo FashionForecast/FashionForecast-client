@@ -15,7 +15,7 @@ import { TopClothesIcon } from '@/shared/ui';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { useMutation } from '@tanstack/react-query';
-import { setMemberClothesThickness } from '@/services/auth';
+import { setMemberClothesThickness } from '@/entities/auth/api/auth';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { storeUser } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';

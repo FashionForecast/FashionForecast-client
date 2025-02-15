@@ -1,4 +1,4 @@
-import { ClothesProps } from '@/types/clothes';
+import { ClothesProps } from '@/shared/types/clothes';
 
 const 니트 = ({ color = '#F8AF20' }: ClothesProps) => {
   return (

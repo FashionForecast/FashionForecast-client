@@ -1,10 +1,10 @@
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import { S } from './UserLookbookCreatePage.style';
 import WeatherHeadline from '../../WeatherHeadline/WeatherHeadline';
-import { WeatherType } from '@/types/weather';
+import { WeatherType } from '@/entities/weather/model/weather';
 import EditSection from '../../Edit/EditSection';
 import { useCallback, useState } from 'react';
-import { MemberLookbook } from '@/types/clothes';
+import { MemberLookbook } from '@/shared/types/clothes';
 import { TempCondition } from '../../../Home/ClothesSection/ClothesSection';
 import { HeadHelmet } from '@/shared/ui';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';

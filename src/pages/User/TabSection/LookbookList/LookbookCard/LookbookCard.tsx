@@ -1,7 +1,7 @@
 import { S, C } from './LookbookCard.style';
 import { Link } from 'react-router-dom';
-import { WeatherType } from '@/types/weather';
-import { MemberLookbook } from '@/types/clothes';
+import { WeatherType } from '@/entities/weather/model/weather';
+import { MemberLookbook } from '@/shared/types/clothes';
 import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
 import PlusIcon from '@/shared/ui/icon/PlusIcon';
 import { ClothesIcon } from '@/shared/ui';

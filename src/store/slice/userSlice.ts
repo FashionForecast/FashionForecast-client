@@ -1,4 +1,4 @@
-import { Member } from '@/types/member';
+import { Member } from '@/shared/types/member';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type UserState = {

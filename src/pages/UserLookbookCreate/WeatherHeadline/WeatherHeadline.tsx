@@ -1,4 +1,4 @@
-import { WeatherType } from '@/types/weather';
+import { WeatherType } from '@/entities/weather/model/weather';
 import { S } from './WeatherHeadline.style';
 import { useLocation } from 'react-router-dom';
 import { LocationState } from '../ui/Page/UserLookbookCreatePage';

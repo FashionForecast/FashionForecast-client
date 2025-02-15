@@ -1,4 +1,4 @@
-import { OutfitType } from '@/types/clothes';
+import { OutfitType } from '@/shared/types/clothes';
 import { forwardPropOption } from '@/shared/lib';
 import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';

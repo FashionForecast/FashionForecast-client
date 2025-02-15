@@ -1,5 +1,3 @@
-import { getRecommnedClothes } from '@/services/clothes';
-import { WeatherData, WeatherType } from '@/types/weather';
 import { useQuery } from '@tanstack/react-query';
 import { S } from './ClothesSection.style';
 import { memo, useCallback, useState } from 'react';
@@ -12,6 +10,10 @@ import RecommendList from './RecommendList/RecommendList';
 import LookbookList from './LookbookList/LookbookList';
 import ConditionButtonGroup from './ConditionButtonGroup/ConditionButtonGroup';
 import Headline from './Headline/Headline';
+import { WeatherDto } from '@/entities/weather/model/weather';
+import { TempCondition } from '@/entities/member/model/types';
+import { getRecommnedClothes } from '@/entities/clothes';
+import { WeatherType } from '@/shared/types';
 
 export const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -23,10 +25,8 @@ const Options = new Map([
   [WARM, WARM],
 ]);
 
-export type TempCondition = typeof COOL | typeof NORMAL | typeof WARM;
-
 export type WeatherForRecommendClothes = Pick<
-  WeatherData,
+  WeatherDto,
   'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
 >;
 

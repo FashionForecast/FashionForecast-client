@@ -1,4 +1,4 @@
-import { RainType, SkyStatus } from '@/types/weather';
+import { RainType, SkyStatus } from '@/entities/weather/model/weather';
 import { lazy, Suspense } from 'react';
 import { IconLoading } from '@/shared/ui/IconLoading/IconLoading';
 

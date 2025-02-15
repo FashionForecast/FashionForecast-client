@@ -3,7 +3,7 @@ import { CustomDialog } from '@/shared/ui';
 import { LOGIN } from '@/shared/consts';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { withdrawlAccount } from '@/services/auth';
+import { withdrawlAccount } from '@/entities/auth/api/auth';
 import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';

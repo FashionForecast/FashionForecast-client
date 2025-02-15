@@ -1,11 +1,11 @@
 import { C, S } from './WeatherCard.style';
-import { WeatherData } from '@/types/weather';
+import { WeatherDto } from '@/entities/weather/model/weather';
 import { PcpIcon } from '@/shared/ui';
 import { PopIcon } from '@/shared/ui';
 import { TemperatureIcon } from '@/shared/ui';
 
 type WeatherCardProps = Partial<
-  Pick<WeatherData, 'extremumTmp' | 'maximumPop' | 'maximumPcp'>
+  Pick<WeatherDto, 'extremumTmp' | 'maximumPop' | 'maximumPcp'>
 >;
 
 const WeatherCard = ({

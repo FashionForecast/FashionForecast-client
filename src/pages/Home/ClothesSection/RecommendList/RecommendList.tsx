@@ -3,12 +3,12 @@ import {
   ClothesNames,
   RecommendClothes,
   OutfitType,
-} from '@/types/clothes';
+} from '@/shared/types/clothes';
 import { C, S } from './RecommendList.style';
 import { Chip } from '@mui/material';
 import { memo } from 'react';
 import { ClothesIcon } from '@/shared/ui';
-import { WeatherType } from '@/types/weather';
+import { WeatherType } from '@/entities/weather/model/weather';
 import { clothesIconNameList } from '@/shared/consts';
 
 type RecommendListProps = {

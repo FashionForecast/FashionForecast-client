@@ -2,7 +2,7 @@ import LookbookCard from './LookbookCard/LookbookCard';
 import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { getAllLookbookListByWeather } from '@/services/clothes';
-import { WeatherType } from '@/types/weather';
+import { WeatherType } from '@/entities/weather/model/weather';
 
 const LookbookList = () => {
   const user = useAppSelector((state) => state.user.info);

@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import MenuItem from '../components/MenuItem/MenuItem';
-import { Member } from '@/types/member';
+import { Member } from '@/shared/types/member';
 import { UserFillIcon } from '@/shared/ui';
 
 const GenderMenu = () => {

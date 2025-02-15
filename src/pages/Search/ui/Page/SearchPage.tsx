@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import regionList from '@/shared/consts/regionList.json';
-import RegionItem from '../../components/RegionItem/RegionItem';
 import { C, S } from './SearchPage.style';
 import SearchHeader from '../../SearchHeader/SearchHeader';
-import RecentSearchList from '../../RecentSearchList/RecentSearchList';
-import CurrentRegionButton, {
-  SearchLocationState,
-} from '../../CurrentRegionButton/CurrentRegionButton';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from '@/app/providers/SnackbarProvider';
-import { registerResentSearch } from '@/services/search';
-import { setMemberDefaultRegion } from '@/services/auth';
+import { registerResentSearch } from '@/features/search/api/search';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
-import { Region } from '@/types/region';
+import { Region } from '@/shared/types/region';
 import { MY_REGION } from '@/shared/consts';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
-import { storeUser } from '@/shared/lib';
 import { HeadHelmet } from '@/shared/ui';
+import {
+  CurrentRegionButton,
+  RecentSearchList,
+  SearchLocationState,
+} from '@/features/search';
+import { RegionItem } from '@/entities/search';
+import { setMemberDefaultRegion, storeUser } from '@/entities/member';
 
 export const SearchPage = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);

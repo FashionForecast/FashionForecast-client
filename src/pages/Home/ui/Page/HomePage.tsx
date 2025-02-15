@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { getWeather } from '@/services/weather';
+import { getWeather } from '@/entities/weather/api/weather';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import MainHeader from '../../MainHeader/MainHeader';
 import ClothesSection from '../../ClothesSection/ClothesSection';

@@ -6,8 +6,8 @@ import {
   MAN_TOP_COLTHES,
   WOMAN_BOTTOM_CLOTHES,
 } from '@/shared/consts';
-import { ClothesType, MemberLookbook } from '@/types/clothes';
-import { WeatherType } from '@/types/weather';
+import { ClothesType, MemberLookbook } from '@/shared/types/clothes';
+import { WeatherType } from '@/entities/weather/model/weather';
 import { FocussingSliderType } from '../EditSection';
 import {
   LocationState,
@@ -15,7 +15,7 @@ import {
 } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { Member } from '@/types/member';
+import { Member } from '@/shared/types/member';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 
 export type SliderType = ClothesType | null;

@@ -5,4 +5,3 @@ export { useGeolocation } from './useGeolocation';
 export { fetchAPI } from './fetch';
 export { KSTDate, dateToISO } from './date';
 export { forwardPropOption } from './emotionForwardPropOption';
-export { storeAccessToken, storeUser } from './auth';

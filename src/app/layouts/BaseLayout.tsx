@@ -3,15 +3,17 @@ import * as S from './BaseLayout.style';
 import { GUEST_UUID, LOGIN, MY_REGION } from '@/shared/consts';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { guestLogin } from '@/services/login';
+
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { goelocationActions } from '@/store/slice/geolocationSlice';
 import { useGeolocation } from '@/shared/lib';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import regionList from '@/shared/consts/regionList.json';
-import { storeAccessToken, storeUser } from '@/shared/lib';
+
 import { PageFallback } from '@/widgets/PageFallback';
 import { A2hsSnackbar } from '@/widgets/Snackbar';
+import { guestLogin, storeAccessToken } from '@/entities/auth';
+import { storeUser } from '@/entities/member';
 
 export const BaseLayout = () => {
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();

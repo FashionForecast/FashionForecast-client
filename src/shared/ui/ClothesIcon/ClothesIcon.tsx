@@ -1,4 +1,4 @@
-import { ClothesIconNames } from '@/types/clothes';
+import { ClothesIconNames } from '@/shared/types/clothes';
 import { lazy, Suspense } from 'react';
 import { IconLoading } from '../IconLoading/IconLoading';
 
