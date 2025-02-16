@@ -1,22 +1,27 @@
 import { useMemo, useRef } from 'react';
-import { S } from './Showcase.style';
-import ClothesSlider from './components/ClothesSlider/ClothesSlider';
+import { useLocation } from 'react-router-dom';
+
+import {
+  LocationState,
+  LookbookSelect,
+} from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
+
+import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { MemberDto } from '@/entities/member/model/types';
+
 import {
   MAN_BOTTOM_CLOTHES,
   MAN_TOP_COLTHES,
   WOMAN_BOTTOM_CLOTHES,
-} from '@/constants/clothesList';
-import { ClothesType, MemberLookbook } from '@/types/clothes';
-import { WeatherType } from '@/types/weather';
+} from '@/shared/consts';
+import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { ClothesType, WeatherType } from '@/shared/types';
+
 import { FocussingSliderType } from '../EditSection';
-import {
-  LocationState,
-  LookbookSelect,
-} from '@/pages/UserLookbookCreate/UserLookbookCreatePage';
-import { useLocation } from 'react-router-dom';
-import useAppSelector from '@/hooks/useAppSelector';
-import { Member } from '@/types/member';
-import { DEFAULT_CLOTHES_BY_WEATHER } from '@/constants/lookbook';
+
+import ClothesSlider from './components/ClothesSlider/ClothesSlider';
+import { S } from './Showcase.style';
 
 export type SliderType = ClothesType | null;
 
@@ -35,7 +40,7 @@ const Showcase = ({
   updateFocussingSlider,
   changeClothesName,
 }: ShowcaseProps) => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const { state }: LocationState = useLocation();
   const showcaseRef = useRef<HTMLElement>(null);
   const topSliderInitial = useMemo(
@@ -102,8 +107,8 @@ export default Showcase;
 function getInitialIndex(
   type: WeatherType,
   slider: Exclude<SliderType, null>,
-  userOutfit?: MemberLookbook,
-  gender?: Member['gender']
+  userOutfit?: MemberLookbookDto,
+  gender?: MemberDto['gender']
 ) {
   const list = {
     top: MAN_TOP_COLTHES,

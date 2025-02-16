@@ -1,14 +1,15 @@
-import { S } from './SettingList.style';
-import CustomButton from '@/components/CustomMui/CustomButton';
-import MenuItem from './components/MenuItem/MenuItem';
-import RegionSetMenu from './RegionSetMenu/RegionSetMenu';
-import TimeSetMenu from './TimeSetMenu/TimeSetMenu';
-import ThicknessSetMenu from './ThicknessSetMenu/ThicknessSetMenu';
-import LogoutMenu from './LogoutMenu/LogoutMenu';
 import { Link } from 'react-router-dom';
-import WithdrawlButton from './WithdrawlButton/WithdrawlButton';
+
+import { CustomButton, FeedbackIcon } from '@/shared/ui';
+
+import MenuItem from './components/MenuItem/MenuItem';
 import GenderMenu from './GenderMenu/GenderMenu';
-import FeedbackIcon from '@/components/icon/FeedbackIcon';
+import LogoutMenu from './LogoutMenu/LogoutMenu';
+import RegionSetMenu from './RegionSetMenu/RegionSetMenu';
+import { S } from './SettingList.style';
+import ThicknessSetMenu from './ThicknessSetMenu/ThicknessSetMenu';
+import TimeSetMenu from './TimeSetMenu/TimeSetMenu';
+import WithdrawlButton from './WithdrawlButton/WithdrawlButton';
 
 const SettingList = () => {
   return (

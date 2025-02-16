@@ -1,6 +1,8 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
+
+import { SelectedTime } from '../../ui/Page/HomePage';
+
 import { ITEM_HEIGHT, S } from './TimeCarousel.style';
-import { SelectedTime } from '../../HomePage';
 
 type TimeCarouselProps = {
   times: string[];

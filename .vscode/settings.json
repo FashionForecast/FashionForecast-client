@@ -11,6 +11,7 @@
     "js"
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": "explicit"
+    "source.fixAll.stylelint": "explicit",
+    "source.fixAll.eslint": "explicit"
   }
 }

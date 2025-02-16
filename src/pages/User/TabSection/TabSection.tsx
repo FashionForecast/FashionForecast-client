@@ -1,12 +1,16 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import {
+  BookFillIcon,
+  BookOutlineIcon,
+  UserOutlineIcon,
+  UserFillIcon,
+} from '@/shared/ui';
+
 import LookbookList from './LookbookList/LookbookList';
 import SettingList from './SettingList/SettingList';
 import { C, S } from './TabSection.style';
-import { useSearchParams } from 'react-router-dom';
-import BookFillIcon from '@/components/icon/BookFillIcon';
-import BookOutlineIcon from '@/components/icon/BookOutlineIcon';
-import UserOutlineIcon from '@/components/icon/UserOutlineIcon';
-import UserFillIcon from '@/components/icon/UserFillIcon';
 
 type TabState = '룩북' | '내 설정';
 

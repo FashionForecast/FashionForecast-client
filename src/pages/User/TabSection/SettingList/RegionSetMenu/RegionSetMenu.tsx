@@ -1,10 +1,12 @@
-import LocationIcon from '@/components/icon/LocationIcon';
-import MenuItem from '../components/MenuItem/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import useAppSelector from '@/hooks/useAppSelector';
+
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { LocationIcon } from '@/shared/ui';
+
+import MenuItem from '../components/MenuItem/MenuItem';
 
 const RegionSetMenu = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const navigate = useNavigate();
 
   const handleClick = () => {

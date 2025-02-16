@@ -1,6 +1,7 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
-import forwardPropOption from '@/utils/emotionForwardPropOption';
 import styled from '@emotion/styled';
+
+import { forwardPropOption } from '@/shared/lib';
+import { CustomButton } from '@/shared/ui';
 
 const ColorButton = styled(CustomButton, forwardPropOption)<{
   $color: string;

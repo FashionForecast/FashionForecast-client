@@ -1,8 +1,10 @@
-import { WeatherData } from '@/types/weather';
-import { S } from './WeatherTimeLine.style';
-import WeatherIcon from '@/components/icon/weather/WeatherIcon';
+import { WeatherDto } from '@/entities/weather/model/types';
 
-type WeatherTimeLimeProps = Pick<WeatherData, 'forecasts'>;
+import { WeatherIcon } from '@/shared/ui';
+
+import { S } from './WeatherTimeLine.style';
+
+type WeatherTimeLimeProps = Pick<WeatherDto, 'forecasts'>;
 
 const WeatherTimeLine = ({ forecasts }: WeatherTimeLimeProps) => {
   return (

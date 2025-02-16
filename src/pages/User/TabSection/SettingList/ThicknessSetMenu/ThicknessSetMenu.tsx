@@ -5,23 +5,28 @@ import {
   FormControl,
   RadioGroup,
 } from '@mui/material';
-import MenuItem from '../components/MenuItem/MenuItem';
-import { useRef, useState } from 'react';
-import CustomButton from '@/components/CustomMui/CustomButton';
-import CustomDialog from '@/components/CustomMui/CustomDialog';
-import CustomRadio from '@/components/CustomMui/CustomRadio';
-import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
-import TopClothesIcon from '@/components/icon/TopClothesIcon';
-import useAppSelector from '@/hooks/useAppSelector';
-import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { useMutation } from '@tanstack/react-query';
-import { setMemberClothesThickness } from '@/services/auth';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
-import { storeUser } from '@/utils/auth';
-import useAppDispatch from '@/hooks/useAppDispatch';
+import { useRef, useState } from 'react';
+
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
+
+import { setMemberClothesThickness, storeMember } from '@/entities/member';
+import { TempCondition } from '@/entities/member/model/types';
+
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import {
+  CustomButton,
+  CustomDialog,
+  CustomRadio,
+  CustomFormControlLabel,
+  TopClothesIcon,
+} from '@/shared/ui';
+
+import MenuItem from '../components/MenuItem/MenuItem';
 
 const ThicknessSetMenu = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
   const [option, setOption] = useState<TempCondition>(
@@ -54,7 +59,7 @@ const ThicknessSetMenu = () => {
     setIsLoading(true);
     mutate(undefined, {
       onSuccess: async () => {
-        const user = await storeUser(accessToken, dispatch);
+        const user = await storeMember(accessToken, dispatch);
         setOption(user.tempCondition);
         setOpen(false);
       },
@@ -67,7 +72,7 @@ const ThicknessSetMenu = () => {
     <>
       <MenuItem
         title='기본 옷차림 두께'
-        value={tempConditionText[user?.tempCondition || 'NORMAL']}
+        value={tempConditionText[option || 'NORMAL']}
         icon={<TopClothesIcon />}
         handleClick={handleClickOpen}
       />

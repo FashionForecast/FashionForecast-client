@@ -1,4 +1,5 @@
 import { Icon } from '@mui/material';
+
 import { S } from './MenuItem.style';
 
 type MenuItemProps = {

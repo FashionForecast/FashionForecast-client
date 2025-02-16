@@ -1,13 +1,15 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
-import CustomDialog from '@/components/CustomMui/CustomDialog';
-import { LOGIN } from '@/constants/localStorageKey';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
-import useAppSelector from '@/hooks/useAppSelector';
-import { withdrawlAccount } from '@/services/auth';
 import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
+
+import { withdrawlAccount } from '@/entities/auth/api/auth';
+
+import { LOGIN } from '@/shared/consts';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { CustomDialog, CustomButton } from '@/shared/ui';
 
 const WithdrawlButton = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);

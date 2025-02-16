@@ -1,6 +1,6 @@
-import CustomTab from '@/components/CustomMui/CustomTab';
-import CustomTabs from '@/components/CustomMui/CustomTabs';
 import styled from '@emotion/styled';
+
+import { CustomTab, CustomTabs } from '@/shared/ui';
 
 const SectionWrap = styled.section`
   display: flex;

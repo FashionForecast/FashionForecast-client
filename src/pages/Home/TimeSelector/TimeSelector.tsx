@@ -1,12 +1,16 @@
-import { C, S } from './TimeSelector.style';
-import CheckIcon from '@/components/icon/CheckIcon';
-import { SelectedTime } from '../HomePage';
-import TimeCarousel from './TimeCarousel/TimeCarousel';
-import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { paddedTimeList } from '@/constants/timeList';
-import { KSTDate } from '@/utils/date';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
+
+import { paddedTimeList } from '@/shared/consts/timeList';
+import { KSTDate } from '@/shared/lib';
+import { CheckIcon } from '@/shared/ui';
+
+import { SelectedTime } from '../ui/Page/HomePage';
+
+import TimeCarousel from './TimeCarousel/TimeCarousel';
+import { C, S } from './TimeSelector.style';
 
 const DAYS = ['오늘', '내일'];
 

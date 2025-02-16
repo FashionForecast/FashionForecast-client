@@ -1,9 +1,12 @@
-import { WeatherType } from '@/types/weather';
-import Showcase, { SliderType } from './Showcase/Showcase';
-import ColorPalette from './ColorPalette/ColorPalette';
 import { memo, useCallback, useState } from 'react';
-import { LookbookSelect } from '../UserLookbookCreatePage';
-import { ClothesType } from '@/types/clothes';
+
+import { WeatherType } from '@/shared/types';
+import { ClothesType } from '@/shared/types/clothes';
+
+import { LookbookSelect } from '../ui/Page/UserLookbookCreatePage';
+
+import ColorPalette from './ColorPalette/ColorPalette';
+import Showcase, { SliderType } from './Showcase/Showcase';
 
 export type FocussingSliderType = SliderType | null;
 

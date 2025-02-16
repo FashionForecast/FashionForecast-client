@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
-import XIcon from '@/components/icon/XIcon';
-import Header from '@/components/Header/Header';
+import { Link } from 'react-router-dom';
+
+import { XIcon, Header } from '@/shared/ui';
 
 const UserHeader = () => {
   return (

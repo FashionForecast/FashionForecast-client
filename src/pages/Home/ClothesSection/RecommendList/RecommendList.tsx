@@ -1,19 +1,21 @@
+import { Chip } from '@mui/material';
+import { memo } from 'react';
+
+import { RecommendClothesDto } from '@/entities/clothes';
+
+import { clothesIconNameList } from '@/shared/consts';
 import {
   ClothesIconNames,
   ClothesNames,
-  RecommendClothes,
   OutfitType,
-} from '@/types/clothes';
+  WeatherType,
+} from '@/shared/types';
+import { ClothesIcon } from '@/shared/ui';
+
 import { C, S } from './RecommendList.style';
-import { Chip } from '@mui/material';
-import { memo } from 'react';
-import ClothesIcon, {
-  clotehsIconsMap,
-} from '@/components/ClothesIcon/ClothesIcon';
-import { WeatherType } from '@/types/weather';
 
 type RecommendListProps = {
-  clothes: RecommendClothes;
+  clothes: RecommendClothesDto;
   weatherType: WeatherType;
 };
 
@@ -117,7 +119,7 @@ function getClothesName(
   // 꼭 챙기세요! 항목: 우산이 포함되지 않은 경우
   for (const name of names) {
     if (ETCName) break;
-    ETCName = clotehsIconsMap.has(name) ? name : null;
+    ETCName = clothesIconNameList.has(name) ? name : null;
   }
 
   return ETCName;

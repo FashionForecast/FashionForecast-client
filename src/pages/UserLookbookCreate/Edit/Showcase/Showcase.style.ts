@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import { SliderType } from './Showcase';
 
 const TOP = '31px';

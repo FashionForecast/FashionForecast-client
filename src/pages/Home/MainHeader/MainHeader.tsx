@@ -1,17 +1,21 @@
 import { IconButton } from '@mui/material';
-import { C } from './MainHeader.style';
-import CustomButton from '@/components/CustomMui/CustomButton';
-import LocationIcon from '@/components/icon/LocationIcon';
-import { Link } from 'react-router-dom';
-import useAppSelector from '@/hooks/useAppSelector';
-import UserAvatar from '@/components/UserAvatar/UserAvatar';
-import Header from '@/components/Header/Header';
 import { memo } from 'react';
-import TriangleIcon from '@/components/icon/TriangleIcon';
+import { Link } from 'react-router-dom';
+
+import { useAppSelector } from '@/shared/lib';
+import {
+  CustomButton,
+  LocationIcon,
+  UserAvatar,
+  Header,
+  TriangleIcon,
+} from '@/shared/ui';
+
+import { C } from './MainHeader.style';
 
 const MainHeader = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
 
   return (
     <Header>

@@ -1,5 +1,6 @@
-import CustomButton from '@/components/CustomMui/CustomButton';
 import styled from '@emotion/styled';
+
+import { CustomButton } from '@/shared/ui';
 
 const TitleWrap = styled.div`
   width: 100%;

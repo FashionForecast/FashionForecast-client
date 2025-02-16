@@ -1,7 +1,10 @@
-import { paddedTimeList } from '@/constants/timeList';
-import { SelectedTime } from '@/pages/Home/HomePage';
-import TimeCarousel from '@/pages/Home/TimeSelector/TimeCarousel/TimeCarousel';
 import { useMemo } from 'react';
+
+import TimeCarousel from '@/pages/Home/TimeSelector/TimeCarousel/TimeCarousel';
+import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
+
+import { paddedTimeList } from '@/shared/consts/timeList';
+
 import { S } from './UserTimeSelector.style';
 
 const DAYS = ['오늘'];

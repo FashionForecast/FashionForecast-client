@@ -1,10 +1,14 @@
-import { WeatherType } from '@/types/weather';
-import { S } from './WeatherHeadline.style';
-import { useLocation } from 'react-router-dom';
-import { LocationState } from '../UserLookbookCreatePage';
-import { TempCondition } from '@/pages/Home/ClothesSection/ClothesSection';
 import { memo } from 'react';
-import { LOOKBOOK_WEATHER_TYPE } from '@/constants/lookbook';
+import { useLocation } from 'react-router-dom';
+
+import { TempCondition } from '@/entities/member/model/types';
+
+import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
+import { WeatherType } from '@/shared/types';
+
+import { LocationState } from '../ui/Page/UserLookbookCreatePage';
+
+import { S } from './WeatherHeadline.style';
 
 type WeatherHeadlineProps = {
   weatherType: WeatherType;

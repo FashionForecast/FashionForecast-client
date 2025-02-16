@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { colors } from '@/styles/colors';
 import { css } from '@mui/material';
-import forwardPropOption from '@/utils/emotionForwardPropOption';
-import CustomButton from '@/components/CustomMui/CustomButton';
-import { MAX_WIDTH } from '@/constants/css';
+
+import { MAX_WIDTH } from '@/shared/consts';
+import { forwardPropOption } from '@/shared/lib';
+import { CustomButton } from '@/shared/ui';
 
 const TimeSelector = styled.section`
   position: fixed;
@@ -27,7 +27,7 @@ const TimeRange = styled.div`
   align-items: center;
   width: 100%;
   padding: 16px;
-  background-color: ${colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const Hypen = styled.div`

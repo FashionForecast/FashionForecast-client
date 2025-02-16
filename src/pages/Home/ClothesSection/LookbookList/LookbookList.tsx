@@ -1,14 +1,18 @@
-import { getMemberLookbook } from '@/services/clothes';
-import { S } from './LookbookList.style';
 import { useQuery } from '@tanstack/react-query';
-import useAppSelector from '@/hooks/useAppSelector';
-import { WeatherForRecommendClothes, TempCondition } from '../ClothesSection';
-import { MemberLookbook } from '@/types/clothes';
-import { WeatherType } from '@/types/weather';
-import { useNavigate } from 'react-router-dom';
 import { memo } from 'react';
-import PlusIcon from '@/components/icon/PlusIcon';
-import ClothesIcon from '@/components/ClothesIcon/ClothesIcon';
+import { useNavigate } from 'react-router-dom';
+
+import { getMemberLookbook } from '@/entities/clothes';
+import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { TempCondition } from '@/entities/member/model/types';
+
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { WeatherType } from '@/shared/types';
+import { PlusIcon, ClothesIcon } from '@/shared/ui';
+
+import { WeatherForRecommendClothes } from '../ClothesSection';
+
+import { S } from './LookbookList.style';
 
 type LookbookListProps = {
   weather: WeatherForRecommendClothes;
@@ -22,7 +26,7 @@ const LookbookList = ({
   tempCondition,
 }: LookbookListProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const { data } = useQuery({
     queryKey: ['user', user?.socialId, 'lookbook', weather, tempCondition],
     queryFn: () =>
@@ -31,7 +35,7 @@ const LookbookList = ({
   });
   const navigate = useNavigate();
 
-  const handleLookbookItemClick = (outfit?: MemberLookbook) => () => {
+  const handleLookbookItemClick = (outfit?: MemberLookbookDto) => () => {
     navigate(`/user/lookbook/create?type=${weatherType}`, {
       state: {
         outfit,

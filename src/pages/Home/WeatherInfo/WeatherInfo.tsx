@@ -1,11 +1,13 @@
-import { WeatherData } from '@/types/weather';
-import WeatherCard from './WeatherCard/WeatherCard';
-import WeatherTimeLine from './WeatherTimeLine/WeatherTimeLine';
-import { S } from './WeatherInfo.style';
 import { memo } from 'react';
 
+import { WeatherDto } from '@/entities/weather';
+
+import WeatherCard from './WeatherCard/WeatherCard';
+import { S } from './WeatherInfo.style';
+import WeatherTimeLine from './WeatherTimeLine/WeatherTimeLine';
+
 type WeatherInfoProps = {
-  weather: WeatherData;
+  weather: WeatherDto;
 };
 
 const WeatherInfo = ({ weather }: WeatherInfoProps) => {

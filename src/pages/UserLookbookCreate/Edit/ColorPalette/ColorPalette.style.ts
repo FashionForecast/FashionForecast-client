@@ -1,6 +1,7 @@
-import { MAX_WIDTH } from '@/constants/css';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import { MAX_WIDTH } from '@/shared/consts';
 
 const Drawer = styled.div<{ $isDragging: boolean }>`
   position: fixed;

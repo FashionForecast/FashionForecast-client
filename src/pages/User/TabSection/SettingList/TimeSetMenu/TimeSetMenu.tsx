@@ -4,24 +4,31 @@ import {
   DialogTitle,
   RadioGroup,
 } from '@mui/material';
-import MenuItem from '../components/MenuItem/MenuItem';
-import CustomButton from '@/components/CustomMui/CustomButton';
-import { useRef, useState } from 'react';
-import CustomDialog from '@/components/CustomMui/CustomDialog';
-import CustomRadio from '@/components/CustomMui/CustomRadio';
-import CustomFormControlLabel from '@/components/CustomMui/CustomFormControlLabel';
-import { paddedTimeList } from '@/constants/timeList';
-import { SelectedTime } from '@/pages/Home/HomePage';
-import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
-import { C } from './TimeSetMenu.style';
-import useAppSelector from '@/hooks/useAppSelector';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { setMemberOutingTime } from '@/services/auth';
-import { storeUser } from '@/utils/auth';
-import useAppDispatch from '@/hooks/useAppDispatch';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
-import { Member } from '@/types/member';
-import ClockIcon from '@/components/icon/ClockIcon';
+import { useRef, useState } from 'react';
+
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
+
+import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
+
+import { setMemberOutingTime, storeMember } from '@/entities/member';
+import { MemberDto } from '@/entities/member/model/types';
+
+import { paddedTimeList } from '@/shared/consts/timeList';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import {
+  CustomButton,
+  CustomDialog,
+  CustomRadio,
+  CustomFormControlLabel,
+  ClockIcon,
+} from '@/shared/ui';
+
+import MenuItem from '../components/MenuItem/MenuItem';
+
+import { C } from './TimeSetMenu.style';
+import UserTimeSelector from './UserTimeSelector/UserTimeSelector';
 
 const DEFAULT = 'DEFAULT';
 const SET_IT = 'setIt';
@@ -29,7 +36,7 @@ const SET_IT = 'setIt';
 export type TimeSetOption = typeof DEFAULT | typeof SET_IT;
 
 const TimeSetMenu = () => {
-  const user = useAppSelector((state) => state.user.info);
+  const user = useAppSelector((state) => state.member.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
   const [selectedTime, setSelectedTime] = useState<SelectedTime>(() =>
@@ -77,7 +84,7 @@ const TimeSetMenu = () => {
 
     mutate(undefined, {
       onSuccess: async () => {
-        const user = await storeUser(accessToken, dispatch);
+        const user = await storeMember(accessToken, dispatch);
         queryClient.invalidateQueries({ queryKey: ['weather'] });
         setSelectedTime(getSelectedTime(user));
         setOpen(false);
@@ -154,7 +161,7 @@ const defaultSelectedTime: SelectedTime = {
   end: paddedTimeList[19],
 };
 
-function getSelectedTime(user: Member | null): SelectedTime {
+function getSelectedTime(user: MemberDto | null): SelectedTime {
   if (!user || user.outingStartTime === 'DEFAULT') return defaultSelectedTime;
 
   return { day: '오늘', start: user.outingStartTime, end: user.outingEndTime };

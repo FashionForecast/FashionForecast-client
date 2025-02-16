@@ -1,15 +1,22 @@
-import GoBackButton from '@/components/GoBackButton/GoBackButton';
-import Header from '@/components/Header/Header';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { C, S } from './LookbookCreateHeader.style';
-import { LocationState, LookbookSelect } from '../UserLookbookCreatePage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { WeatherType } from '@/types/weather';
-import { saveLookbook } from '@/services/clothes';
-import useAppSelector from '@/hooks/useAppSelector';
-import { useSnackbar } from '@/contexts/SnackbarProvider';
 import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { useSnackbar } from '@/app/providers/SnackbarProvider';
+
+import { saveLookbook } from '@/entities/clothes';
+
+import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { WeatherType } from '@/shared/types';
+import { GoBackButton, Header } from '@/shared/ui';
+
+import {
+  LocationState,
+  LookbookSelect,
+} from '../ui/Page/UserLookbookCreatePage';
+
 import DeleteDialog from './DeleteDialog/DeleteDialog';
+import { C, S } from './LookbookCreateHeader.style';
 
 type LookbookCreateHeaderProps = {
   weatherType: WeatherType;
