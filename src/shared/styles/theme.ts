@@ -62,7 +62,7 @@ export const theme = {
     },
     secondary: {
       main: colors.blueGrey[200],
-      dark: colors.blueGrey[900],
+      dark: colors.blueGrey[300],
     },
     elevation: {
       outlined: colors.blueGrey['300'],
