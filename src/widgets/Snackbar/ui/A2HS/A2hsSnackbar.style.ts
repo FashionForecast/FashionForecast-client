@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { CustomButton, CustomSnackbar } from '@/shared/ui';
+import { Button, CustomSnackbar } from '@/shared/ui';
 
 const Snackbar = styled(CustomSnackbar)`
   position: fixed;
@@ -24,8 +24,8 @@ const Snackbar = styled(CustomSnackbar)`
   }
 `;
 
-const Button = styled(CustomButton)`
+const AddButton = styled(Button)`
   color: ${({ theme }) => theme.colors.info.main};
 `;
 
-export const C = { Snackbar, Button };
+export const C = { Snackbar, AddButton };

@@ -11,7 +11,7 @@ import { setMemberDefaultRegion, storeMember } from '@/entities/member';
 import { MY_REGION } from '@/shared/consts';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { CustomButton, LocationIcon, CustomDialog } from '@/shared/ui';
+import { Button, LocationIcon, CustomDialog } from '@/shared/ui';
 
 import { SearchLocationState } from '../../model/types';
 
@@ -79,7 +79,7 @@ export const CurrentRegionButton = () => {
   return (
     <>
       <S.Wrapper>
-        <CustomButton
+        <Button
           variant='outlined'
           disabled={isDisabled()}
           color='inherit'
@@ -91,7 +91,7 @@ export const CurrentRegionButton = () => {
           onClick={handleClick}
         >
           현재 위치로 설정하기
-        </CustomButton>
+        </Button>
       </S.Wrapper>
 
       <CustomDialog fullWidth onClose={handleDialogClose} open={isDialogOpen}>
@@ -99,7 +99,7 @@ export const CurrentRegionButton = () => {
           위치 기능을 활성화하거나 브라우저 위치 권한을 확인해주세요.
         </DialogContent>
         <DialogActions>
-          <CustomButton onClick={handleDialogClose}>확인</CustomButton>
+          <Button onClick={handleDialogClose}>확인</Button>
         </DialogActions>
       </CustomDialog>
     </>

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-import { CustomButton, HeadHelmet } from '@/shared/ui';
+import { Button, HeadHelmet } from '@/shared/ui';
 
 export const NotFoundPage = () => {
   return (
@@ -14,7 +14,7 @@ export const NotFoundPage = () => {
       <NotFoundWrap>
         <span>페이지를 찾을 수 없습니다.</span>
         <Link to={'/'}>
-          <CustomButton fullWidth>홈으로 가기</CustomButton>
+          <Button fullWidth>홈으로 가기</Button>
         </Link>
       </NotFoundWrap>
     </>

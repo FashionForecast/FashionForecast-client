@@ -6,7 +6,7 @@ import { useSnackbar } from '@/app/providers/SnackbarProvider';
 
 import { submitFeedback } from '@/features/feedback/api/feedback';
 
-import { CustomButton } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 
 import { C, S } from './Feedback.style';
 
@@ -52,7 +52,7 @@ export const Feedback = () => {
         />
       </S.Section>
 
-      <CustomButton
+      <Button
         size='large'
         fullWidth
         variant='contained'
@@ -60,7 +60,7 @@ export const Feedback = () => {
         onClick={handleSubmit}
       >
         피드백 남기기
-      </CustomButton>
+      </Button>
     </>
   );
 };

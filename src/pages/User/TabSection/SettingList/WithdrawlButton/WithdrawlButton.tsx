@@ -9,7 +9,7 @@ import { withdrawlAccount } from '@/entities/auth/api/auth';
 
 import { LOGIN } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { CustomDialog, CustomButton } from '@/shared/ui';
+import { CustomDialog, Button } from '@/shared/ui';
 
 const WithdrawlButton = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
@@ -47,30 +47,26 @@ const WithdrawlButton = () => {
 
   return (
     <>
-      <CustomButton color='inherit' onClick={handleClickOpen}>
+      <Button color='inherit' onClick={handleClickOpen}>
         회원탈퇴
-      </CustomButton>
+      </Button>
 
       <CustomDialog fullWidth onClose={handleClose} open={open}>
         <DialogContent>
           정말 탈퇴하시겠습니까? <br /> 탈퇴하는 즉시 모든 정보가 삭제됩니다.
         </DialogContent>
         <DialogActions>
-          <CustomButton
-            color='inherit'
-            variant='outlined'
-            onClick={handleClose}
-          >
+          <Button color='inherit' variant='outlined' onClick={handleClose}>
             취소
-          </CustomButton>
-          <CustomButton
+          </Button>
+          <Button
             color='error'
             variant='contained'
             disabled={isLoading}
             onClick={handleWithdrawlButtonClick}
           >
             탈퇴
-          </CustomButton>
+          </Button>
         </DialogActions>
       </CustomDialog>
     </>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useAppSelector } from '@/shared/lib';
 import {
-  CustomButton,
+  Button,
   LocationIcon,
   UserAvatar,
   Header,
@@ -24,14 +24,14 @@ const MainHeader = () => {
       </IconButton>
 
       <C.SearchLink to={'/search'}>
-        <CustomButton
+        <Button
           startIcon={geolocation?.isGPS && <LocationIcon />}
           endIcon={<TriangleIcon />}
           color='inherit'
           fullWidth
         >
           {geolocation?.region}
-        </CustomButton>
+        </Button>
       </C.SearchLink>
 
       <Link to={user ? '/user' : '/login'}>

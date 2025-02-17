@@ -7,7 +7,7 @@ import { logout } from '@/entities/auth/api/auth';
 
 import { LOGIN } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { CustomButton, CustomDialog, LogoutIcon } from '@/shared/ui';
+import { Button, CustomDialog, LogoutIcon } from '@/shared/ui';
 
 import MenuItem from '../components/MenuItem/MenuItem';
 
@@ -47,16 +47,12 @@ const LogoutMenu = () => {
       <CustomDialog fullWidth onClose={handleClose} open={open}>
         <DialogContent>정말 로그아웃하시겠습니까?</DialogContent>
         <DialogActions>
-          <CustomButton
-            color='inherit'
-            variant='outlined'
-            onClick={handleClose}
-          >
+          <Button color='inherit' variant='outlined' onClick={handleClose}>
             취소
-          </CustomButton>
-          <CustomButton variant='contained' onClick={handleLogoutClick}>
+          </Button>
+          <Button variant='contained' onClick={handleLogoutClick}>
             로그아웃
-          </CustomButton>
+          </Button>
         </DialogActions>
       </CustomDialog>
     </>

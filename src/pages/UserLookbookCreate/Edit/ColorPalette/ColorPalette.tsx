@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from 'react';
 
-import { TopClothesIcon, CustomButton, BottomClothesIcon } from '@/shared/ui';
+import { TopClothesIcon, Button, BottomClothesIcon } from '@/shared/ui';
 
 import { FocussingSliderType } from '../EditSection';
 
@@ -124,9 +124,7 @@ const ColorPalette = ({
             </S.Info>
 
             {isOpen && (
-              <CustomButton onClick={handleChooseButtonClick}>
-                옷 고르기
-              </CustomButton>
+              <Button onClick={handleChooseButtonClick}>옷 고르기</Button>
             )}
           </S.InfoBar>
         </S.DraggableArea>

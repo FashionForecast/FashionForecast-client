@@ -1,4 +1,4 @@
-export { CustomButton } from './CustomMui/CustomButton';
+export { Button } from './Button/Button';
 export { CustomDialog } from './CustomMui/CustomDialog';
 export { CustomFormControlLabel } from './CustomMui/CustomFormControlLabel';
 export { CustomRadio } from './CustomMui/CustomRadio';

@@ -18,7 +18,7 @@ import { paddedTimeList } from '@/shared/consts/timeList';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import {
-  CustomButton,
+  Button,
   CustomDialog,
   CustomRadio,
   CustomFormControlLabel,
@@ -137,16 +137,12 @@ const TimeSetMenu = () => {
           </C.FormControl>
         </DialogContent>
         <DialogActions>
-          <CustomButton
-            color='inherit'
-            variant='outlined'
-            onClick={handleClose}
-          >
+          <Button color='inherit' variant='outlined' onClick={handleClose}>
             취소
-          </CustomButton>
-          <CustomButton onClick={handleSaveButtonClick} disabled={isLoading}>
+          </Button>
+          <Button onClick={handleSaveButtonClick} disabled={isLoading}>
             저장
-          </CustomButton>
+          </Button>
         </DialogActions>
       </CustomDialog>
     </>

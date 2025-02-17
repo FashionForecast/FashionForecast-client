@@ -16,7 +16,7 @@ import { TempCondition } from '@/entities/member/model/types';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import {
-  CustomButton,
+  Button,
   CustomDialog,
   CustomRadio,
   CustomFormControlLabel,
@@ -101,16 +101,12 @@ const ThicknessSetMenu = () => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <CustomButton
-            color='inherit'
-            variant='outlined'
-            onClick={handleClose}
-          >
+          <Button color='inherit' variant='outlined' onClick={handleClose}>
             취소
-          </CustomButton>
-          <CustomButton disabled={isLoading} onClick={handleSaveButtonClick}>
+          </Button>
+          <Button disabled={isLoading} onClick={handleSaveButtonClick}>
             저장
-          </CustomButton>
+          </Button>
         </DialogActions>
       </CustomDialog>
     </>

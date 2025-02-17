@@ -3,7 +3,7 @@ import { css } from '@mui/material';
 
 import { MAX_WIDTH } from '@/shared/consts';
 import { forwardPropOption } from '@/shared/lib';
-import { CustomButton } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 
 const TimeSelector = styled.section`
   position: fixed;
@@ -37,7 +37,7 @@ const Hypen = styled.div`
   background-color: ${({ theme }) => theme.colors.primary.main};
 `;
 
-const CheckButton = styled(CustomButton, forwardPropOption)<{
+const CheckButton = styled(Button, forwardPropOption)<{
   $isChange: boolean;
 }>`
   display: flex;

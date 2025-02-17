@@ -10,7 +10,7 @@ import { LocationState } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCr
 import { deleteLookbookItem } from '@/entities/clothes';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { CustomDialog, CustomButton } from '@/shared/ui';
+import { CustomDialog, Button } from '@/shared/ui';
 
 type DeleteDialogProps = {
   isOpen: boolean;
@@ -48,17 +48,17 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
     <CustomDialog fullWidth onClose={onClose} open={isOpen}>
       <DialogContent>정말 삭제하시겠습니까?</DialogContent>
       <DialogActions>
-        <CustomButton color='inherit' variant='outlined' onClick={onClose}>
+        <Button color='inherit' variant='outlined' onClick={onClose}>
           취소
-        </CustomButton>
-        <CustomButton
+        </Button>
+        <Button
           color='error'
           variant='contained'
           disabled={isLoading}
           onClick={handleClick}
         >
           삭제
-        </CustomButton>
+        </Button>
       </DialogActions>
     </CustomDialog>
   );

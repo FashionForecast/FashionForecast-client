@@ -9,7 +9,7 @@ import { Gender } from '@/entities/member/model/types';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import {
-  CustomButton,
+  Button,
   HeadHelmet,
   FemaleIcon,
   MaleIcon,
@@ -86,7 +86,7 @@ export const UserGenderPage = () => {
         </S.SectionWrap>
 
         <S.SubmitButtonWrap>
-          <CustomButton
+          <Button
             variant='contained'
             size='large'
             fullWidth
@@ -94,7 +94,7 @@ export const UserGenderPage = () => {
             onClick={handleSubmitClick}
           >
             개인화된 OOTC 시작하기
-          </CustomButton>
+          </Button>
         </S.SubmitButtonWrap>
       </S.UserGenderWrap>
     </>

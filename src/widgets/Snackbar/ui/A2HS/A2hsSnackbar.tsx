@@ -12,9 +12,9 @@ export const A2hsSnackbar = () => {
         message='홈화면에 바로가기를 추가할 수 있어요!'
         handleCloseOnSwipe={hideSnackbar}
         action={
-          <C.Button size='small' color='inherit' onClick={installApp}>
+          <C.AddButton size='small' color='inherit' onClick={installApp}>
             추가하기
-          </C.Button>
+          </C.AddButton>
         }
       />
     )

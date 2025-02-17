@@ -238,7 +238,11 @@ export const TimeSelector = ({
               {!isDefaultTime && (
                 <S.CountingPhraseWrap>
                   <p>개수 상관없이 마음껏 지정하세요.</p>
-                  <C.DeleteButton onClick={handleDeleteButtonClick}>
+                  <C.DeleteButton
+                    variant='outlined'
+                    size='large'
+                    onClick={handleDeleteButtonClick}
+                  >
                     모두 지우기
                   </C.DeleteButton>
                 </S.CountingPhraseWrap>
