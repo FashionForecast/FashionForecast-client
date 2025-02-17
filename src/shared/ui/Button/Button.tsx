@@ -8,11 +8,11 @@ export const Button = ({ ...rest }: ButtonProps) => {
 };
 
 const BaseButton = styled(MuiButton)`
-  border-radius: 100px;
+  border-radius: ${({ theme }) => theme.borderRadius[2]};
 
   &.MuiButton-sizeLarge {
     height: 40px;
-    padding: 8px 12px;
+    padding: ${({ theme }) => `${theme.padding['1']} ${theme.padding['1a']}`};
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
@@ -21,7 +21,7 @@ const BaseButton = styled(MuiButton)`
 
   &.MuiButton-sizeMedium {
     height: 32px;
-    padding: 4px 12px;
+    padding: ${({ theme }) => `${theme.padding['0a']} ${theme.padding['1a']}`};
     font-size: 14px;
     font-weight: 500;
     line-height: 24px;
@@ -30,11 +30,15 @@ const BaseButton = styled(MuiButton)`
 
   &.MuiButton-sizeSmall {
     height: 24px;
-    padding: 0 8px;
+    padding: ${({ theme }) => `${theme.padding[0]} ${theme.padding[1]}`};
     font-size: 12px;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: 0.46px;
+  }
+
+  &.MuiButton-contained.Mui-disabled {
+    background-color: ${({ theme }) => theme.colors.action.disabledBackground};
   }
 
   &.MuiButton-outlined {
@@ -43,6 +47,11 @@ const BaseButton = styled(MuiButton)`
 
     & .MuiTouchRipple-child {
       background-color: ${({ theme }) => theme.colors.white};
+    }
+
+    &.Mui-disabled {
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.action.disabledBackground};
     }
 
     @media (hover: hover) and (pointer: fine) {
