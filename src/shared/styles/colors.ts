@@ -27,6 +27,7 @@ export const colors = {
     A90: 'rgba(50, 57, 65, 0.9)',
   },
   red: {
+    100: '#FFE9E5',
     300: '#FFA59B',
     600: '#D62D36',
     700: '#B32A2E',
@@ -39,9 +40,18 @@ export const colors = {
     100: '#FFEBCD',
   },
   orange: {
+    100: '#FFEAD6',
     300: '#FEAA5C',
     600: '#A85E1A',
     700: '#8E501A',
+  },
+  yellow: {
+    100: '#FFEF9B',
+    300: '#D7BD1D',
+  },
+  lime: {
+    100: '#EFF2B0',
+    300: '#B3C725',
   },
   blue: {
     100: '#E2EFFF',
@@ -51,9 +61,18 @@ export const colors = {
     700: '#226492',
   },
   green: {
+    100: '#CFF8D2',
     300: '#45D769',
     600: '#328042',
     700: '#2C6C39',
+  },
+  cyan: {
+    100: '#CAF6F6',
+    300: '#0FD2D3',
+  },
+  deepPurple: {
+    100: '#EEECFE',
+    300: '#BAB5FB',
   },
   teal: {
     100: '#C6F9E2',

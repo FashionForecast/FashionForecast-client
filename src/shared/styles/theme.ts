@@ -70,13 +70,27 @@ export const theme = {
     blueGrey: colors.blueGrey,
     red: colors.red,
     amber: colors.amber,
+    yellow: colors.yellow,
+    lime: colors.lime,
     orange: colors.orange,
     blue: colors.blue,
     green: colors.green,
+    cyan: colors.cyan,
+    deepPurple: colors.deepPurple,
     teal: colors.teal,
     white: colors.white,
   },
   typo,
+  borderRadius: {
+    '1': '8px',
+    '2': '16px',
+  } as const,
+  padding: {
+    '0': '0',
+    '0a': '4px',
+    '1': 'px',
+    '1a': '12px',
+  } as const,
 };
 
 export type AppTheme = typeof theme;
