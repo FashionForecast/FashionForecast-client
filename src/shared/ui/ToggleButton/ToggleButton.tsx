@@ -18,20 +18,20 @@ type CustomToggleButtonProps = Omit<ToggleButtonOwnProps, 'color'> & {
   color?: CustomColor | ExcludedColor;
 };
 
-const colorMap = getColorMap();
+const backgroundColorMap = getBackgroundColorMap();
 
 export const ToggleButton = ({
   color = 'neutral',
   ...rest
 }: CustomToggleButtonProps) => {
-  return <BaseToogleButton $color={color} {...rest} />;
+  return <BaseToggleButton $color={color} {...rest} />;
 };
 
-const BaseToogleButton = styled(MuiToggleButton, forwardPropOption)<{
+const BaseToggleButton = styled(MuiToggleButton, forwardPropOption)<{
   $color: CustomColor;
 }>`
   color: ${({ theme }) => theme.colors.text.primary};
-  background-color: ${({ $color }) => colorMap[$color]['background']};
+  background-color: ${({ $color }) => backgroundColorMap[$color]['enabled']};
   border: 0;
   border-radius: ${({ theme }) => theme.borderRadius[2]};
 
@@ -52,7 +52,7 @@ const BaseToogleButton = styled(MuiToggleButton, forwardPropOption)<{
   }
 
   &.Mui-disabled {
-    background-color: ${({ $color }) => colorMap[$color]['disabled']};
+    background-color: ${({ $color }) => backgroundColorMap[$color]['disabled']};
     border: 0;
   }
 
@@ -60,47 +60,48 @@ const BaseToogleButton = styled(MuiToggleButton, forwardPropOption)<{
     font-weight: 700;
     color: ${({ theme, $color }) =>
       $color === 'neutral' ? theme.colors.primary.dark : theme.colors.white};
-    background-color: ${({ $color }) => colorMap[$color]['selected']};
+    background-color: ${({ $color }) => backgroundColorMap[$color]['selected']};
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
-        background-color: ${({ $color }) => colorMap[$color]['hover']};
+        background-color: ${({ $color }) =>
+          backgroundColorMap[$color]['hover']};
       }
     }
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      background-color: ${({ $color }) => colorMap[$color]['hover']};
+      background-color: ${({ $color }) => backgroundColorMap[$color]['hover']};
     }
   }
 `;
 
-function getColorMap() {
+function getBackgroundColorMap() {
   const { primaryState, blueGrey, red, blue, primary, info, error, action } =
     theme.colors;
 
   return {
     neutral: {
-      background: 'trasnparent',
+      enabled: 'transparent',
       hover: primaryState.hover,
       selected: 'transparent',
       disabled: 'transparent',
     },
     primary: {
-      background: blueGrey[200],
+      enabled: blueGrey[200],
       hover: blueGrey[300],
       selected: primary.main,
       disabled: action.disabledBackground,
     },
     blue: {
-      background: blue[200],
+      enabled: blue[200],
       hover: blue[300],
       selected: info.main,
       disabled: action.disabledBackground,
     },
     red: {
-      background: red[200],
+      enabled: red[200],
       hover: red[300],
       selected: error.main,
       disabled: action.disabledBackground,
