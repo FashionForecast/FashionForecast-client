@@ -28,6 +28,7 @@ export const colors = {
   },
   red: {
     100: '#FFE9E5',
+    200: '#FFC8C0',
     300: '#FFA59B',
     600: '#D62D36',
     700: '#B32A2E',
@@ -55,6 +56,7 @@ export const colors = {
   },
   blue: {
     100: '#E2EFFF',
+    200: '#B4D8FF',
     300: '#80C3FF',
     500: '#1892D9',
     600: '#2077AF',
