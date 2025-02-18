@@ -1,5 +1,6 @@
 export { Button } from './Button/Button';
 export { Chip } from './Chip/Chip';
+export { ToggleButtonGroup } from './ToggleButtonGroup/ToggleButtonGroup';
 export { ToggleButton } from './ToggleButton/ToggleButton';
 
 export { CustomDialog } from './CustomMui/CustomDialog';
