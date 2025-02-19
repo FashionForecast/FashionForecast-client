@@ -2,12 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { SearchLocationState } from '@/features/search';
 
-import {
-  CustomTextField,
-  GoBackButton,
-  Header,
-  XCircleIcon,
-} from '@/shared/ui';
+import { TextField, GoBackButton, Header, XCircleIcon } from '@/shared/ui';
 
 import { S } from './SearchHeader.style';
 
@@ -30,7 +25,7 @@ const SearchHeader = ({
         <GoBackButton />
       </Link>
       <S.InputWrapper>
-        <CustomTextField
+        <TextField
           variant='filled'
           value={keyword}
           onChange={onInputChange}

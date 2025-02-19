@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-import { CustomTextField } from '@/shared/ui';
-
 const Section = styled.section`
   ${({ theme }) => theme.typo['body-2']}
   flex-grow: 1;
@@ -12,16 +10,6 @@ const Section = styled.section`
   }
 `;
 
-const TextField = styled(CustomTextField)`
-  & .MuiFilledInput-root {
-    padding-top: 8px;
-  }
-`;
-
 export const S = {
   Section,
-};
-
-export const C = {
-  TextField,
 };

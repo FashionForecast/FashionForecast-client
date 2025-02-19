@@ -6,9 +6,9 @@ import { useSnackbar } from '@/app/providers/SnackbarProvider';
 
 import { submitFeedback } from '@/features/feedback/api/feedback';
 
-import { Button } from '@/shared/ui';
+import { Button, TextField } from '@/shared/ui';
 
-import { C, S } from './Feedback.style';
+import { S } from './Feedback.style';
 
 export const Feedback = () => {
   const [feedback, setFeedback] = useState('');
@@ -40,14 +40,11 @@ export const Feedback = () => {
           여러분이 남겨주시는 소중한 피드백은 OOTC가 더욱 성장할 수 있는 바탕이
           됩니다. 남겨주신 피드백은 앞으로의 OOTC에 적극적으로 반영하겠습니다!
         </p>
-        <C.TextField
-          variant='filled'
+        <TextField
           multiline
-          minRows={6}
+          minRows={5}
           placeholder='익명으로 피드백을 편하게 남겨주세요'
-          fullWidth
           value={feedback}
-          spellCheck={false}
           onChange={handleInputChange}
         />
       </S.Section>
