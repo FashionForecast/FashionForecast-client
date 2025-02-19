@@ -1,4 +1,5 @@
 export { Button } from './Button/Button';
+export { IconButton } from './IconButton/IconButton';
 export { Chip } from './Chip/Chip';
 export { ToggleButtonGroup } from './ToggleButtonGroup/ToggleButtonGroup';
 export { ToggleButton } from './ToggleButton/ToggleButton';
