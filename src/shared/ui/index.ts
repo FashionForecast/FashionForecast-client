@@ -2,6 +2,7 @@ export { Button } from './Button/Button';
 export { Chip } from './Chip/Chip';
 export { ToggleButtonGroup } from './ToggleButtonGroup/ToggleButtonGroup';
 export { ToggleButton } from './ToggleButton/ToggleButton';
+export { TextField } from './TextField/TextField';
 
 export { CustomDialog } from './CustomMui/CustomDialog';
 export { CustomFormControlLabel } from './CustomMui/CustomFormControlLabel';
@@ -9,7 +10,6 @@ export { CustomRadio } from './CustomMui/CustomRadio';
 export { CustomSnackbar } from './CustomMui/CustomSnackbar';
 export { CustomTab } from './CustomMui/CustomTab';
 export { CustomTabs } from './CustomMui/CustomTabs';
-export { CustomTextField } from './CustomMui/CustomTextField';
 
 export { ClothesIcon } from './ClothesIcon/ClothesIcon';
 export { GoBackButton } from './GoBackButton/GoBackButton';
