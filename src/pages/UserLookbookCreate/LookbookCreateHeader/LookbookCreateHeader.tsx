@@ -16,7 +16,7 @@ import {
 } from '../ui/Page/UserLookbookCreatePage';
 
 import DeleteDialog from './DeleteDialog/DeleteDialog';
-import { C, S } from './LookbookCreateHeader.style';
+import { C } from './LookbookCreateHeader.style';
 
 type LookbookCreateHeaderProps = {
   weatherType: WeatherType;
@@ -75,32 +75,34 @@ const LookbookCreateHeader = ({
 
   return (
     <>
-      <Header>
-        <Link to={state?.referrer ? state.referrer : '/user'}>
-          <GoBackButton />
-        </Link>
-
-        <S.TitleWrap>
-          <h6>룩북 만들기</h6>
-        </S.TitleWrap>
-
-        {state?.outfit && (
-          <C.Button
-            color='error'
-            onClick={handleDeleteButtonClick}
-            disabled={isLoading}
-          >
-            삭제
-          </C.Button>
-        )}
-        <C.Button
-          color='inherit'
-          onClick={handleSaveButtonClick}
-          disabled={isLoading}
-        >
-          저장
-        </C.Button>
-      </Header>
+      <Header
+        leftSlot={
+          <Link to={state?.referrer ? state.referrer : '/user'}>
+            <GoBackButton />
+          </Link>
+        }
+        centerTitle='룩북 만들기'
+        rightSlot={
+          <>
+            {state?.outfit && (
+              <C.ActionButton
+                color='error'
+                onClick={handleDeleteButtonClick}
+                disabled={isLoading}
+              >
+                삭제
+              </C.ActionButton>
+            )}
+            <C.ActionButton
+              color='inherit'
+              onClick={handleSaveButtonClick}
+              disabled={isLoading}
+            >
+              저장
+            </C.ActionButton>
+          </>
+        }
+      />
 
       <DeleteDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
     </>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { Feedback } from '@/features/feedback';
 
-import { GoBackButton, HeadHelmet } from '@/shared/ui';
+import { GoBackButton, Header, HeadHelmet } from '@/shared/ui';
 
 import { S } from './FeedbackPage.style';
 
@@ -16,12 +16,14 @@ export const FeedbackPage = () => {
       />
 
       <S.FeedbackWrap>
-        <S.Header>
-          <Link to={'/user?tab=set'}>
-            <GoBackButton />
-          </Link>
-          <h6>고객의 소리</h6>
-        </S.Header>
+        <Header
+          leftSlot={
+            <Link to={'/user?tab=set'}>
+              <GoBackButton />
+            </Link>
+          }
+          centerTitle='고객의 소리'
+        />
 
         <Feedback />
       </S.FeedbackWrap>
