@@ -85,6 +85,7 @@ export const theme = {
     pink: colors.pink,
     teal: colors.teal,
     white: colors.white,
+    grey: colors.grey,
     black: colors.blueGrey[900],
   },
   typo,
@@ -95,7 +96,7 @@ export const theme = {
   padding: {
     '0': '0',
     '0a': '4px',
-    '1': 'px',
+    '1': '8px',
     '1a': '12px',
   } as const,
 };

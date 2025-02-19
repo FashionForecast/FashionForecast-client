@@ -100,5 +100,8 @@ export const colors = {
   teal: {
     100: '#C6F9E2',
   },
+  grey: {
+    200: '#D5D5D5',
+  },
   white: '#fff',
 } as const;
