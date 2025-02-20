@@ -60,7 +60,7 @@ const BaseChip = styled(MuiChip, forwardPropOption)<{
   }
 
   &.MuiChip-sizeSmall {
-    ${({ theme }) => theme.typo.cationBold}
+    ${({ theme }) => theme.typo.captionBold}
     padding: 0;
   }
 

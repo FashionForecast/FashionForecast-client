@@ -26,7 +26,13 @@ export const typo = {
     letterSpacing: 0.1,
     fontWeight: 700,
   }),
-  cationBold: setTypoStyle({
+  caption: setTypoStyle({
+    fontSize: 12,
+    lineHeight: 19.92,
+    letterSpacing: 0.1,
+    fontWeight: 500,
+  }),
+  captionBold: setTypoStyle({
     fontSize: 12,
     lineHeight: 19.92,
     letterSpacing: 0.4,
