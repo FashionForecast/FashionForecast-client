@@ -1,5 +1,6 @@
 export { Button } from './Button/Button';
 export { IconButton } from './IconButton/IconButton';
+export { ListItemButton } from './ListItemButton.tsx/ListItemButton';
 export { Chip } from './Chip/Chip';
 export { ToggleButtonGroup } from './ToggleButtonGroup/ToggleButtonGroup';
 export { ToggleButton } from './ToggleButton/ToggleButton';
