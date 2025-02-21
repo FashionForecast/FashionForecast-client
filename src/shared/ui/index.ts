@@ -5,11 +5,11 @@ export { Chip } from './Chip/Chip';
 export { ToggleButtonGroup } from './ToggleButtonGroup/ToggleButtonGroup';
 export { ToggleButton } from './ToggleButton/ToggleButton';
 export { TextField } from './TextField/TextField';
+export { Snackbar } from './Snackbar/Snackbar';
 
 export { CustomDialog } from './CustomMui/CustomDialog';
 export { CustomFormControlLabel } from './CustomMui/CustomFormControlLabel';
 export { CustomRadio } from './CustomMui/CustomRadio';
-export { CustomSnackbar } from './CustomMui/CustomSnackbar';
 export { CustomTab } from './CustomMui/CustomTab';
 export { CustomTabs } from './CustomMui/CustomTabs';
 
