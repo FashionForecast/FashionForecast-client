@@ -43,12 +43,8 @@ export const ListItemButton = ({
   iconSlots = {},
   ...rest
 }: CustomListItemProps) => {
-  const isHorizontal = direction === 'horizontal';
-
-  const { left, right } = isHorizontal
-    ? (iconSlots as IconSlotsHorizontal)
-    : {};
-  const { top, bottom } = !isHorizontal ? (iconSlots as IconSlotsVertical) : {};
+  const { left, right } = iconSlots as IconSlotsHorizontal;
+  const { top, bottom } = iconSlots as IconSlotsVertical;
 
   return (
     <BaseListItem
@@ -57,7 +53,7 @@ export const ListItemButton = ({
       $hasDescription={Boolean(description)}
       {...rest}
     >
-      {isHorizontal && (
+      {direction === 'horizontal' && (
         <>
           <S.HorizontalLeftWrap>
             {left && <ListItemIcon className='left'>{left}</ListItemIcon>}
@@ -76,7 +72,7 @@ export const ListItemButton = ({
         </>
       )}
 
-      {!isHorizontal && (
+      {direction === 'vertical' && (
         <>
           {top && <ListItemIcon className='top'>{top}</ListItemIcon>}
 
