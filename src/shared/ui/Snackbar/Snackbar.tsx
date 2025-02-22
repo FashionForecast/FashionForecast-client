@@ -107,6 +107,10 @@ const BaseSnackbar = styled(MuiSnackbar, forwardPropOption)<{
     calc(-50% + ${({ $swipeDistance }) => `${$swipeDistance}px`})
   );
 
+  &:has(.MuiSnackbarContent-action) {
+    width: 100%;
+  }
+
   & .MuiPaper-root {
     display: flex;
     flex-wrap: nowrap;
