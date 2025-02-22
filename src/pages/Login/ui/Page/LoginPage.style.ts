@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { forwardPropOption } from '@/shared/lib';
-import { CustomButton } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 
 import { SocialType } from './LoginPage';
 
@@ -62,7 +62,7 @@ const ButtonWrap = styled.div`
   width: 100%;
 `;
 
-const SocialButton = styled(CustomButton, forwardPropOption)<{
+const SocialButton = styled(Button, forwardPropOption)<{
   $provider: SocialType['provider'];
 }>`
   width: 100%;

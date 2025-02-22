@@ -2,8 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import useA2HS from '@/app/model/useA2HS';
+
 import { PageFallback } from '@/widgets/PageFallback';
-import { A2hsSnackbar } from '@/widgets/Snackbar';
 
 import { guestLogin, storeAccessToken } from '@/entities/auth';
 import { useGeolocation } from '@/entities/geolocation';
@@ -14,10 +15,12 @@ import { GUEST_UUID, LOGIN, MY_REGION } from '@/shared/consts';
 import regionList from '@/shared/consts/regionList.json';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { Button, Snackbar } from '@/shared/ui';
 
 import * as S from './BaseLayout.style';
 
 export const BaseLayout = () => {
+  const { deferredPrompt, installApp } = useA2HS();
   const { updateDefaultRegion, updateGPSRegion } = useGeolocation();
   const user = useAppSelector((state) => state.member.info);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
@@ -102,7 +105,14 @@ export const BaseLayout = () => {
   return (
     <S.Main>
       <Outlet />
-      <A2hsSnackbar />
+      {deferredPrompt && (
+        <Snackbar
+          open={true}
+          message='홈화면에 바로가기를 추가할 수 있어요!'
+          bottomPosition={106}
+          action={<Button onClick={installApp}>추가</Button>}
+        />
+      )}
     </S.Main>
   );
 };

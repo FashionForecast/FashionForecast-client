@@ -1,25 +1,13 @@
 import styled from '@emotion/styled';
 
-import { CustomButton } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 
-const TitleWrap = styled.div`
-  width: 100%;
-
-  & h6 {
-    ${({ theme }) => theme.typo.h6}
-  }
-`;
-
-const Button = styled(CustomButton)`
+const ActionButton = styled(Button)`
   flex-shrink: 0;
   min-width: 0;
   font-size: 15px;
 `;
 
-export const S = {
-  TitleWrap,
-};
-
 export const C = {
-  Button,
+  ActionButton,
 };

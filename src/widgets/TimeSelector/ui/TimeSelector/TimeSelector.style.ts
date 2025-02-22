@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { MAX_WIDTH } from '@/shared/consts';
 import { forwardPropOption } from '@/shared/lib';
-import { CustomButton } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 
 const TimeSelectorWrap = styled.section<{ $isOpen: boolean }>`
   position: fixed;
@@ -52,7 +52,7 @@ const ButtonWrap = styled.div`
   padding: 8px 0;
 `;
 
-const DayButton = styled(CustomButton, forwardPropOption)<{
+const DayButton = styled(Button, forwardPropOption)<{
   $isSelected: boolean;
 }>`
   width: 60px;
@@ -60,8 +60,8 @@ const DayButton = styled(CustomButton, forwardPropOption)<{
   height: 40px;
   margin-right: 8px;
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.text.primary} !important;
-  background-color: ${({ theme }) => theme.colors.blueGrey[200]} !important;
+  color: ${({ theme }) => theme.colors.text.primary};
+  background-color: ${({ theme }) => theme.colors.blueGrey[200]};
   border-radius: 16px;
 
   &:last-child {
@@ -71,8 +71,8 @@ const DayButton = styled(CustomButton, forwardPropOption)<{
   ${({ $isSelected, theme }) =>
     $isSelected &&
     css`
-      color: ${theme.colors.white} !important;
-      background-color: ${theme.colors.primary.main} !important;
+      color: ${theme.colors.white};
+      background-color: ${theme.colors.primary.main};
     `}
 `;
 
@@ -134,12 +134,8 @@ const CountingPhraseWrap = styled.div`
   }
 `;
 
-const DeleteButton = styled(CustomButton)`
-  padding: 8px 12px;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.text.primary} !important;
-  background-color: ${({ theme }) => theme.colors.blueGrey[200]} !important;
-  border-radius: 100px;
+const DeleteButton = styled(Button)`
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const SelectedTimeText = styled.div<{ $isDefaultTime: boolean }>`
@@ -155,7 +151,7 @@ const SelectedTimeText = styled.div<{ $isDefaultTime: boolean }>`
     `};
 `;
 
-const SubmitButton = styled(CustomButton)`
+const SubmitButton = styled(Button)`
   position: fixed;
   bottom: 16px;
   width: calc(100% - 32px);

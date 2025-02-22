@@ -1,13 +1,6 @@
-import {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  RadioGroup,
-} from '@mui/material';
+import { RadioGroup } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
-
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
 
 import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 
@@ -17,9 +10,10 @@ import { MemberDto } from '@/entities/member/model/types';
 import { paddedTimeList } from '@/shared/consts/timeList';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import {
-  CustomButton,
-  CustomDialog,
+  Button,
+  Dialog,
   CustomRadio,
   CustomFormControlLabel,
   ClockIcon,
@@ -50,7 +44,7 @@ const TimeSetMenu = () => {
       : SET_IT
   );
   const prevOption = useRef<TimeSetOption>(option);
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -89,7 +83,7 @@ const TimeSetMenu = () => {
         setSelectedTime(getSelectedTime(user));
         setOpen(false);
       },
-      onError: () => openSnackbar('외출시간 설정 오류가 발생했어요.'),
+      onError: () => snackbar.open('외출시간 설정 오류가 발생했어요.'),
       onSettled: () => {
         setIsLoading(false);
       },
@@ -110,9 +104,12 @@ const TimeSetMenu = () => {
         handleClick={handleClickOpen}
       />
 
-      <CustomDialog fullWidth onClose={handleClose} open={open}>
-        <DialogTitle>기본 외출시간</DialogTitle>
-        <DialogContent>
+      <Dialog
+        fullWidth
+        onClose={handleClose}
+        open={open}
+        titleSlot={'기본 외출시간'}
+        contentSlot={
           <C.FormControl>
             <RadioGroup value={option} onChange={handleOptionChange}>
               <CustomFormControlLabel
@@ -135,20 +132,18 @@ const TimeSetMenu = () => {
               )}
             </RadioGroup>
           </C.FormControl>
-        </DialogContent>
-        <DialogActions>
-          <CustomButton
-            color='inherit'
-            variant='outlined'
-            onClick={handleClose}
-          >
-            취소
-          </CustomButton>
-          <CustomButton onClick={handleSaveButtonClick} disabled={isLoading}>
-            저장
-          </CustomButton>
-        </DialogActions>
-      </CustomDialog>
+        }
+        actionsSlot={
+          <>
+            <Button color='inherit' variant='outlined' onClick={handleClose}>
+              취소
+            </Button>
+            <Button onClick={handleSaveButtonClick} disabled={isLoading}>
+              저장
+            </Button>
+          </>
+        }
+      />
     </>
   );
 };

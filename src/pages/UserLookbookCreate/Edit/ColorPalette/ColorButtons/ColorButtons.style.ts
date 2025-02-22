@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
 import { forwardPropOption } from '@/shared/lib';
-import { CustomButton } from '@/shared/ui';
+import { Button } from '@/shared/ui';
 
-const ColorButton = styled(CustomButton, forwardPropOption)<{
+const ColorButton = styled(Button, forwardPropOption)<{
   $color: string;
 }>`
   position: relative;

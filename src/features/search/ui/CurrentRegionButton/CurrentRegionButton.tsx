@@ -1,9 +1,6 @@
-import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
 
 import { useGeolocation } from '@/entities/geolocation';
 import { setMemberDefaultRegion, storeMember } from '@/entities/member';
@@ -11,7 +8,8 @@ import { setMemberDefaultRegion, storeMember } from '@/entities/member';
 import { MY_REGION } from '@/shared/consts';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { CustomButton, LocationIcon, CustomDialog } from '@/shared/ui';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
+import { Button, LocationIcon, Dialog } from '@/shared/ui';
 
 import { SearchLocationState } from '../../model/types';
 
@@ -30,7 +28,7 @@ export const CurrentRegionButton = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { state }: SearchLocationState = useLocation();
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
 
   const { mutate } = useMutation({
     mutationFn: () => setMemberDefaultRegion('DEFAULT', accessToken),
@@ -68,7 +66,7 @@ export const CurrentRegionButton = () => {
         await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },
-      onError: () => openSnackbar('위치 설정 변경에 오류가 발생했어요'),
+      onError: () => snackbar.open('위치 설정 변경에 오류가 발생했어요'),
       onSettled: () => setIsLoading(false),
     });
   };
@@ -79,7 +77,7 @@ export const CurrentRegionButton = () => {
   return (
     <>
       <S.Wrapper>
-        <CustomButton
+        <Button
           variant='outlined'
           disabled={isDisabled()}
           color='inherit'
@@ -91,17 +89,17 @@ export const CurrentRegionButton = () => {
           onClick={handleClick}
         >
           현재 위치로 설정하기
-        </CustomButton>
+        </Button>
       </S.Wrapper>
 
-      <CustomDialog fullWidth onClose={handleDialogClose} open={isDialogOpen}>
-        <DialogContent>
-          위치 기능을 활성화하거나 브라우저 위치 권한을 확인해주세요.
-        </DialogContent>
-        <DialogActions>
-          <CustomButton onClick={handleDialogClose}>확인</CustomButton>
-        </DialogActions>
-      </CustomDialog>
+      <Dialog
+        onClose={handleDialogClose}
+        open={isDialogOpen}
+        contentSlot={
+          '위치 기능을 활성화하거나 브라우저 위치 권한을 확인해주세요.'
+        }
+        actionsSlot={<Button onClick={handleDialogClose}>확인</Button>}
+      />
     </>
   );
 };

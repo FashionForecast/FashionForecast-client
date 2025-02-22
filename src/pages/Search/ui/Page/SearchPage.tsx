@@ -2,8 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
-
 import {
   CurrentRegionButton,
   RecentSearchList,
@@ -18,6 +16,7 @@ import { RegionItem } from '@/entities/search';
 import { MY_REGION } from '@/shared/consts';
 import regionList from '@/shared/consts/regionList.json';
 import { useAppDispatch, useAppSelector } from '@/shared/lib';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { Region } from '@/shared/types/region';
 import { HeadHelmet } from '@/shared/ui';
 
@@ -34,7 +33,7 @@ export const SearchPage = () => {
   const { state }: SearchLocationState = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
 
   const { mutate: recentSearchMutate } = useMutation({
     mutationFn: (region: string) =>
@@ -90,7 +89,7 @@ export const SearchPage = () => {
         await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },
-      onError: () => openSnackbar('위치 설정 변경에 오류가 발생했어요'),
+      onError: () => snackbar.open('위치 설정 변경에 오류가 발생했어요'),
     });
   };
 

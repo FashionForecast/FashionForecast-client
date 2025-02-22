@@ -1,23 +1,16 @@
-import {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  RadioGroup,
-} from '@mui/material';
+import { FormControl, RadioGroup } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
-
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
 
 import { setMemberClothesThickness, storeMember } from '@/entities/member';
 import { TempCondition } from '@/entities/member/model/types';
 
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import {
-  CustomButton,
-  CustomDialog,
+  Button,
+  Dialog,
   CustomRadio,
   CustomFormControlLabel,
   TopClothesIcon,
@@ -35,7 +28,7 @@ const ThicknessSetMenu = () => {
   const prevOption = useRef(option);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
 
   const { mutate } = useMutation({
     mutationFn: () => setMemberClothesThickness(option, accessToken),
@@ -63,7 +56,7 @@ const ThicknessSetMenu = () => {
         setOption(user.tempCondition);
         setOpen(false);
       },
-      onError: () => openSnackbar('옷차림 두께 설정에 실패했어요.'),
+      onError: () => snackbar.open('옷차림 두께 설정에 실패했어요.'),
       onSettled: () => setIsLoading(false),
     });
   };
@@ -77,8 +70,44 @@ const ThicknessSetMenu = () => {
         handleClick={handleClickOpen}
       />
 
-      <CustomDialog fullWidth onClose={handleClose} open={open}>
-        <DialogTitle>기본 옷차림 두께</DialogTitle>
+      <Dialog
+        fullWidth
+        onClose={handleClose}
+        open={open}
+        titleSlot={'기본 옷차림 두께'}
+        contentSlot={
+          <FormControl>
+            <RadioGroup value={option} onChange={handleOptionChange}>
+              <CustomFormControlLabel
+                value={'COOL'}
+                control={<CustomRadio />}
+                label={tempConditionText.COOL}
+              />
+              <CustomFormControlLabel
+                value='NORMAL'
+                control={<CustomRadio />}
+                label={tempConditionText.NORMAL}
+              />
+              <CustomFormControlLabel
+                value='WARM'
+                control={<CustomRadio />}
+                label={tempConditionText.WARM}
+              />
+            </RadioGroup>
+          </FormControl>
+        }
+        actionsSlot={
+          <>
+            <Button color='inherit' variant='outlined' onClick={handleClose}>
+              취소
+            </Button>
+            <Button disabled={isLoading} onClick={handleSaveButtonClick}>
+              저장
+            </Button>
+          </>
+        }
+      />
+      {/* <DialogTitle>기본 옷차림 두께</DialogTitle>
         <DialogContent>
           <FormControl>
             <RadioGroup value={option} onChange={handleOptionChange}>
@@ -101,18 +130,14 @@ const ThicknessSetMenu = () => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <CustomButton
-            color='inherit'
-            variant='outlined'
-            onClick={handleClose}
-          >
+          <Button color='inherit' variant='outlined' onClick={handleClose}>
             취소
-          </CustomButton>
-          <CustomButton disabled={isLoading} onClick={handleSaveButtonClick}>
+          </Button>
+          <Button disabled={isLoading} onClick={handleSaveButtonClick}>
             저장
-          </CustomButton>
+          </Button>
         </DialogActions>
-      </CustomDialog>
+      </Dialog> */}
     </>
   );
 };

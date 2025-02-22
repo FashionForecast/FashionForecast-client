@@ -1,10 +1,9 @@
-import { IconButton } from '@mui/material';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppSelector } from '@/shared/lib';
 import {
-  CustomButton,
+  Button,
   LocationIcon,
   UserAvatar,
   Header,
@@ -18,26 +17,24 @@ const MainHeader = () => {
   const user = useAppSelector((state) => state.member.info);
 
   return (
-    <Header>
-      <IconButton>
-        <img src='/logo.svg' alt='로고 이미지' />
-      </IconButton>
-
-      <C.SearchLink to={'/search'}>
-        <CustomButton
-          startIcon={geolocation?.isGPS && <LocationIcon />}
-          endIcon={<TriangleIcon />}
-          color='inherit'
-          fullWidth
-        >
-          {geolocation?.region}
-        </CustomButton>
-      </C.SearchLink>
-
-      <Link to={user ? '/user' : '/login'}>
-        <UserAvatar imageUrl={user?.imageUrl} />
-      </Link>
-    </Header>
+    <Header
+      leftSlot={
+        <C.SearchLink to={'/search'}>
+          <Button
+            startIcon={geolocation?.isGPS && <LocationIcon />}
+            endIcon={<TriangleIcon />}
+            color='inherit'
+          >
+            {geolocation?.region}
+          </Button>
+        </C.SearchLink>
+      }
+      rightSlot={
+        <Link to={user ? '/user' : '/login'}>
+          <UserAvatar imageUrl={user?.imageUrl} />
+        </Link>
+      }
+    />
   );
 };
 
