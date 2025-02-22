@@ -7,8 +7,6 @@ import {
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
-
 import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
 
 import { setMemberOutingTime, storeMember } from '@/entities/member';
@@ -17,6 +15,7 @@ import { MemberDto } from '@/entities/member/model/types';
 import { paddedTimeList } from '@/shared/consts/timeList';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import {
   Button,
   CustomDialog,
@@ -50,7 +49,7 @@ const TimeSetMenu = () => {
       : SET_IT
   );
   const prevOption = useRef<TimeSetOption>(option);
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -89,7 +88,7 @@ const TimeSetMenu = () => {
         setSelectedTime(getSelectedTime(user));
         setOpen(false);
       },
-      onError: () => openSnackbar('외출시간 설정 오류가 발생했어요.'),
+      onError: () => snackbar.open('외출시간 설정 오류가 발생했어요.'),
       onSettled: () => {
         setIsLoading(false);
       },

@@ -2,10 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
-
 import { submitFeedback } from '@/features/feedback/api/feedback';
 
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { Button, TextField } from '@/shared/ui';
 
 import { S } from './Feedback.style';
@@ -13,7 +12,7 @@ import { S } from './Feedback.style';
 export const Feedback = () => {
   const [feedback, setFeedback] = useState('');
   const navigate = useNavigate();
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
 
   const { mutate } = useMutation({
     mutationFn: () => submitFeedback(feedback),
@@ -28,7 +27,7 @@ export const Feedback = () => {
 
     mutate(undefined, {
       onSuccess: () => {
-        openSnackbar('피드백을 성공적으로 남겼어요');
+        snackbar.open('피드백을 성공적으로 남겼어요');
         navigate('/user?tab=set');
       },
     });

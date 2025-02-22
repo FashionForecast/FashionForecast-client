@@ -3,13 +3,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
-
 import { LocationState } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 
 import { deleteLookbookItem } from '@/entities/clothes';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { CustomDialog, Button } from '@/shared/ui';
 
 type DeleteDialogProps = {
@@ -24,7 +23,7 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
   const { state }: LocationState = useLocation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -39,7 +38,7 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
         await queryClient.invalidateQueries({ queryKey: ['user'] });
         navigate(state?.referrer ? state.referrer : '/user');
       },
-      onError: () => openSnackbar('해당 룩북을 삭제 할 수 없습니다.'),
+      onError: () => snackbar.open('해당 룩북을 삭제 할 수 없습니다.'),
       onSettled: () => setIsLoading(false),
     });
   };

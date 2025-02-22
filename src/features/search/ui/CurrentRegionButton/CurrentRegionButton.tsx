@@ -3,14 +3,13 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
-
 import { useGeolocation } from '@/entities/geolocation';
 import { setMemberDefaultRegion, storeMember } from '@/entities/member';
 
 import { MY_REGION } from '@/shared/consts';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { Button, LocationIcon, CustomDialog } from '@/shared/ui';
 
 import { SearchLocationState } from '../../model/types';
@@ -30,7 +29,7 @@ export const CurrentRegionButton = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { state }: SearchLocationState = useLocation();
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
 
   const { mutate } = useMutation({
     mutationFn: () => setMemberDefaultRegion('DEFAULT', accessToken),
@@ -68,7 +67,7 @@ export const CurrentRegionButton = () => {
         await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },
-      onError: () => openSnackbar('위치 설정 변경에 오류가 발생했어요'),
+      onError: () => snackbar.open('위치 설정 변경에 오류가 발생했어요'),
       onSettled: () => setIsLoading(false),
     });
   };

@@ -3,12 +3,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
-
 import { withdrawlAccount } from '@/entities/auth/api/auth';
 
 import { LOGIN } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { CustomDialog, Button } from '@/shared/ui';
 
 const WithdrawlButton = () => {
@@ -16,7 +15,7 @@ const WithdrawlButton = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
@@ -40,7 +39,7 @@ const WithdrawlButton = () => {
         navigate('/');
         navigate(0);
       },
-      onError: () => openSnackbar('탈퇴 중 오류가 발생했습니다.'),
+      onError: () => snackbar.open('탈퇴 중 오류가 발생했습니다.'),
       onSettled: () => setIsLoading(false),
     });
   };

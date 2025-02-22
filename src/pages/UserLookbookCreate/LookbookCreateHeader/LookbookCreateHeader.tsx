@@ -2,11 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
-
 import { saveLookbook } from '@/entities/clothes';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { WeatherType } from '@/shared/types';
 import { GoBackButton, Header } from '@/shared/ui';
 
@@ -34,7 +33,7 @@ const LookbookCreateHeader = ({
   const { state }: LocationState = useLocation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -55,11 +54,11 @@ const LookbookCreateHeader = ({
       onSuccess: () => navigate(state?.referrer ? state.referrer : '/user'),
       onError: (error) => {
         if (error.message.includes('M003')) {
-          openSnackbar('5개 이상 저장할 수 없습니다.');
+          snackbar.open('5개 이상 저장할 수 없습니다.');
           return;
         }
 
-        openSnackbar('저장에 실패했습니다.');
+        snackbar.open('저장에 실패했습니다.');
       },
       onSettled: () => setIsLoading(false),
     });

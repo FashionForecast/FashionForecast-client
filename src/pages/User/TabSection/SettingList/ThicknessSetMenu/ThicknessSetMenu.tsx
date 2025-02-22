@@ -8,13 +8,12 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 
-import { useSnackbar } from '@/app/providers/SnackbarProvider';
-
 import { setMemberClothesThickness, storeMember } from '@/entities/member';
 import { TempCondition } from '@/entities/member/model/types';
 
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { useSnackbar } from '@/shared/lib/useSnackbar';
 import {
   Button,
   CustomDialog,
@@ -35,7 +34,7 @@ const ThicknessSetMenu = () => {
   const prevOption = useRef(option);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { openSnackbar } = useSnackbar();
+  const snackbar = useSnackbar();
 
   const { mutate } = useMutation({
     mutationFn: () => setMemberClothesThickness(option, accessToken),
@@ -63,7 +62,7 @@ const ThicknessSetMenu = () => {
         setOption(user.tempCondition);
         setOpen(false);
       },
-      onError: () => openSnackbar('옷차림 두께 설정에 실패했어요.'),
+      onError: () => snackbar.open('옷차림 두께 설정에 실패했어요.'),
       onSettled: () => setIsLoading(false),
     });
   };
