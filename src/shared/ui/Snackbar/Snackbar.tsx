@@ -21,7 +21,7 @@ export const Snackbar = ({
   open,
   ...rest
 }: CustomSnackbarProps) => {
-  const [isOpen, setIsOpen] = useState(open);
+  const [isClosedBySwipe, setIsClosedBySwipe] = useState(false);
   const [swipeStartPositionX, setSwipeStartPositionX] = useState<number | null>(
     null
   );
@@ -51,7 +51,7 @@ export const Snackbar = ({
     setIsSwiping(false);
 
     if (Math.abs(swipeDistance) >= SWIPE_THRESHOLD) {
-      setIsOpen(false);
+      setIsClosedBySwipe(true);
       setSwipeStartPositionX(null);
       return;
     }
@@ -74,7 +74,7 @@ export const Snackbar = ({
 
   return (
     <BaseSnackbar
-      open={isOpen}
+      open={isClosedBySwipe === true ? false : open}
       onPointerDown={handleSwipeStart}
       anchorOrigin={anchorOrigin}
       $bottomPosition={bottomPosition}
@@ -92,6 +92,7 @@ const BaseSnackbar = styled(MuiSnackbar, forwardPropOption)<{
   $swipeDistance: number;
   $hasTransition: boolean;
 }>`
+  position: fixed;
   bottom: ${({ $bottomPosition }) => `${$bottomPosition}px`};
   left: 50%;
   width: max-content;
@@ -125,6 +126,7 @@ const BaseSnackbar = styled(MuiSnackbar, forwardPropOption)<{
   }
 
   @media (min-width: 600px) {
+    bottom: ${({ $bottomPosition }) => `${$bottomPosition}px`};
     transform: translateX(
       calc(-50% + ${({ $swipeDistance }) => `${$swipeDistance}px`})
     );
