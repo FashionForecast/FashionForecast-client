@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+const PROMPT_DELAY_MS = 5000;
+
 const useA2HS = () => {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
@@ -7,8 +9,7 @@ const useA2HS = () => {
   useEffect(() => {
     const handler = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
-
-      setTimeout(() => setDeferredPrompt(e), 5000);
+      setTimeout(() => setDeferredPrompt(e), PROMPT_DELAY_MS);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
@@ -18,21 +19,17 @@ const useA2HS = () => {
   }, []);
 
   const installApp = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          clearPrompt;
-        }
-      });
-    }
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        setDeferredPrompt(null);
+      }
+    });
   };
 
-  const clearPrompt = () => {
-    setDeferredPrompt(null);
-  };
-
-  return { deferredPrompt, installApp, clearPrompt };
+  return { deferredPrompt, installApp };
 };
 
 export default useA2HS;
