@@ -1,10 +1,4 @@
-import {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  RadioGroup,
-} from '@mui/material';
+import { FormControl, RadioGroup } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 
@@ -16,7 +10,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import {
   Button,
-  CustomDialog,
+  Dialog,
   CustomRadio,
   CustomFormControlLabel,
   TopClothesIcon,
@@ -76,8 +70,44 @@ const ThicknessSetMenu = () => {
         handleClick={handleClickOpen}
       />
 
-      <CustomDialog fullWidth onClose={handleClose} open={open}>
-        <DialogTitle>기본 옷차림 두께</DialogTitle>
+      <Dialog
+        fullWidth
+        onClose={handleClose}
+        open={open}
+        titleSlot={'기본 옷차림 두께'}
+        contentSlot={
+          <FormControl>
+            <RadioGroup value={option} onChange={handleOptionChange}>
+              <CustomFormControlLabel
+                value={'COOL'}
+                control={<CustomRadio />}
+                label={tempConditionText.COOL}
+              />
+              <CustomFormControlLabel
+                value='NORMAL'
+                control={<CustomRadio />}
+                label={tempConditionText.NORMAL}
+              />
+              <CustomFormControlLabel
+                value='WARM'
+                control={<CustomRadio />}
+                label={tempConditionText.WARM}
+              />
+            </RadioGroup>
+          </FormControl>
+        }
+        actionsSlot={
+          <>
+            <Button color='inherit' variant='outlined' onClick={handleClose}>
+              취소
+            </Button>
+            <Button disabled={isLoading} onClick={handleSaveButtonClick}>
+              저장
+            </Button>
+          </>
+        }
+      />
+      {/* <DialogTitle>기본 옷차림 두께</DialogTitle>
         <DialogContent>
           <FormControl>
             <RadioGroup value={option} onChange={handleOptionChange}>
@@ -107,7 +137,7 @@ const ThicknessSetMenu = () => {
             저장
           </Button>
         </DialogActions>
-      </CustomDialog>
+      </Dialog> */}
     </>
   );
 };

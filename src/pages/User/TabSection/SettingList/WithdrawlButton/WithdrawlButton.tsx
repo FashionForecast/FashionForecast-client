@@ -1,4 +1,3 @@
-import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +7,7 @@ import { withdrawlAccount } from '@/entities/auth/api/auth';
 import { LOGIN } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
-import { CustomDialog, Button } from '@/shared/ui';
+import { Dialog, Button } from '@/shared/ui';
 
 const WithdrawlButton = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
@@ -50,24 +49,32 @@ const WithdrawlButton = () => {
         회원탈퇴
       </Button>
 
-      <CustomDialog fullWidth onClose={handleClose} open={open}>
-        <DialogContent>
-          정말 탈퇴하시겠습니까? <br /> 탈퇴하는 즉시 모든 정보가 삭제됩니다.
-        </DialogContent>
-        <DialogActions>
-          <Button color='inherit' variant='outlined' onClick={handleClose}>
-            취소
-          </Button>
-          <Button
-            color='error'
-            variant='contained'
-            disabled={isLoading}
-            onClick={handleWithdrawlButtonClick}
-          >
-            탈퇴
-          </Button>
-        </DialogActions>
-      </CustomDialog>
+      <Dialog
+        fullWidth
+        onClose={handleClose}
+        open={open}
+        contentSlot={
+          <p>
+            정말 탈퇴하시겠습니까? <br />
+            탈퇴하는 즉시 모든 정보가 삭제됩니다.
+          </p>
+        }
+        actionsSlot={
+          <>
+            <Button color='inherit' variant='outlined' onClick={handleClose}>
+              취소
+            </Button>
+            <Button
+              color='error'
+              variant='contained'
+              disabled={isLoading}
+              onClick={handleWithdrawlButtonClick}
+            >
+              탈퇴
+            </Button>
+          </>
+        }
+      />
     </>
   );
 };

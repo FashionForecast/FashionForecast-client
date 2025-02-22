@@ -1,4 +1,3 @@
-import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -9,7 +8,7 @@ import { deleteLookbookItem } from '@/entities/clothes';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
-import { CustomDialog, Button } from '@/shared/ui';
+import { Dialog, Button } from '@/shared/ui';
 
 type DeleteDialogProps = {
   isOpen: boolean;
@@ -44,22 +43,26 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
   };
 
   return (
-    <CustomDialog fullWidth onClose={onClose} open={isOpen}>
-      <DialogContent>정말 삭제하시겠습니까?</DialogContent>
-      <DialogActions>
-        <Button color='inherit' variant='outlined' onClick={onClose}>
-          취소
-        </Button>
-        <Button
-          color='error'
-          variant='contained'
-          disabled={isLoading}
-          onClick={handleClick}
-        >
-          삭제
-        </Button>
-      </DialogActions>
-    </CustomDialog>
+    <Dialog
+      onClose={onClose}
+      open={isOpen}
+      contentSlot={'정말 삭제하시겠습니까?'}
+      actionsSlot={
+        <>
+          <Button color='inherit' variant='outlined' onClick={onClose}>
+            취소
+          </Button>
+          <Button
+            color='error'
+            variant='contained'
+            disabled={isLoading}
+            onClick={handleClick}
+          >
+            삭제
+          </Button>
+        </>
+      }
+    />
   );
 };
 

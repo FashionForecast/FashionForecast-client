@@ -82,7 +82,7 @@ const LookbookCreateHeader = ({
         }
         centerTitle='룩북 만들기'
         rightSlot={
-          <>
+          <div>
             {state?.outfit && (
               <C.ActionButton
                 color='error'
@@ -99,7 +99,7 @@ const LookbookCreateHeader = ({
             >
               저장
             </C.ActionButton>
-          </>
+          </div>
         }
       />
 

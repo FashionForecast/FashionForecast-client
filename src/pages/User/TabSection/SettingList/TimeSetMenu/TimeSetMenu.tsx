@@ -1,9 +1,4 @@
-import {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  RadioGroup,
-} from '@mui/material';
+import { RadioGroup } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 
@@ -18,7 +13,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import {
   Button,
-  CustomDialog,
+  Dialog,
   CustomRadio,
   CustomFormControlLabel,
   ClockIcon,
@@ -109,9 +104,12 @@ const TimeSetMenu = () => {
         handleClick={handleClickOpen}
       />
 
-      <CustomDialog fullWidth onClose={handleClose} open={open}>
-        <DialogTitle>기본 외출시간</DialogTitle>
-        <DialogContent>
+      <Dialog
+        fullWidth
+        onClose={handleClose}
+        open={open}
+        titleSlot={'기본 외출시간'}
+        contentSlot={
           <C.FormControl>
             <RadioGroup value={option} onChange={handleOptionChange}>
               <CustomFormControlLabel
@@ -134,16 +132,18 @@ const TimeSetMenu = () => {
               )}
             </RadioGroup>
           </C.FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button color='inherit' variant='outlined' onClick={handleClose}>
-            취소
-          </Button>
-          <Button onClick={handleSaveButtonClick} disabled={isLoading}>
-            저장
-          </Button>
-        </DialogActions>
-      </CustomDialog>
+        }
+        actionsSlot={
+          <>
+            <Button color='inherit' variant='outlined' onClick={handleClose}>
+              취소
+            </Button>
+            <Button onClick={handleSaveButtonClick} disabled={isLoading}>
+              저장
+            </Button>
+          </>
+        }
+      />
     </>
   );
 };

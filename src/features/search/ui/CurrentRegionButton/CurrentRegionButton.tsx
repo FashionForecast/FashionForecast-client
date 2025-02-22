@@ -1,4 +1,3 @@
-import { DialogActions, DialogContent } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -10,7 +9,7 @@ import { MY_REGION } from '@/shared/consts';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
-import { Button, LocationIcon, CustomDialog } from '@/shared/ui';
+import { Button, LocationIcon, Dialog } from '@/shared/ui';
 
 import { SearchLocationState } from '../../model/types';
 
@@ -93,14 +92,14 @@ export const CurrentRegionButton = () => {
         </Button>
       </S.Wrapper>
 
-      <CustomDialog fullWidth onClose={handleDialogClose} open={isDialogOpen}>
-        <DialogContent>
-          위치 기능을 활성화하거나 브라우저 위치 권한을 확인해주세요.
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}>확인</Button>
-        </DialogActions>
-      </CustomDialog>
+      <Dialog
+        onClose={handleDialogClose}
+        open={isDialogOpen}
+        contentSlot={
+          '위치 기능을 활성화하거나 브라우저 위치 권한을 확인해주세요.'
+        }
+        actionsSlot={<Button onClick={handleDialogClose}>확인</Button>}
+      />
     </>
   );
 };
