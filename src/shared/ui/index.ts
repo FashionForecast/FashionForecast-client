@@ -6,8 +6,8 @@ export { ToggleButtonGroup } from './ToggleButtonGroup/ToggleButtonGroup';
 export { ToggleButton } from './ToggleButton/ToggleButton';
 export { TextField } from './TextField/TextField';
 export { Snackbar } from './Snackbar/Snackbar';
+export { Dialog } from './Dialog/Dialog';
 
-export { CustomDialog } from './CustomMui/CustomDialog';
 export { CustomFormControlLabel } from './CustomMui/CustomFormControlLabel';
 export { CustomRadio } from './CustomMui/CustomRadio';
 export { CustomTab } from './CustomMui/CustomTab';
