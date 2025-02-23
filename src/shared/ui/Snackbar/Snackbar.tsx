@@ -16,6 +16,13 @@ const anchorOrigin: MuiSnackbarProps['anchorOrigin'] = {
 };
 const SWIPE_THRESHOLD = 50;
 
+/**
+ * - open - 렌더링 여부
+ * - bottomPosition - 하단 위치 조정
+ * - message - 텍스트
+ * - action - 메시지 오른쪽에 표시할 액션 요소
+ * - 이외의 props - [MuiSnackbar](https://mui.com/material-ui/api/snackbar/)
+ */
 export const Snackbar = ({
   bottomPosition = 16,
   open,

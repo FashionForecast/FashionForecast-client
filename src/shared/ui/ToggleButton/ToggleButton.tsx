@@ -20,11 +20,23 @@ type CustomToggleButtonProps = Omit<ToggleButtonOwnProps, 'color'> & {
 
 const backgroundColorMap = getBackgroundColorMap();
 
+/**
+ * - value - ToggleButton value
+ * - color - 색상
+ * - selected - 선택 상태
+ * - size - 크기
+ * - 이외의 props - [MuiToggleButton](https://mui.com/material-ui/api/toggle-button/)
+ */
 export const ToggleButton = ({
   color = 'neutral',
+  children,
   ...rest
 }: CustomToggleButtonProps) => {
-  return <BaseToggleButton $color={color} {...rest} />;
+  return (
+    <BaseToggleButton $color={color} {...rest}>
+      {children}
+    </BaseToggleButton>
+  );
 };
 
 const BaseToggleButton = styled(MuiToggleButton, forwardPropOption)<{

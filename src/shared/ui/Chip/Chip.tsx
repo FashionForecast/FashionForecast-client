@@ -36,6 +36,13 @@ type CustomChipProps = Omit<MuiChipProps, 'color'> & {
   color?: CustomColor | ExcludedColor;
 };
 
+/**
+ * - label - 컨텐츠 내용
+ * - variant - 칩 유형
+ * - color - 색상
+ * - size - 크기
+ * - 이외의 props - [MuiChip](https://mui.com/material-ui/api/chip/)
+ */
 export const Chip = ({ color = 'primary', ...rest }: CustomChipProps) => {
   return <BaseChip $color={color} {...rest} />;
 };

@@ -9,6 +9,18 @@ type CustomTextFiledProps = Omit<TextFiledProps, 'variant'> & {
   rightIcon?: React.ReactNode;
 };
 
+/**
+ * - value - TextField value
+ * - onChange - value 변경 시 실행되는 callback 함수
+ * - placeholder - placeholder
+ * - variant - 유형
+ * - size - 크기
+ * - multiline - textarea 태그 렌더링
+ * - minRows - multiline 활성화 시, 최소 row 수
+ * - leftIcon - 왼쪽 아이콘
+ * - rightIcon - 오른쪽 아이콘
+ * - 이외의 props - [MuiTextFiled](https://mui.com/material-ui/api/text-field/)
+ */
 export const TextField = ({
   variant = 'filled',
   leftIcon,

@@ -10,6 +10,12 @@ type CustomIconButtonProps = IconButtonProps & {
   variant?: CustomVariant;
 };
 
+/**
+ * - variant - 아이콘 버튼 유형
+ * - color - 색상
+ * - size - 크기
+ * - 이외의 props - [MuiIconButton](https://mui.com/material-ui/api/icon-button/)
+ */
 export const IconButton = ({
   variant = 'standard',
   children,

@@ -3,8 +3,20 @@ import { Button as MuiButton } from '@mui/material';
 
 type ButtonProps = React.ComponentProps<typeof MuiButton>;
 
-export const Button = ({ ...rest }: ButtonProps) => {
-  return <BaseButton variant='contained' disableElevation {...rest} />;
+/**
+ * - variant - 버튼 유형
+ * - color - 색상
+ * - size - 크기
+ * - loading - 로딩 아이콘 표시
+ * - startIcon - 버튼 앞에 위치할 아이콘
+ * - 이외의 props - [MuiButton](https://mui.com/material-ui/api/button/)
+ */
+export const Button = ({ children, ...rest }: ButtonProps) => {
+  return (
+    <BaseButton variant='contained' disableElevation {...rest}>
+      {children}
+    </BaseButton>
+  );
 };
 
 const BaseButton = styled(MuiButton)`
@@ -59,5 +71,10 @@ const BaseButton = styled(MuiButton)`
         background-color: ${({ theme }) => theme.colors.secondary.dark};
       }
     }
+  }
+
+  & .MuiButton-startIcon {
+    margin: 0;
+    margin-right: 4px;
   }
 `;
