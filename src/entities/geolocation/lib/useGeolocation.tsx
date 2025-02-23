@@ -1,4 +1,4 @@
-import { goelocationActions } from '@/entities/geolocation/model/slice';
+import { geolocationActions } from '@/entities/geolocation/model/slice';
 
 import regionList from '@/shared/consts/regionList.json';
 import { useAppDispatch, useAppSelector } from '@/shared/lib';
@@ -14,7 +14,7 @@ export const useGeolocation = () => {
   const { value, status } = useAppSelector((state) => state.geolocation);
   const dispatch = useAppDispatch();
 
-  const { updateGeolocation, updateStatus } = goelocationActions;
+  const { updateGeolocation, updateStatus } = geolocationActions;
 
   const updateDefaultRegion = () => dispatch(updateGeolocation(DEFAULT_REGION));
   const updateGPSRegion = () => {

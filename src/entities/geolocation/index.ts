@@ -1,3 +1,3 @@
 export { useGeolocation } from './lib/useGeolocation';
 
-export { geolocationSlice, goelocationActions } from './model/slice';
+export { geolocationSlice, geolocationActions } from './model/slice';

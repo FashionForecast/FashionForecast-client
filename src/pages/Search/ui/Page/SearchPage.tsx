@@ -9,7 +9,7 @@ import {
 } from '@/features/search';
 import { registerResentSearch } from '@/features/search/api/search';
 
-import { goelocationActions } from '@/entities/geolocation/model/slice';
+import { geolocationActions } from '@/entities/geolocation/model/slice';
 import { setMemberDefaultRegion, storeMember } from '@/entities/member';
 import { RegionItem } from '@/entities/search';
 
@@ -74,7 +74,7 @@ export const SearchPage = () => {
       localStorage.setItem(MY_REGION, JSON.stringify(regionData));
     }
 
-    dispatch(goelocationActions.updateGeolocation(regionData));
+    dispatch(geolocationActions.updateGeolocation(regionData));
 
     recentSearchMutate(regionData.region, {
       onSuccess: () => navigate('/'),
@@ -85,7 +85,7 @@ export const SearchPage = () => {
     recentSearchMutate(regionData.region);
     userRegionMutate(regionData.region, {
       onSuccess: async () => {
-        dispatch(goelocationActions.updateGeolocation(regionData));
+        dispatch(geolocationActions.updateGeolocation(regionData));
         await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },

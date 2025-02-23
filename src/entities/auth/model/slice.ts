@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type AuthState = {
   accessToken: string | null;
 };
 
-const slice: Slice<AuthState> = createSlice({
+const slice = createSlice({
   name: 'auth',
   initialState: {
     accessToken: null,
