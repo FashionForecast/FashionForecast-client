@@ -13,8 +13,8 @@ import { HeadHelmet } from '@/shared/ui';
 
 import ClothesSection from '../../ClothesSection/ClothesSection';
 import HomeLoading from '../../HomeLoading';
-import MainHeader from '../../MainHeader/MainHeader';
 import WeatherInfo from '../../WeatherInfo/WeatherInfo';
+import { HomeHeader } from '../HomeHeader/HomeHeader';
 
 import { S } from './HomePage.style';
 
@@ -68,9 +68,11 @@ export const HomePage = () => {
       <HeadHelmet />
 
       <S.HomeWrap>
-        <MainHeader />
+        <HomeHeader />
+
         {isError && <FetchError handleRefetch={refetch} />}
         {isLoading && <HomeLoading />}
+
         {data && (
           <>
             <ClothesSection weather={data} />

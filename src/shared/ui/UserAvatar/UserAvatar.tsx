@@ -1,25 +1,22 @@
 import styled from '@emotion/styled';
-import { Avatar as MuiAvatar, IconButton } from '@mui/material';
 
-import { DefaultAvatarIcon } from '../icon/DefaultAvatarIcon';
+import { useAppSelector } from '@/shared/lib';
 
-type UserAvatarProps = {
-  imageUrl?: string | null;
-};
+import { UserIcon } from '../icon/UserIcon';
 
-export const UserAvatar = ({ imageUrl }: UserAvatarProps) => {
-  return (
-    <IconButton>
-      {imageUrl ? (
-        <ImageAvatar src={imageUrl} alt='사용자 이미지' />
-      ) : (
-        <DefaultAvatarIcon />
-      )}
-    </IconButton>
+export const UserAvatar = () => {
+  const member = useAppSelector((state) => state.member.info);
+
+  return member?.imageUrl ? (
+    <UserImage src={member.imageUrl} alt={`${member.nickname}님의 이미지`} />
+  ) : (
+    <UserIcon />
   );
 };
 
-const ImageAvatar = styled(MuiAvatar)`
+const UserImage = styled.img`
   width: 24px;
   height: 24px;
+  object-fit: cover;
+  border-radius: 50%;
 `;
