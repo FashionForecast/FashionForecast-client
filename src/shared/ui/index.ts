@@ -47,3 +47,5 @@ export { UserFillIcon } from './icon/UserFillIcon';
 export { UserOutlineIcon } from './icon/UserOutlineIcon';
 export { XCircleIcon } from './icon/XCircleIcon';
 export { XIcon } from './icon/XIcon';
+export { RegionIcon } from './icon/RegionIcon';
+export { UserIcon } from './icon/UserIcon';
