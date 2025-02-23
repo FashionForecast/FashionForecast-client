@@ -1,4 +1,4 @@
-import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
+import { SelectedTime } from '@/pages/Home/ui/HomePage/HomePage';
 import { TimeSetOption } from '@/pages/User/TabSection/SettingList/TimeSetMenu/TimeSetMenu';
 
 import { fetchAPI } from '@/shared/lib';
