@@ -1,4 +1,4 @@
-import { WeatherForRecommendClothes } from '@/pages/Home/ClothesSection/ClothesSection';
+import { WeatherForRecommendClothes } from '@/pages/Home/ui/FashionContent/FashionContent';
 
 import { TempCondition } from '@/entities/member/model/types';
 

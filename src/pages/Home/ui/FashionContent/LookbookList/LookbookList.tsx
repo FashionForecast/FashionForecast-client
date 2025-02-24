@@ -10,7 +10,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { WeatherType } from '@/shared/types';
 import { PlusIcon, ClothesIcon } from '@/shared/ui';
 
-import { WeatherForRecommendClothes } from '../ClothesSection';
+import { WeatherForRecommendClothes } from '../FashionContent';
 
 import { S } from './LookbookList.style';
 

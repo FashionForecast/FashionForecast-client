@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { useKeenSlider } from 'keen-slider/react';
 import { memo, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -12,8 +11,10 @@ import { WeatherDto } from '@/entities/weather';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { WeatherType } from '@/shared/types';
 
-import { S } from './ClothesSection.style';
+import { HomeTab } from '../../model/types';
+
 import ConditionButtonGroup from './ConditionButtonGroup/ConditionButtonGroup';
+import { S } from './FashionContent.style';
 import Headline from './Headline/Headline';
 import LookbookList from './LookbookList/LookbookList';
 import RecommendList from './RecommendList/RecommendList';
@@ -34,23 +35,23 @@ export type WeatherForRecommendClothes = Pick<
   'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
 >;
 
-type ClothesSectionProps = {
+type FashionContentProps = {
+  tab: Exclude<HomeTab, '날씨'>;
   weather: WeatherForRecommendClothes;
 };
 
-const ClothesSection = ({ weather }: ClothesSectionProps) => {
+export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
-  const user = useAppSelector((state) => state.member.info);
+  const member = useAppSelector((state) => state.member.info);
   const [searchParams] = useSearchParams();
   const tempParamOption = searchParams.get('option');
   const [tempCondition, setTempCondition] = useState<TempCondition>(() =>
     initializeTempCondition(
       weather.extremumTmp,
-      user?.tempCondition,
+      member?.tempCondition,
       tempParamOption
     )
   );
-  const [currentSlider, setCurrentSlider] = useState(0);
   const [originType, changedType] = getWeatehrType(
     weather.extremumTmp,
     tempCondition
@@ -66,24 +67,6 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     queryFn: () => getRecommnedClothes({ ...weather, tempCondition }),
   });
 
-  const [sliderRef, instanceRef] = useKeenSlider({
-    mode: 'snap',
-    slides: {
-      origin: 'center',
-    },
-    initial: searchParams.get('tab') === 'lookbook' ? 1 : 0,
-    slideChanged(slider) {
-      setCurrentSlider(slider.track.details.rel);
-    },
-    created() {
-      setCurrentSlider(searchParams.get('tab') === 'lookbook' ? 1 : 0);
-    },
-  });
-
-  const moveToSliderClick = (index: number) => () => {
-    instanceRef.current?.moveToIdx(index);
-  };
-
   const handleTempConditionChange = useCallback(
     (_e: React.MouseEvent<HTMLElement>, condition: TempCondition) => {
       if (!condition) return;
@@ -97,8 +80,8 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
     <S.Section>
       <Headline weatherType={originType} />
 
-      <ul ref={sliderRef} className='keen-slider'>
-        <S.SliderItem className='keen-slider__slide'>
+      {tab === '옷' && (
+        <>
           {isLoading && <RecommendClothesLoading />}
 
           {recommedClothes && (
@@ -107,29 +90,18 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
               weatherType={changedType}
             />
           )}
-        </S.SliderItem>
+        </>
+      )}
 
-        {user && (
-          <>
-            <S.SliderItem className='keen-slider__slide'>
-              <LookbookList
-                weather={weather}
-                weatherType={changedType}
-                tempCondition={tempCondition}
-              />
-            </S.SliderItem>
-
-            {currentSlider === 1 && (
-              <S.MoveButton onClick={moveToSliderClick(0)}>ITEMS</S.MoveButton>
-            )}
-            {currentSlider === 0 && (
-              <S.MoveButton $position={'right'} onClick={moveToSliderClick(1)}>
-                Lookbook
-              </S.MoveButton>
-            )}
-          </>
-        )}
-      </ul>
+      {tab === '룩북' && member && (
+        <>
+          <LookbookList
+            weather={weather}
+            weatherType={changedType}
+            tempCondition={tempCondition}
+          />
+        </>
+      )}
 
       <ConditionButtonGroup
         tempCondition={tempCondition}
@@ -138,9 +110,7 @@ const ClothesSection = ({ weather }: ClothesSectionProps) => {
       />
     </S.Section>
   );
-};
-
-export default memo(ClothesSection);
+});
 
 function getWeatehrType(
   temp: number,

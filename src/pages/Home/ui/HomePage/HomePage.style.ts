@@ -6,4 +6,9 @@ const HomeWrap = styled.div`
   min-height: 100dvh;
 `;
 
-export const S = { HomeWrap };
+const TabsWrap = styled.div`
+  padding-left: 10px;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+`;
+
+export const S = { HomeWrap, TabsWrap };

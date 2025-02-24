@@ -4,7 +4,7 @@ import { TempCondition } from '@/entities/member/model/types';
 
 import { ToggleButton, ToggleButtonGroup } from '@/shared/ui';
 
-import { COOL, NORMAL, WARM } from '../ClothesSection';
+import { COOL, NORMAL, WARM } from '../FashionContent';
 
 import { S } from './ConditionButtonGroup.style';
 

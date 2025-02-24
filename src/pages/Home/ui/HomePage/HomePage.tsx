@@ -88,9 +88,9 @@ export const HomePage = () => {
 
         {weatherData && (
           <>
-            <div>
+            <S.TabsWrap>
               <Tabs labels={HOME_TABS} value={tab} onChange={handleTabChange} />
-            </div>
+            </S.TabsWrap>
 
             {(tab === '옷' || tab === '룩북') && (
               <FashionContent weather={weatherData} tab={tab} />

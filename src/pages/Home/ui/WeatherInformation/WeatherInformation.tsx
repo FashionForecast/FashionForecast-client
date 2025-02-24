@@ -3,14 +3,14 @@ import { memo } from 'react';
 import { WeatherDto } from '@/entities/weather';
 
 import WeatherCard from './WeatherCard/WeatherCard';
-import { S } from './WeatherInfo.style';
+import { S } from './WeatherInfomation.style';
 import WeatherTimeLine from './WeatherTimeLine/WeatherTimeLine';
 
 type WeatherInfoProps = {
   weather: WeatherDto;
 };
 
-const WeatherInfo = ({ weather }: WeatherInfoProps) => {
+export const WeatherInformation = memo(({ weather }: WeatherInfoProps) => {
   return (
     <S.WeatherInfoWrap>
       <WeatherCard
@@ -22,6 +22,4 @@ const WeatherInfo = ({ weather }: WeatherInfoProps) => {
       <WeatherTimeLine forecasts={weather.forecasts} />
     </S.WeatherInfoWrap>
   );
-};
-
-export default memo(WeatherInfo);
+});
