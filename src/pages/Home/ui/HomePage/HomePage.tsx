@@ -9,14 +9,17 @@ import { getWeather } from '@/entities/weather/api/weather';
 
 import { paddedTimeList } from '@/shared/consts/timeList';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { HeadHelmet } from '@/shared/ui';
+import { HeadHelmet, Tabs } from '@/shared/ui';
 
-import ClothesSection from '../../ClothesSection/ClothesSection';
 import HomeLoading from '../../HomeLoading';
-import WeatherInfo from '../../WeatherInfo/WeatherInfo';
+import { HomeTab } from '../../model/types';
+import { FashionContent } from '../FashionContent/FashionContent';
 import { HomeHeader } from '../HomeHeader/HomeHeader';
+import { WeatherInformation } from '../WeatherInformation/WeatherInformation';
 
 import { S } from './HomePage.style';
+
+const HOME_TABS: HomeTab[] = ['옷', '룩북', '날씨'];
 
 export type SelectedTime = {
   day: '오늘' | '내일';
@@ -27,17 +30,27 @@ export type SelectedTime = {
 export const HomePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryClient = useQueryClient();
-  const location = useLocation(); // 현재 URL 정보 가져오기
+  const location = useLocation();
   const geolocation = useAppSelector((state) => state.geolocation.value);
+  const [tab, setTab] = useState<HomeTab>('옷');
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
   const [times, setTimes] = useState<Time[]>(getTimes);
   const [day, setDay] = useState<DayButtonType>('오늘');
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const {
+    data: weatherData,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['weather', geolocation?.region],
     queryFn: () => getWeather(times, day, geolocation!.region),
     enabled: !!geolocation,
   });
+
+  const handleTabChange = (_: React.SyntheticEvent, selectedTab: HomeTab) => {
+    setTab(selectedTab);
+  };
 
   const handleTimeSubmit = () => {
     queryClient.invalidateQueries({ queryKey: ['weather'] });
@@ -73,16 +86,24 @@ export const HomePage = () => {
         {isError && <FetchError handleRefetch={refetch} />}
         {isLoading && <HomeLoading />}
 
-        {data && (
+        {weatherData && (
           <>
-            <ClothesSection weather={data} />
+            <div>
+              <Tabs labels={HOME_TABS} value={tab} onChange={handleTabChange} />
+            </div>
+
+            {(tab === '옷' || tab === '룩북') && (
+              <FashionContent weather={weatherData} tab={tab} />
+            )}
+
+            {tab === '날씨' && <WeatherInformation weather={weatherData} />}
+
             <button type='button' onClick={toggleTimeSelector}>
               외출시간 변경하기
             </button>
-
-            <WeatherInfo weather={data} />
           </>
         )}
+
         <TimeSelector
           isOpen={isTimeSelectorOpen}
           times={times}
