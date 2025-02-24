@@ -7,11 +7,10 @@ export { ToggleButton } from './ToggleButton/ToggleButton';
 export { TextField } from './TextField/TextField';
 export { Snackbar } from './Snackbar/Snackbar';
 export { Dialog } from './Dialog/Dialog';
+export { Tabs } from './Tabs/Tabs';
 
 export { CustomFormControlLabel } from './CustomMui/CustomFormControlLabel';
 export { CustomRadio } from './CustomMui/CustomRadio';
-export { CustomTab } from './CustomMui/CustomTab';
-export { CustomTabs } from './CustomMui/CustomTabs';
 
 export { ClothesIcon } from './ClothesIcon/ClothesIcon';
 export { GoBackButton } from './GoBackButton/GoBackButton';
