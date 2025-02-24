@@ -43,5 +43,6 @@ const BaseTab = styled(MuiTab)`
 
   &.Mui-selected {
     font-weight: 800;
+    color: ${({ theme }) => theme.colors.primary.dark};
   }
 `;
