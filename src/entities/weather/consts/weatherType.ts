@@ -1,6 +1,4 @@
-import { WeatherType } from '@/shared/types';
-
-import { WeatherTypeName } from '../model/types';
+import { WeatherType, WeatherTypeName } from '../model/types';
 
 export const WEATHER_TYPES: Record<WeatherTypeName, WeatherType> = {
   /** 28도 이상 */

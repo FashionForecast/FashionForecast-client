@@ -2,9 +2,9 @@ import { WeatherForRecommendClothes } from '@/pages/Home/ui/FashionContent/Fashi
 import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 
 import { TempCondition } from '@/entities/member/model/types';
+import { WeatherType } from '@/entities/weather';
 
 import { fetchAPI } from '@/shared/lib';
-import { WeatherType } from '@/shared/types';
 
 import {
   AllLookbookListByWeatherDto,

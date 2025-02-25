@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { getMemberLookbook } from '@/entities/clothes';
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
 import { TempCondition } from '@/entities/member/model/types';
+import { WeatherType } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { WeatherType } from '@/shared/types';
 import { PlusIcon, ClothesIcon } from '@/shared/ui';
 
 import { WeatherForRecommendClothes } from '../FashionContent';

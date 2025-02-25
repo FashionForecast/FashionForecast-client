@@ -1,4 +1,4 @@
-import { WeatherType } from '../types';
+import { WeatherType } from '@/entities/weather';
 
 export const LOOKBOOK_WEATHER_TYPE: Record<
   WeatherType,

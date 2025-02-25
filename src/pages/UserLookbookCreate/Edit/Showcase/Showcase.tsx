@@ -8,6 +8,7 @@ import {
 
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
 import { MemberDto } from '@/entities/member/model/types';
+import { WeatherType } from '@/entities/weather';
 
 import {
   MAN_BOTTOM_CLOTHES,
@@ -16,7 +17,7 @@ import {
 } from '@/shared/consts';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { ClothesType, WeatherType } from '@/shared/types';
+import { ClothesType } from '@/shared/types';
 
 import { FocussingSliderType } from '../EditSection';
 

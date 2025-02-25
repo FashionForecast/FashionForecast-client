@@ -2,14 +2,10 @@ import { Chip } from '@mui/material';
 import { memo } from 'react';
 
 import { RecommendClothesDto } from '@/entities/clothes';
+import { WeatherType } from '@/entities/weather';
 
 import { clothesIconNameList } from '@/shared/consts';
-import {
-  ClothesIconNames,
-  ClothesNames,
-  OutfitType,
-  WeatherType,
-} from '@/shared/types';
+import { ClothesIconNames, ClothesNames, OutfitType } from '@/shared/types';
 import { ClothesIcon } from '@/shared/ui';
 
 import { C, S } from './RecommendList.style';

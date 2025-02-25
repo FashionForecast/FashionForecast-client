@@ -4,5 +4,3 @@ export type {
   OutfitType,
   ClothesType,
 } from './clothes';
-
-export type { RainType, SkyStatus, WeatherType } from './weather';

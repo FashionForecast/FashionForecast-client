@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 
-import { RainType, SkyStatus } from '@/shared/types';
+import { RainType, SkyStatus } from '@/entities/weather';
+
 import { IconLoading } from '@/shared/ui/IconLoading/IconLoading';
 
 type WeatherIconProps = {

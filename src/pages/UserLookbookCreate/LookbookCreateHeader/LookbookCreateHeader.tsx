@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { saveLookbook } from '@/entities/clothes';
+import { WeatherType } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
-import { WeatherType } from '@/shared/types';
 import { GoBackButton, Header } from '@/shared/ui';
 
 import {

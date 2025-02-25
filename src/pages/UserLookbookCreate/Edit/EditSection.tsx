@@ -1,6 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 
-import { WeatherType } from '@/shared/types';
+import { WeatherType } from '@/entities/weather';
+
 import { ClothesType } from '@/shared/types/clothes';
 
 import { LookbookSelect } from '../ui/Page/UserLookbookCreatePage';

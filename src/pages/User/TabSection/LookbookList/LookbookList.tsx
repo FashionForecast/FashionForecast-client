@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getAllLookbookListByWeather } from '@/entities/clothes';
+import { WeatherType } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { WeatherType } from '@/shared/types';
 
 import LookbookCard from './LookbookCard/LookbookCard';
 

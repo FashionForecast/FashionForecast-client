@@ -6,10 +6,14 @@ import { FetchError } from '@/widgets/error';
 
 import { getRecommnedClothes } from '@/entities/clothes';
 import { TempCondition } from '@/entities/member';
-import { WEATHER_TYPES, WeatherDto, WeatherTypeName } from '@/entities/weather';
+import {
+  WEATHER_TYPES,
+  WeatherDto,
+  WeatherType,
+  WeatherTypeName,
+} from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { WeatherType } from '@/shared/types';
 
 import { HomeTab } from '../../model/types';
 
