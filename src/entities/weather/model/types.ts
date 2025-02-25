@@ -1,5 +1,15 @@
 import { RainType, SkyStatus } from '@/shared/types';
 
+export type WeatherTypeName =
+  | 'sweltering'
+  | 'hot'
+  | 'warm'
+  | 'moderate'
+  | 'cool'
+  | 'chilly'
+  | 'cold'
+  | 'frigid';
+
 export type WeatherDto = {
   season: string;
   extremumTmp: number;
