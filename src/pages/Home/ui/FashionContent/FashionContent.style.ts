@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { css } from '@mui/material';
 
 const Section = styled.section`
-  padding-bottom: 16px;
+  flex-grow: 1;
+  padding: 8px 0 98px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 

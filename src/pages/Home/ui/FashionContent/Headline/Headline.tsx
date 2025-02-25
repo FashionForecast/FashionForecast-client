@@ -1,19 +1,24 @@
 import { memo } from 'react';
 
-import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
-import { WeatherType } from '@/shared/types';
+import {
+  WEATHER_COLORS,
+  WEATHER_LABELS,
+  WeatherTypeName,
+} from '@/entities/weather';
+import { WeatherFaceIcon } from '@/entities/weather/ui/WeatherFaceIcon';
 
 import { S } from './Headline.style';
 
 type HeadlineProps = {
-  weatherType: WeatherType;
+  weatherName: WeatherTypeName;
 };
 
-const Headline = ({ weatherType }: HeadlineProps) => {
+const Headline = ({ weatherName }: HeadlineProps) => {
   return (
-    <S.HeadlineWrap>
-      <h6>{LOOKBOOK_WEATHER_TYPE[weatherType].title}</h6>
-      <span>{LOOKBOOK_WEATHER_TYPE[weatherType].subtitle}</span>
+    <S.HeadlineWrap $color={WEATHER_COLORS[weatherName]}>
+      <WeatherFaceIcon weatherName={weatherName} />
+
+      <h6>{WEATHER_LABELS[weatherName].summary}</h6>
     </S.HeadlineWrap>
   );
 };

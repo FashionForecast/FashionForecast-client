@@ -1,16 +1,18 @@
 import styled from '@emotion/styled';
 
-const HeadlineWrap = styled.div`
-  padding: 0 16px;
-  margin-bottom: 16px;
+const HeadlineWrap = styled.div<{ $color: string }>`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  margin: 0 8px;
+  margin-bottom: 12px;
+  background-color: ${({ $color }) => $color};
+  border-radius: 16px;
 
   & h6 {
-    ${({ theme }) => theme.typo['subtitle-1']}
-  }
-
-  & span {
-    ${({ theme }) => theme.typo['body-2']}
-    color: ${({ theme }) => theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.primary};
+    ${({ theme }) => theme.typo['body-2']};
   }
 `;
 

@@ -6,7 +6,7 @@ import { FetchError } from '@/widgets/error';
 
 import { getRecommnedClothes } from '@/entities/clothes';
 import { TempCondition } from '@/entities/member';
-import { WeatherDto } from '@/entities/weather';
+import { WEATHER_TYPES, WeatherDto, WeatherTypeName } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { WeatherType } from '@/shared/types';
@@ -45,16 +45,18 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
   const member = useAppSelector((state) => state.member.info);
   const [searchParams] = useSearchParams();
   const tempParamOption = searchParams.get('option');
-  const [tempCondition, setTempCondition] = useState<TempCondition>(() =>
-    initializeTempCondition(
-      weather.extremumTmp,
-      member?.tempCondition,
-      tempParamOption
-    )
-  );
-  const [originType, changedType] = getWeatehrType(
-    weather.extremumTmp,
-    tempCondition
+  const [temperatureCondition, setTemperatureCondition] =
+    useState<TempCondition>(() =>
+      initializeTempCondition(
+        weather.extremumTmp,
+        member?.tempCondition,
+        tempParamOption
+      )
+    );
+  const weatherName = mapTemperatureToWeatherName(weather.extremumTmp);
+  const adjustedWeatherType = adjustWeatherTypeByCondition(
+    temperatureCondition,
+    weatherName
   );
 
   const {
@@ -63,14 +65,15 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ['clothes', tempCondition, geolocation?.region, weather],
-    queryFn: () => getRecommnedClothes({ ...weather, tempCondition }),
+    queryKey: ['clothes', temperatureCondition, geolocation?.region, weather],
+    queryFn: () =>
+      getRecommnedClothes({ ...weather, tempCondition: temperatureCondition }),
   });
 
   const handleTempConditionChange = useCallback(
     (_e: React.MouseEvent<HTMLElement>, condition: TempCondition) => {
       if (!condition) return;
-      setTempCondition(condition);
+      setTemperatureCondition(condition);
     },
     []
   );
@@ -78,7 +81,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
   if (isError) return <FetchError handleRefetch={refetch} />;
   return (
     <S.Section>
-      <Headline weatherType={originType} />
+      <Headline weatherName={weatherName} />
 
       {tab === '옷' && (
         <>
@@ -87,7 +90,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
           {recommedClothes && (
             <RecommendList
               clothes={recommedClothes}
-              weatherType={changedType}
+              weatherType={adjustedWeatherType}
             />
           )}
         </>
@@ -97,14 +100,14 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
         <>
           <LookbookList
             weather={weather}
-            weatherType={changedType}
-            tempCondition={tempCondition}
+            weatherType={adjustedWeatherType}
+            tempCondition={temperatureCondition}
           />
         </>
       )}
 
       <ConditionButtonGroup
-        tempCondition={tempCondition}
+        tempCondition={temperatureCondition}
         extremumTmp={weather.extremumTmp}
         handleTempConditionChange={handleTempConditionChange}
       />
@@ -112,28 +115,32 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
   );
 });
 
-function getWeatehrType(
-  temp: number,
-  tempCondition: TempCondition
-): WeatherType[] {
-  const types = [];
-  let type = 8;
+/** 온도를 기반으로 weather name 매핑 */
+function mapTemperatureToWeatherName(temperature: number) {
+  let name: keyof typeof WEATHER_TYPES = 'frigid';
 
-  if (temp >= 28) type = 1;
-  if (temp >= 23 && temp < 28) type = 2;
-  if (temp >= 20 && temp < 23) type = 3;
-  if (temp >= 17 && temp < 20) type = 4;
-  if (temp >= 12 && temp < 17) type = 5;
-  if (temp >= 9 && temp < 12) type = 6;
-  if (temp >= 5 && temp < 9) type = 7;
+  if (temperature >= 28) name = 'sweltering';
+  if (temperature >= 23 && temperature < 28) name = 'hot';
+  if (temperature >= 20 && temperature < 23) name = 'warm';
+  if (temperature >= 17 && temperature < 20) name = 'moderate';
+  if (temperature >= 12 && temperature < 17) name = 'cool';
+  if (temperature >= 9 && temperature < 12) name = 'chilly';
+  if (temperature >= 5 && temperature < 9) name = 'cold';
 
-  types.push(String(type));
+  return name;
+}
 
-  if (tempCondition === 'COOL') type = type - 1;
-  else if (tempCondition === 'WARM') type = type + 1;
+/** 온도 상태에 따라 weather type 조정 */
+function adjustWeatherTypeByCondition(
+  temperatureCondition: TempCondition,
+  weatherName: WeatherTypeName
+) {
+  let weatherNumber = Number(WEATHER_TYPES[weatherName]);
 
-  types.push(String(type));
-  return types as WeatherType[];
+  if (temperatureCondition === 'COOL') weatherNumber = weatherNumber - 1;
+  else if (temperatureCondition === 'WARM') weatherNumber = weatherNumber + 1;
+
+  return String(weatherNumber) as WeatherType;
 }
 
 function initializeTempCondition(
