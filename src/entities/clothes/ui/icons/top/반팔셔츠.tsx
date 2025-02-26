@@ -16,8 +16,8 @@ const 반팔셔츠 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
         fill='#434D58'
       />
       <path
-        fill-rule='evenodd'
-        clip-rule='evenodd'
+        fillRule='evenodd'
+        clipRule='evenodd'
         d='M28.0096 45V9H30.0096V45H28.0096Z'
         fill='#434D58'
       />
