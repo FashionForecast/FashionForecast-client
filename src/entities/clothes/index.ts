@@ -4,3 +4,5 @@ export {
   getMemberLookbook,
   saveLookbook,
 } from './api/lookbook';
+
+export type { ClothesIconNames, ClothesType } from './model/types';

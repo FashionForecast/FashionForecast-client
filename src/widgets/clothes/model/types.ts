@@ -1,9 +1,10 @@
+import { ClothesIconNames } from '@/entities/clothes';
 import { WeatherDto } from '@/entities/weather';
 
-import { ClothesNames, OutfitType } from '@/shared/types';
+export type OutfitType = 'TOP' | 'BOTTOM' | 'ETC';
 
 export type RecommendClothesDto = Array<{
-  names: Array<ClothesNames | string>;
+  names: Array<ClothesIconNames | string>;
   outfitType: OutfitType;
 }>;
 

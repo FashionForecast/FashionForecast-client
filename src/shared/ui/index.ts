@@ -12,7 +12,6 @@ export { Tabs } from './Tabs/Tabs';
 export { CustomFormControlLabel } from './CustomMui/CustomFormControlLabel';
 export { CustomRadio } from './CustomMui/CustomRadio';
 
-export { ClothesIcon } from './ClothesIcon/ClothesIcon';
 export { GoBackButton } from './GoBackButton/GoBackButton';
 export { Header } from './Header/Header';
 export { IconLoading } from './IconLoading/IconLoading';
