@@ -2,8 +2,7 @@ import { useCallback, useState } from 'react';
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
-import { TempCondition } from '@/entities/member/model/types';
-import { WeatherType } from '@/entities/weather';
+import { TemperatureCondition, WeatherType } from '@/entities/weather';
 
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { HeadHelmet } from '@/shared/ui';
@@ -26,7 +25,7 @@ export type LocationState = {
   state?: {
     outfit?: MemberLookbookDto;
     referrer?: string;
-    tempOption?: TempCondition;
+    tempOption?: TemperatureCondition;
   };
 };
 

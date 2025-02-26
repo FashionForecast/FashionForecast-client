@@ -21,6 +21,8 @@ export type RainType =
 
 export type SkyStatus = 'CLEAR' | 'PARTLY_CLOUDY' | 'CLOUDY';
 
+export type TemperatureCondition = 'COOL' | 'NORMAL' | 'WARM';
+
 export type WeatherDto = {
   season: string;
   extremumTmp: number;

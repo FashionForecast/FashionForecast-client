@@ -1,5 +1,6 @@
+import { TemperatureCondition } from '@/entities/weather';
+
 export type Gender = 'MALE' | 'FEMALE';
-export type TempCondition = 'COOL' | 'NORMAL' | 'WARM';
 
 export type MemberDto = {
   socialId: string;
@@ -7,7 +8,7 @@ export type MemberDto = {
   region: 'DEFAULT' | string;
   outingStartTime: 'DEFAULT' | string;
   outingEndTime: 'DEFAULT' | string;
-  tempCondition: TempCondition;
+  TemperatureCondition: TemperatureCondition;
   gender: Gender | null;
   imageUrl: string | null;
 };

@@ -1,4 +1,4 @@
-import { TempCondition } from '@/entities/member/model/types';
+import { TemperatureCondition } from '@/entities/weather';
 
 import { fetchAPI } from '@/shared/lib';
 
@@ -9,11 +9,11 @@ import {
 
 export async function getRecommendClothes(
   weather: WeatherForRecommendClothes,
-  tempCondition: TempCondition
+  temperatureCondition: TemperatureCondition
 ) {
   const requestPayload = {
     ...weather,
-    tempCondition,
+    tempCondition: temperatureCondition,
   };
 
   const params: Record<string, string> = {};

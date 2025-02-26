@@ -1,8 +1,8 @@
-import { WeatherForRecommendClothes } from '@/pages/Home/ui/FashionContent/FashionContent';
 import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 
-import { TempCondition } from '@/entities/member/model/types';
-import { WeatherType } from '@/entities/weather';
+import { WeatherForRecommendClothes } from '@/widgets/clothes/model/types';
+
+import { TemperatureCondition, WeatherType } from '@/entities/weather';
 
 import { fetchAPI } from '@/shared/lib';
 
@@ -88,10 +88,10 @@ export async function deleteLookbookItem(
 
 export async function getMemberLookbook(
   temperature: WeatherForRecommendClothes['extremumTmp'],
-  tempCondition: TempCondition,
+  TemperatureCondition: TemperatureCondition,
   accessToken: string | null
 ) {
-  const params = { extremumTmp: String(temperature), tempCondition };
+  const params = { extremumTmp: String(temperature), TemperatureCondition };
   const queryString = new URLSearchParams(params).toString();
 
   return await fetchAPI<MemberLookbookDto[]>(

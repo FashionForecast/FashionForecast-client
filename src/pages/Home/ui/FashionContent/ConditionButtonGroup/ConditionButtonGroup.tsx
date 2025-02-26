@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { TempCondition } from '@/entities/member/model/types';
+import { TemperatureCondition } from '@/entities/weather';
 
 import { ToggleButton, ToggleButtonGroup } from '@/shared/ui';
 
@@ -9,26 +9,26 @@ import { COOL, NORMAL, WARM } from '../FashionContent';
 import { S } from './ConditionButtonGroup.style';
 
 type ConditionButtonGroupProps = {
-  tempCondition: TempCondition;
+  TemperatureCondition: TemperatureCondition;
   extremumTmp: number;
-  handleTempConditionChange: (
+  handleTemperatureConditionChange: (
     _e: React.MouseEvent<HTMLElement>,
-    condition: TempCondition
+    condition: TemperatureCondition
   ) => void;
 };
 
 const ConditionButtonGroup = ({
-  tempCondition,
+  TemperatureCondition,
   extremumTmp,
-  handleTempConditionChange,
+  handleTemperatureConditionChange,
 }: ConditionButtonGroupProps) => {
   return (
     <S.ButtonWrap>
       <ToggleButtonGroup
         fullWidth
         exclusive
-        value={tempCondition}
-        onChange={handleTempConditionChange}
+        value={TemperatureCondition}
+        onChange={handleTemperatureConditionChange}
         size='large'
       >
         <ToggleButton value={COOL} disabled={extremumTmp >= 28}>

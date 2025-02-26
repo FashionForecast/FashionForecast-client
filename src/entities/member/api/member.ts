@@ -1,9 +1,11 @@
 import { SelectedTime } from '@/pages/Home/ui/HomePage/HomePage';
 import { TimeSetOption } from '@/pages/User/TabSection/SettingList/TimeSetMenu/TimeSetMenu';
 
+import { TemperatureCondition } from '@/entities/weather';
+
 import { fetchAPI } from '@/shared/lib';
 
-import { MemberDto, TempCondition } from '../model/types';
+import { MemberDto } from '../model/types';
 
 export async function getMember(accessToken: string) {
   return await fetchAPI<MemberDto>('/member', {
@@ -61,7 +63,7 @@ export async function setMemberDefaultRegion(
 }
 
 export async function setMemberClothesThickness(
-  option: TempCondition,
+  option: TemperatureCondition,
   accessToken: string | null
 ) {
   if (!accessToken) throw new Error('로그인을 해주세요.');
@@ -72,6 +74,6 @@ export async function setMemberClothesThickness(
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ tempCondition: option }),
+    body: JSON.stringify({ TemperatureCondition: option }),
   });
 }

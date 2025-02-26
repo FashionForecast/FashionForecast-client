@@ -1,8 +1,7 @@
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { TempCondition } from '@/entities/member/model/types';
-import { WeatherType } from '@/entities/weather';
+import { TemperatureCondition, WeatherType } from '@/entities/weather';
 
 import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
 
@@ -33,7 +32,10 @@ const WeatherHeadline = ({ weatherType }: WeatherHeadlineProps) => {
 
 export default memo(WeatherHeadline);
 
-function getStandardMark(weatherType: WeatherType, tempOption?: TempCondition) {
+function getStandardMark(
+  weatherType: WeatherType,
+  tempOption?: TemperatureCondition
+) {
   if (!tempOption || tempOption === 'NORMAL') return;
 
   let type = Number(weatherType);

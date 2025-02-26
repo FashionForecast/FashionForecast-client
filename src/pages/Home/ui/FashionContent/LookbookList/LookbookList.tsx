@@ -2,35 +2,40 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { WeatherForRecommendClothes } from '@/widgets/clothes/model/types';
+
 import { getMemberLookbook } from '@/entities/clothes';
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
-import { TempCondition } from '@/entities/member/model/types';
-import { WeatherType } from '@/entities/weather';
+import { TemperatureCondition, WeatherType } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { PlusIcon, ClothesIcon } from '@/shared/ui';
-
-import { WeatherForRecommendClothes } from '../FashionContent';
 
 import { S } from './LookbookList.style';
 
 type LookbookListProps = {
   weather: WeatherForRecommendClothes;
   weatherType: WeatherType;
-  tempCondition: TempCondition;
+  TemperatureCondition: TemperatureCondition;
 };
 
 const LookbookList = ({
   weather,
   weatherType,
-  tempCondition,
+  TemperatureCondition,
 }: LookbookListProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const user = useAppSelector((state) => state.member.info);
   const { data } = useQuery({
-    queryKey: ['user', user?.socialId, 'lookbook', weather, tempCondition],
+    queryKey: [
+      'user',
+      user?.socialId,
+      'lookbook',
+      weather,
+      TemperatureCondition,
+    ],
     queryFn: () =>
-      getMemberLookbook(weather.extremumTmp, tempCondition, accessToken),
+      getMemberLookbook(weather.extremumTmp, TemperatureCondition, accessToken),
     enabled: !!user,
   });
   const navigate = useNavigate();
@@ -39,8 +44,8 @@ const LookbookList = ({
     navigate(`/user/lookbook/create?type=${weatherType}`, {
       state: {
         outfit,
-        referrer: `/?tab=lookbook&option=${tempCondition}`,
-        tempOption: tempCondition,
+        referrer: `/?tab=lookbook&option=${TemperatureCondition}`,
+        tempOption: TemperatureCondition,
       },
     });
   };

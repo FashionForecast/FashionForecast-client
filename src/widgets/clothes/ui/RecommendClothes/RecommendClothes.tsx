@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import { TempCondition } from '@/entities/member';
 import {
+  TemperatureCondition,
   WEATHER_COLORS,
   WeatherType,
   WeatherTypeName,
@@ -11,11 +11,11 @@ import {
 import { clothesIconNameList } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib';
 import { theme } from '@/shared/styles';
-import { ClothesIconNames, ClothesNames, OutfitType } from '@/shared/types';
+import { ClothesIconNames } from '@/shared/types';
 import { Chip, ClothesIcon } from '@/shared/ui';
 
 import { getRecommendClothes } from '../../api/recommend';
-import { WeatherForRecommendClothes } from '../../model/types';
+import { OutfitType, WeatherForRecommendClothes } from '../../model/types';
 
 import { S } from './RecommendClothes.style';
 import { RecommendClothesLoading } from './RecommendClothesLoading';
@@ -24,7 +24,7 @@ type RecommendClothesProps = {
   weather: WeatherForRecommendClothes;
   weatherName: WeatherTypeName;
   weatherType: WeatherType;
-  temperatureCondition: TempCondition;
+  temperatureCondition: TemperatureCondition;
 };
 
 export const RecommendClothes = memo(
@@ -52,14 +52,14 @@ export const RecommendClothes = memo(
                   color={CLOTHES_COLOR[outfitType](weatherName)}
                   name={getClothesName(
                     outfitType,
-                    names as ClothesNames[],
+                    names as ClothesIconNames[],
                     weatherType
                   )}
                 />
               </S.ImageWrap>
 
               <div>
-                <h4>{outFitName[outfitType]}</h4>
+                <h4>{outfitTitle[outfitType]}</h4>
                 <S.ChipWrapper>
                   {names.map((name) => (
                     <Chip
@@ -127,7 +127,7 @@ const CLOTHES_COLOR: Record<
   ETC: (weatherName) => ETC_CLOTHES_COLOR[weatherName],
 };
 
-const outFitName: Record<OutfitType, string> = {
+const outfitTitle: Record<OutfitType, string> = {
   TOP: '상의',
   BOTTOM: '하의',
   ETC: '꼭 챙기세요!',
@@ -173,7 +173,7 @@ const ThumbNailClothesList: Record<
 
 function getClothesName(
   outfitType: OutfitType,
-  names: ClothesNames[],
+  names: ClothesIconNames[],
   weatherType: WeatherType
 ) {
   // 상의 항목

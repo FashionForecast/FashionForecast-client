@@ -10,4 +10,5 @@ export type {
   WeatherDto,
   RainType,
   SkyStatus,
+  TemperatureCondition,
 } from './model/types';

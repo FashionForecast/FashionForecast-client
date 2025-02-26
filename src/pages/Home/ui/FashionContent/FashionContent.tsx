@@ -3,8 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 
 import { RecommendClothes } from '@/widgets/clothes';
 
-import { TempCondition } from '@/entities/member';
 import {
+  TemperatureCondition,
   WEATHER_TYPES,
   WeatherDto,
   WeatherType,
@@ -40,10 +40,10 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
   const [searchParams] = useSearchParams();
   const tempParamOption = searchParams.get('option');
   const [temperatureCondition, setTemperatureCondition] =
-    useState<TempCondition>(() =>
-      initializeTempCondition(
+    useState<TemperatureCondition>(() =>
+      initializeTemperatureCondition(
         weather.extremumTmp,
-        member?.tempCondition,
+        member?.TemperatureCondition,
         tempParamOption
       )
     );
@@ -53,8 +53,8 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
     weatherName
   );
 
-  const handleTempConditionChange = useCallback(
-    (_e: React.MouseEvent<HTMLElement>, condition: TempCondition) => {
+  const handleTemperatureConditionChange = useCallback(
+    (_e: React.MouseEvent<HTMLElement>, condition: TemperatureCondition) => {
       if (!condition) return;
       setTemperatureCondition(condition);
     },
@@ -84,15 +84,15 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
           <LookbookList
             weather={weather}
             weatherType={adjustedWeatherType}
-            tempCondition={temperatureCondition}
+            TemperatureCondition={temperatureCondition}
           />
         </>
       )}
 
       <ConditionButtonGroup
-        tempCondition={temperatureCondition}
+        TemperatureCondition={temperatureCondition}
         extremumTmp={weather.extremumTmp}
-        handleTempConditionChange={handleTempConditionChange}
+        handleTemperatureConditionChange={handleTemperatureConditionChange}
       />
     </S.Section>
   );
@@ -115,7 +115,7 @@ function mapTemperatureToWeatherName(temperature: number) {
 
 /** 온도 상태에 따라 weather type 조정 */
 function adjustWeatherTypeByCondition(
-  temperatureCondition: TempCondition,
+  temperatureCondition: TemperatureCondition,
   weatherName: WeatherTypeName
 ) {
   let weatherNumber = Number(WEATHER_TYPES[weatherName]);
@@ -126,26 +126,31 @@ function adjustWeatherTypeByCondition(
   return String(weatherNumber) as WeatherType;
 }
 
-function initializeTempCondition(
+function initializeTemperatureCondition(
   extremumTmp: number,
-  userTempCondition?: TempCondition,
-  tempParamOption?: TempCondition | string | null
-): TempCondition {
-  const tempCondition = tempParamOption ? tempParamOption : userTempCondition;
+  userTemperatureCondition?: TemperatureCondition,
+  tempParamOption?: TemperatureCondition | string | null
+): TemperatureCondition {
+  const TemperatureCondition = tempParamOption
+    ? tempParamOption
+    : userTemperatureCondition;
 
-  if (!isValidTempCondition(extremumTmp, tempCondition)) return 'NORMAL';
-  return tempCondition ? (tempCondition as TempCondition) : 'NORMAL';
+  if (!isValidTemperatureCondition(extremumTmp, TemperatureCondition))
+    return 'NORMAL';
+  return TemperatureCondition
+    ? (TemperatureCondition as TemperatureCondition)
+    : 'NORMAL';
 }
 
-function isValidTempCondition(
+function isValidTemperatureCondition(
   extremumTmp: number,
-  tempCondition?: TempCondition | string
+  TemperatureCondition?: TemperatureCondition | string
 ) {
-  if (tempCondition && !Options.has(tempCondition)) return false;
+  if (TemperatureCondition && !Options.has(TemperatureCondition)) return false;
 
   if (
-    (extremumTmp < 5 && tempCondition === 'WARM') ||
-    (extremumTmp >= 28 && tempCondition === 'COOL')
+    (extremumTmp < 5 && TemperatureCondition === 'WARM') ||
+    (extremumTmp >= 28 && TemperatureCondition === 'COOL')
   )
     return false;
 
