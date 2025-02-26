@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 import { WeatherType } from '@/entities/weather';
 
 import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
-import { ClothesIcon, PlusIcon } from '@/shared/ui';
+import { PlusIcon } from '@/shared/ui';
 
 import { S, C } from './LookbookCard.style';
 

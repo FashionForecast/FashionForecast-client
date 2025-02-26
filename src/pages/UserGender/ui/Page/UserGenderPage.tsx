@@ -2,19 +2,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 import { setMemberGender } from '@/entities/member';
 import { memberActions } from '@/entities/member/model/slice';
 import { Gender } from '@/entities/member/model/types';
 
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import {
-  Button,
-  HeadHelmet,
-  FemaleIcon,
-  MaleIcon,
-  ClothesIcon,
-} from '@/shared/ui';
+import { Button, HeadHelmet, FemaleIcon, MaleIcon } from '@/shared/ui';
 
 import UserGenderHeader from '../../UserGenderHeader/UserGenderHeader';
 
@@ -60,7 +55,7 @@ export const UserGenderPage = () => {
 
         <S.SectionWrap>
           <S.ImageWrap>
-            <ClothesIcon name='바지' />
+            <ClothesIcon name='면바지' />
           </S.ImageWrap>
           <h3>거의 다 왔어요!</h3>
 

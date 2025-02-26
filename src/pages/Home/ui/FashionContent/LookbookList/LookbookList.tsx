@@ -6,10 +6,11 @@ import { WeatherForRecommendClothes } from '@/widgets/clothes/model/types';
 
 import { getMemberLookbook } from '@/entities/clothes';
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 import { TemperatureCondition, WeatherType } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { PlusIcon, ClothesIcon } from '@/shared/ui';
+import { PlusIcon } from '@/shared/ui';
 
 import { S } from './LookbookList.style';
 

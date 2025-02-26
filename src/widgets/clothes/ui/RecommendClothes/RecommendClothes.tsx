@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
+import { ClothesIconNames } from '@/entities/clothes';
+import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 import {
   TemperatureCondition,
   WEATHER_COLORS,
@@ -11,8 +13,7 @@ import {
 import { clothesIconNameList } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib';
 import { theme } from '@/shared/styles';
-import { ClothesIconNames } from '@/shared/types';
-import { Chip, ClothesIcon } from '@/shared/ui';
+import { Chip } from '@/shared/ui';
 
 import { getRecommendClothes } from '../../api/recommend';
 import { OutfitType, WeatherForRecommendClothes } from '../../model/types';

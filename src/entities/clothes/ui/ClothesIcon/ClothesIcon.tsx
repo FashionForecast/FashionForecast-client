@@ -1,15 +1,16 @@
 import { lazy, Suspense } from 'react';
 
-import { IconLoading } from '../../../../shared/ui/IconLoading/IconLoading';
+import { IconLoading } from '@/shared/ui';
+
 import { ClothesIconNames } from '../../model/types';
 
 type ClothesIconProps = {
-  name: ClothesIconNames;
+  name: ClothesIconNames | null;
   color?: string;
 };
 
 export const ClothesIcon = ({ name, color }: ClothesIconProps) => {
-  const Icon = clothesIconsMap.get(name);
+  const Icon = name && clothesIconsMap.get(name);
 
   return Icon ? (
     <Suspense fallback={<IconLoading $width={64} $height={64} />}>
