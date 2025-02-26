@@ -29,6 +29,7 @@ const ConditionButtonGroup = ({
         exclusive
         value={tempCondition}
         onChange={handleTempConditionChange}
+        size='large'
       >
         <ToggleButton value={COOL} disabled={extremumTmp >= 28}>
           시원하게
