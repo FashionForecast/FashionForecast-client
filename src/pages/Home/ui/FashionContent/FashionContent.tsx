@@ -1,13 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import {
-  getRecommendClothes,
-  RecommendClothes,
-  RecommendClothesLoading,
-} from '@/widgets/clothes';
-import { FetchError } from '@/widgets/error';
+import { RecommendClothes } from '@/widgets/clothes';
 
 import { TempCondition } from '@/entities/member';
 import {
@@ -36,18 +30,12 @@ const Options = new Map([
   [WARM, WARM],
 ]);
 
-export type WeatherForRecommendClothes = Pick<
-  WeatherDto,
-  'extremumTmp' | 'maxMinTmpDiff' | 'maximumPcp' | 'maximumPop'
->;
-
 type FashionContentProps = {
   tab: Exclude<HomeTab, '날씨'>;
-  weather: WeatherForRecommendClothes;
+  weather: WeatherDto;
 };
 
 export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
-  const geolocation = useAppSelector((state) => state.geolocation.value);
   const member = useAppSelector((state) => state.member.info);
   const [searchParams] = useSearchParams();
   const tempParamOption = searchParams.get('option');
@@ -65,17 +53,6 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
     weatherName
   );
 
-  const {
-    data: recommendClothes,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: ['clothes', temperatureCondition, geolocation?.region, weather],
-    queryFn: () =>
-      getRecommendClothes({ ...weather, tempCondition: temperatureCondition }),
-  });
-
   const handleTempConditionChange = useCallback(
     (_e: React.MouseEvent<HTMLElement>, condition: TempCondition) => {
       if (!condition) return;
@@ -84,22 +61,21 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
     []
   );
 
-  if (isError) return <FetchError handleRefetch={refetch} />;
   return (
     <S.Section>
       <Headline weatherName={weatherName} />
 
       {tab === '옷' && (
-        <>
-          {isLoading && <RecommendClothesLoading />}
-
-          {recommendClothes && (
-            <RecommendClothes
-              clothes={recommendClothes}
-              weatherType={adjustedWeatherType}
-            />
-          )}
-        </>
+        <RecommendClothes
+          weather={{
+            extremumTmp: weather.extremumTmp,
+            maxMinTmpDiff: weather.maxMinTmpDiff,
+            maximumPop: weather.maximumPop,
+            maximumPcp: weather.maximumPcp,
+          }}
+          weatherType={adjustedWeatherType}
+          temperatureCondition={temperatureCondition}
+        />
       )}
 
       {tab === '룩북' && member && (

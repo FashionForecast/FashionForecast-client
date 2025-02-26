@@ -1,26 +1,40 @@
 import { Chip } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
+import { TempCondition } from '@/entities/member';
 import { WeatherType } from '@/entities/weather';
 
 import { clothesIconNameList } from '@/shared/consts';
+import { useAppSelector } from '@/shared/lib';
 import { ClothesIconNames, ClothesNames, OutfitType } from '@/shared/types';
 import { ClothesIcon } from '@/shared/ui';
 
-import { RecommendClothesDto } from '../../model/types';
+import { getRecommendClothes } from '../../api/recommend';
+import { WeatherForRecommendClothes } from '../../model/types';
 
 import { C, S } from './RecommendClothes.style';
+import { RecommendClothesLoading } from './RecommendClothesLoading';
 
-type RecommendListProps = {
-  clothes: RecommendClothesDto;
+type RecommendClothesProps = {
+  weather: WeatherForRecommendClothes;
   weatherType: WeatherType;
+  temperatureCondition: TempCondition;
 };
 
 export const RecommendClothes = memo(
-  ({ clothes, weatherType }: RecommendListProps) => {
+  ({ weather, weatherType, temperatureCondition }: RecommendClothesProps) => {
+    const geolocation = useAppSelector((state) => state.geolocation.value);
+
+    const { data: recommendClothes, isLoading } = useQuery({
+      queryKey: ['clothes', temperatureCondition, geolocation?.region, weather],
+      queryFn: () => getRecommendClothes(weather, temperatureCondition),
+    });
+
+    if (isLoading) return <RecommendClothesLoading />;
     return (
       <S.RecommendWrap>
-        {clothes?.map(({ names, outfitType }) => (
+        {recommendClothes?.map(({ names, outfitType }) => (
           <C.ClothesCard
             elevation={0}
             key={outfitType}

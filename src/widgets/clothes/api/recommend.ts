@@ -1,16 +1,23 @@
-import { WeatherForRecommendClothes } from '@/pages/Home/ui/FashionContent/FashionContent';
-
 import { TempCondition } from '@/entities/member/model/types';
 
 import { fetchAPI } from '@/shared/lib';
 
-import { RecommendClothesDto } from '../model/types';
+import {
+  RecommendClothesDto,
+  WeatherForRecommendClothes,
+} from '../model/types';
 
 export async function getRecommendClothes(
-  weather: WeatherForRecommendClothes & { tempCondition: TempCondition }
+  weather: WeatherForRecommendClothes,
+  tempCondition: TempCondition
 ) {
+  const requestPayload = {
+    ...weather,
+    tempCondition,
+  };
+
   const params: Record<string, string> = {};
-  Object.entries(weather).forEach(([key, value]) => {
+  Object.entries(requestPayload).forEach(([key, value]) => {
     params[key] = String(value);
   });
 
