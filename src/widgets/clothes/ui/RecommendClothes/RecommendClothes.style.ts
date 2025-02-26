@@ -1,30 +1,20 @@
-import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Card, css } from '@mui/material';
-
-import { forwardPropOption } from '@/shared/lib';
-import { OutfitType } from '@/shared/types/clothes';
 
 const RecommendWrap = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 256px;
+  flex-grow: 1;
+  padding: 0 16px;
 `;
 
-const ClothesCard = styled(Card, forwardPropOption)<{
-  $outfitType: OutfitType;
-}>`
+const ClothesCard = styled.div`
   display: flex;
   flex-grow: 1;
   align-items: center;
-  height: 100%;
-  padding: 16px;
-  margin-bottom: 16px;
+  padding: 10.22px 17.74px;
+  margin-bottom: 12px;
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 16px;
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
 
   & h4 {
     ${({ theme }) => theme.typo['subtitle-1']}
@@ -32,23 +22,23 @@ const ClothesCard = styled(Card, forwardPropOption)<{
     font-weight: 700;
     color: ${({ theme }) => theme.colors.text.primary};
   }
+`;
 
-  ${({ $outfitType, theme }) => css`
-    .MuiChip-root {
-      color: ${theme.colors.text.primary};
-      background-color: ${getChipColor($outfitType, theme)};
-      border: 1px solid #b2becc;
-    }
-  `}
+const CardContent = styled.div`
+  display: flex;
+  align-items: center;
+  min-height: 72px;
+  max-height: 104px;
 `;
 
 const ImageWrap = styled.div`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 64px;
+  width: 98px;
   height: 64px;
-  margin: 0 32px 0 16px;
+  margin-right: 16px;
 `;
 
 const ChipWrapper = styled.div`
@@ -57,23 +47,10 @@ const ChipWrapper = styled.div`
   gap: 8px;
 `;
 
-export const C = { ClothesCard };
-
-export const S = { RecommendWrap, ImageWrap, ChipWrapper };
-
-function getChipColor(outfitType: OutfitType, theme: Theme) {
-  let bgColor = '';
-
-  switch (outfitType) {
-    case 'TOP':
-      bgColor = theme.colors.amber[100];
-      break;
-    case 'BOTTOM':
-      bgColor = theme.colors.blue[100];
-      break;
-    default:
-      bgColor = theme.colors.teal[100];
-  }
-
-  return bgColor;
-}
+export const S = {
+  RecommendWrap,
+  ClothesCard,
+  CardContent,
+  ImageWrap,
+  ChipWrapper,
+};

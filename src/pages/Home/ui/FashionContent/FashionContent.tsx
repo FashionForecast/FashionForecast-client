@@ -73,6 +73,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
             maximumPop: weather.maximumPop,
             maximumPcp: weather.maximumPcp,
           }}
+          weatherName={weatherName}
           weatherType={adjustedWeatherType}
           temperatureCondition={temperatureCondition}
         />

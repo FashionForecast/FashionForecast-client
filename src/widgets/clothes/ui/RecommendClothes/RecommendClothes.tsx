@@ -1,29 +1,39 @@
-import { Chip } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { TempCondition } from '@/entities/member';
-import { WeatherType } from '@/entities/weather';
+import {
+  WEATHER_COLORS,
+  WeatherType,
+  WeatherTypeName,
+} from '@/entities/weather';
 
 import { clothesIconNameList } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib';
+import { theme } from '@/shared/styles';
 import { ClothesIconNames, ClothesNames, OutfitType } from '@/shared/types';
-import { ClothesIcon } from '@/shared/ui';
+import { Chip, ClothesIcon } from '@/shared/ui';
 
 import { getRecommendClothes } from '../../api/recommend';
 import { WeatherForRecommendClothes } from '../../model/types';
 
-import { C, S } from './RecommendClothes.style';
+import { S } from './RecommendClothes.style';
 import { RecommendClothesLoading } from './RecommendClothesLoading';
 
 type RecommendClothesProps = {
   weather: WeatherForRecommendClothes;
+  weatherName: WeatherTypeName;
   weatherType: WeatherType;
   temperatureCondition: TempCondition;
 };
 
 export const RecommendClothes = memo(
-  ({ weather, weatherType, temperatureCondition }: RecommendClothesProps) => {
+  ({
+    weather,
+    weatherName,
+    weatherType,
+    temperatureCondition,
+  }: RecommendClothesProps) => {
     const geolocation = useAppSelector((state) => state.geolocation.value);
 
     const { data: recommendClothes, isLoading } = useQuery({
@@ -35,34 +45,87 @@ export const RecommendClothes = memo(
     return (
       <S.RecommendWrap>
         {recommendClothes?.map(({ names, outfitType }) => (
-          <C.ClothesCard
-            elevation={0}
-            key={outfitType}
-            $outfitType={outfitType}
-          >
-            <S.ImageWrap>
-              <ClothesIcon
-                name={getClothesName(
-                  outfitType,
-                  names as ClothesNames[],
-                  weatherType
-                )}
-              />
-            </S.ImageWrap>
-            <div>
-              <h4>{outFitName[outfitType]}</h4>
-              <S.ChipWrapper>
-                {names.map((name) => (
-                  <Chip key={name} label={name} size='small' />
-                ))}
-              </S.ChipWrapper>
-            </div>
-          </C.ClothesCard>
+          <S.ClothesCard key={outfitType}>
+            <S.CardContent>
+              <S.ImageWrap>
+                <ClothesIcon
+                  color={CLOTHES_COLOR[outfitType](weatherName)}
+                  name={getClothesName(
+                    outfitType,
+                    names as ClothesNames[],
+                    weatherType
+                  )}
+                />
+              </S.ImageWrap>
+
+              <div>
+                <h4>{outFitName[outfitType]}</h4>
+                <S.ChipWrapper>
+                  {names.map((name) => (
+                    <Chip
+                      key={name}
+                      label={name}
+                      color={CHIP_COLOR[outfitType](weatherName)}
+                    />
+                  ))}
+                </S.ChipWrapper>
+              </div>
+            </S.CardContent>
+          </S.ClothesCard>
         ))}
       </S.RecommendWrap>
     );
   }
 );
+
+const ETC_CHIP_COLORS: Record<WeatherTypeName, string> = {
+  sweltering: theme.colors.lime[100],
+  hot: theme.colors.lightGreen[100],
+  warm: theme.colors.cyan[100],
+  moderate: theme.colors.lightBlue[100],
+  cool: theme.colors.indigo[100],
+  chilly: theme.colors.yellow[100],
+  cold: theme.colors.red[100],
+  frigid: theme.colors.orange[100],
+};
+
+const CHIP_COLOR: Record<OutfitType, (weatherName: WeatherTypeName) => string> =
+  {
+    TOP: (weatherName) => WEATHER_COLORS[weatherName],
+    BOTTOM: () => theme.colors.blueGrey[100],
+    ETC: (weatherName) => ETC_CHIP_COLORS[weatherName],
+  };
+
+const TOP_CLOTHES_COLORS: Record<WeatherTypeName, string> = {
+  sweltering: theme.colors.red[300],
+  hot: theme.colors.orange[300],
+  warm: theme.colors.yellow[300],
+  moderate: theme.colors.lime[300],
+  cool: theme.colors.green[300],
+  chilly: theme.colors.cyan[300],
+  cold: theme.colors.blue[300],
+  frigid: theme.colors.deepPurple[300],
+};
+
+const ETC_CLOTHES_COLOR: Record<WeatherTypeName, string> = {
+  sweltering: theme.colors.lime[200],
+  hot: theme.colors.lightGreen[300],
+  warm: theme.colors.cyan[300],
+  moderate: theme.colors.lightBlue[300],
+  cool: theme.colors.indigo[300],
+  chilly: theme.colors.yellow[200],
+  cold: theme.colors.red[300],
+  frigid: theme.colors.orange[300],
+};
+
+const CLOTHES_COLOR: Record<
+  OutfitType,
+  (weatherName: WeatherTypeName) => string
+> = {
+  TOP: (weatherName) => TOP_CLOTHES_COLORS[weatherName],
+  BOTTOM: () => theme.colors.blueGrey[500],
+  ETC: (weatherName) => ETC_CLOTHES_COLOR[weatherName],
+};
 
 const outFitName: Record<OutfitType, string> = {
   TOP: '상의',
