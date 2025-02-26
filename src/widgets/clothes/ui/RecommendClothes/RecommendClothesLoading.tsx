@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Skeleton } from '@mui/material';
 
-const RecommendClothesLoading = () => {
+export const RecommendClothesLoading = () => {
   return (
     <RecommendClothesWrap>
       <Skeleton variant='rounded' height={93} />
@@ -10,8 +10,6 @@ const RecommendClothesLoading = () => {
     </RecommendClothesWrap>
   );
 };
-
-export default RecommendClothesLoading;
 
 const RecommendClothesWrap = styled.div`
   display: flex;

@@ -2,9 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import {
+  getRecommendClothes,
+  RecommendClothes,
+  RecommendClothesLoading,
+} from '@/widgets/clothes';
 import { FetchError } from '@/widgets/error';
 
-import { getRecommnedClothes } from '@/entities/clothes';
 import { TempCondition } from '@/entities/member';
 import {
   WEATHER_TYPES,
@@ -21,8 +25,6 @@ import ConditionButtonGroup from './ConditionButtonGroup/ConditionButtonGroup';
 import { S } from './FashionContent.style';
 import Headline from './Headline/Headline';
 import LookbookList from './LookbookList/LookbookList';
-import RecommendList from './RecommendList/RecommendList';
-import RecommendClothesLoading from './RecommendList/RecommendListLoading';
 
 export const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -64,14 +66,14 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
   );
 
   const {
-    data: recommedClothes,
+    data: recommendClothes,
     isLoading,
     isError,
     refetch,
   } = useQuery({
     queryKey: ['clothes', temperatureCondition, geolocation?.region, weather],
     queryFn: () =>
-      getRecommnedClothes({ ...weather, tempCondition: temperatureCondition }),
+      getRecommendClothes({ ...weather, tempCondition: temperatureCondition }),
   });
 
   const handleTempConditionChange = useCallback(
@@ -91,9 +93,9 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
         <>
           {isLoading && <RecommendClothesLoading />}
 
-          {recommedClothes && (
-            <RecommendList
-              clothes={recommedClothes}
+          {recommendClothes && (
+            <RecommendClothes
+              clothes={recommendClothes}
               weatherType={adjustedWeatherType}
             />
           )}

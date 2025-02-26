@@ -6,7 +6,7 @@ import { fetchAPI } from '@/shared/lib';
 
 import { RecommendClothesDto } from '../model/types';
 
-export async function getRecommnedClothes(
+export async function getRecommendClothes(
   weather: WeatherForRecommendClothes & { tempCondition: TempCondition }
 ) {
   const params: Record<string, string> = {};

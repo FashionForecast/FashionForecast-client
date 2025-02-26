@@ -1,49 +1,54 @@
 import { Chip } from '@mui/material';
 import { memo } from 'react';
 
-import { RecommendClothesDto } from '@/entities/clothes';
 import { WeatherType } from '@/entities/weather';
 
 import { clothesIconNameList } from '@/shared/consts';
 import { ClothesIconNames, ClothesNames, OutfitType } from '@/shared/types';
 import { ClothesIcon } from '@/shared/ui';
 
-import { C, S } from './RecommendList.style';
+import { RecommendClothesDto } from '../../model/types';
+
+import { C, S } from './RecommendClothes.style';
 
 type RecommendListProps = {
   clothes: RecommendClothesDto;
   weatherType: WeatherType;
 };
 
-const RecommendList = ({ clothes, weatherType }: RecommendListProps) => {
-  return (
-    <S.RecommendWrap>
-      {clothes?.map(({ names, outfitType }) => (
-        <C.ClothesCard elevation={0} key={outfitType} $outfitType={outfitType}>
-          <S.ImageWrap>
-            <ClothesIcon
-              name={getClothesName(
-                outfitType,
-                names as ClothesNames[],
-                weatherType
-              )}
-            />
-          </S.ImageWrap>
-          <div>
-            <h4>{outFitName[outfitType]}</h4>
-            <S.ChipWrapper>
-              {names.map((name) => (
-                <Chip key={name} label={name} size='small' />
-              ))}
-            </S.ChipWrapper>
-          </div>
-        </C.ClothesCard>
-      ))}
-    </S.RecommendWrap>
-  );
-};
-
-export default memo(RecommendList);
+export const RecommendClothes = memo(
+  ({ clothes, weatherType }: RecommendListProps) => {
+    return (
+      <S.RecommendWrap>
+        {clothes?.map(({ names, outfitType }) => (
+          <C.ClothesCard
+            elevation={0}
+            key={outfitType}
+            $outfitType={outfitType}
+          >
+            <S.ImageWrap>
+              <ClothesIcon
+                name={getClothesName(
+                  outfitType,
+                  names as ClothesNames[],
+                  weatherType
+                )}
+              />
+            </S.ImageWrap>
+            <div>
+              <h4>{outFitName[outfitType]}</h4>
+              <S.ChipWrapper>
+                {names.map((name) => (
+                  <Chip key={name} label={name} size='small' />
+                ))}
+              </S.ChipWrapper>
+            </div>
+          </C.ClothesCard>
+        ))}
+      </S.RecommendWrap>
+    );
+  }
+);
 
 const outFitName: Record<OutfitType, string> = {
   TOP: '상의',
