@@ -46,7 +46,7 @@ export const RecommendClothesList = memo(
             <S.CardContent>
               <S.ImageWrap>
                 <ClothesIcon
-                  color={CLOTHES_COLOR[outfitType](weatherName)}
+                  color={getClothesColor(outfitType, weatherName)}
                   name={getClothesName(outfitType, names, adjustWeatherName)}
                 />
               </S.ImageWrap>
@@ -58,7 +58,7 @@ export const RecommendClothesList = memo(
                     <Chip
                       key={name}
                       label={name}
-                      color={CHIP_COLOR[outfitType](weatherName)}
+                      color={getChipColor(outfitType, weatherName)}
                     />
                   ))}
                 </S.ChipWrapper>
@@ -77,6 +77,10 @@ const OUTFIT_TITLE: Record<OutfitType, string> = {
   ETC: '꼭 챙기세요!',
 } as const;
 
+function getChipColor(outfitType: OutfitType, weatherName: WeatherTypeName) {
+  return CHIP_COLOR[outfitType](weatherName);
+}
+
 const CHIP_COLOR: Record<OutfitType, (weatherName: WeatherTypeName) => string> =
   {
     TOP: (weatherName) => WEATHER_COLORS[weatherName],
@@ -94,6 +98,10 @@ const ETC_CHIP_COLORS_MAP: Record<WeatherTypeName, string> = {
   cold: theme.colors.red[100],
   frigid: theme.colors.orange[100],
 };
+
+function getClothesColor(outfitType: OutfitType, weatherName: WeatherTypeName) {
+  return CLOTHES_COLOR[outfitType](weatherName);
+}
 
 const CLOTHES_COLOR: Record<
   OutfitType,
