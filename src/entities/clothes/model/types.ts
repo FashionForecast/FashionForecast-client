@@ -1,17 +1,11 @@
+import { MemberLookbookDto } from '@/widgets/clothes';
+
 export type LookbookItemData = {
   topType: string;
   topColor: string;
   bottomType: string;
   bottomColor: string;
   tempStageLevel: number;
-};
-
-export type MemberLookbookDto = {
-  memberOutfitId: number;
-  topType: ClothesIconNames;
-  topColor: string;
-  bottomType: ClothesIconNames;
-  bottomColor: string;
 };
 
 export type AllLookbookListByWeatherDto = Array<{

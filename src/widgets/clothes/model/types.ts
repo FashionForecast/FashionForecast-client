@@ -12,3 +12,11 @@ export type WeatherForRecommendClothes = Pick<
   WeatherDto,
   'extremumTmp' | 'maxMinTmpDiff' | 'maximumPop' | 'maximumPcp'
 >;
+
+export type MemberLookbookDto = {
+  memberOutfitId: number;
+  topType: ClothesIconNames;
+  topColor: string;
+  bottomType: ClothesIconNames;
+  bottomColor: string;
+};

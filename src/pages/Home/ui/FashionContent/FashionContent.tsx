@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { RecommendClothesList } from '@/widgets/clothes';
+import { HomeLookbookList, RecommendClothesList } from '@/widgets/clothes';
 
 import {
   TemperatureCondition,
@@ -18,7 +18,6 @@ import { HomeTab } from '../../model/types';
 import ConditionButtonGroup from './ConditionButtonGroup/ConditionButtonGroup';
 import { S } from './FashionContent.style';
 import { Headline } from './Headline/Headline';
-import LookbookList from './LookbookList/LookbookList';
 
 export const COOL = 'COOL',
   NORMAL = 'NORMAL',
@@ -81,10 +80,10 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
 
       {tab === '룩북' && member && (
         <>
-          <LookbookList
+          <HomeLookbookList
             weather={weather}
             adjustedWeatherName={adjustedWeatherName}
-            TemperatureCondition={temperatureCondition}
+            temperatureCondition={temperatureCondition}
           />
         </>
       )}

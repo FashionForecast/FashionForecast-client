@@ -1,16 +1,10 @@
 import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 
-import { WeatherForRecommendClothes } from '@/widgets/clothes/model/types';
-
-import { TemperatureCondition, WeatherTypeNumber } from '@/entities/weather';
+import { WeatherTypeNumber } from '@/entities/weather';
 
 import { fetchAPI } from '@/shared/lib';
 
-import {
-  AllLookbookListByWeatherDto,
-  LookbookItemData,
-  MemberLookbookDto,
-} from '../model/types';
+import { AllLookbookListByWeatherDto, LookbookItemData } from '../model/types';
 
 export async function getAllLookbookListByWeather(
   accessToken: string | null
@@ -84,18 +78,4 @@ export async function deleteLookbookItem(
       Authorization: `Bearer ${accessToken}`,
     },
   });
-}
-
-export async function getMemberLookbook(
-  temperature: WeatherForRecommendClothes['extremumTmp'],
-  TemperatureCondition: TemperatureCondition,
-  accessToken: string | null
-) {
-  const params = { extremumTmp: String(temperature), TemperatureCondition };
-  const queryString = new URLSearchParams(params).toString();
-
-  return await fetchAPI<MemberLookbookDto[]>(
-    `/member/outfits/temp-stage?${queryString}`,
-    { headers: { Authorization: `Bearer ${accessToken}` } }
-  );
 }
