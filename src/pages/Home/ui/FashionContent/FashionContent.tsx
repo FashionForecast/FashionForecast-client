@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { RecommendClothes } from '@/widgets/clothes';
+import { RecommendClothesList } from '@/widgets/clothes';
 
 import {
   TemperatureCondition,
@@ -17,7 +17,7 @@ import { HomeTab } from '../../model/types';
 
 import ConditionButtonGroup from './ConditionButtonGroup/ConditionButtonGroup';
 import { S } from './FashionContent.style';
-import Headline from './Headline/Headline';
+import { Headline } from './Headline/Headline';
 import LookbookList from './LookbookList/LookbookList';
 
 export const COOL = 'COOL',
@@ -66,7 +66,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
       <Headline weatherName={weatherName} />
 
       {tab === '옷' && (
-        <RecommendClothes
+        <RecommendClothesList
           weather={{
             extremumTmp: weather.extremumTmp,
             maxMinTmpDiff: weather.maxMinTmpDiff,

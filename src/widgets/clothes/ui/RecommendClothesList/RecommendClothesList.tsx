@@ -16,8 +16,7 @@ import { Chip } from '@/shared/ui';
 import { getRecommendClothes } from '../../api/recommend';
 import { OutfitType, WeatherForRecommendClothes } from '../../model/types';
 
-import { S } from './RecommendClothes.style';
-import { RecommendClothesLoading } from './RecommendClothesLoading';
+import { S } from './RecommendClothesList.style';
 
 type RecommendClothesProps = {
   weather: WeatherForRecommendClothes;
@@ -26,7 +25,7 @@ type RecommendClothesProps = {
   temperatureCondition: TemperatureCondition;
 };
 
-export const RecommendClothes = memo(
+export const RecommendClothesList = memo(
   ({
     weather,
     weatherName,
@@ -35,12 +34,11 @@ export const RecommendClothes = memo(
   }: RecommendClothesProps) => {
     const geolocation = useAppSelector((state) => state.geolocation.value);
 
-    const { data: recommendClothes, isLoading } = useQuery({
+    const { data: recommendClothes } = useQuery({
       queryKey: ['clothes', temperatureCondition, geolocation?.region, weather],
       queryFn: () => getRecommendClothes(weather, temperatureCondition),
     });
 
-    if (isLoading) return <RecommendClothesLoading />;
     return (
       <S.RecommendWrap>
         {recommendClothes?.map(({ names, outfitType }) => (

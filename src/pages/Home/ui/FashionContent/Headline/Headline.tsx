@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import {
   WEATHER_COLORS,
   WEATHER_LABELS,
@@ -13,7 +11,7 @@ type HeadlineProps = {
   weatherName: WeatherTypeName;
 };
 
-const Headline = ({ weatherName }: HeadlineProps) => {
+export const Headline = ({ weatherName }: HeadlineProps) => {
   return (
     <S.HeadlineWrap $color={WEATHER_COLORS[weatherName]}>
       <WeatherFaceIcon weatherName={weatherName} />
@@ -22,5 +20,3 @@ const Headline = ({ weatherName }: HeadlineProps) => {
     </S.HeadlineWrap>
   );
 };
-
-export default memo(Headline);
