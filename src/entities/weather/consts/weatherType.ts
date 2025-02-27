@@ -1,6 +1,6 @@
-import { WeatherType, WeatherTypeName } from '../model/types';
+import { WeatherTypeName, WeatherTypeNumber } from '../model/types';
 
-export const WEATHER_TYPES: Record<WeatherTypeName, WeatherType> = {
+export const WEATHER_TYPE_NAME_MAP = {
   /** 28도 이상 */
   sweltering: '1',
 
@@ -25,3 +25,18 @@ export const WEATHER_TYPES: Record<WeatherTypeName, WeatherType> = {
   /**  5도 미만 */
   frigid: '8',
 } as const;
+
+/**
+ * '1': 'sweltering',
+ * '2': 'hot',
+ * ...
+ * '8': 'frigid'
+ */
+export const WEATHER_TYPE_NUMBER_MAP = Object.fromEntries(
+  Object.entries(WEATHER_TYPE_NAME_MAP).map(([key, value]) => [value, key])
+) as Record<WeatherTypeNumber, WeatherTypeName>;
+
+export const WEATHER_TYPE = {
+  nameToNumber: WEATHER_TYPE_NAME_MAP,
+  numberToName: WEATHER_TYPE_NUMBER_MAP,
+};

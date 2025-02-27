@@ -1,13 +1,7 @@
-export type WeatherType = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
-export type WeatherTypeName =
-  | 'sweltering'
-  | 'hot'
-  | 'warm'
-  | 'moderate'
-  | 'cool'
-  | 'chilly'
-  | 'cold'
-  | 'frigid';
+import { WEATHER_TYPE_NAME_MAP } from './../consts/weatherType';
+
+export type WeatherTypeName = keyof typeof WEATHER_TYPE_NAME_MAP;
+export type WeatherTypeNumber = (typeof WEATHER_TYPE_NAME_MAP)[WeatherTypeName];
 
 export type RainType =
   | 'NONE'

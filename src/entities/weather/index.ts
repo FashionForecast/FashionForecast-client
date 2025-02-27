@@ -1,11 +1,11 @@
 export { getWeather } from './api/weather';
 
-export { WEATHER_TYPES } from './consts/weatherType';
+export { WEATHER_TYPE } from './consts/weatherType';
 export { WEATHER_LABELS } from './consts/label';
 export { WEATHER_COLORS } from './consts/color';
 
 export type {
-  WeatherType,
+  WeatherTypeNumber,
   WeatherTypeName,
   WeatherDto,
   RainType,
