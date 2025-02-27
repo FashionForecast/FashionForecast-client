@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
-import { TemperatureCondition, WeatherType } from '@/entities/weather';
+import { TemperatureCondition, WeatherTypeNumber } from '@/entities/weather';
 
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { HeadHelmet } from '@/shared/ui';
@@ -56,14 +56,14 @@ export const UserLookbookCreatePage = () => {
 
       <S.PageWrap>
         <LookbookCreateHeader
-          weatherType={typeParam as WeatherType}
+          weatherType={typeParam as WeatherTypeNumber}
           select={select}
         />
 
-        <WeatherHeadline weatherType={typeParam as WeatherType} />
+        <WeatherHeadline weatherType={typeParam as WeatherTypeNumber} />
 
         <EditSection
-          weatherType={typeParam as WeatherType}
+          weatherType={typeParam as WeatherTypeNumber}
           select={select}
           updateSelect={updateSelect}
         />
@@ -88,7 +88,9 @@ function defaultSelect(
   typeParam: string | null,
   userOutfit: MemberLookbookDto | undefined
 ) {
-  const type = (isInvalidParam(typeParam) ? '1' : typeParam) as WeatherType;
+  const type = (
+    isInvalidParam(typeParam) ? '1' : typeParam
+  ) as WeatherTypeNumber;
   const { top: defaultTop, bottom: defaultBottom } =
     DEFAULT_CLOTHES_BY_WEATHER[type];
 

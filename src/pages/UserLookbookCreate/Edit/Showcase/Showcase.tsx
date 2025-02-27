@@ -6,9 +6,9 @@ import {
   LookbookSelect,
 } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 
-import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { ClothesType, MemberLookbookDto } from '@/entities/clothes/model/types';
 import { MemberDto } from '@/entities/member/model/types';
-import { WeatherType } from '@/entities/weather';
+import { WeatherTypeNumber } from '@/entities/weather';
 
 import {
   MAN_BOTTOM_CLOTHES,
@@ -17,7 +17,6 @@ import {
 } from '@/shared/consts';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { ClothesType } from '@/shared/types';
 
 import { FocussingSliderType } from '../EditSection';
 
@@ -27,7 +26,7 @@ import { S } from './Showcase.style';
 export type SliderType = ClothesType | null;
 
 type ShowcaseProps = {
-  weatherType: WeatherType;
+  weatherType: WeatherTypeNumber;
   select: LookbookSelect;
   focussingSlider: FocussingSliderType;
   updateFocussingSlider: (sliderType: FocussingSliderType) => void;
@@ -106,7 +105,7 @@ const Showcase = ({
 export default Showcase;
 
 function getInitialIndex(
-  type: WeatherType,
+  type: WeatherTypeNumber,
   slider: Exclude<SliderType, null>,
   userOutfit?: MemberLookbookDto,
   gender?: MemberDto['gender']

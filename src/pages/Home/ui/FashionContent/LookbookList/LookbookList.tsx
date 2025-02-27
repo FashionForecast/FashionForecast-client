@@ -7,7 +7,11 @@ import { WeatherForRecommendClothes } from '@/widgets/clothes/model/types';
 import { getMemberLookbook } from '@/entities/clothes';
 import { MemberLookbookDto } from '@/entities/clothes/model/types';
 import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
-import { TemperatureCondition, WeatherType } from '@/entities/weather';
+import {
+  TemperatureCondition,
+  WEATHER_TYPE,
+  WeatherTypeName,
+} from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { PlusIcon } from '@/shared/ui';
@@ -16,13 +20,13 @@ import { S } from './LookbookList.style';
 
 type LookbookListProps = {
   weather: WeatherForRecommendClothes;
-  weatherType: WeatherType;
+  adjustedWeatherName: WeatherTypeName;
   TemperatureCondition: TemperatureCondition;
 };
 
 const LookbookList = ({
   weather,
-  weatherType,
+  adjustedWeatherName,
   TemperatureCondition,
 }: LookbookListProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
@@ -42,7 +46,8 @@ const LookbookList = ({
   const navigate = useNavigate();
 
   const handleLookbookItemClick = (outfit?: MemberLookbookDto) => () => {
-    navigate(`/user/lookbook/create?type=${weatherType}`, {
+    const weatherNumber = WEATHER_TYPE.nameToNumber[adjustedWeatherName];
+    navigate(`/user/lookbook/create?type=${weatherNumber}`, {
       state: {
         outfit,
         referrer: `/?tab=lookbook&option=${TemperatureCondition}`,

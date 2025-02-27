@@ -2,7 +2,7 @@ import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookC
 
 import { WeatherForRecommendClothes } from '@/widgets/clothes/model/types';
 
-import { TemperatureCondition, WeatherType } from '@/entities/weather';
+import { TemperatureCondition, WeatherTypeNumber } from '@/entities/weather';
 
 import { fetchAPI } from '@/shared/lib';
 
@@ -21,7 +21,7 @@ export async function getAllLookbookListByWeather(
 }
 
 export async function saveLookbook(
-  weatherType: WeatherType,
+  weatherType: WeatherTypeNumber,
   select: LookbookSelect,
   token: string | null,
   outfitId?: number

@@ -5,10 +5,10 @@ import { RecommendClothes } from '@/widgets/clothes';
 
 import {
   TemperatureCondition,
-  WEATHER_TYPES,
+  WEATHER_TYPE,
   WeatherDto,
-  WeatherType,
   WeatherTypeName,
+  WeatherTypeNumber,
 } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
@@ -47,8 +47,8 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
         tempParamOption
       )
     );
-  const weatherName = mapTemperatureToWeatherName(weather.extremumTmp);
-  const adjustedWeatherType = adjustWeatherTypeByCondition(
+  const weatherName = getWeatherName(weather.extremumTmp);
+  const adjustedWeatherName = adjustWeatherName(
     temperatureCondition,
     weatherName
   );
@@ -74,7 +74,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
             maximumPcp: weather.maximumPcp,
           }}
           weatherName={weatherName}
-          weatherType={adjustedWeatherType}
+          adjustWeatherName={adjustedWeatherName}
           temperatureCondition={temperatureCondition}
         />
       )}
@@ -83,7 +83,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
         <>
           <LookbookList
             weather={weather}
-            weatherType={adjustedWeatherType}
+            adjustedWeatherName={adjustedWeatherName}
             TemperatureCondition={temperatureCondition}
           />
         </>
@@ -98,9 +98,9 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
   );
 });
 
-/** 온도를 기반으로 weather name 매핑 */
-function mapTemperatureToWeatherName(temperature: number) {
-  let name: keyof typeof WEATHER_TYPES = 'frigid';
+/** 최고 또는 최저 온도로 weather name 반환 */
+function getWeatherName(temperature: number) {
+  let name: WeatherTypeName = 'frigid';
 
   if (temperature >= 28) name = 'sweltering';
   if (temperature >= 23 && temperature < 28) name = 'hot';
@@ -113,17 +113,17 @@ function mapTemperatureToWeatherName(temperature: number) {
   return name;
 }
 
-/** 온도 상태에 따라 weather type 조정 */
-function adjustWeatherTypeByCondition(
+/** temperatureCondition 상태에 따라 weather name 조정 */
+function adjustWeatherName(
   temperatureCondition: TemperatureCondition,
   weatherName: WeatherTypeName
 ) {
-  let weatherNumber = Number(WEATHER_TYPES[weatherName]);
+  let weatherNumber = Number(WEATHER_TYPE.nameToNumber[weatherName]);
 
   if (temperatureCondition === 'COOL') weatherNumber = weatherNumber - 1;
   else if (temperatureCondition === 'WARM') weatherNumber = weatherNumber + 1;
 
-  return String(weatherNumber) as WeatherType;
+  return WEATHER_TYPE.numberToName[String(weatherNumber) as WeatherTypeNumber];
 }
 
 function initializeTemperatureCondition(

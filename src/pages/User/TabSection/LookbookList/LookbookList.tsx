@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getAllLookbookListByWeather } from '@/entities/clothes';
-import { WeatherType } from '@/entities/weather';
+import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 
@@ -21,7 +21,7 @@ const LookbookList = () => {
         {data.map(({ tempStageLevel, memberOutfits }) => (
           <LookbookCard
             key={tempStageLevel}
-            type={String(tempStageLevel) as WeatherType}
+            type={String(tempStageLevel) as WeatherTypeNumber}
             outfits={memberOutfits}
           />
         ))}

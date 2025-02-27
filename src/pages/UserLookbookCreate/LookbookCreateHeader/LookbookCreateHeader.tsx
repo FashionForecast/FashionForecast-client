@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { saveLookbook } from '@/entities/clothes';
-import { WeatherType } from '@/entities/weather';
+import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
@@ -18,7 +18,7 @@ import DeleteDialog from './DeleteDialog/DeleteDialog';
 import { C } from './LookbookCreateHeader.style';
 
 type LookbookCreateHeaderProps = {
-  weatherType: WeatherType;
+  weatherType: WeatherTypeNumber;
   select: LookbookSelect;
 };
 

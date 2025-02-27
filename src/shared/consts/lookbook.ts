@@ -1,7 +1,7 @@
-import { WeatherType } from '@/entities/weather';
+import { WeatherTypeNumber } from '@/entities/weather';
 
 export const LOOKBOOK_WEATHER_TYPE: Record<
-  WeatherType,
+  WeatherTypeNumber,
   { title: string; subtitle: string; color: string }
 > = {
   1: {
