@@ -28,7 +28,6 @@ const CardContent = styled.div`
   display: flex;
   align-items: center;
   min-height: 72px;
-  max-height: 104px;
 `;
 
 const ImageWrap = styled.div`

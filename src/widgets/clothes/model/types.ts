@@ -4,7 +4,7 @@ import { WeatherDto } from '@/entities/weather';
 export type OutfitType = 'TOP' | 'BOTTOM' | 'ETC';
 
 export type RecommendClothesDto = Array<{
-  names: Array<ClothesIconNames | string>;
+  names: Array<ClothesIconNames>;
   outfitType: OutfitType;
 }>;
 
