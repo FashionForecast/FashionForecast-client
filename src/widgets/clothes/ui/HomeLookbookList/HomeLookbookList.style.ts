@@ -1,14 +1,20 @@
 import styled from '@emotion/styled';
 
-const ListWrap = styled.ol`
+const LookbookListWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0 16px;
+  margin-bottom: 12px;
+`;
+
+const LookbookList = styled.ol`
   display: grid;
   flex-grow: 1;
   flex-wrap: wrap;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   grid-gap: 12px;
-  padding: 0 16px;
-  margin-bottom: 12px;
 `;
 
 const LookbookCard = styled.li<{ $content?: 'lookbook' | 'add' }>`
@@ -82,12 +88,11 @@ const AddText = styled.span`
   color: ${({ theme }) => theme.colors.text.primary}
 `;
 
-const EmptyWrap = styled.div`
+const EmptyCard = styled.div`
   display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
-  margin: 0 16px 16px;
   border: 2px dashed ${({ theme }) => theme.colors.elevation.outlined};
   border-radius: ${({ theme }) => theme.borderRadius[2]};
 `;
@@ -97,8 +102,6 @@ const EmptyContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
 `;
 
 const TextWrap = styled.div`
@@ -138,7 +141,8 @@ const BackgroundClothes = styled.div`
 `;
 
 export const S = {
-  ListWrap,
+  LookbookListWrap,
+  LookbookList,
   LookbookCard,
   LookbookContent,
   AddCard,
@@ -146,7 +150,7 @@ export const S = {
   ChipWrap,
   TopClothes,
   AddText,
-  EmptyWrap,
+  EmptyCard,
   EmptyContent,
   TextWrap,
   BackgroundClothes,

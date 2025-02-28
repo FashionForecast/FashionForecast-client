@@ -67,9 +67,9 @@ export const HomeLookbookList = memo(
 
     if (!lookbook) return <></>;
     return (
-      <>
+      <S.LookbookListWrap>
         {lookbook.length >= 1 && (
-          <S.ListWrap>
+          <S.LookbookList>
             {lookbook?.map((outfit) => (
               <S.LookbookCard
                 key={outfit.memberOutfitId}
@@ -103,11 +103,11 @@ export const HomeLookbookList = memo(
                 </S.AddContent>
               </S.AddCard>
             )}
-          </S.ListWrap>
+          </S.LookbookList>
         )}
 
         {lookbook.length === 0 && (
-          <S.EmptyWrap>
+          <S.EmptyCard>
             <S.EmptyContent>
               <S.TextWrap>
                 <strong>나의 옷장에 기온을 담아보세요</strong>
@@ -132,9 +132,9 @@ export const HomeLookbookList = memo(
 
               <Button onClick={handleLookbookItemClick()}>룩북 추가하기</Button>
             </S.EmptyContent>
-          </S.EmptyWrap>
+          </S.EmptyCard>
         )}
-      </>
+      </S.LookbookListWrap>
     );
   }
 );
