@@ -4,20 +4,20 @@ import { Tabs as MuiTabs, Tab as MuiTab } from '@mui/material';
 type MuiTabsProps = React.ComponentProps<typeof MuiTabs>;
 
 type CustomTabsProps = MuiTabsProps & {
-  labels: string[];
+  items: { title: string; value: string }[];
 };
 
 /**
- * - labels - 탭의 label 목록
+ * - items - 탭의 목록들
  * - value - 선택된 탭의 value
  * - onChange - 탭 변경 시 호출되는 callback 함수
  * - 이외의 props - [MuiTabs](https://mui.com/material-ui/api/tabs/)
  */
-export const Tabs = ({ labels, value, onChange, ...rest }: CustomTabsProps) => {
+export const Tabs = ({ items, value, onChange, ...rest }: CustomTabsProps) => {
   return (
     <BaseTabs value={value} onChange={onChange} {...rest}>
-      {labels.map((label) => (
-        <BaseTab key={label} label={label} value={label} />
+      {items.map(({ title, value }) => (
+        <BaseTab key={title} label={title} value={value} />
       ))}
     </BaseTabs>
   );
