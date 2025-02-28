@@ -14,6 +14,7 @@ import { theme } from '@/shared/styles';
 import { Chip } from '@/shared/ui';
 
 import { getRecommendClothes } from '../../api/recommend';
+import { CLOTHES_THUMBNAIL } from '../../model/consts';
 import { OutfitType, WeatherForRecommendClothes } from '../../model/types';
 
 import { S } from './RecommendClothesList.style';
@@ -139,86 +140,56 @@ function getClothesName(
     return CLOTHES_THUMBNAIL[weatherName].BOTTOM;
   }
 
-  return CLOTHES_THUMBNAIL[weatherName].ETC(names) ?? null;
+  return ETC_THUMBNAIL[weatherName](names) ?? null;
 }
 
-const CLOTHES_THUMBNAIL: Record<
+const ETC_THUMBNAIL: Record<
   WeatherTypeName,
-  {
-    TOP: ClothesIconNames;
-    BOTTOM: ClothesIconNames;
-    ETC: (names: ClothesIconNames[]) => ClothesIconNames | undefined;
-  }
+  (names: ClothesIconNames[]) => ClothesIconNames | undefined
 > = {
-  sweltering: {
-    TOP: '민소매',
-    BOTTOM: '반바지',
-    ETC: (names) => {
-      if (names.length <= 1) return names[0];
-      if (names.includes('접이식 우산')) return '겉옷접이식우산';
-      if (names.includes('장우산')) return '겉옷장우산';
-    },
+  sweltering: (names) => {
+    if (names.length <= 1) return names[0];
+    if (names.includes('접이식 우산')) return '겉옷접이식우산';
+    if (names.includes('장우산')) return '겉옷장우산';
   },
-  hot: {
-    TOP: '반팔티',
-    BOTTOM: '슬랙스',
-    ETC: (names) => {
-      if (names.length <= 1) return names[0];
-      if (names.includes('접이식 우산')) return '겉옷접이식우산';
-      if (names.includes('장우산')) return '겉옷장우산';
-    },
+  hot: (names) => {
+    if (names.length <= 1) return names[0];
+    if (names.includes('접이식 우산')) return '겉옷접이식우산';
+    if (names.includes('장우산')) return '겉옷장우산';
   },
-  warm: {
-    TOP: '긴팔티',
-    BOTTOM: '면바지',
-    ETC: (names) => {
-      if (names.length <= 1) return names[0];
-      if (names.includes('접이식 우산')) return '겉옷접이식우산';
-      if (names.includes('장우산')) return '겉옷장우산';
-    },
+
+  warm: (names) => {
+    if (names.length <= 1) return names[0];
+    if (names.includes('접이식 우산')) return '겉옷접이식우산';
+    if (names.includes('장우산')) return '겉옷장우산';
   },
-  moderate: {
-    TOP: '후드티',
-    BOTTOM: '청바지',
-    ETC: (names) => {
-      if (names.length <= 1) return names[0];
-      if (names.includes('접이식 우산')) return '겉옷접이식우산';
-      if (names.includes('장우산')) return '겉옷장우산';
-    },
+
+  moderate: (names) => {
+    if (names.length <= 1) return names[0];
+    if (names.includes('접이식 우산')) return '겉옷접이식우산';
+    if (names.includes('장우산')) return '겉옷장우산';
   },
-  cool: {
-    TOP: '니트',
-    BOTTOM: '청바지',
-    ETC: (names) => {
-      if (names.length <= 1) return names[0];
-      if (names.includes('접이식 우산')) return '겉옷접이식우산';
-      if (names.includes('장우산')) return '겉옷장우산';
-    },
+
+  cool: (names) => {
+    if (names.length <= 1) return names[0];
+    if (names.includes('접이식 우산')) return '겉옷접이식우산';
+    if (names.includes('장우산')) return '겉옷장우산';
   },
-  chilly: {
-    TOP: '트렌치 코트',
-    BOTTOM: '기모 바지',
-    ETC: (names) => {
-      if (names.includes('접이식 우산')) return '접이식 우산';
-      if (names.includes('장우산')) return '장우산';
-    },
+
+  chilly: (names) => {
+    if (names.includes('접이식 우산')) return '접이식 우산';
+    if (names.includes('장우산')) return '장우산';
   },
-  cold: {
-    TOP: '코트',
-    BOTTOM: '기모 바지',
-    ETC: (names) => {
-      if (names.length <= 1) return '히트텍';
-      if (names.includes('접이식 우산')) return '히트텍접이식우산';
-      if (names.includes('장우산')) return '히트텍장우산';
-    },
+
+  cold: (names) => {
+    if (names.length <= 1) return '히트텍';
+    if (names.includes('접이식 우산')) return '히트텍접이식우산';
+    if (names.includes('장우산')) return '히트텍장우산';
   },
-  frigid: {
-    TOP: '패딩',
-    BOTTOM: '기모 바지',
-    ETC: (names) => {
-      if (names.length <= 2) return '목도리';
-      if (names.includes('접이식 우산')) return '목도리접이식우산';
-      if (names.includes('장우산')) return '목도리장우산';
-    },
+
+  frigid: (names) => {
+    if (names.length <= 2) return '목도리';
+    if (names.includes('접이식 우산')) return '목도리접이식우산';
+    if (names.includes('장우산')) return '목도리장우산';
   },
 };
