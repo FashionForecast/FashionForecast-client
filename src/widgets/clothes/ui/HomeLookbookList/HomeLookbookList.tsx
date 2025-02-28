@@ -10,7 +10,7 @@ import {
 } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { PlusIcon } from '@/shared/ui';
+import { Button, Chip, PlusIcon } from '@/shared/ui';
 
 import { getMemberLookbook } from '../../api/lookbook';
 import {
@@ -34,7 +34,7 @@ export const HomeLookbookList = memo(
   }: HomeLookbookListProps) => {
     const accessToken = useAppSelector((state) => state.auth.accessToken);
     const user = useAppSelector((state) => state.member.info);
-    const { data } = useQuery({
+    const { data: lookbook } = useQuery({
       queryKey: [
         'user',
         user?.socialId,
@@ -50,6 +50,7 @@ export const HomeLookbookList = memo(
         ),
       enabled: !!user,
     });
+
     const navigate = useNavigate();
 
     const handleLookbookItemClick = (outfit?: MemberLookbookDto) => () => {
@@ -63,29 +64,69 @@ export const HomeLookbookList = memo(
       });
     };
 
+    if (!lookbook) return <></>;
     return (
-      <S.LookbookList>
-        {data?.map((outfit) => (
-          <S.LookbookCard
-            key={outfit.memberOutfitId}
-            onClick={handleLookbookItemClick(outfit)}
-          >
-            <S.Top data-top={outfit.topType}>
-              <ClothesIcon name={outfit.topType} color={outfit.topColor} />
-            </S.Top>
-            <ClothesIcon name={outfit.bottomType} color={outfit.bottomColor} />
-          </S.LookbookCard>
-        ))}
+      <>
+        {lookbook.length >= 1 && (
+          <S.ListWrap>
+            {lookbook?.map((outfit) => (
+              <S.LookbookCard
+                key={outfit.memberOutfitId}
+                onClick={handleLookbookItemClick(outfit)}
+              >
+                <S.LookbookContent>
+                  <S.TopClothes>
+                    <ClothesIcon
+                      name={outfit.topType}
+                      color={outfit.topColor}
+                    />
+                  </S.TopClothes>
+                  <ClothesIcon
+                    name={outfit.bottomType}
+                    color={outfit.bottomColor}
+                  />
 
-        {(!data || data.length <= 3) && (
-          <S.LookbookCard $content='add' onClick={handleLookbookItemClick()}>
-            <S.IconWrap>
-              <PlusIcon />
-            </S.IconWrap>
-            <span>추가하기</span>
-          </S.LookbookCard>
+                  <S.ChipWrap>
+                    <Chip label={outfit.topType} size='small' />
+                    <Chip label={outfit.bottomType} size='small' />
+                  </S.ChipWrap>
+                </S.LookbookContent>
+              </S.LookbookCard>
+            ))}
+
+            {lookbook.length <= 3 && (
+              <S.AddCard onClick={handleLookbookItemClick()}>
+                <S.AddContent>
+                  <PlusIcon />
+                  <S.AddText>추가하기</S.AddText>
+                </S.AddContent>
+              </S.AddCard>
+            )}
+          </S.ListWrap>
         )}
-      </S.LookbookList>
+
+        {lookbook.length === 0 && (
+          <S.EmptyWrap>
+            <S.EmptyContent>
+              <S.TextWrap>
+                <strong>나의 옷장에 기온을 담아보세요</strong>
+                <p>
+                  옷차림 고민할 필요 없이 <br />
+                  날씨에 맞는 나의 옷장을 확인하세요!
+                </p>
+                <S.BackgroundClothes>
+                  <S.TopClothes>
+                    <ClothesIcon name={'트렌치 코트'} color={'#F9FAFB'} />
+                  </S.TopClothes>
+                  <ClothesIcon name={'청바지'} color={'#F9FAFB'} />
+                </S.BackgroundClothes>
+              </S.TextWrap>
+
+              <Button onClick={handleLookbookItemClick()}>룩북 추가하기</Button>
+            </S.EmptyContent>
+          </S.EmptyWrap>
+        )}
+      </>
     );
   }
 );
