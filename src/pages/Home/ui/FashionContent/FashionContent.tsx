@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { HomeLookbookList, RecommendClothesList } from '@/widgets/clothes';
@@ -11,11 +11,12 @@ import {
   WeatherTypeNumber,
 } from '@/entities/weather';
 
+import { useSnackbar } from '@/shared/lib';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
+import { ToggleButton, ToggleButtonGroup } from '@/shared/ui';
 
 import { HomeTab } from '../../model/types';
 
-import ConditionButtonGroup from './ConditionButtonGroup/ConditionButtonGroup';
 import { S } from './FashionContent.style';
 import { Headline } from './Headline/Headline';
 
@@ -46,19 +47,31 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
         tempParamOption
       )
     );
+  const snackbar = useSnackbar();
+
   const weatherName = getWeatherName(weather.extremumTmp);
   const adjustedWeatherName = adjustWeatherName(
     temperatureCondition,
     weatherName
   );
 
-  const handleTemperatureConditionChange = useCallback(
-    (_e: React.MouseEvent<HTMLElement>, condition: TemperatureCondition) => {
-      if (!condition) return;
-      setTemperatureCondition(condition);
-    },
-    []
-  );
+  const handleTemperatureConditionChange = (
+    _e: React.MouseEvent<HTMLElement>,
+    clickedCondition: TemperatureCondition
+  ) => {
+    if (!clickedCondition) return;
+    if (clickedCondition === 'COOL' && weather.extremumTmp >= 28) {
+      snackbar.open('여기서 더 벗으시면 안돼요');
+      return;
+    }
+
+    if (clickedCondition === 'WARM' && weather.extremumTmp < 5) {
+      snackbar.open('여기서 더 껴입을 수 없어요');
+      return;
+    }
+
+    setTemperatureCondition(clickedCondition);
+  };
 
   return (
     <S.Section>
@@ -88,11 +101,29 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
         </>
       )}
 
-      <ConditionButtonGroup
-        TemperatureCondition={temperatureCondition}
-        extremumTmp={weather.extremumTmp}
-        handleTemperatureConditionChange={handleTemperatureConditionChange}
-      />
+      <S.ButtonWrap>
+        <ToggleButtonGroup
+          fullWidth
+          exclusive
+          value={temperatureCondition}
+          onChange={handleTemperatureConditionChange}
+          size='large'
+        >
+          <ToggleButton
+            value={COOL}
+            clickableDisabled={weather.extremumTmp >= 28}
+          >
+            시원하게
+          </ToggleButton>
+          <ToggleButton value={NORMAL}>적당하게</ToggleButton>
+          <ToggleButton
+            value={WARM}
+            clickableDisabled={weather.extremumTmp < 5}
+          >
+            따뜻하게
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </S.ButtonWrap>
     </S.Section>
   );
 });
