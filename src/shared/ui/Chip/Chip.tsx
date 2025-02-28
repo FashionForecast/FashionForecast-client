@@ -44,12 +44,20 @@ const BaseChip = styled(MuiChip, forwardPropOption)<{
     isDarkColors($color) ? darkColorMap[$color] : $color};
   border-radius: ${({ theme }) => theme.borderRadius[1]};
 
+  &.MuiChip-sizeMedium {
+    padding: 0 8px;
+  }
+
+  &.MuiChip-sizeSmall {
+    padding: 0 4px;
+  }
+
   &.MuiChip-outlined {
     background-color: transparent;
     border-color: ${({ $color }) => $color};
   }
 
   & span.MuiChip-label {
-    padding: 1px ${({ theme }) => theme.padding[1]};
+    padding: 2px 0;
   }
 `;
