@@ -31,7 +31,7 @@ const Options = new Map([
 ]);
 
 type FashionContentProps = {
-  tab: Exclude<HomeTab, '날씨'>;
+  tab: Exclude<HomeTab, 'weather'>;
   weather: WeatherDto;
 };
 
@@ -77,7 +77,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
     <S.Section>
       <Headline weatherName={weatherName} />
 
-      {tab === '옷' && (
+      {tab === 'clothes' && (
         <RecommendClothesList
           weather={{
             extremumTmp: weather.extremumTmp,
@@ -91,7 +91,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
         />
       )}
 
-      {tab === '룩북' && member && (
+      {tab === 'lookbook' && member && (
         <>
           <HomeLookbookList
             extremumTemperature={weather.extremumTmp}
