@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
-import { WeatherType } from '@/shared/types';
+import { WeatherTypeNumber } from '@/entities/weather';
 
-const LookbookCardWrap = styled.li<{ $color: WeatherType }>`
+import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
+
+const LookbookCardWrap = styled.li<{ $color: WeatherTypeNumber }>`
   padding: 12px 16px;
   margin: 0 16px 8px;
   background-color: ${({ $color }) => LOOKBOOK_WEATHER_TYPE[$color].color};

@@ -11,8 +11,14 @@ type MuiListItemButtonProps = React.ComponentProps<typeof MuiListItemButton>;
 
 type CustomColor = 'white' | 'grey';
 type CustomDirection = 'horizontal' | 'vertical';
-type IconSlotsHorizontal = { left?: React.ReactNode; right?: React.ReactNode };
-type IconSlotsVertical = { top?: React.ReactNode; bottom?: React.ReactNode };
+type LeftAndRightIconPosition = {
+  left?: React.ReactNode;
+  right?: React.ReactNode;
+};
+type TopAndBottomIconPosition = {
+  top?: React.ReactNode;
+  bottom?: React.ReactNode;
+};
 
 type CustomBaseProps = {
   label: string;
@@ -22,29 +28,37 @@ type CustomBaseProps = {
 type HorizontalProps = {
   direction?: 'horizontal';
   description?: string;
-  iconSlots?: IconSlotsHorizontal;
+  iconPosition?: LeftAndRightIconPosition;
 };
 
 type VerticalProps = {
   direction?: 'vertical';
   description?: never;
-  iconSlots?: IconSlotsVertical;
+  iconPosition?: TopAndBottomIconPosition;
 };
 
 type CustomListItemProps = MuiListItemButtonProps &
   CustomBaseProps &
   (HorizontalProps | VerticalProps);
 
+/**
+ * - label - 텍스트
+ * - description - 텍스트 부연 설명
+ * - color - 색상
+ * - direction - 콘텐츠의 방향
+ * - iconPosition - 아이콘 위치
+ * - 이외의 props - [MuiListItemButton](https://mui.com/material-ui/api/list-item-button/)
+ */
 export const ListItemButton = ({
-  direction = 'horizontal',
   label,
   description,
   color = 'white',
-  iconSlots = {},
+  direction = 'horizontal',
+  iconPosition = {},
   ...rest
 }: CustomListItemProps) => {
-  const { left, right } = iconSlots as IconSlotsHorizontal;
-  const { top, bottom } = iconSlots as IconSlotsVertical;
+  const { left, right } = iconPosition as LeftAndRightIconPosition;
+  const { top, bottom } = iconPosition as TopAndBottomIconPosition;
 
   return (
     <BaseListItem

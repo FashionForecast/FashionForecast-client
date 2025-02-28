@@ -1,17 +1,16 @@
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { TempCondition } from '@/entities/member/model/types';
+import { TemperatureCondition, WeatherTypeNumber } from '@/entities/weather';
 
 import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
-import { WeatherType } from '@/shared/types';
 
 import { LocationState } from '../ui/Page/UserLookbookCreatePage';
 
 import { S } from './WeatherHeadline.style';
 
 type WeatherHeadlineProps = {
-  weatherType: WeatherType;
+  weatherType: WeatherTypeNumber;
 };
 
 const WeatherHeadline = ({ weatherType }: WeatherHeadlineProps) => {
@@ -33,7 +32,10 @@ const WeatherHeadline = ({ weatherType }: WeatherHeadlineProps) => {
 
 export default memo(WeatherHeadline);
 
-function getStandardMark(weatherType: WeatherType, tempOption?: TempCondition) {
+function getStandardMark(
+  weatherType: WeatherTypeNumber,
+  tempOption?: TemperatureCondition
+) {
   if (!tempOption || tempOption === 'NORMAL') return;
 
   let type = Number(weatherType);
@@ -48,6 +50,6 @@ function getStandardMark(weatherType: WeatherType, tempOption?: TempCondition) {
   }
 
   return `${
-    LOOKBOOK_WEATHER_TYPE[String(type) as WeatherType].title
+    LOOKBOOK_WEATHER_TYPE[String(type) as WeatherTypeNumber].title
   }일 때 ${text} 옷`;
 }

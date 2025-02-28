@@ -51,10 +51,12 @@ export const colors = {
   },
   yellow: {
     100: '#FFEF9B',
+    200: 'F2D41B',
     300: '#D7BD1D',
   },
   lime: {
     100: '#EFF2B0',
+    200: 'CAE02A',
     300: '#B3C725',
   },
   lightBlue: {

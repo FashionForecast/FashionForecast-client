@@ -5,7 +5,6 @@ export {
   MAN_TOP_COLTHES,
   MAN_BOTTOM_CLOTHES,
   WOMAN_BOTTOM_CLOTHES,
-  clothesIconNameList,
 } from './clothes';
 export { COLOR_PALETTES } from './colorPalettes';
 export { LOOKBOOK_WEATHER_TYPE, DEFAULT_CLOTHES_BY_WEATHER } from './lookbook';

@@ -6,7 +6,7 @@ import { KSTDate } from '@/shared/lib';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { CheckIcon } from '@/shared/ui';
 
-import { SelectedTime } from '../ui/Page/HomePage';
+import { SelectedTime } from '../ui/HomePage/HomePage';
 
 import TimeCarousel from './TimeCarousel/TimeCarousel';
 import { C, S } from './TimeSelector.style';

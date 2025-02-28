@@ -1,8 +1,8 @@
 import { useKeenSlider } from 'keen-slider/react';
 import { memo, useState } from 'react';
 
-import { ClothesIconNames, ClothesType } from '@/shared/types/clothes';
-import { ClothesIcon } from '@/shared/ui';
+import { ClothesIconNames, ClothesType } from '@/entities/clothes';
+import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 
 import { S } from './ClothesSlider.style';
 

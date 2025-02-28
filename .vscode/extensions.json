@@ -1,3 +1,9 @@
 {
-  "recommendations": ["stylelint.vscode-stylelint"]
+  "recommendations": [
+    "stylelint.vscode-stylelint",
+    "styled-components.vscode-styled-components",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker"
+  ]
 }

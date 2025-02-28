@@ -1,8 +1,9 @@
+import 면바지 from '@/entities/clothes/ui/icons/bottom/면바지';
+import 청바지 from '@/entities/clothes/ui/icons/bottom/청바지';
+import 반팔티 from '@/entities/clothes/ui/icons/top/반팔티';
+import 코트 from '@/entities/clothes/ui/icons/top/코트';
+
 import { HeadHelmet, KakaoIcon, GoogleIcon } from '@/shared/ui';
-import 바지 from '@/shared/ui/icon/clothes/바지';
-import 반팔티 from '@/shared/ui/icon/clothes/반팔티';
-import 청바지 from '@/shared/ui/icon/clothes/청바지';
-import 코트 from '@/shared/ui/icon/clothes/코트';
 
 import LoginFooter from '../../LoginFooter/LoginFooter';
 import LoginHeader from '../../LoginHeader/LoginHeader';
@@ -45,7 +46,7 @@ export const LoginPage = () => {
               <반팔티 color='#FB9FE1' />
             </S.ImageWrap>
             <S.ImageWrap>
-              <바지 color='#FFEF9B' />
+              <면바지 color='#FFEF9B' />
               <청바지 color='#2160A9' />
             </S.ImageWrap>
           </S.ImageSection>

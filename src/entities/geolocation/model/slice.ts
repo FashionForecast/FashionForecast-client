@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { UserCurrentRegion } from '@/shared/types/region';
 
@@ -7,7 +7,7 @@ type geolocationState = {
   status: 'pending' | 'available' | 'error';
 };
 
-const slice: Slice<geolocationState> = createSlice({
+const slice = createSlice({
   name: 'geolocation',
   initialState: {
     value: null,
@@ -26,5 +26,5 @@ const slice: Slice<geolocationState> = createSlice({
   },
 });
 
-export const goelocationActions = slice.actions;
+export const geolocationActions = slice.actions;
 export const geolocationSlice = slice.reducer;

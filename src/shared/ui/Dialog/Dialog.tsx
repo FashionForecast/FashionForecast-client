@@ -14,6 +14,14 @@ type CustomDialogProps = MuiDialogProps & {
   actionsSlot?: React.ReactNode;
 };
 
+/**
+ * - open - 렌더링 여부
+ * - onClose - 닫기 요청 시 실행되는 callback 함수
+ * - titleSlot - 상단 타이틀 슬롯
+ * - contentSlot - 중앙 콘텐츠 슬롯
+ * - actionsSlot - 하단 액션 슬롯
+ * - 이외의 props - [MuiDialog](https://mui.com/material-ui/api/dialog/)
+ */
 export const Dialog = ({
   titleSlot,
   contentSlot,

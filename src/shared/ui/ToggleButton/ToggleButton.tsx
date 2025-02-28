@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import {
+  css,
   ToggleButton as MuiToggleButton,
   ToggleButtonOwnProps,
 } from '@mui/material';
@@ -16,24 +17,65 @@ type CustomColor = 'neutral' | 'primary' | 'blue' | 'red';
 
 type CustomToggleButtonProps = Omit<ToggleButtonOwnProps, 'color'> & {
   color?: CustomColor | ExcludedColor;
+  clickableDisabled?: boolean;
 };
 
 const backgroundColorMap = getBackgroundColorMap();
 
+/**
+ * - value - ToggleButton value
+ * - color - 색상
+ * - selected - 선택 상태
+ * - size - 크기
+ * - clickableDisabled - 클릭 가능한 disabled 버튼
+ * - 이외의 props - [MuiToggleButton](https://mui.com/material-ui/api/toggle-button/)
+ */
 export const ToggleButton = ({
   color = 'neutral',
+  clickableDisabled = false,
+  children,
   ...rest
 }: CustomToggleButtonProps) => {
-  return <BaseToggleButton $color={color} {...rest} />;
+  return (
+    <BaseToggleButton
+      $color={color}
+      $clickableDisabled={clickableDisabled}
+      {...rest}
+    >
+      {children}
+    </BaseToggleButton>
+  );
 };
 
 const BaseToggleButton = styled(MuiToggleButton, forwardPropOption)<{
   $color: CustomColor;
+  $clickableDisabled: boolean;
 }>`
   color: ${({ theme }) => theme.colors.text.primary};
   background-color: ${({ $color }) => backgroundColorMap[$color]['enabled']};
   border: 0;
   border-radius: ${({ theme }) => theme.borderRadius[2]};
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: ${({ $color }) => backgroundColorMap[$color]['hover']};
+    }
+  }
+
+  ${({ $clickableDisabled, theme }) =>
+    $clickableDisabled &&
+    css`
+      color: ${theme.colors.text.disabled};
+      cursor: auto;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      & span {
+        display: none;
+      }
+    `}
 
   &.MuiToggleButton-sizeLarge {
     ${({ theme }) => theme.typo['body-1']}
@@ -67,12 +109,6 @@ const BaseToggleButton = styled(MuiToggleButton, forwardPropOption)<{
         background-color: ${({ $color }) =>
           backgroundColorMap[$color]['hover']};
       }
-    }
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: ${({ $color }) => backgroundColorMap[$color]['hover']};
     }
   }
 `;

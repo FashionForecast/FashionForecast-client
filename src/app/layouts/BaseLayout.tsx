@@ -8,7 +8,7 @@ import { PageFallback } from '@/widgets/PageFallback';
 
 import { guestLogin, storeAccessToken } from '@/entities/auth';
 import { useGeolocation } from '@/entities/geolocation';
-import { goelocationActions } from '@/entities/geolocation/model/slice';
+import { geolocationActions } from '@/entities/geolocation/model/slice';
 import { storeMember } from '@/entities/member';
 
 import { GUEST_UUID, LOGIN, MY_REGION } from '@/shared/consts';
@@ -46,7 +46,7 @@ export const BaseLayout = () => {
   // 직접 선택한 지역이 없다면 GPS 지역을 현재 지역으로 설정
   useEffect(() => {
     if (!navigator.geolocation) {
-      dispatch(goelocationActions.updateStatus('error'));
+      dispatch(geolocationActions.updateStatus('error'));
       updateDefaultRegion();
       return;
     }
@@ -63,7 +63,7 @@ export const BaseLayout = () => {
     const basicRegion = localRegion && JSON.parse(localRegion);
 
     if (userRegion || basicRegion) {
-      dispatch(goelocationActions.updateGeolocation(userRegion || basicRegion));
+      dispatch(geolocationActions.updateGeolocation(userRegion || basicRegion));
       return;
     }
 

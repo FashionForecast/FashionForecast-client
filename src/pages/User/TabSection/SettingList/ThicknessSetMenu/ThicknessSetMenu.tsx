@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 
 import { setMemberClothesThickness, storeMember } from '@/entities/member';
-import { TempCondition } from '@/entities/member/model/types';
+import { TemperatureCondition } from '@/entities/weather';
 
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
@@ -22,7 +22,7 @@ const ThicknessSetMenu = () => {
   const user = useAppSelector((state) => state.member.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
-  const [option, setOption] = useState<TempCondition>(
+  const [option, setOption] = useState<TemperatureCondition>(
     user?.tempCondition ? user.tempCondition : 'NORMAL'
   );
   const prevOption = useRef(option);
@@ -45,7 +45,7 @@ const ThicknessSetMenu = () => {
   };
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOption(event.target.value as TempCondition);
+    setOption(event.target.value as TemperatureCondition);
   };
 
   const handleSaveButtonClick = () => {
@@ -65,7 +65,7 @@ const ThicknessSetMenu = () => {
     <>
       <MenuItem
         title='기본 옷차림 두께'
-        value={tempConditionText[option || 'NORMAL']}
+        value={TemperatureConditionText[option || 'NORMAL']}
         icon={<TopClothesIcon />}
         handleClick={handleClickOpen}
       />
@@ -81,17 +81,17 @@ const ThicknessSetMenu = () => {
               <CustomFormControlLabel
                 value={'COOL'}
                 control={<CustomRadio />}
-                label={tempConditionText.COOL}
+                label={TemperatureConditionText.COOL}
               />
               <CustomFormControlLabel
                 value='NORMAL'
                 control={<CustomRadio />}
-                label={tempConditionText.NORMAL}
+                label={TemperatureConditionText.NORMAL}
               />
               <CustomFormControlLabel
                 value='WARM'
                 control={<CustomRadio />}
-                label={tempConditionText.WARM}
+                label={TemperatureConditionText.WARM}
               />
             </RadioGroup>
           </FormControl>
@@ -107,44 +107,13 @@ const ThicknessSetMenu = () => {
           </>
         }
       />
-      {/* <DialogTitle>기본 옷차림 두께</DialogTitle>
-        <DialogContent>
-          <FormControl>
-            <RadioGroup value={option} onChange={handleOptionChange}>
-              <CustomFormControlLabel
-                value={'COOL'}
-                control={<CustomRadio />}
-                label={tempConditionText.COOL}
-              />
-              <CustomFormControlLabel
-                value='NORMAL'
-                control={<CustomRadio />}
-                label={tempConditionText.NORMAL}
-              />
-              <CustomFormControlLabel
-                value='WARM'
-                control={<CustomRadio />}
-                label={tempConditionText.WARM}
-              />
-            </RadioGroup>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button color='inherit' variant='outlined' onClick={handleClose}>
-            취소
-          </Button>
-          <Button disabled={isLoading} onClick={handleSaveButtonClick}>
-            저장
-          </Button>
-        </DialogActions>
-      </Dialog> */}
     </>
   );
 };
 
 export default ThicknessSetMenu;
 
-const tempConditionText = {
+const TemperatureConditionText = {
   COOL: '시원하게',
   NORMAL: '적당하게',
   WARM: '따뜻하게',

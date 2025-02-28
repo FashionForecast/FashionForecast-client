@@ -14,9 +14,10 @@ declare global {
 
   /** redux type 정의 */
   declare type RootState = ReturnType<
-    typeof import('../src/app/stores').store.getState
+    typeof import('../../app/stores/index').store.getState
   >;
-  declare type AppDispatch = typeof import('../src/app/stores').store.dispatch;
+  declare type AppDispatch =
+    typeof import('../../app/stores/index').store.dispatch;
 }
 
 export {};

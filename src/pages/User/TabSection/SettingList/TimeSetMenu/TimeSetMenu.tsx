@@ -2,7 +2,7 @@ import { RadioGroup } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 
-import { SelectedTime } from '@/pages/Home/ui/Page/HomePage';
+import { SelectedTime } from '@/pages/Home/ui/HomePage/HomePage';
 
 import { setMemberOutingTime, storeMember } from '@/entities/member';
 import { MemberDto } from '@/entities/member/model/types';

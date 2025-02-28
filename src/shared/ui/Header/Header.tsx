@@ -9,6 +9,12 @@ type CustomHeaderProps = AppBarProps & {
   rightSlot?: React.ReactNode;
 };
 
+/**
+ * - leftSlot - 왼쪽 슬롯
+ * - centerTitle - 중앙 타이틀
+ * - rightSlot - 오른쪽 슬롯
+ * - 이외의 props - [MuiAppBar](https://mui.com/material-ui/api/app-bar/)
+ */
 export const Header = ({
   leftSlot,
   centerTitle,

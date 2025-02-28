@@ -1,4 +1,21 @@
-import { RainType, SkyStatus } from '@/shared/types';
+import { WEATHER_TYPE_NAME_MAP } from './../consts/weatherType';
+
+export type WeatherTypeName = keyof typeof WEATHER_TYPE_NAME_MAP;
+export type WeatherTypeNumber = (typeof WEATHER_TYPE_NAME_MAP)[WeatherTypeName];
+
+export type RainType =
+  | 'NONE'
+  | 'RAIN'
+  | 'RAIN_AND_SNOW'
+  | 'SNOW'
+  | 'SHOWER'
+  | 'RAIN_DROP'
+  | 'RAIN_AND_SNOW_FLURRIES'
+  | 'SNOW_FLURRIES';
+
+export type SkyStatus = 'CLEAR' | 'PARTLY_CLOUDY' | 'CLOUDY';
+
+export type TemperatureCondition = 'COOL' | 'NORMAL' | 'WARM';
 
 export type WeatherDto = {
   season: string;
