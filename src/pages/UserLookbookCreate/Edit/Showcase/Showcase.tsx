@@ -6,7 +6,9 @@ import {
   LookbookSelect,
 } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
 
-import { ClothesType, MemberLookbookDto } from '@/entities/clothes/model/types';
+import { MemberLookbookDto } from '@/widgets/clothes';
+
+import { ClothesType } from '@/entities/clothes/model/types';
 import { MemberDto } from '@/entities/member/model/types';
 import { WeatherTypeNumber } from '@/entities/weather';
 

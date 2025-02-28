@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { MemberLookbookDto } from '@/widgets/clothes';
+
 import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 import { WeatherTypeNumber } from '@/entities/weather';
 
