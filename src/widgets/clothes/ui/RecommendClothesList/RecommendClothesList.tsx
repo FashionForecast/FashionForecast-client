@@ -216,7 +216,7 @@ const CLOTHES_THUMBNAIL: Record<
     TOP: '패딩',
     BOTTOM: '기모 바지',
     ETC: (names) => {
-      if (names.length <= 1) return '목도리';
+      if (names.length <= 2) return '목도리';
       if (names.includes('접이식 우산')) return '목도리접이식우산';
       if (names.includes('장우산')) return '목도리장우산';
     },
