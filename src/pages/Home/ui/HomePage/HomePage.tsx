@@ -79,7 +79,7 @@ export const HomePage = () => {
     if (isValidHomeTab) {
       setTab(tabParameter as HomeTab);
     }
-  }, []);
+  }, [searchParams]);
 
   return (
     <>
