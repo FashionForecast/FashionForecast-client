@@ -1,13 +1,13 @@
 import { GoBackButton, Header } from '@/shared/ui';
 
 type TimeHeaderProps = {
-  closeTimeSelector: () => void;
+  onClose: () => void;
 };
 
-export const TimeHeader = ({ closeTimeSelector }: TimeHeaderProps) => {
+export const TimeHeader = ({ onClose }: TimeHeaderProps) => {
   return (
     <Header
-      leftSlot={<GoBackButton onClick={closeTimeSelector} />}
+      leftSlot={<GoBackButton onClick={onClose} />}
       centerTitle='외출시간 고르기'
     />
   );

@@ -18,7 +18,7 @@ type TimeSelectorProps = {
   setTimes: React.Dispatch<React.SetStateAction<Time[]>>;
   day: DayButtonType;
   setDay: React.Dispatch<React.SetStateAction<DayButtonType>>;
-  closeTimeSelector: () => void;
+  onClose: () => void;
   onSubmit: () => void;
 };
 
@@ -28,7 +28,7 @@ export const TimeSelector = ({
   setTimes,
   day,
   setDay,
-  closeTimeSelector,
+  onClose,
   onSubmit,
 }: TimeSelectorProps) => {
   const [startTime, setStartTime] = useState<number>(0);
@@ -159,7 +159,7 @@ export const TimeSelector = ({
 
   return (
     <S.TimeSelectorWrap $isOpen={isOpen}>
-      <TimeHeader closeTimeSelector={closeTimeSelector} />
+      <TimeHeader onClose={onClose} />
       <S.Content>
         <S.DayWrap>
           <S.Heading>날짜</S.Heading>
