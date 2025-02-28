@@ -13,6 +13,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Button, Chip, PlusIcon } from '@/shared/ui';
 
 import { getMemberLookbook } from '../../api/lookbook';
+import { CLOTHES_THUMBNAIL } from '../../model/consts';
 import {
   MemberLookbookDto,
   WeatherForRecommendClothes,
@@ -114,11 +115,18 @@ export const HomeLookbookList = memo(
                   옷차림 고민할 필요 없이 <br />
                   날씨에 맞는 나의 옷장을 확인하세요!
                 </p>
+
                 <S.BackgroundClothes>
                   <S.TopClothes>
-                    <ClothesIcon name={'트렌치 코트'} color={'#F9FAFB'} />
+                    <ClothesIcon
+                      name={CLOTHES_THUMBNAIL[adjustedWeatherName].TOP}
+                      color={'#F9FAFB'}
+                    />
                   </S.TopClothes>
-                  <ClothesIcon name={'청바지'} color={'#F9FAFB'} />
+                  <ClothesIcon
+                    name={CLOTHES_THUMBNAIL[adjustedWeatherName].BOTTOM}
+                    color={'#F9FAFB'}
+                  />
                 </S.BackgroundClothes>
               </S.TextWrap>
 
