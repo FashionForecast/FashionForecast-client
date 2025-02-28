@@ -14,22 +14,19 @@ import { Button, Chip, PlusIcon } from '@/shared/ui';
 
 import { getMemberLookbook } from '../../api/lookbook';
 import { CLOTHES_THUMBNAIL } from '../../model/consts';
-import {
-  MemberLookbookDto,
-  WeatherForRecommendClothes,
-} from '../../model/types';
+import { MemberLookbookDto } from '../../model/types';
 
 import { S } from './HomeLookbookList.style';
 
 type HomeLookbookListProps = {
-  weather: WeatherForRecommendClothes;
+  extremumTemperature: number;
   adjustedWeatherName: WeatherTypeName;
   temperatureCondition: TemperatureCondition;
 };
 
 export const HomeLookbookList = memo(
   ({
-    weather,
+    extremumTemperature,
     adjustedWeatherName,
     temperatureCondition,
   }: HomeLookbookListProps) => {
@@ -40,12 +37,12 @@ export const HomeLookbookList = memo(
         'user',
         user?.socialId,
         'lookbook',
-        weather,
+        extremumTemperature,
         temperatureCondition,
       ],
       queryFn: () =>
         getMemberLookbook(
-          weather.extremumTmp,
+          extremumTemperature,
           temperatureCondition,
           accessToken
         ),

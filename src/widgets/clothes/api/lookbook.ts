@@ -2,15 +2,15 @@ import { TemperatureCondition } from '@/entities/weather';
 
 import { fetchAPI } from '@/shared/lib';
 
-import { MemberLookbookDto, WeatherForRecommendClothes } from '../model/types';
+import { MemberLookbookDto } from '../model/types';
 
 export async function getMemberLookbook(
-  temperature: WeatherForRecommendClothes['extremumTmp'],
+  extremumTemperature: number,
   temperatureCondition: TemperatureCondition,
   accessToken: string | null
 ) {
   const params = {
-    extremumTmp: String(temperature),
+    extremumTmp: String(extremumTemperature),
     tempCondition: temperatureCondition,
   };
   const queryString = new URLSearchParams(params).toString();
