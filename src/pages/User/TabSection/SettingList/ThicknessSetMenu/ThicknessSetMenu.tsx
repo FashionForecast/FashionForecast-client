@@ -23,7 +23,7 @@ const ThicknessSetMenu = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const dispatch = useAppDispatch();
   const [option, setOption] = useState<TemperatureCondition>(
-    user?.TemperatureCondition ? user.TemperatureCondition : 'NORMAL'
+    user?.tempCondition ? user.tempCondition : 'NORMAL'
   );
   const prevOption = useRef(option);
   const [open, setOpen] = useState(false);
@@ -53,7 +53,7 @@ const ThicknessSetMenu = () => {
     mutate(undefined, {
       onSuccess: async () => {
         const user = await storeMember(accessToken, dispatch);
-        setOption(user.TemperatureCondition);
+        setOption(user.tempCondition);
         setOpen(false);
       },
       onError: () => snackbar.open('옷차림 두께 설정에 실패했어요.'),
@@ -107,37 +107,6 @@ const ThicknessSetMenu = () => {
           </>
         }
       />
-      {/* <DialogTitle>기본 옷차림 두께</DialogTitle>
-        <DialogContent>
-          <FormControl>
-            <RadioGroup value={option} onChange={handleOptionChange}>
-              <CustomFormControlLabel
-                value={'COOL'}
-                control={<CustomRadio />}
-                label={TemperatureConditionText.COOL}
-              />
-              <CustomFormControlLabel
-                value='NORMAL'
-                control={<CustomRadio />}
-                label={TemperatureConditionText.NORMAL}
-              />
-              <CustomFormControlLabel
-                value='WARM'
-                control={<CustomRadio />}
-                label={TemperatureConditionText.WARM}
-              />
-            </RadioGroup>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button color='inherit' variant='outlined' onClick={handleClose}>
-            취소
-          </Button>
-          <Button disabled={isLoading} onClick={handleSaveButtonClick}>
-            저장
-          </Button>
-        </DialogActions>
-      </Dialog> */}
     </>
   );
 };

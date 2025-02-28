@@ -74,6 +74,6 @@ export async function setMemberClothesThickness(
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ TemperatureCondition: option }),
+    body: JSON.stringify({ tempCondition: option }),
   });
 }

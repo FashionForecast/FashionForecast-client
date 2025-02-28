@@ -43,10 +43,11 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
     useState<TemperatureCondition>(() =>
       initializeTemperatureCondition(
         weather.extremumTmp,
-        member?.TemperatureCondition,
+        member?.tempCondition,
         tempParamOption
       )
     );
+
   const snackbar = useSnackbar();
 
   const weatherName = getWeatherName(weather.extremumTmp);

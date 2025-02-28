@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
-import { MemberLookbookDto } from '@/entities/clothes/model/types';
+import { MemberLookbookDto } from '@/widgets/clothes';
+
 import { TemperatureCondition, WeatherTypeNumber } from '@/entities/weather';
 
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';

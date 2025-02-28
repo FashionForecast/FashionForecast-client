@@ -8,7 +8,7 @@ export type MemberDto = {
   region: 'DEFAULT' | string;
   outingStartTime: 'DEFAULT' | string;
   outingEndTime: 'DEFAULT' | string;
-  TemperatureCondition: TemperatureCondition;
+  tempCondition: TemperatureCondition;
   gender: Gender | null;
   imageUrl: string | null;
 };
