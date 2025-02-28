@@ -56,7 +56,7 @@ export const HomeLookbookList = memo(
       navigate(`/user/lookbook/create?type=${weatherNumber}`, {
         state: {
           outfit,
-          referrer: `/?tab=lookbook&option=${temperatureCondition}`,
+          referrer: `/?tab=lookbook&temperatureCondition=${temperatureCondition}`,
           tempOption: temperatureCondition,
         },
       });
