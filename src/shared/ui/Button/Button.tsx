@@ -57,8 +57,8 @@ const BaseButton = styled(MuiButton)`
     background-color: ${({ theme }) => theme.colors.secondary.main};
     border: none;
 
-    & .MuiTouchRipple-child {
-      background-color: ${({ theme }) => theme.colors.white};
+    &.MuiButton-colorPrimary {
+      color: ${({ theme }) => theme.colors.text.primary};
     }
 
     &.Mui-disabled {
@@ -70,6 +70,10 @@ const BaseButton = styled(MuiButton)`
       &:hover {
         background-color: ${({ theme }) => theme.colors.secondary.dark};
       }
+    }
+
+    & .MuiTouchRipple-child {
+      background-color: ${({ theme }) => theme.colors.white};
     }
   }
 
