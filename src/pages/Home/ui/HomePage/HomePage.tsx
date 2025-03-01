@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { FetchError } from '@/widgets/error';
+import { TimeBottomSheet } from '@/widgets/time';
 import { DayButtonType, Time, TimeSelector } from '@/widgets/TimeSelector/';
 
 import { getWeather } from '@/entities/weather/api/weather';
@@ -113,12 +114,14 @@ export const HomePage = () => {
             )}
 
             {tab === 'weather' && <WeatherInformation weather={weatherData} />}
-
-            <button type='button' onClick={handleTimeSelectorToggle}>
-              외출시간 변경하기
-            </button>
           </>
         )}
+
+        <TimeBottomSheet
+          times={times}
+          day={day}
+          onTimeSelectorToggle={handleTimeSelectorToggle}
+        />
 
         <TimeSelector
           isOpen={isTimeSelectorOpen}
