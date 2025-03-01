@@ -152,6 +152,7 @@ const ETC_THUMBNAIL: Record<
     if (names.includes('접이식 우산')) return '겉옷접이식우산';
     if (names.includes('장우산')) return '겉옷장우산';
   },
+
   hot: (names) => {
     if (names.length <= 1) return names[0];
     if (names.includes('접이식 우산')) return '겉옷접이식우산';
@@ -179,17 +180,18 @@ const ETC_THUMBNAIL: Record<
   chilly: (names) => {
     if (names.includes('접이식 우산')) return '접이식 우산';
     if (names.includes('장우산')) return '장우산';
+    return names[0];
   },
 
   cold: (names) => {
-    if (names.length <= 1) return '히트텍';
     if (names.includes('접이식 우산')) return '히트텍접이식우산';
     if (names.includes('장우산')) return '히트텍장우산';
+    return '히트텍';
   },
 
   frigid: (names) => {
-    if (names.length <= 2) return '목도리';
     if (names.includes('접이식 우산')) return '목도리접이식우산';
     if (names.includes('장우산')) return '목도리장우산';
+    return '목도리';
   },
 };
