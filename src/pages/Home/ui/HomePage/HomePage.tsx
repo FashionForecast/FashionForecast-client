@@ -79,9 +79,10 @@ export const HomePage = () => {
   /**  tab 쿼리 파라미터가 유효하면 해당 값으로 tab 설정 */
   useEffect(() => {
     const tabParameter = searchParams.get('tab');
-    const isValidHomeTab = HOME_TABS.find((v) => v.value === tabParameter);
+    const isValidTab =
+      tabParameter && HOME_TABS.some((v) => v.value === tabParameter);
 
-    if (isValidHomeTab) {
+    if (isValidTab) {
       setTab(tabParameter as HomeTab);
     }
   }, [searchParams]);
