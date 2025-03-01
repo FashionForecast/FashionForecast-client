@@ -65,9 +65,14 @@ export const HomePage = () => {
   };
 
   const handleTimeSelectorToggle = () => {
+    const params = new URLSearchParams(searchParams);
     const isOpen = !isTimeSelectorOpen;
-    setIsTimeSelectorOpen(isOpen);
 
+    if (isOpen) params.set('time', 'open');
+    else params.delete('time');
+
+    setIsTimeSelectorOpen(isOpen);
+    setSearchParams(params);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   };
 
@@ -79,6 +84,11 @@ export const HomePage = () => {
     if (isValidHomeTab) {
       setTab(tabParameter as HomeTab);
     }
+  }, [searchParams]);
+
+  /** time 쿼리 파라미터가 'open'이면, TimeSelector가 열림 */
+  useEffect(() => {
+    setIsTimeSelectorOpen(searchParams.get('time') === 'open');
   }, [searchParams]);
 
   return (
