@@ -5,11 +5,11 @@ import { theme } from '@/shared/styles';
 
 import { DAY_BUTTONS } from '../../model/consts';
 import { DayButtonType, DragRangeStatus, Time } from '../../model/types';
-import { HourSections } from '../HourSections/HourSections';
-import { TimeDivider } from '../TimeDivider/TimeDivider';
-import { TimeHeader } from '../TimeHeader/TimeHeader';
-import { TimeRanges } from '../TimeRanges/TimeRanges';
 
+import { HourSections } from './HourSections/HourSections';
+import { TimeDivider } from './TimeDivider/TimeDivider';
+import { TimeHeader } from './TimeHeader/TimeHeader';
+import { TimeRanges } from './TimeRanges/TimeRanges';
 import { S, C } from './TimeSelector.style';
 
 type TimeSelectorProps = {

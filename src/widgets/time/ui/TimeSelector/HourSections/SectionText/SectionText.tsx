@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { TIME_COLOR } from '@/widgets/TimeSelector/model/consts';
-import { DragRangeStatus } from '@/widgets/TimeSelector/model/types';
+import { TIME_COLOR } from '@/widgets/time/model/consts';
+import { DragRangeStatus } from '@/widgets/time/model/types';
 
 import { S } from './SectionText.style';
 

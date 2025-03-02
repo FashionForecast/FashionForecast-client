@@ -1,4 +1,4 @@
-import { DragRangeStatus, Time } from '../../model/types';
+import { DragRangeStatus, Time } from '../../../model/types';
 import { TimeDivider } from '../TimeDivider/TimeDivider';
 
 import { TimeRange } from './TimeRange/TimeRange';

@@ -3,8 +3,12 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { FetchError } from '@/widgets/error';
-import { TimeBottomSheet } from '@/widgets/time';
-import { DayButtonType, Time, TimeSelector } from '@/widgets/TimeSelector/';
+import {
+  DayButtonType,
+  Time,
+  TimeBottomSheet,
+  TimeSelector,
+} from '@/widgets/time';
 
 import { getWeather } from '@/entities/weather/api/weather';
 

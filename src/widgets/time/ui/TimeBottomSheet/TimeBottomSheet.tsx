@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { DayButtonType, Time } from '@/widgets/TimeSelector';
-
 import { Button } from '@/shared/ui';
+
+import { DayButtonType, Time } from '../../model/types';
 
 import { S } from './TimeBottomSheet.style';
 

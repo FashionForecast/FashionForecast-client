@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { compactTimeList } from '@/shared/consts/timeList';
 
-import { DragRangeStatus, Time } from '../../model/types';
+import { DragRangeStatus, Time } from '../../../model/types';
 
 import { SectionArea } from './SectionArea/SectionArea';
 import { SectionText } from './SectionText/SectionText';
