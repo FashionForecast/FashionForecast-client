@@ -29,6 +29,11 @@ export const TimeBottomSheet = ({
     setIsCompactRanges((prev) => !prev);
   };
 
+  const handleTimeSelectorToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onTimeSelectorToggle();
+  };
+
   const hasComma = (index: number) => {
     return (
       !isCompactRanges && index >= 1 && index <= formattedRanges.length - 2
@@ -48,7 +53,7 @@ export const TimeBottomSheet = ({
         </S.RangesWrap>
 
         <Button
-          onClick={onTimeSelectorToggle}
+          onClick={handleTimeSelectorToggle}
           size='large'
           variant='outlined'
           fullWidth
