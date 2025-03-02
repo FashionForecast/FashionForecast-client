@@ -17,7 +17,7 @@ export const TimeBottomSheet = ({
   times,
   onTimeSelectorToggle,
 }: TimeBottomSheetProps) => {
-  const [isCompactRanges, setIsCompactRanges] = useState(false);
+  const [isCompactRanges, setIsCompactRanges] = useState(true);
 
   const formattedRanges = getFormattedTimeRanges({
     day,
