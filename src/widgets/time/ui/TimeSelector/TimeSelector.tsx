@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { compactTimeList } from '@/shared/consts/timeList';
 import { theme } from '@/shared/styles';
 
+import { getDefaultTimes } from '../../lib/getDefaultTimes';
 import { DAY_BUTTONS } from '../../model/consts';
 import { DayButtonType, DragRangeStatus, Time } from '../../model/types';
 
@@ -64,21 +65,18 @@ export const TimeSelector = ({
       return;
     }
 
-    if (isDefaultTime) {
-      setTimes([]);
-    }
-
     setIsDragging(true);
     setStartTime(startIndex);
     setFocusingTime(startIndex);
-    setTimes((prev) => [
-      ...prev,
-      {
+    setTimes((prev) => {
+      const newTime = {
         startTime: compactTimeList[startIndex],
         endTime: null,
         indexes: [startIndex],
-      },
-    ]);
+      };
+
+      return isDefaultTime ? [newTime] : [...prev, newTime];
+    });
   };
 
   const handlePointerMove = (pointerTime: number) => {
@@ -118,14 +116,15 @@ export const TimeSelector = ({
     if (timeToRemove === null) return;
 
     if (timeToRemove >= 0) {
-      setTimes((prev) => prev.filter((_, i) => i !== timeToRemove));
+      const filteredTimes = times.filter((_, i) => i !== timeToRemove);
+      setTimes(filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes);
       setTimeToRemove(null);
       setFocusingTime(null);
     }
   };
 
   const handleDeleteButtonClick = () => {
-    setTimes([]);
+    setTimes(getDefaultTimes);
   };
 
   const handleDayButtonClick = (type: DayButtonType) => () => {
@@ -139,23 +138,6 @@ export const TimeSelector = ({
       window.removeEventListener('pointerup', handlePointerEnd);
     };
   }, [handlePointerEnd]);
-
-  useEffect(() => {
-    if (times.length >= 1) return;
-
-    const now = new Date();
-    const startHour = now.getHours();
-    const endHour = (startHour + 8) % 24;
-    const isTomorrow = endHour < startHour;
-    const newTime = {
-      startTime: compactTimeList[startHour],
-      endTime: compactTimeList[endHour],
-      indexes: Array.from({ length: 9 }, (_, i) => (startHour + i) % 24),
-      isTomorrow,
-      isDefault: true,
-    };
-    setTimes([newTime]);
-  }, [setTimes, times]);
 
   return (
     <S.TimeSelectorWrap $isOpen={isOpen}>

@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { FetchError } from '@/widgets/error';
 import {
   DayButtonType,
+  getDefaultTimes,
   Time,
   TimeBottomSheet,
   TimeSelector,
@@ -12,7 +13,6 @@ import {
 
 import { getWeather } from '@/entities/weather/api/weather';
 
-import { paddedTimeList } from '@/shared/consts/timeList';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { HeadHelmet, Tabs } from '@/shared/ui';
 
@@ -42,7 +42,7 @@ export const HomePage = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
   const [tab, setTab] = useState<HomeTab>('clothes');
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
-  const [times, setTimes] = useState<Time[]>(getTimes);
+  const [times, setTimes] = useState<Time[]>(getDefaultTimes);
   const [day, setDay] = useState<DayButtonType>('오늘');
 
   const {
@@ -140,19 +140,3 @@ export const HomePage = () => {
     </>
   );
 };
-
-function getTimes() {
-  const now = new Date();
-  const startHour = now.getHours();
-  const endHour = (startHour + 8) % 24;
-  const isTomorrow = endHour < startHour;
-  const newTime = {
-    startTime: paddedTimeList[startHour],
-    endTime: paddedTimeList[endHour],
-    indexes: Array.from({ length: 9 }, (_, i) => (startHour + i) % 24),
-    isTomorrow,
-    isDefault: true,
-  };
-
-  return [newTime];
-}
