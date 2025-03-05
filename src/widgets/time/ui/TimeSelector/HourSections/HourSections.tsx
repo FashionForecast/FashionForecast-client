@@ -33,9 +33,8 @@ export const HourSections = ({
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const center = 170; // SVG 중심 좌표 (x, y)
   const tommrowIndexes =
-    tomorrowTime?.indexes.slice(
-      tomorrowTime.indexes.findIndex((i) => i === 0)
-    ) || [];
+    tomorrowTime?.ranges.slice(tomorrowTime.ranges.findIndex((i) => i === 0)) ||
+    [];
 
   const handlePointerMoveEvent = (event: React.PointerEvent) => {
     const { clientX, clientY } = event; // 포인터 위치 가져오기

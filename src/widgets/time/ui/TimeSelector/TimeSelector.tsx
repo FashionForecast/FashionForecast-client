@@ -51,7 +51,7 @@ export const TimeSelector = ({
 
     const hasRemoveTarget = () => {
       const target = times.findIndex((time) =>
-        time.indexes.includes(startIndex)
+        time.ranges.includes(startIndex)
       );
 
       if (target >= 0) {
@@ -72,7 +72,7 @@ export const TimeSelector = ({
       const newTime = {
         startTime: compactTimeList[startIndex],
         endTime: null,
-        indexes: [startIndex],
+        ranges: [startIndex],
       };
 
       return isDefaultTime ? [newTime] : [...prev, newTime];
@@ -84,11 +84,11 @@ export const TimeSelector = ({
 
     const isTomorrow = startTime > pointerTime;
 
-    if (isTomorrow) setFocusingTime(Math.min(pointerTime, times[0].indexes[0]));
+    if (isTomorrow) setFocusingTime(Math.min(pointerTime, times[0].ranges[0]));
     else setFocusingTime(pointerTime);
 
     setDragRangeStatus(
-      updateDragRangeStatus(startTime, pointerTime, times[0].indexes[0])
+      updateDragRangeStatus(startTime, pointerTime, times[0].ranges[0])
     );
   };
 
@@ -98,7 +98,7 @@ export const TimeSelector = ({
 
     setIsDragging(false);
     setTimes((prev) => {
-      const firstStartTime = prev[0].indexes[0];
+      const firstStartTime = prev[0].ranges[0];
       const updatedTimes = updateTimes(
         prev,
         focusingTime,
@@ -248,7 +248,7 @@ export const TimeSelector = ({
 };
 
 /** 시간대 배열을 업데이트하는 함수 */
-function updateTimeIndexArray(startIndex: number, endIndex: number) {
+function updateTimeRangesArray(startIndex: number, endIndex: number) {
   const result = [startIndex];
 
   if (startIndex === endIndex) {
@@ -274,20 +274,20 @@ function mergeOverlappingRanges(times: Time[], startIndex: number) {
     let hasMerged = false; // 현재 인덱스에서 병합이 발생했는지 추적
 
     for (let j = i + 1; j < list.length; j++) {
-      // 겹치는 `indexes`가 있는지 확인
-      if (hasOverlap(list[i].indexes, list[j].indexes)) {
-        // 병합된 indexes 계산
-        const mergedIndexes = mergeIndexes(
-          list[i].indexes,
-          list[j].indexes,
+      // 겹치는 `ranges`가 있는지 확인
+      if (hasOverlap(list[i].ranges, list[j].ranges)) {
+        // 병합된 ranges 계산
+        const mergedRanges = mergeRanges(
+          list[i].ranges,
+          list[j].ranges,
           startIndex
         );
 
         // 병합 데이터 업데이트
         list[i] = {
-          startTime: compactTimeList[mergedIndexes[0]],
-          endTime: compactTimeList[mergedIndexes.at(-1)!],
-          indexes: mergedIndexes,
+          startTime: compactTimeList[mergedRanges[0]],
+          endTime: compactTimeList[mergedRanges.at(-1)!],
+          ranges: mergedRanges,
         };
 
         // 병합된 항목 제거
@@ -304,8 +304,8 @@ function mergeOverlappingRanges(times: Time[], startIndex: number) {
   }
 
   // 시작시간을 기준으로 오름차순 정렬
-  const sorted = list.sort((a, b) => a.indexes[0] - b.indexes[0]);
-  const lastIndexes = sorted.at(-1)?.indexes;
+  const sorted = list.sort((a, b) => a.ranges[0] - b.ranges[0]);
+  const lastIndexes = sorted.at(-1)?.ranges;
 
   // 마지막 시간대가 내일 여부 판별
   if (
@@ -328,7 +328,7 @@ function hasOverlap(arr1: number[], arr2: number[]) {
 }
 
 /** 두 `indexes` 배열을 병합하고 필요한 시간 계산 */
-function mergeIndexes(
+function mergeRanges(
   indexes1: number[],
   indexes2: number[],
   startIndex: number
@@ -342,7 +342,7 @@ function mergeIndexes(
     startIndex !== 0 && combined.includes(0) && combined.includes(23);
   const endIndex = combined.findIndex((value) => value === startIndex);
 
-  return updateTimeIndexArray(
+  return updateTimeRangesArray(
     isTomorrow ? startIndex : combined[0],
     isTomorrow ? endIndex - 1 : combined.at(-1)!
   );
@@ -359,7 +359,7 @@ const findVisibleTimeText = (
   const bothEnds: number[] = []; // 각 범위의 양 끝단
 
   if (typeof focusing === 'number') {
-    const draggingIndexes = updateTimeIndexArray(start, focusing);
+    const draggingIndexes = updateTimeRangesArray(start, focusing);
 
     draggingIndexes.forEach((index) => {
       allIndexes.add(index);
@@ -368,8 +368,8 @@ const findVisibleTimeText = (
 
   if (!isDefaultTime) {
     times.forEach((time) => {
-      bothEnds.push(time.indexes[0], time.indexes.at(-1) as number);
-      time.indexes.forEach((index) => {
+      bothEnds.push(time.ranges[0], time.ranges.at(-1) as number);
+      time.ranges.forEach((index) => {
         allIndexes.add(index);
       });
     });
@@ -417,7 +417,7 @@ const updateTimes = (
     return {
       ...time,
       endTime: compactTimeList[endTime],
-      indexes: updateTimeIndexArray(time.indexes[0], endTime),
+      ranges: updateTimeRangesArray(time.ranges[0], endTime),
     };
   });
 };

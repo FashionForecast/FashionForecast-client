@@ -12,7 +12,7 @@ export function getDefaultTimes(): Time[] {
     {
       startTime: compactTimeList[currentHour],
       endTime: compactTimeList[endHour],
-      indexes: Array.from({ length: 9 }, (_, i) => (currentHour + i) % 24),
+      ranges: Array.from({ length: 9 }, (_, i) => (currentHour + i) % 24),
       isTomorrow,
       isDefault: true,
     },

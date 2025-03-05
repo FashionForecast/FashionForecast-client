@@ -28,8 +28,8 @@ export const TimeRanges = ({
             time.endTime && (
               <TimeRange
                 key={i}
-                startTime={time.indexes[0]}
-                endTime={time.indexes[time.indexes.length - 1]}
+                startTime={time.ranges[0]}
+                endTime={time.ranges[time.ranges.length - 1]}
               />
             )
         )}
@@ -37,8 +37,8 @@ export const TimeRanges = ({
       {isDefaultTime && (
         <>
           <TimeRange
-            startTime={times[0].indexes[0]}
-            endTime={times[0].indexes[times[0].indexes.length - 1]}
+            startTime={times[0].ranges[0]}
+            endTime={times[0].ranges[times[0].ranges.length - 1]}
             isDefaultTime={isDefaultTime}
           />
           <TimeDivider />

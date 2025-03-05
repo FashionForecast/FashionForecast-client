@@ -1,4 +1,4 @@
-import { DayButtonType, Time } from '@/widgets/TimeSelector';
+import { DayButtonType, Time } from '@/widgets/time';
 
 import { regionCoordinateList } from '@/shared/consts';
 import { dateToISO, KSTDate, fetchAPI } from '@/shared/lib';
@@ -11,9 +11,9 @@ export async function getWeather(
   region: string
 ): Promise<WeatherDto> {
   const nowDateTime = dateToISO(KSTDate());
-  const minStartDateTime = convertToTime(times[0].indexes[0], day);
+  const minStartDateTime = convertToTime(times[0].ranges[0], day);
   const maxEndDateTime = convertToTime(
-    times.at(-1)?.indexes.at(-1),
+    times.at(-1)?.ranges.at(-1),
     day,
     times[times.length - 1].isTomorrow
   );
@@ -28,9 +28,9 @@ export async function getWeather(
     ny: String(ny),
   });
 
-  times.forEach(({ indexes, isTomorrow }) => {
-    const tomorrowIndex = isTomorrow ? indexes.findIndex((i) => i === 0) : null;
-    indexes.forEach((time, i) => {
+  times.forEach(({ ranges, isTomorrow }) => {
+    const tomorrowIndex = isTomorrow ? ranges.findIndex((i) => i === 0) : null;
+    ranges.forEach((time, i) => {
       const timeString = convertToTime(
         time,
         day,

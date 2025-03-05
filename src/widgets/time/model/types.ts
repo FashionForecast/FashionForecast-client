@@ -1,7 +1,7 @@
 export type Time = {
   startTime: string;
   endTime: string | null;
-  indexes: number[];
+  ranges: number[];
   isTomorrow?: boolean;
   isDefault?: boolean;
 };
