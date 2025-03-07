@@ -6,8 +6,8 @@ export type Time = {
   isDefault?: boolean;
 };
 export type DragRangeStatus = 'today' | 'tommorow' | 'error';
-export type DayButtonType = '오늘' | '내일' | '모레';
+export type Day = '오늘' | '내일' | '모레';
 export type TimeSelectorDayButton = {
-  type: DayButtonType;
+  type: Day;
   text: string;
 }[];

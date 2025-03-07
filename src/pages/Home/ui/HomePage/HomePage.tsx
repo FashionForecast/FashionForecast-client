@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { FetchError } from '@/widgets/error';
 import {
-  DayButtonType,
+  Day,
   getDefaultTimes,
   Time,
   TimeBottomSheet,
@@ -43,7 +43,7 @@ export const HomePage = () => {
   const [tab, setTab] = useState<HomeTab>('clothes');
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
   const [times, setTimes] = useState<Time[]>(getDefaultTimes);
-  const [day, setDay] = useState<DayButtonType>('오늘');
+  const [day, setDay] = useState<Day>('오늘');
 
   const {
     data: weatherData,
@@ -79,6 +79,16 @@ export const HomePage = () => {
     setIsTimeSelectorOpen(isOpen);
     setSearchParams(params);
     document.body.style.overflow = isOpen ? 'hidden' : '';
+  };
+
+  const onChangeTimes = (
+    newTimes: Time[] | ((prevTimes: Time[]) => Time[])
+  ) => {
+    setTimes(newTimes);
+  };
+
+  const onChangeDay = (newDay: Day | ((prevDay: Day) => Day)) => {
+    setDay(newDay);
   };
 
   /**  tab 쿼리 파라미터가 유효하면 해당 값으로 tab 설정 */
@@ -130,9 +140,9 @@ export const HomePage = () => {
         <TimeSelector
           isOpen={isTimeSelectorOpen}
           times={times}
-          setTimes={setTimes}
           day={day}
-          setDay={setDay}
+          onChangeTimes={onChangeTimes}
+          onChangeDay={onChangeDay}
           onClose={handleTimeSelectorToggle}
           onSubmit={handleTimeSubmit}
         />

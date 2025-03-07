@@ -1,4 +1,4 @@
-import { DayButtonType, Time } from '@/widgets/time';
+import { Day, Time } from '@/widgets/time';
 
 import { regionCoordinateList } from '@/shared/consts';
 import { dateToISO, KSTDate, fetchAPI } from '@/shared/lib';
@@ -7,7 +7,7 @@ import { WeatherDto } from '../model/types';
 
 export async function getWeather(
   times: Time[],
-  day: DayButtonType,
+  day: Day,
   region: string
 ): Promise<WeatherDto> {
   const nowDateTime = dateToISO(KSTDate());
@@ -47,7 +47,7 @@ export async function getWeather(
 
 function convertToTime(
   time: number | undefined,
-  day: DayButtonType,
+  day: Day,
   isTomorrow?: boolean
 ) {
   if (time === undefined) {

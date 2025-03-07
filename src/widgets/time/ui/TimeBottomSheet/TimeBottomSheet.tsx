@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 import { Button } from '@/shared/ui';
 
-import { DayButtonType, Time } from '../../model/types';
+import { Day, Time } from '../../model/types';
 
 import { S } from './TimeBottomSheet.style';
 
 type TimeBottomSheetProps = {
-  day: DayButtonType;
+  day: Day;
   times: Time[];
   onTimeSelectorToggle: () => void;
 };
@@ -70,7 +70,7 @@ export const TimeBottomSheet = ({
 };
 
 type getFormattedTimeRangesParams = {
-  day: DayButtonType;
+  day: Day;
   times: Time[] | [];
   isCompact: boolean;
 };

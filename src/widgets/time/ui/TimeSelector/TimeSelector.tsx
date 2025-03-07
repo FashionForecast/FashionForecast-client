@@ -5,7 +5,7 @@ import { theme } from '@/shared/styles';
 
 import { getDefaultTimes } from '../../lib/getDefaultTimes';
 import { DAY_BUTTONS } from '../../model/consts';
-import { DayButtonType, DragRangeStatus, Time } from '../../model/types';
+import { Day, DragRangeStatus, Time } from '../../model/types';
 
 import { HourSections } from './HourSections/HourSections';
 import { TimeDivider } from './TimeDivider/TimeDivider';
@@ -16,9 +16,9 @@ import { S, C } from './TimeSelector.style';
 type TimeSelectorProps = {
   isOpen: boolean;
   times: Time[];
-  setTimes: React.Dispatch<React.SetStateAction<Time[]>>;
-  day: DayButtonType;
-  setDay: React.Dispatch<React.SetStateAction<DayButtonType>>;
+  day: Day;
+  onChangeTimes: (newTimes: Time[] | ((prevTimes: Time[]) => Time[])) => void;
+  onChangeDay: (newDay: Day | ((prevDay: Day) => Day)) => void;
   onClose: () => void;
   onSubmit: () => void;
 };
@@ -26,9 +26,9 @@ type TimeSelectorProps = {
 export const TimeSelector = ({
   isOpen,
   times,
-  setTimes,
   day,
-  setDay,
+  onChangeTimes,
+  onChangeDay,
   onClose,
   onSubmit,
 }: TimeSelectorProps) => {
@@ -68,7 +68,7 @@ export const TimeSelector = ({
     setIsDragging(true);
     setStartTime(startIndex);
     setFocusingTime(startIndex);
-    setTimes((prev) => {
+    onChangeTimes((prev) => {
       const newTime = {
         startTime: compactTimeList[startIndex],
         endTime: null,
@@ -97,7 +97,7 @@ export const TimeSelector = ({
     if (focusingTime === null || timeToRemove !== null) return;
 
     setIsDragging(false);
-    setTimes((prev) => {
+    onChangeTimes((prev) => {
       const firstStartTime = prev[0].ranges[0];
       const updatedTimes = updateTimes(
         prev,
@@ -110,25 +110,27 @@ export const TimeSelector = ({
     });
     setFocusingTime(null);
     setDragRangeStatus('today');
-  }, [focusingTime, timeToRemove, setTimes, dragRangeStatus, startTime]);
+  }, [focusingTime, timeToRemove, onChangeTimes, dragRangeStatus, startTime]);
 
   const handleDelete = () => {
     if (timeToRemove === null) return;
 
     if (timeToRemove >= 0) {
       const filteredTimes = times.filter((_, i) => i !== timeToRemove);
-      setTimes(filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes);
+      onChangeTimes(
+        filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes
+      );
       setTimeToRemove(null);
       setFocusingTime(null);
     }
   };
 
   const handleDeleteButtonClick = () => {
-    setTimes(getDefaultTimes);
+    onChangeTimes(getDefaultTimes);
   };
 
-  const handleDayButtonClick = (type: DayButtonType) => () => {
-    setDay(type);
+  const handleDayButtonClick = (type: Day) => () => {
+    onChangeDay(type);
   };
 
   useEffect(() => {
@@ -423,7 +425,7 @@ const updateTimes = (
 };
 
 // 선택된 시간대 텍스트 생성
-function getSelectedTimeText(day: DayButtonType, times: Time[]) {
+function getSelectedTimeText(day: Day, times: Time[]) {
   if (times.length === 0 || !times[0].endTime) return '';
 
   const formatTimeZone = (
