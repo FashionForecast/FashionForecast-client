@@ -2,6 +2,9 @@ import { theme } from '@/shared/styles';
 
 import { DraggingRangeStatus, TimeSelectorDayButton } from './types';
 
+export const CLOCK_RADIUS = 164;
+export const CLOCK_INNER_RADIUS = 144;
+
 export const TIME_COLOR: Record<DraggingRangeStatus, string> = {
   today: theme.colors.blueGrey[600],
   tomorrow: theme.colors.info.main,

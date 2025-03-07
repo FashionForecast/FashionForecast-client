@@ -1,34 +1,30 @@
+import { CLOCK_RADIUS } from '@/widgets/time/model/consts';
+
 import { S } from './SectionArea.style';
 
 type SectionAreaProps = {
   index: number;
-  sections: number;
-  center: number;
   onPointerDown: (index: number) => void;
   onDelete: () => void;
 };
 
+const RADIUS = 170; // 바깥 원의 반지름
+const INNER_RADIUS = 100; // 비어 있는 내부 원의 반지름
+const ANGLE = 15; // 한 영역의 각
+
 export const SectionArea = ({
   index,
-  sections,
-  center,
   onPointerDown,
   onDelete,
 }: SectionAreaProps) => {
-  const angleStep = 360 / sections; // 각 구역의 중심 각
-  const radius = 170; // 원의 반지름
-  const innerRadius = 100; // 중앙의 비어 있는 영역 반지름
+  const startAngle = index * ANGLE;
+  const endAngle = startAngle + ANGLE;
 
-  const startAngle = index * angleStep;
-  const endAngle = startAngle + angleStep;
+  const outerStart = polarToCartesian(RADIUS, startAngle);
+  const outerEnd = polarToCartesian(RADIUS, endAngle);
 
-  const outerStart = polarToCartesian(center, center, radius, startAngle);
-  const outerEnd = polarToCartesian(center, center, radius, endAngle);
-
-  const innerStart = polarToCartesian(center, center, innerRadius, startAngle);
-  const innerEnd = polarToCartesian(center, center, innerRadius, endAngle);
-
-  const largeArcFlag = angleStep > 180 ? 1 : 0;
+  const innerStart = polarToCartesian(INNER_RADIUS, startAngle);
+  const innerEnd = polarToCartesian(INNER_RADIUS, endAngle);
 
   return (
     <S.Section
@@ -36,13 +32,13 @@ export const SectionArea = ({
       data-index={index}
       d={`
           M ${outerStart.x} ${outerStart.y}
-          A ${radius} ${radius} 0 ${largeArcFlag} 1 ${outerEnd.x} ${outerEnd.y}
+          A ${RADIUS} ${RADIUS} 0 0 1 ${outerEnd.x} ${outerEnd.y}
           L ${innerEnd.x} ${innerEnd.y}
-          A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${innerStart.x} ${innerStart.y}
+          A ${INNER_RADIUS} ${INNER_RADIUS} 0 0 0 ${innerStart.x} ${innerStart.y}
           Z
         `}
-      // fill={`hsl(${(i / sections) * 360}, 70%, 50%)`}
-      fill={'transparent'} // 색상 적용
+      fill={'transparent'}
+      // fill={`hsl(${(index / 24) * 360}, 70%, 50%)`}
       stroke='none'
       onPointerDown={() => onPointerDown(index)}
       onClick={onDelete}
@@ -51,15 +47,10 @@ export const SectionArea = ({
 };
 
 // 극좌표를 직교 좌표로 변환하는 함수
-const polarToCartesian = (
-  cx: number,
-  cy: number,
-  radius: number,
-  angle: number
-) => {
-  const radian = (angle - 90) * (Math.PI / 180);
+const polarToCartesian = (radius: number, angle: number) => {
+  const radian = (-90 + angle) * (Math.PI / 180);
   return {
-    x: cx + radius * Math.cos(radian),
-    y: cy + radius * Math.sin(radian),
+    x: CLOCK_RADIUS + radius * Math.cos(radian),
+    y: CLOCK_RADIUS + radius * Math.sin(radian),
   };
 };

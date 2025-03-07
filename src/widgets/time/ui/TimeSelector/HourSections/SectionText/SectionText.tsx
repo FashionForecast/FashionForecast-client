@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { TIME_COLOR } from '@/widgets/time/model/consts';
+import {
+  CLOCK_INNER_RADIUS,
+  CLOCK_RADIUS,
+  TIME_COLOR,
+} from '@/widgets/time/model/consts';
 import { DraggingRangeStatus } from '@/widgets/time/model/types';
 
 import { S } from './SectionText.style';
@@ -9,7 +13,6 @@ import { S } from './SectionText.style';
 type SectionTextProps = {
   time: string;
   index: number;
-  center: number;
   visibleTimeText: [number[], number[]];
   draggingStartHour: number | null;
   draggingEndHour: number | null;
@@ -22,7 +25,6 @@ type SectionTextProps = {
 export const SectionText = ({
   time,
   index,
-  center,
   visibleTimeText,
   draggingStartHour,
   draggingEndHour,
@@ -32,10 +34,11 @@ export const SectionText = ({
   dragRangeStatus,
 }: SectionTextProps) => {
   const [AMPM, hour] = time.split(' ');
-  const radius = 144;
-  const angle = -90 + index * 15; // 각도 계산
-  const x = center + radius * Math.cos((angle * Math.PI) / 180); // 숫자는 원 바깥쪽에
-  const y = center + radius * Math.sin((angle * Math.PI) / 180);
+  const angle = -90 + index * 15;
+  const x =
+    CLOCK_RADIUS + CLOCK_INNER_RADIUS * Math.cos((angle * Math.PI) / 180); // 숫자는 원 바깥쪽에
+  const y =
+    CLOCK_RADIUS + CLOCK_INNER_RADIUS * Math.sin((angle * Math.PI) / 180);
   const [always, bothEnds] = visibleTimeText;
   const isHighlight = bothEnds.includes(index) || draggingEndHour === index;
   const isVisibleText = isHighlight || always.includes(index);

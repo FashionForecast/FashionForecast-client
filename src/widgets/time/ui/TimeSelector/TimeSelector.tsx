@@ -4,7 +4,11 @@ import { compactTimeList } from '@/shared/consts/timeList';
 import { theme } from '@/shared/styles';
 
 import { getDefaultTimes } from '../../lib/getDefaultTimes';
-import { DAY_BUTTONS } from '../../model/consts';
+import {
+  CLOCK_INNER_RADIUS,
+  CLOCK_RADIUS,
+  DAY_BUTTONS,
+} from '../../model/consts';
 import { Day, DraggingRangeStatus, Time } from '../../model/types';
 
 import { HourSections } from './HourSections/HourSections';
@@ -185,16 +189,13 @@ export const TimeSelector = ({
 
           <S.Clock>
             <S.ClockFace
-              x={164}
-              y={164}
-              width={'328'}
-              height={'328'}
-              viewBox='-164 -164 328 328'
+              width={CLOCK_RADIUS * 2}
+              height={CLOCK_RADIUS * 2}
+              viewBox={`-${CLOCK_RADIUS} -${CLOCK_RADIUS} 
+              ${CLOCK_RADIUS * 2} ${CLOCK_RADIUS * 2}`}
             >
               <circle
-                cx={'0'}
-                cy={'0'}
-                r={'144'}
+                r={CLOCK_INNER_RADIUS}
                 fill='none'
                 stroke={
                   draggingRangeStatus === 'error'

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { CLOCK_RADIUS } from '@/widgets/time/model/consts';
+
 import { compactTimeList } from '@/shared/consts/timeList';
 
 import { DraggingRangeStatus, Time } from '../../../model/types';
@@ -31,7 +33,6 @@ export const HourSections = ({
   onDelete,
 }: HourSectionsProps) => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const center = 170; // SVG 중심 좌표 (x, y)
   const tomorrowIndexes =
     tomorrowTime?.ranges.slice(tomorrowTime.ranges.findIndex((i) => i === 0)) ||
     [];
@@ -57,21 +58,18 @@ export const HourSections = ({
 
   return (
     <svg
-      x={-170}
-      y={-170}
-      width={center * 2}
-      height={center * 2}
-      viewBox={`0 0 ${center * 2} ${center * 2}`}
+      x={-CLOCK_RADIUS}
+      y={-CLOCK_RADIUS}
+      width={CLOCK_RADIUS * 2}
+      height={CLOCK_RADIUS * 2}
+      viewBox={`0 0 ${CLOCK_RADIUS * 2} ${CLOCK_RADIUS * 2}`}
       onPointerMove={handlePointerMoveEvent}
     >
-      {/* -7도 회전 */}
-      <g transform={`rotate(-7, ${center}, ${center})`}>
+      <g transform={`rotate(-7, ${CLOCK_RADIUS}, ${CLOCK_RADIUS})`}>
         {compactTimeList.map((_, i) => (
           <SectionArea
             key={i}
             index={i}
-            sections={compactTimeList.length}
-            center={center}
             onPointerDown={onPointerDown}
             onDelete={onDelete}
           />
@@ -82,7 +80,6 @@ export const HourSections = ({
           key={time}
           time={time}
           index={i}
-          center={center}
           visibleTimeText={visibleTimeText}
           draggingStartHour={draggingStartHour}
           draggingEndHour={draggingEndHour}
