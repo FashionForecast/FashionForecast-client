@@ -1,10 +1,10 @@
 import { theme } from '@/shared/styles';
 
-import { DragRangeStatus, TimeSelectorDayButton } from './types';
+import { DraggingRangeStatus, TimeSelectorDayButton } from './types';
 
-export const TIME_COLOR: Record<DragRangeStatus, string> = {
+export const TIME_COLOR: Record<DraggingRangeStatus, string> = {
   today: theme.colors.blueGrey[600],
-  tommorow: theme.colors.info.main,
+  tomorrow: theme.colors.info.main,
   error: theme.colors.error.main,
 };
 

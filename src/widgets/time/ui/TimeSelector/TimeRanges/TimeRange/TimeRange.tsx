@@ -1,26 +1,25 @@
 import { TIME_COLOR } from '@/widgets/time/model/consts';
-import { DragRangeStatus } from '@/widgets/time/model/types';
+import { DraggingRangeStatus } from '@/widgets/time/model/types';
 
 import { theme } from '@/shared/styles';
 
 import { S } from './TimeRange.style';
 
 type TimeRangeProps = {
-  startTime: number;
-  endTime: number;
-  dragRangeStatus?: DragRangeStatus;
+  startHour: number;
+  endHour: number;
+  dragRangeStatus?: DraggingRangeStatus;
   isDefaultTime?: boolean;
 };
 
 export const TimeRange = ({
-  startTime,
-  endTime,
+  startHour,
+  endHour,
   dragRangeStatus,
   isDefaultTime,
 }: TimeRangeProps) => {
-  const diff = calcTimeRange(startTime, endTime);
-  const degree = -90 + startTime * 15;
-  const stroke = getStrockColor(dragRangeStatus, isDefaultTime);
+  const diff = calcTimeRange(startHour, endHour);
+  const degree = -90 + startHour * 15;
 
   return (
     <>
@@ -31,14 +30,14 @@ export const TimeRange = ({
         cy={'0'}
         r={'144'}
         fill='transparent'
-        stroke={stroke}
+        stroke={getStrokeColor(dragRangeStatus, isDefaultTime)}
         strokeWidth={40}
         strokeLinecap='round'
       />
 
       {!isDefaultTime && (
         <path
-          d={calculatePath(startTime, endTime)}
+          d={calculatePath(startHour, endHour)}
           fill='none'
           stroke={theme.colors.blueGrey[400]}
           strokeWidth='2'
@@ -86,8 +85,8 @@ function calcTimeRange(startIndex: number, endTime: number): number {
   return diff > 0 ? (24 - diff) * 4.15 : range;
 }
 
-function getStrockColor(
-  dragRangeStatus: DragRangeStatus | undefined,
+function getStrokeColor(
+  dragRangeStatus: DraggingRangeStatus | undefined,
   isDefaultTime: boolean | undefined
 ) {
   if (isDefaultTime) return theme.colors.blueGrey[200];

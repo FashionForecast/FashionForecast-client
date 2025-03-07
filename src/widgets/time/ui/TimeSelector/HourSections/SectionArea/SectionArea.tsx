@@ -4,16 +4,16 @@ type SectionAreaProps = {
   index: number;
   sections: number;
   center: number;
-  handlePointerDown: (index: number) => void;
-  handleDelete: () => void;
+  onPointerDown: (index: number) => void;
+  onDelete: () => void;
 };
 
 export const SectionArea = ({
   index,
   sections,
   center,
-  handlePointerDown,
-  handleDelete,
+  onPointerDown,
+  onDelete,
 }: SectionAreaProps) => {
   const angleStep = 360 / sections; // 각 구역의 중심 각
   const radius = 170; // 원의 반지름
@@ -44,8 +44,8 @@ export const SectionArea = ({
       // fill={`hsl(${(i / sections) * 360}, 70%, 50%)`}
       fill={'transparent'} // 색상 적용
       stroke='none'
-      onPointerDown={() => handlePointerDown(index)}
-      onClick={handleDelete}
+      onPointerDown={() => onPointerDown(index)}
+      onClick={onDelete}
     />
   );
 };

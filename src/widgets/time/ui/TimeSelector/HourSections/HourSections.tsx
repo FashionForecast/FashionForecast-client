@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { compactTimeList } from '@/shared/consts/timeList';
 
-import { DragRangeStatus, Time } from '../../../model/types';
+import { DraggingRangeStatus, Time } from '../../../model/types';
 
 import { SectionArea } from './SectionArea/SectionArea';
 import { SectionText } from './SectionText/SectionText';
@@ -10,29 +10,29 @@ import { SectionText } from './SectionText/SectionText';
 type HourSectionsProps = {
   visibleTimeText: [number[], number[]];
   tomorrowTime?: Time;
-  startTimeIndex: number;
-  focusedTimeIndex: number | null;
+  draggingStartHour: number | null;
+  draggingEndHour: number | null;
   isDragging: boolean;
-  dragRangeStatus: DragRangeStatus;
-  handlePointerDown: (index: number) => void;
-  handlePointerMove: (index: number) => void;
-  handleDelete: () => void;
+  dragRangeStatus: DraggingRangeStatus;
+  onPointerDown: (index: number) => void;
+  onPointerMove: (index: number) => void;
+  onDelete: () => void;
 };
 
 export const HourSections = ({
   visibleTimeText,
   tomorrowTime,
-  startTimeIndex,
-  focusedTimeIndex,
+  draggingStartHour,
+  draggingEndHour,
   isDragging,
   dragRangeStatus,
-  handlePointerDown,
-  handlePointerMove,
-  handleDelete,
+  onPointerDown,
+  onPointerMove,
+  onDelete,
 }: HourSectionsProps) => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const center = 170; // SVG 중심 좌표 (x, y)
-  const tommrowIndexes =
+  const tomorrowIndexes =
     tomorrowTime?.ranges.slice(tomorrowTime.ranges.findIndex((i) => i === 0)) ||
     [];
 
@@ -45,7 +45,7 @@ export const HourSections = ({
 
     if (element && element.dataset.index) {
       const index = parseInt(element.dataset.index, 10); // `data-index`에서 인덱스 가져오기
-      handlePointerMove(index); // 외부로 전달
+      onPointerMove(index); // 외부로 전달
     }
   };
 
@@ -72,8 +72,8 @@ export const HourSections = ({
             index={i}
             sections={compactTimeList.length}
             center={center}
-            handlePointerDown={handlePointerDown}
-            handleDelete={handleDelete}
+            onPointerDown={onPointerDown}
+            onDelete={onDelete}
           />
         ))}
       </g>
@@ -84,9 +84,9 @@ export const HourSections = ({
           index={i}
           center={center}
           visibleTimeText={visibleTimeText}
-          startTimeIndex={startTimeIndex}
-          focusedTimeIndex={focusedTimeIndex}
-          tommrowIndexes={tommrowIndexes}
+          draggingStartHour={draggingStartHour}
+          draggingEndHour={draggingEndHour}
+          tomorrowIndexes={tomorrowIndexes}
           isDragging={isDragging}
           isTouchDevice={isTouchDevice}
           dragRangeStatus={dragRangeStatus}

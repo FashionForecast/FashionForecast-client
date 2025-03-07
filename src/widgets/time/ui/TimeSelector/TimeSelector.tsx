@@ -5,7 +5,7 @@ import { theme } from '@/shared/styles';
 
 import { getDefaultTimes } from '../../lib/getDefaultTimes';
 import { DAY_BUTTONS } from '../../model/consts';
-import { Day, DragRangeStatus, Time } from '../../model/types';
+import { Day, DraggingRangeStatus, Time } from '../../model/types';
 
 import { HourSections } from './HourSections/HourSections';
 import { TimeDivider } from './TimeDivider/TimeDivider';
@@ -32,30 +32,37 @@ export const TimeSelector = ({
   onClose,
   onSubmit,
 }: TimeSelectorProps) => {
-  const [startTime, setStartTime] = useState<number>(0);
-  const [focusingTime, setFocusingTime] = useState<null | number>(null); // 포커스중인 시간의 인덱스
+  const [draggingStartHour, setDraggingStartHour] = useState<number | null>(
+    null
+  );
+  const [draggingEndHour, setDraggingEndHour] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [timeToRemove, setTimeToRemove] = useState<null | number>(null);
-  const [dragRangeStatus, setDragRangeStatus] =
-    useState<DragRangeStatus>('today');
+  const [removeHour, setRemoveHour] = useState<null | number>(null);
+  const [draggingRangeStatus, setDraggingRangeStatus] =
+    useState<DraggingRangeStatus>('today');
+
   const isDefaultTime = times[0]?.isDefault ?? false;
   const visibleTimeText = useMemo(
-    () => findVisibleTimeText(times, startTime, focusingTime, isDefaultTime),
-    [focusingTime, startTime, times, isDefaultTime]
+    () =>
+      findVisibleTimeText(
+        times,
+        draggingStartHour,
+        draggingEndHour,
+        isDefaultTime
+      ),
+    [draggingEndHour, draggingStartHour, times, isDefaultTime]
   );
   const tomorrowTime = times.find((v) => v.isTomorrow);
   const selectedTimeText = getSelectedTimeText(day, times);
 
-  const handlePointerDown = (startIndex: number) => {
-    setTimeToRemove(null);
+  const handlePointerDown = (startHour: number) => {
+    setRemoveHour(null);
 
     const hasRemoveTarget = () => {
-      const target = times.findIndex((time) =>
-        time.ranges.includes(startIndex)
-      );
+      const target = times.findIndex((time) => time.ranges.includes(startHour));
 
       if (target >= 0) {
-        setTimeToRemove(target);
+        setRemoveHour(target);
         return true;
       }
       return false;
@@ -66,13 +73,13 @@ export const TimeSelector = ({
     }
 
     setIsDragging(true);
-    setStartTime(startIndex);
-    setFocusingTime(startIndex);
+    setDraggingStartHour(startHour);
+    setDraggingEndHour(startHour);
     onChangeTimes((prev) => {
       const newTime = {
-        startTime: compactTimeList[startIndex],
+        startTime: compactTimeList[startHour],
         endTime: null,
-        ranges: [startIndex],
+        ranges: [startHour],
       };
 
       return isDefaultTime ? [newTime] : [...prev, newTime];
@@ -80,48 +87,62 @@ export const TimeSelector = ({
   };
 
   const handlePointerMove = (pointerTime: number) => {
-    if (!isDragging) return;
+    if (!isDragging || draggingStartHour === null) return;
 
-    const isTomorrow = startTime > pointerTime;
+    const isTomorrow = draggingStartHour > pointerTime;
 
-    if (isTomorrow) setFocusingTime(Math.min(pointerTime, times[0].ranges[0]));
-    else setFocusingTime(pointerTime);
+    if (isTomorrow)
+      setDraggingEndHour(Math.min(pointerTime, times[0].ranges[0]));
+    else setDraggingEndHour(pointerTime);
 
-    setDragRangeStatus(
-      updateDragRangeStatus(startTime, pointerTime, times[0].ranges[0])
+    setDraggingRangeStatus(
+      updateDragRangeStatus(draggingStartHour, pointerTime, times[0].ranges[0])
     );
   };
 
   const handlePointerEnd = useCallback(() => {
     // 포커스중인 시간이 없거나 삭제 작업이 있으면 종료
-    if (focusingTime === null || timeToRemove !== null) return;
+    if (
+      draggingStartHour === null ||
+      draggingEndHour === null ||
+      removeHour !== null
+    ) {
+      return;
+    }
 
     setIsDragging(false);
     onChangeTimes((prev) => {
       const firstStartTime = prev[0].ranges[0];
       const updatedTimes = updateTimes(
         prev,
-        focusingTime,
+        draggingEndHour,
         firstStartTime,
-        dragRangeStatus
+        draggingRangeStatus
       );
 
-      return mergeOverlappingRanges(updatedTimes, startTime);
+      return mergeOverlappingRanges(updatedTimes, draggingStartHour);
     });
-    setFocusingTime(null);
-    setDragRangeStatus('today');
-  }, [focusingTime, timeToRemove, onChangeTimes, dragRangeStatus, startTime]);
+    setDraggingStartHour(null);
+    setDraggingEndHour(null);
+    setDraggingRangeStatus('today');
+  }, [
+    draggingEndHour,
+    removeHour,
+    onChangeTimes,
+    draggingRangeStatus,
+    draggingStartHour,
+  ]);
 
   const handleDelete = () => {
-    if (timeToRemove === null) return;
+    if (removeHour === null) return;
 
-    if (timeToRemove >= 0) {
-      const filteredTimes = times.filter((_, i) => i !== timeToRemove);
+    if (removeHour >= 0) {
+      const filteredTimes = times.filter((_, i) => i !== removeHour);
       onChangeTimes(
         filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes
       );
-      setTimeToRemove(null);
-      setFocusingTime(null);
+      setRemoveHour(null);
+      setDraggingEndHour(null);
     }
   };
 
@@ -176,7 +197,7 @@ export const TimeSelector = ({
                 r={'144'}
                 fill='none'
                 stroke={
-                  dragRangeStatus === 'error'
+                  draggingRangeStatus === 'error'
                     ? '#FFC8C0'
                     : theme.colors.blueGrey[200]
                 }
@@ -190,22 +211,21 @@ export const TimeSelector = ({
               <TimeRanges
                 times={times}
                 isDragging={isDragging}
-                draggingStartTime={startTime}
-                focussingTime={focusingTime}
-                dragRangeStatus={dragRangeStatus}
-                isDefaultTime={isDefaultTime}
+                draggingStartHour={draggingStartHour}
+                draggingEndHour={draggingEndHour}
+                dragRangeStatus={draggingRangeStatus}
               />
 
               <HourSections
                 visibleTimeText={visibleTimeText}
                 tomorrowTime={tomorrowTime}
-                startTimeIndex={startTime}
-                focusedTimeIndex={focusingTime}
+                draggingStartHour={draggingStartHour}
+                draggingEndHour={draggingEndHour}
                 isDragging={isDragging}
-                dragRangeStatus={dragRangeStatus}
-                handlePointerMove={handlePointerMove}
-                handlePointerDown={handlePointerDown}
-                handleDelete={handleDelete}
+                dragRangeStatus={draggingRangeStatus}
+                onPointerDown={handlePointerDown}
+                onDelete={handleDelete}
+                onPointerMove={handlePointerMove}
               />
             </S.ClockFace>
 
@@ -250,16 +270,16 @@ export const TimeSelector = ({
 };
 
 /** 시간대 배열을 업데이트하는 함수 */
-function updateTimeRangesArray(startIndex: number, endIndex: number) {
-  const result = [startIndex];
+function updateTimeRangesArray(startHour: number, endHour: number) {
+  const result = [startHour];
 
-  if (startIndex === endIndex) {
-    return [startIndex]; // 값이 같으면 그대로 반환
+  if (startHour === endHour) {
+    return [startHour]; // 값이 같으면 그대로 반환
   }
 
   // 순환적으로 숫자 추가
-  let currentValue = startIndex;
-  while (currentValue !== endIndex) {
+  let currentValue = startHour;
+  while (currentValue !== endHour) {
     currentValue = (currentValue + 1) % 24; // 23 다음에 0으로 순환
     result.push(currentValue);
   }
@@ -268,7 +288,7 @@ function updateTimeRangesArray(startIndex: number, endIndex: number) {
 }
 
 /** 겹치는 시간대 병합 함수 */
-function mergeOverlappingRanges(times: Time[], startIndex: number) {
+function mergeOverlappingRanges(times: Time[], startHour: number) {
   const list = [...times];
 
   let i = 0;
@@ -282,7 +302,7 @@ function mergeOverlappingRanges(times: Time[], startIndex: number) {
         const mergedRanges = mergeRanges(
           list[i].ranges,
           list[j].ranges,
-          startIndex
+          startHour
         );
 
         // 병합 데이터 업데이트
@@ -311,7 +331,7 @@ function mergeOverlappingRanges(times: Time[], startIndex: number) {
 
   // 마지막 시간대가 내일 여부 판별
   if (
-    startIndex !== 0 &&
+    startHour !== 0 &&
     lastIndexes?.includes(0) &&
     lastIndexes?.includes(23)
   ) {
@@ -329,23 +349,17 @@ function hasOverlap(arr1: number[], arr2: number[]) {
   return arr1.some((item) => arr2.includes(item));
 }
 
-/** 두 `indexes` 배열을 병합하고 필요한 시간 계산 */
-function mergeRanges(
-  indexes1: number[],
-  indexes2: number[],
-  startIndex: number
-) {
-  const combined = [...new Set([...indexes1, ...indexes2])].sort(
-    (a, b) => a - b
-  );
+/** 두 `ranges` 배열을 병합하고 필요한 시간 계산 */
+function mergeRanges(ranges1: number[], ranges2: number[], startHour: number) {
+  const combined = [...new Set([...ranges1, ...ranges2])].sort((a, b) => a - b);
 
   // 자정(23->0) 간 시간 병합 처리
   const isTomorrow =
-    startIndex !== 0 && combined.includes(0) && combined.includes(23);
-  const endIndex = combined.findIndex((value) => value === startIndex);
+    startHour !== 0 && combined.includes(0) && combined.includes(23);
+  const endIndex = combined.findIndex((value) => value === startHour);
 
   return updateTimeRangesArray(
-    isTomorrow ? startIndex : combined[0],
+    isTomorrow ? startHour : combined[0],
     isTomorrow ? endIndex - 1 : combined.at(-1)!
   );
 }
@@ -353,15 +367,21 @@ function mergeRanges(
 // 시간 텍스트의 visible 범위 계산
 const findVisibleTimeText = (
   times: Time[],
-  start: number,
-  focusing: number | null,
+  focussingStartHour: number | null,
+  focusingEndHour: number | null,
   isDefaultTime: boolean
 ): [number[], number[]] => {
   const allIndexes = new Set();
   const bothEnds: number[] = []; // 각 범위의 양 끝단
 
-  if (typeof focusing === 'number') {
-    const draggingIndexes = updateTimeRangesArray(start, focusing);
+  if (
+    typeof focussingStartHour === 'number' &&
+    typeof focusingEndHour === 'number'
+  ) {
+    const draggingIndexes = updateTimeRangesArray(
+      focussingStartHour,
+      focusingEndHour
+    );
 
     draggingIndexes.forEach((index) => {
       allIndexes.add(index);
@@ -392,11 +412,11 @@ function updateDragRangeStatus(
   startTime: number,
   focusingTime: number,
   firstStartTime: number
-) {
+): DraggingRangeStatus {
   const isTomorrow = startTime - focusingTime > 0 ? true : false;
 
   if (isTomorrow) {
-    return focusingTime >= firstStartTime ? 'error' : 'tommorow';
+    return focusingTime >= firstStartTime ? 'error' : 'tomorrow';
   }
 
   return 'today';
@@ -405,15 +425,15 @@ function updateDragRangeStatus(
 /** 시간대 업데이트 함수 */
 const updateTimes = (
   prev: Time[],
-  focusingTime: number,
-  firstStartTime: number,
-  dragRangeStatus: string
+  draggingEndHour: number,
+  earliestStartHour: number,
+  draggingRangeStatus: DraggingRangeStatus
 ): Time[] => {
   return prev.map((time, i) => {
     if (i !== prev.length - 1) return time;
 
-    const canMerge = dragRangeStatus !== 'error';
-    let endTime = canMerge ? focusingTime : firstStartTime - 1;
+    const canMerge = draggingRangeStatus !== 'error';
+    let endTime = canMerge ? draggingEndHour : earliestStartHour - 1;
     endTime = endTime < 0 ? 23 : endTime;
 
     return {
