@@ -12,6 +12,8 @@ type TimeRangeProps = {
   isDefaultTime?: boolean;
 };
 
+const TOTAL_LENGTH = 904;
+
 export const TimeRange = ({
   startHour,
   endHour,
@@ -25,7 +27,6 @@ export const TimeRange = ({
     <>
       <S.Range
         $degree={degree}
-        $range={range}
         cx={'0'}
         cy={'0'}
         r={CLOCK_INNER_RADIUS}
@@ -33,6 +34,8 @@ export const TimeRange = ({
         stroke={getStrokeColor(dragRangeStatus, isDefaultTime)}
         strokeWidth={40}
         strokeLinecap='round'
+        strokeDasharray={TOTAL_LENGTH}
+        strokeDashoffset={TOTAL_LENGTH - (TOTAL_LENGTH * range) / 24}
       />
 
       {!isDefaultTime && (
@@ -69,18 +72,15 @@ function calculatePath(startTime: number, end: number) {
   return `M ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
 }
 
-function calculateRange(startIndex: number, endTime: number): number {
-  const diff = startIndex - endTime;
-
-  // 시작 시간과 종료 시간이 같은 경우
-  if (diff === 0) {
-    return 0.1;
+function calculateRange(startHour: number, endHour: number): number {
+  if (startHour === endHour) {
+    return 0.01;
   }
 
-  const range = Math.abs(diff) * 4.15;
+  const hourDifference = startHour - endHour;
+  const isNextDay = startHour > endHour;
 
-  // 시작 시간이 종료 시간보다 큰 경우
-  return diff > 0 ? (24 - diff) * 4.15 : range;
+  return isNextDay ? 24 - hourDifference : Math.abs(hourDifference);
 }
 
 function getStrokeColor(
