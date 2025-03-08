@@ -5,7 +5,7 @@ export type Time = {
   isTomorrow?: boolean;
   isDefault?: boolean;
 };
-export type DraggingRangeStatus = 'today' | 'tomorrow' | 'error';
+export type DraggingRangeStatus = 'currentDay' | 'nextDay' | 'impossible';
 export type Day = '오늘' | '내일' | '모레';
 export type TimeSelectorDayButton = {
   type: Day;

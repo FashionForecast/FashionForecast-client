@@ -6,9 +6,9 @@ export const CLOCK_RADIUS = 164;
 export const CLOCK_INNER_RADIUS = 144;
 
 export const TIME_COLOR: Record<DraggingRangeStatus, string> = {
-  today: theme.colors.blueGrey[600],
-  tomorrow: theme.colors.info.main,
-  error: theme.colors.error.main,
+  currentDay: theme.colors.blueGrey[600],
+  nextDay: theme.colors.info.main,
+  impossible: theme.colors.error.main,
 };
 
 export const DAY_BUTTONS: TimeSelectorDayButton = [
