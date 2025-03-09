@@ -111,22 +111,26 @@ export const TimeSelector = ({
     onChangeTimes((prev) => {
       const earliestStartHour = prev[0].ranges[0];
       const newTime = prev[prev.length - 1];
-      const canMerge = draggingRangeStatus !== 'impossible';
+      let endHour =
+        draggingRangeStatus !== 'impossible'
+          ? draggingEndHour
+          : earliestStartHour - 1;
 
-      let endHour = canMerge ? draggingEndHour : earliestStartHour - 1;
       if (endHour < 0) endHour = 23;
 
-      const updatedNewTime = [
-        ...prev.slice(0, -1),
-        {
-          ...newTime,
-          endTime: compactTimeList[endHour],
-          ranges: generateTimeRange(newTime.ranges[0], endHour),
-        },
-      ];
+      const updatedNewTime = {
+        ...newTime,
+        endTime: compactTimeList[endHour],
+        ranges: generateTimeRange(newTime.ranges[0], endHour),
+        isTomorrow: newTime.ranges[0] > endHour,
+      };
 
-      return mergeOverlappingRanges(updatedNewTime, draggingStartHour);
+      const addedTimes = [...prev.slice(0, -1), updatedNewTime] //
+        .sort((a, b) => a.ranges[0] - b.ranges[0]);
+
+      return mergeOverlappingTimes(addedTimes);
     });
+
     setIsDragging(false);
     setDraggingStartHour(null);
     setDraggingEndHour(null);
@@ -278,81 +282,51 @@ function generateTimeRange(startHour: number, endHour: number) {
   return ranges;
 }
 
-/** 겹치는 시간대 병합 함수 */
-function mergeOverlappingRanges(times: Time[], startHour: number) {
+/** 겹치는 시간대가 존재하면 하나의 시간대로 병합 */
+function mergeOverlappingTimes(times: Time[]) {
   const list = [...times];
 
-  let i = 0;
-  while (i < list.length) {
-    let hasMerged = false; // 현재 인덱스에서 병합이 발생했는지 추적
+  for (let i = 0; i < list.length; ) {
+    let isMerged = false;
 
     for (let j = i + 1; j < list.length; j++) {
-      // 겹치는 `ranges`가 있는지 확인
-      if (hasOverlap(list[i].ranges, list[j].ranges)) {
-        // 병합된 ranges 계산
-        const mergedRanges = mergeRanges(
-          list[i].ranges,
-          list[j].ranges,
-          startHour
-        );
+      if (hasOverlap(list[i], list[j])) {
+        list[i] = mergeTwoTime(list[i], list[j]);
 
-        // 병합 데이터 업데이트
-        list[i] = {
-          startTime: compactTimeList[mergedRanges[0]],
-          endTime: compactTimeList[mergedRanges.at(-1)!],
-          ranges: mergedRanges,
-        };
-
-        // 병합된 항목 제거
-        list.splice(j, 1);
-        hasMerged = true;
-        break; // 병합 후 다시 i번째 요소부터 시작
+        list.splice(j, 1); // 병합된 time 제거
+        isMerged = true;
+        break;
       }
     }
 
-    // 병합이 없었으면 다음 요소로 이동
-    if (!hasMerged) {
+    if (!isMerged) {
       i++;
     }
   }
 
-  // 시작시간을 기준으로 오름차순 정렬
-  const sorted = list.sort((a, b) => a.ranges[0] - b.ranges[0]);
-  const lastIndexes = sorted.at(-1)?.ranges;
-
-  // 마지막 시간대가 내일 여부 판별
-  if (
-    startHour !== 0 &&
-    lastIndexes?.includes(0) &&
-    lastIndexes?.includes(23)
-  ) {
-    sorted[sorted.length - 1] = {
-      ...sorted[sorted.length - 1],
-      isTomorrow: true,
-    };
-  }
-
-  return sorted;
+  return list;
 }
 
-/** 두 배열에서 겹치는 요소가 있는지 확인 */
-function hasOverlap(arr1: number[], arr2: number[]) {
-  return arr1.some((item) => arr2.includes(item));
+/** 두 시간대가 겹치는지 확인 */
+function hasOverlap(time1: Time, time2: Time) {
+  return time1.ranges.some((item) => time2.ranges.includes(item));
 }
 
-/** 두 `ranges` 배열을 병합하고 필요한 시간 계산 */
-function mergeRanges(ranges1: number[], ranges2: number[], startHour: number) {
-  const combined = [...new Set([...ranges1, ...ranges2])].sort((a, b) => a - b);
+/** 두 시간대를 하나로 병합 */
+function mergeTwoTime(time1: Time, time2: Time) {
+  const combined = [...new Set([...time1.ranges, ...time2.ranges])] //
+    .sort((a, b) => a - b);
+  const isNextDay = time1.isTomorrow || time2.isTomorrow;
+  const endHour = isNextDay
+    ? combined.findIndex((hour) => hour === time1.ranges[0]) - 1
+    : combined[combined.length - 1];
 
-  // 자정(23->0) 간 시간 병합 처리
-  const isTomorrow =
-    startHour !== 0 && combined.includes(0) && combined.includes(23);
-  const endIndex = combined.findIndex((value) => value === startHour);
-
-  return generateTimeRange(
-    isTomorrow ? startHour : combined[0],
-    isTomorrow ? endIndex - 1 : combined.at(-1)!
-  );
+  return {
+    startTime: compactTimeList[time1.ranges[0]],
+    endTime: compactTimeList[endHour],
+    ranges: generateTimeRange(time1.ranges[0], endHour),
+    isTomorrow: isNextDay,
+  };
 }
 
 // 시간 텍스트의 visible 범위 계산
