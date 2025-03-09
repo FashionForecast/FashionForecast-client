@@ -21,8 +21,8 @@ type TimeSelectorProps = {
   isOpen: boolean;
   times: Time[];
   day: Day;
-  onChangeTimes: (newTimes: Time[] | ((prevTimes: Time[]) => Time[])) => void;
-  onChangeDay: (newDay: Day | ((prevDay: Day) => Day)) => void;
+  updateTimes: (newTimes: Time[] | ((prevTimes: Time[]) => Time[])) => void;
+  updateDay: (newDay: Day | ((prevDay: Day) => Day)) => void;
   onClose: () => void;
   onSubmit: () => void;
 };
@@ -31,8 +31,8 @@ export const TimeSelector = ({
   isOpen,
   times,
   day,
-  onChangeTimes,
-  onChangeDay,
+  updateTimes,
+  updateDay,
   onClose,
   onSubmit,
 }: TimeSelectorProps) => {
@@ -82,7 +82,7 @@ export const TimeSelector = ({
       ranges: [pointerHour],
     };
 
-    onChangeTimes((prev) => (isDefaultTime ? [newTime] : [...prev, newTime]));
+    updateTimes((prev) => (isDefaultTime ? [newTime] : [...prev, newTime]));
   };
 
   const handlePointerMove = (pointerHour: number) => {
@@ -108,9 +108,10 @@ export const TimeSelector = ({
       return;
     }
 
-    onChangeTimes((prev) => {
+    updateTimes((prev) => {
       const earliestStartHour = prev[0].ranges[0];
       const newTime = prev[prev.length - 1];
+      const startHour = newTime.ranges[0];
       let endHour =
         draggingRangeStatus !== 'impossible'
           ? draggingEndHour
@@ -121,8 +122,8 @@ export const TimeSelector = ({
       const updatedNewTime: Time = {
         ...newTime,
         endTime: compactTimeList[endHour],
-        ranges: generateTimeRange(newTime.ranges[0], endHour),
-        isNextDay: newTime.ranges[0] > endHour,
+        ranges: generateTimeRange(startHour, endHour),
+        isNextDay: startHour > endHour,
       };
 
       const addedTimes = [...prev.slice(0, -1), updatedNewTime] //
@@ -135,14 +136,14 @@ export const TimeSelector = ({
     setDraggingStartHour(null);
     setDraggingEndHour(null);
     setDraggingRangeStatus('currentDay');
-  }, [draggingStartHour, draggingEndHour, draggingRangeStatus, onChangeTimes]);
+  }, [draggingStartHour, draggingEndHour, draggingRangeStatus, updateTimes]);
 
   const handleDelete = () => {
     if (removeRange === null) return;
 
     if (removeRange >= 0) {
       const filteredTimes = times.filter((_, i) => i !== removeRange);
-      onChangeTimes(
+      updateTimes(
         filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes
       );
       setRemoveRange(null);
@@ -151,11 +152,11 @@ export const TimeSelector = ({
   };
 
   const handleDeleteButtonClick = () => {
-    onChangeTimes(getDefaultTimes);
+    updateTimes(getDefaultTimes);
   };
 
   const handleDayButtonClick = (type: Day) => () => {
-    onChangeDay(type);
+    updateDay(type);
   };
 
   useEffect(() => {
@@ -317,14 +318,15 @@ function mergeTwoTime(time1: Time, time2: Time): Time {
   const combined = [...new Set([...time1.ranges, ...time2.ranges])] //
     .sort((a, b) => a - b);
   const isNextDay = time1.isNextDay || time2.isNextDay;
+  const startHour = time1.ranges[0];
   const endHour = isNextDay
-    ? combined.findIndex((hour) => hour === time1.ranges[0]) - 1
+    ? combined.findIndex((hour) => hour === startHour) - 1
     : combined[combined.length - 1];
 
   return {
-    startTime: compactTimeList[time1.ranges[0]],
+    startTime: compactTimeList[startHour],
     endTime: compactTimeList[endHour],
-    ranges: generateTimeRange(time1.ranges[0], endHour),
+    ranges: generateTimeRange(startHour, endHour),
     isNextDay: isNextDay,
   };
 }

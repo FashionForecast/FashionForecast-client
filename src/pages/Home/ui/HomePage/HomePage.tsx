@@ -81,13 +81,11 @@ export const HomePage = () => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
   };
 
-  const onChangeTimes = (
-    newTimes: Time[] | ((prevTimes: Time[]) => Time[])
-  ) => {
+  const updateTimes = (newTimes: Time[] | ((prevTimes: Time[]) => Time[])) => {
     setTimes(newTimes);
   };
 
-  const onChangeDay = (newDay: Day | ((prevDay: Day) => Day)) => {
+  const updateDay = (newDay: Day | ((prevDay: Day) => Day)) => {
     setDay(newDay);
   };
 
@@ -141,8 +139,8 @@ export const HomePage = () => {
           isOpen={isTimeSelectorOpen}
           times={times}
           day={day}
-          onChangeTimes={onChangeTimes}
-          onChangeDay={onChangeDay}
+          updateTimes={updateTimes}
+          updateDay={updateDay}
           onClose={handleTimeSelectorToggle}
           onSubmit={handleTimeSubmit}
         />
