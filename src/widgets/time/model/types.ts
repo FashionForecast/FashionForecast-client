@@ -2,7 +2,7 @@ export type Time = {
   startTime: string;
   endTime: string | null;
   ranges: number[];
-  isTomorrow?: boolean;
+  isNextDay?: boolean;
   isDefault?: boolean;
 };
 export type DraggingRangeStatus = 'currentDay' | 'nextDay' | 'impossible';

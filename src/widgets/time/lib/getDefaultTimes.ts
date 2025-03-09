@@ -6,14 +6,14 @@ import { Time } from '../model/types';
 export function getDefaultTimes(): Time[] {
   const currentHour = new Date().getHours();
   const endHour = (currentHour + 8) % 24;
-  const isTomorrow = currentHour > endHour;
+  const isNextDay = currentHour > endHour;
 
   return [
     {
       startTime: compactTimeList[currentHour],
       endTime: compactTimeList[endHour],
       ranges: Array.from({ length: 9 }, (_, i) => (currentHour + i) % 24),
-      isTomorrow,
+      isNextDay: isNextDay,
       isDefault: true,
     },
   ];

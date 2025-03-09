@@ -87,14 +87,14 @@ function getFormattedTimeRanges({
 }: getFormattedTimeRangesParams) {
   if (!times[0]?.endTime) return [];
 
-  const formattedTimes = times.map(({ startTime, endTime, isTomorrow }) => {
+  const formattedTimes = times.map(({ startTime, endTime, isNextDay }) => {
     if (!endTime) return '';
 
     const isSameAMPM = startTime.slice(0, 2) === endTime.slice(0, 2);
-    const tomorrowText = isTomorrow ? '다음날' : '';
-    const endText = endTime.slice(isSameAMPM ? 3 : 0);
+    const nextDay = isNextDay ? '다음날' : '';
+    const endHour = endTime.slice(isSameAMPM ? 3 : 0);
 
-    return `${startTime} - ${tomorrowText} ${endText}`;
+    return `${startTime} - ${nextDay} ${endHour}`;
   });
 
   if (isCompact && times.length >= 3) {

@@ -15,7 +15,7 @@ export async function getWeather(
   const maxEndDateTime = convertToTime(
     times.at(-1)?.ranges.at(-1),
     day,
-    times[times.length - 1].isTomorrow
+    times[times.length - 1].isNextDay
   );
 
   const { nx, ny } = regionCoordinateList[region];
@@ -28,13 +28,13 @@ export async function getWeather(
     ny: String(ny),
   });
 
-  times.forEach(({ ranges, isTomorrow }) => {
-    const tomorrowIndex = isTomorrow ? ranges.findIndex((i) => i === 0) : null;
+  times.forEach(({ ranges, isNextDay }) => {
+    const tomorrowIndex = isNextDay ? ranges.findIndex((i) => i === 0) : null;
     ranges.forEach((time, i) => {
       const timeString = convertToTime(
         time,
         day,
-        tomorrowIndex !== null && i >= tomorrowIndex && isTomorrow
+        tomorrowIndex !== null && i >= tomorrowIndex && isNextDay
       );
       params.append('selectedTimes', timeString);
     });
@@ -48,7 +48,7 @@ export async function getWeather(
 function convertToTime(
   time: number | undefined,
   day: Day,
-  isTomorrow?: boolean
+  isNextDay?: boolean
 ) {
   if (time === undefined) {
     throw Error('time이 존재하지 않습니다.');
@@ -63,7 +63,7 @@ function convertToTime(
     addToDay = 2;
   }
 
-  if (isTomorrow) addToDay += 1;
+  if (isNextDay) addToDay += 1;
 
   date.setDate(date.getDate() + addToDay);
 

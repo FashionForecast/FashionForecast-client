@@ -56,7 +56,7 @@ export const TimeSelector = ({
       ),
     [draggingEndHour, draggingStartHour, times, isDefaultTime]
   );
-  const tomorrowTime = times.find((v) => v.isTomorrow);
+  const tomorrowTime = times.find((v) => v.isNextDay);
   const selectedTimeText = getSelectedTimeText(day, times);
 
   const handlePointerDown = (pointerHour: number) => {
@@ -118,11 +118,11 @@ export const TimeSelector = ({
 
       if (endHour < 0) endHour = 23;
 
-      const updatedNewTime = {
+      const updatedNewTime: Time = {
         ...newTime,
         endTime: compactTimeList[endHour],
         ranges: generateTimeRange(newTime.ranges[0], endHour),
-        isTomorrow: newTime.ranges[0] > endHour,
+        isNextDay: newTime.ranges[0] > endHour,
       };
 
       const addedTimes = [...prev.slice(0, -1), updatedNewTime] //
@@ -313,10 +313,10 @@ function hasOverlap(time1: Time, time2: Time) {
 }
 
 /** 두 시간대를 하나로 병합 */
-function mergeTwoTime(time1: Time, time2: Time) {
+function mergeTwoTime(time1: Time, time2: Time): Time {
   const combined = [...new Set([...time1.ranges, ...time2.ranges])] //
     .sort((a, b) => a - b);
-  const isNextDay = time1.isTomorrow || time2.isTomorrow;
+  const isNextDay = time1.isNextDay || time2.isNextDay;
   const endHour = isNextDay
     ? combined.findIndex((hour) => hour === time1.ranges[0]) - 1
     : combined[combined.length - 1];
@@ -325,7 +325,7 @@ function mergeTwoTime(time1: Time, time2: Time) {
     startTime: compactTimeList[time1.ranges[0]],
     endTime: compactTimeList[endHour],
     ranges: generateTimeRange(time1.ranges[0], endHour),
-    isTomorrow: isNextDay,
+    isNextDay: isNextDay,
   };
 }
 
@@ -380,18 +380,18 @@ function getSelectedTimeText(day: Day, times: Time[]) {
   const formatTimeZone = (
     startTime: string,
     endTime: string | null,
-    isTomorrow?: boolean
+    isNextDay?: boolean
   ) => {
     if (endTime === null) return '';
     const isSameAMPM = startTime.slice(0, 2) === endTime.slice(0, 2);
-    const tomorrowText = isTomorrow ? '다음날' : '';
-    const endText = endTime.slice(isSameAMPM ? 3 : 0);
+    const nextDay = isNextDay ? '다음날' : '';
+    const endHour = endTime.slice(isSameAMPM ? 3 : 0);
 
-    return `${startTime} - ${tomorrowText} ${endText}`;
+    return `${startTime} - ${nextDay} ${endHour}`;
   };
 
-  const formattedTimes = times.map(({ startTime, endTime, isTomorrow }) =>
-    formatTimeZone(startTime, endTime, isTomorrow)
+  const formattedTimes = times.map(({ startTime, endTime, isNextDay }) =>
+    formatTimeZone(startTime, endTime, isNextDay)
   );
 
   let timeText = '';
