@@ -97,7 +97,7 @@ export const TimeSelector = ({
     setDraggingRangeStatus(draggingRangeStatus);
   };
 
-  const handlePointerEnd = useCallback(() => {
+  const handlePointerUp = useCallback(() => {
     if (draggingStartHour === null || draggingEndHour === null) {
       return;
     }
@@ -153,12 +153,12 @@ export const TimeSelector = ({
   };
 
   useEffect(() => {
-    window.addEventListener('pointerup', handlePointerEnd);
+    window.addEventListener('pointerup', handlePointerUp);
 
     return () => {
-      window.removeEventListener('pointerup', handlePointerEnd);
+      window.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [handlePointerEnd]);
+  }, [handlePointerUp]);
 
   return (
     <S.TimeSelectorWrap $isOpen={isOpen}>
