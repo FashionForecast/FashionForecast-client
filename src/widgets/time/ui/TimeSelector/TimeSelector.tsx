@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { compactTimeList } from '@/shared/consts/timeList';
 import { theme } from '@/shared/styles';
 
 import { generateTimeRange } from '../../lib/generateTimeRange';
 import { getDefaultTimes } from '../../lib/getDefaultTimes';
+import { getFormattedTimeRanges } from '../../lib/getFormattedTimeRanges';
 import {
   CLOCK_INNER_RADIUS,
   CLOCK_RADIUS,
@@ -48,7 +49,10 @@ export const TimeSelector = ({
 
   const isDefaultTime = times[0]?.isDefault ?? false;
   const tomorrowTime = times.find((v) => v.isNextDay);
-  const selectedTimeText = getSelectedTimeText(day, times);
+  const selectedTimesText = useMemo(
+    () => formatSelectedTimesText(times, day),
+    [times, day]
+  );
 
   const handlePointerDown = (pointerHour: number) => {
     if (!isDefaultTime) {
@@ -249,7 +253,7 @@ export const TimeSelector = ({
 
           {times.length > 0 && (
             <S.SelectedTimeText $isDefaultTime={isDefaultTime}>
-              <span>{selectedTimeText}</span>
+              <span>{selectedTimesText}</span>
             </S.SelectedTimeText>
           )}
         </S.ClockWrap>
@@ -310,37 +314,25 @@ function mergeTwoTime(time1: Time, time2: Time): Time {
   };
 }
 
-// 선택된 시간대 텍스트 생성
-function getSelectedTimeText(day: Day, times: Time[]) {
-  if (times.length === 0 || !times[0].endTime) return '';
+/** 선택된 시간대를 한 줄 텍스트로 포맷 */
+function formatSelectedTimesText(times: Time[], day: Day) {
+  function hasComma(index: number) {
+    if (formattedRanges.length >= 4) return false;
 
-  const formatTimeZone = (
-    startTime: string,
-    endTime: string | null,
-    isNextDay?: boolean
-  ) => {
-    if (endTime === null) return '';
-    const isSameAMPM = startTime.slice(0, 2) === endTime.slice(0, 2);
-    const nextDay = isNextDay ? '다음날' : '';
-    const endHour = endTime.slice(isSameAMPM ? 3 : 0);
-
-    return `${startTime} - ${nextDay} ${endHour}`;
-  };
-
-  const formattedTimes = times.map(({ startTime, endTime, isNextDay }) =>
-    formatTimeZone(startTime, endTime, isNextDay)
-  );
-
-  let timeText = '';
-  if (times.length === 1) {
-    timeText = formattedTimes[0];
-  } else if (times.length === 2) {
-    timeText = formattedTimes.join(', ');
-  } else if (times.length >= 3) {
-    timeText = `${formattedTimes[0]} ··· ${
-      formattedTimes[formattedTimes.length - 1]
-    }`;
+    const isMiddleIndex = index >= 1 && index <= formattedRanges.length - 2;
+    return isMiddleIndex;
   }
 
-  return `${day} ${timeText}`;
+  const formattedRanges = getFormattedTimeRanges({
+    times,
+    day,
+    isCompact: true,
+  });
+
+  let text = '';
+  formattedRanges.forEach(
+    (time, index) => (text += `${time}${hasComma(index) ? ',' : ''}` + ' ')
+  );
+
+  return text;
 }
