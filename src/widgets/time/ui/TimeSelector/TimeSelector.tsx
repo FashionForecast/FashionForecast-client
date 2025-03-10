@@ -14,7 +14,6 @@ import {
 import { Day, DraggingRangeStatus, Time } from '../../model/types';
 
 import { HourSections } from './HourSections/HourSections';
-import { TimeDivider } from './TimeDivider/TimeDivider';
 import { TimeHeader } from './TimeHeader/TimeHeader';
 import { TimeRanges } from './TimeRanges/TimeRanges';
 import { S, C } from './TimeSelector.style';
@@ -165,6 +164,7 @@ export const TimeSelector = ({
   return (
     <S.TimeSelectorWrap $isOpen={isOpen}>
       <TimeHeader onClose={onClose} />
+
       <S.Content>
         <S.DayWrap>
           <S.Heading>날짜</S.Heading>
@@ -203,7 +203,6 @@ export const TimeSelector = ({
                 strokeDasharray={'0.7 0.3'}
                 strokeDashoffset={0.85}
               />
-              <TimeDivider />
 
               <TimeRanges
                 times={times}

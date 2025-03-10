@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { generateTimeRange } from '@/widgets/time/lib/generateTimeRange';
 import { CLOCK_RADIUS } from '@/widgets/time/model/consts';
@@ -11,8 +11,8 @@ import {
   VisibleHoursText,
 } from '../../../model/types';
 
-import { SectionArea } from './SectionArea/SectionArea';
-import { SectionText } from './SectionText/SectionText';
+import { HourSection } from './HourSection/HourSection';
+import { HourText } from './HourText/HourText';
 
 type HourSectionsProps = {
   times: Time[];
@@ -76,29 +76,25 @@ export const HourSections = ({
       viewBox={`0 0 ${CLOCK_RADIUS * 2} ${CLOCK_RADIUS * 2}`}
       onPointerMove={handlePointerMoveEvent}
     >
-      <g transform={`rotate(-7, ${CLOCK_RADIUS}, ${CLOCK_RADIUS})`}>
-        {compactTimeList.map((_, i) => (
-          <SectionArea
-            key={i}
+      {compactTimeList.map((time, i) => (
+        <Fragment key={time}>
+          <HourSection
             index={i}
             onPointerDown={onPointerDown}
             onDelete={onDelete}
           />
-        ))}
-      </g>
-      {compactTimeList.map((time, i) => (
-        <SectionText
-          key={time}
-          time={time}
-          index={i}
-          visibleHoursText={visibleHoursText}
-          draggingStartHour={draggingStartHour}
-          draggingEndHour={draggingEndHour}
-          tomorrowIndexes={tomorrowIndexes}
-          isDragging={isDragging}
-          isTouchDevice={isTouchDevice}
-          dragRangeStatus={dragRangeStatus}
-        />
+          <HourText
+            time={time}
+            index={i}
+            visibleHoursText={visibleHoursText}
+            draggingStartHour={draggingStartHour}
+            draggingEndHour={draggingEndHour}
+            tomorrowIndexes={tomorrowIndexes}
+            isDragging={isDragging}
+            isTouchDevice={isTouchDevice}
+            dragRangeStatus={dragRangeStatus}
+          />
+        </Fragment>
       ))}
     </svg>
   );

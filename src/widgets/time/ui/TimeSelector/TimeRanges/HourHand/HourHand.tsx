@@ -2,7 +2,7 @@ import { CLOCK_INNER_RADIUS } from '@/widgets/time/model/consts';
 
 import { theme } from '@/shared/styles';
 
-export const TimeDivider = () => {
+export const HourHand = () => {
   return (
     <circle
       r={CLOCK_INNER_RADIUS}

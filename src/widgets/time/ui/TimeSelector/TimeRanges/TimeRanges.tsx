@@ -1,6 +1,6 @@
 import { DraggingRangeStatus, Time } from '../../../model/types';
-import { TimeDivider } from '../TimeDivider/TimeDivider';
 
+import { HourHand } from './HourHand/HourHand';
 import { TimeRange } from './TimeRange/TimeRange';
 
 type TimeRangesProps = {
@@ -24,6 +24,8 @@ export const TimeRanges = ({
 
   return (
     <>
+      {!isDefaultTime && <HourHand />}
+
       {!isDefaultTime &&
         times.map(
           (time, i) =>
@@ -43,7 +45,7 @@ export const TimeRanges = ({
             endHour={times[0].ranges[times[0].ranges.length - 1]}
             isDefaultTime={isDefaultTime}
           />
-          <TimeDivider />
+          <HourHand />
         </>
       )}
 

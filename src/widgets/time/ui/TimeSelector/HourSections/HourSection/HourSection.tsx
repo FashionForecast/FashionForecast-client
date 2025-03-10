@@ -1,6 +1,6 @@
 import { CLOCK_RADIUS } from '@/widgets/time/model/consts';
 
-import { S } from './SectionArea.style';
+import { S } from './HourSection.style';
 
 type SectionAreaProps = {
   index: number;
@@ -12,7 +12,7 @@ const RADIUS = 170; // 바깥 원의 반지름
 const INNER_RADIUS = 100; // 비어 있는 내부 원의 반지름
 const ANGLE = 15; // 한 영역의 각
 
-export const SectionArea = ({
+export const HourSection = ({
   index,
   onPointerDown,
   onDelete,
@@ -40,6 +40,7 @@ export const SectionArea = ({
       fill={'transparent'}
       // fill={`hsl(${(index / 24) * 360}, 70%, 50%)`}
       stroke='none'
+      transform={`rotate(-7, ${CLOCK_RADIUS}, ${CLOCK_RADIUS})`}
       onPointerDown={() => onPointerDown(index)}
       onClick={onDelete}
     />

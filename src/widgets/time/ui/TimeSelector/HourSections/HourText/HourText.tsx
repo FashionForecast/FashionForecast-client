@@ -11,9 +11,9 @@ import {
   VisibleHoursText,
 } from '@/widgets/time/model/types';
 
-import { S } from './SectionText.style';
+import { S } from './HourText.style';
 
-type SectionTextProps = {
+type HourTextProps = {
   time: string;
   index: number;
   visibleHoursText: VisibleHoursText;
@@ -25,7 +25,7 @@ type SectionTextProps = {
   dragRangeStatus: DraggingRangeStatus;
 };
 
-export const SectionText = ({
+export const HourText = ({
   time,
   index,
   visibleHoursText,
@@ -35,7 +35,7 @@ export const SectionText = ({
   isDragging,
   isTouchDevice,
   dragRangeStatus,
-}: SectionTextProps) => {
+}: HourTextProps) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const HourTextRef = useRef<SVGTextElement>(null);
 
