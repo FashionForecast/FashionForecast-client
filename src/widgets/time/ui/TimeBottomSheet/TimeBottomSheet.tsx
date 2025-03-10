@@ -35,9 +35,10 @@ export const TimeBottomSheet = ({
   };
 
   const hasComma = (index: number) => {
-    return (
-      !isCompactRanges && index >= 1 && index <= formattedRanges.length - 2
-    );
+    const isMiddleIndex = index >= 1 && index <= formattedRanges.length - 2;
+
+    if (!isCompactRanges) return isMiddleIndex;
+    return isMiddleIndex && formattedRanges.length === 3;
   };
 
   return (
