@@ -23,7 +23,7 @@ type HourSectionsProps = {
   dragRangeStatus: DraggingRangeStatus;
   onPointerDown: (index: number) => void;
   onPointerMove: (index: number) => void;
-  onDelete: () => void;
+  onDeleteRange: () => void;
 };
 
 export const HourSections = ({
@@ -35,7 +35,7 @@ export const HourSections = ({
   dragRangeStatus,
   onPointerDown,
   onPointerMove,
-  onDelete,
+  onDeleteRange,
 }: HourSectionsProps) => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const visibleHoursText = getVisibleHoursText({
@@ -81,7 +81,7 @@ export const HourSections = ({
           <HourSection
             index={i}
             onPointerDown={onPointerDown}
-            onDelete={onDelete}
+            onDeleteRange={onDeleteRange}
           />
           <HourText
             time={time}

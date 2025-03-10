@@ -5,7 +5,7 @@ import { S } from './HourSection.style';
 type SectionAreaProps = {
   index: number;
   onPointerDown: (index: number) => void;
-  onDelete: () => void;
+  onDeleteRange: () => void;
 };
 
 const RADIUS = 170; // 바깥 원의 반지름
@@ -15,7 +15,7 @@ const ANGLE = 15; // 한 영역의 각
 export const HourSection = ({
   index,
   onPointerDown,
-  onDelete,
+  onDeleteRange,
 }: SectionAreaProps) => {
   const startAngle = index * ANGLE;
   const endAngle = startAngle + ANGLE;
@@ -42,7 +42,7 @@ export const HourSection = ({
       stroke='none'
       transform={`rotate(-7, ${CLOCK_RADIUS}, ${CLOCK_RADIUS})`}
       onPointerDown={() => onPointerDown(index)}
-      onClick={onDelete}
+      onClick={onDeleteRange}
     />
   );
 };

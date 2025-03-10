@@ -42,7 +42,7 @@ export const TimeSelector = ({
   );
   const [draggingEndHour, setDraggingEndHour] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [removeRange, setRemoveRange] = useState<null | number>(null);
+  const [deleteRange, setDeleteRange] = useState<null | number>(null);
   const [draggingRangeStatus, setDraggingRangeStatus] =
     useState<DraggingRangeStatus>('currentDay');
 
@@ -55,18 +55,18 @@ export const TimeSelector = ({
 
   const handlePointerDown = (pointerHour: number) => {
     if (!isDefaultTime) {
-      const targetRangeIndex = times.findIndex((time) =>
+      const deleteTarget = times.findIndex((time) =>
         time.ranges.includes(pointerHour)
       );
 
-      if (targetRangeIndex >= 0) {
-        setRemoveRange(targetRangeIndex);
+      if (deleteTarget >= 0) {
+        setDeleteRange(deleteTarget);
         return;
       }
     }
 
     setIsDragging(true);
-    setRemoveRange(null);
+    setDeleteRange(null);
     setDraggingStartHour(pointerHour);
     setDraggingEndHour(pointerHour);
 
@@ -132,21 +132,20 @@ export const TimeSelector = ({
     setDraggingRangeStatus('currentDay');
   }, [draggingStartHour, draggingEndHour, draggingRangeStatus, updateTimes]);
 
-  const handleDelete = () => {
-    if (removeRange === null) return;
+  const handleDeleteRangeClick = () => {
+    if (deleteRange === null) return;
 
-    if (removeRange >= 0) {
-      const filteredTimes = times.filter((_, i) => i !== removeRange);
-      updateTimes(
-        filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes
-      );
-      setRemoveRange(null);
-      setDraggingEndHour(null);
-    }
+    const filteredTimes = times.filter((_, index) => index !== deleteRange);
+    const newTimes =
+      filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes;
+
+    updateTimes(newTimes);
+    setDeleteRange(null);
   };
 
   const handleDeleteButtonClick = () => {
-    updateTimes(getDefaultTimes);
+    const defaultTimes = getDefaultTimes();
+    updateTimes(defaultTimes);
   };
 
   const handleDayButtonClick = (type: Day) => () => {
@@ -220,7 +219,7 @@ export const TimeSelector = ({
                 isDragging={isDragging}
                 dragRangeStatus={draggingRangeStatus}
                 onPointerDown={handlePointerDown}
-                onDelete={handleDelete}
+                onDeleteRange={handleDeleteRangeClick}
                 onPointerMove={handlePointerMove}
               />
             </S.ClockFace>
