@@ -11,3 +11,8 @@ export type TimeSelectorDayButton = {
   type: Day;
   text: string;
 }[];
+
+export type VisibleHoursText = {
+  alwaysShowHours: number[];
+  selectedBothEnds: number[];
+};

@@ -16,6 +16,7 @@ const HourText = styled.text<{ $isVisible: boolean; $isHighlight: boolean }>`
     css`
       font-size: 12px;
       font-weight: bold;
+      visibility: visible;
       fill: ${theme.colors.white};
     `}
 `;

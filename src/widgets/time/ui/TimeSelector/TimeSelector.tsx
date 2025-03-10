@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { compactTimeList } from '@/shared/consts/timeList';
 import { theme } from '@/shared/styles';
 
+import { generateTimeRange } from '../../lib/generateTimeRange';
 import { getDefaultTimes } from '../../lib/getDefaultTimes';
 import {
   CLOCK_INNER_RADIUS,
@@ -46,16 +47,6 @@ export const TimeSelector = ({
     useState<DraggingRangeStatus>('currentDay');
 
   const isDefaultTime = times[0]?.isDefault ?? false;
-  const visibleTimeText = useMemo(
-    () =>
-      findVisibleTimeText(
-        times,
-        draggingStartHour,
-        draggingEndHour,
-        isDefaultTime
-      ),
-    [draggingEndHour, draggingStartHour, times, isDefaultTime]
-  );
   const tomorrowTime = times.find((v) => v.isNextDay);
   const selectedTimeText = getSelectedTimeText(day, times);
 
@@ -219,7 +210,7 @@ export const TimeSelector = ({
               />
 
               <HourSections
-                visibleTimeText={visibleTimeText}
+                times={times}
                 tomorrowTime={tomorrowTime}
                 draggingStartHour={draggingStartHour}
                 draggingEndHour={draggingEndHour}
@@ -271,18 +262,6 @@ export const TimeSelector = ({
   );
 };
 
-/** 주어진 시작 시간과 끝 시간 사이의 모든 시간을 포함하는 배열을 생성 */
-function generateTimeRange(startHour: number, endHour: number) {
-  const ranges = [startHour];
-
-  for (let hour = startHour; hour !== endHour; ) {
-    hour = (hour + 1) % 24;
-    ranges.push(hour);
-  }
-
-  return ranges;
-}
-
 /** 겹치는 시간대가 존재하면 하나의 시간대로 병합 */
 function mergeOverlappingTimes(times: Time[]) {
   const list = [...times];
@@ -330,50 +309,6 @@ function mergeTwoTime(time1: Time, time2: Time): Time {
     isNextDay: isNextDay,
   };
 }
-
-// 시간 텍스트의 visible 범위 계산
-const findVisibleTimeText = (
-  times: Time[],
-  focussingStartHour: number | null,
-  focusingEndHour: number | null,
-  isDefaultTime: boolean
-): [number[], number[]] => {
-  const allIndexes = new Set();
-  const bothEnds: number[] = []; // 각 범위의 양 끝단
-
-  if (
-    typeof focussingStartHour === 'number' &&
-    typeof focusingEndHour === 'number'
-  ) {
-    const draggingIndexes = generateTimeRange(
-      focussingStartHour,
-      focusingEndHour
-    );
-
-    draggingIndexes.forEach((index) => {
-      allIndexes.add(index);
-    });
-  }
-
-  if (!isDefaultTime) {
-    times.forEach((time) => {
-      bothEnds.push(time.ranges[0], time.ranges.at(-1) as number);
-      time.ranges.forEach((index) => {
-        allIndexes.add(index);
-      });
-    });
-  }
-
-  // 3의 배수이면서 사용자가 선택하지 않은 시간대의 텍스트
-  const alwaysVisible = [];
-  for (let i = 0; i < 24; i += 3) {
-    if (!allIndexes.has(i)) {
-      alwaysVisible.push(i);
-    }
-  }
-
-  return [alwaysVisible, bothEnds];
-};
 
 // 선택된 시간대 텍스트 생성
 function getSelectedTimeText(day: Day, times: Time[]) {

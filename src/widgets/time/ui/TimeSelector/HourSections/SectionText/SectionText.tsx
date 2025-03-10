@@ -6,14 +6,17 @@ import {
   CLOCK_RADIUS,
   TIME_COLOR,
 } from '@/widgets/time/model/consts';
-import { DraggingRangeStatus } from '@/widgets/time/model/types';
+import {
+  DraggingRangeStatus,
+  VisibleHoursText,
+} from '@/widgets/time/model/types';
 
 import { S } from './SectionText.style';
 
 type SectionTextProps = {
   time: string;
   index: number;
-  visibleTimeText: [number[], number[]];
+  visibleHoursText: VisibleHoursText;
   draggingStartHour: number | null;
   draggingEndHour: number | null;
   tomorrowIndexes: number[];
@@ -25,7 +28,7 @@ type SectionTextProps = {
 export const SectionText = ({
   time,
   index,
-  visibleTimeText,
+  visibleHoursText,
   draggingStartHour,
   draggingEndHour,
   tomorrowIndexes,
@@ -33,17 +36,18 @@ export const SectionText = ({
   isTouchDevice,
   dragRangeStatus,
 }: SectionTextProps) => {
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const HourTextRef = useRef<SVGTextElement>(null);
+
   const [AMPM, hour] = time.split(' ');
   const angle = -90 + index * 15;
   const x =
     CLOCK_RADIUS + CLOCK_INNER_RADIUS * Math.cos((angle * Math.PI) / 180); // 숫자는 원 바깥쪽에
   const y =
     CLOCK_RADIUS + CLOCK_INNER_RADIUS * Math.sin((angle * Math.PI) / 180);
-  const [always, bothEnds] = visibleTimeText;
-  const isHighlight = bothEnds.includes(index) || draggingEndHour === index;
-  const isVisibleText = isHighlight || always.includes(index);
-  const [position, setPosition] = useState({ top: 0, left: 0 });
-  const HourTextRef = useRef<SVGTextElement>(null);
+  const { alwaysShowHours, selectedBothEnds } = visibleHoursText;
+  const isVisibleText = alwaysShowHours.includes(index);
+  const isBothEnds = selectedBothEnds.includes(index);
   const isTomorrow = isTomorrowText(
     draggingStartHour,
     draggingEndHour,
@@ -75,7 +79,7 @@ export const SectionText = ({
         y={y}
         textAnchor='middle'
         $isVisible={isVisibleText}
-        $isHighlight={isHighlight}
+        $isHighlight={isBothEnds}
         ref={HourTextRef}
       >
         <tspan x={x} dy={-2}>
