@@ -8,7 +8,7 @@ type TimeRangesProps = {
   isDragging: boolean;
   draggingStartHour: number | null;
   draggingEndHour: number | null;
-  dragRangeStatus: DraggingRangeStatus;
+  draggingRangeStatus: DraggingRangeStatus;
 };
 
 export const TimeRanges = ({
@@ -16,7 +16,7 @@ export const TimeRanges = ({
   isDragging,
   draggingStartHour,
   draggingEndHour,
-  dragRangeStatus,
+  draggingRangeStatus,
 }: TimeRangesProps) => {
   const isDefaultTime = times[0].isDefault;
   const isDraggingRange =
@@ -54,7 +54,7 @@ export const TimeRanges = ({
         <TimeRange
           startHour={draggingStartHour}
           endHour={draggingEndHour}
-          dragRangeStatus={dragRangeStatus}
+          draggingRangeStatus={draggingRangeStatus}
         />
       )}
     </>

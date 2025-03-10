@@ -8,7 +8,7 @@ import { S } from './TimeRange.style';
 type TimeRangeProps = {
   startHour: number;
   endHour: number;
-  dragRangeStatus?: DraggingRangeStatus;
+  draggingRangeStatus?: DraggingRangeStatus;
   isDefaultTime?: boolean;
 };
 
@@ -17,7 +17,7 @@ const TOTAL_LENGTH = 904;
 export const TimeRange = ({
   startHour,
   endHour,
-  dragRangeStatus,
+  draggingRangeStatus,
   isDefaultTime,
 }: TimeRangeProps) => {
   const range = calculateRange(startHour, endHour);
@@ -31,7 +31,7 @@ export const TimeRange = ({
         cy={'0'}
         r={CLOCK_INNER_RADIUS}
         fill='transparent'
-        stroke={getStrokeColor(dragRangeStatus, isDefaultTime)}
+        stroke={getStrokeColor(draggingRangeStatus, isDefaultTime)}
         strokeWidth={40}
         strokeLinecap='round'
         strokeDasharray={TOTAL_LENGTH}
@@ -84,12 +84,12 @@ function calculateRange(startHour: number, endHour: number): number {
 }
 
 function getStrokeColor(
-  dragRangeStatus: DraggingRangeStatus | undefined,
+  draggingRangeStatus: DraggingRangeStatus | undefined,
   isDefaultTime: boolean | undefined
 ) {
   if (isDefaultTime) return theme.colors.blueGrey[200];
 
-  return dragRangeStatus
-    ? TIME_COLOR[dragRangeStatus]
+  return draggingRangeStatus
+    ? TIME_COLOR[draggingRangeStatus]
     : theme.colors.blueGrey[600];
 }

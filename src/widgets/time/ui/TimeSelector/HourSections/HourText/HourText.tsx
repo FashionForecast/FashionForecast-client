@@ -22,7 +22,7 @@ type HourTextProps = {
   tomorrowIndexes: number[];
   isDragging: boolean;
   isTouchDevice: boolean;
-  dragRangeStatus: DraggingRangeStatus;
+  draggingRangeStatus: DraggingRangeStatus;
 };
 
 export const HourText = ({
@@ -34,7 +34,7 @@ export const HourText = ({
   tomorrowIndexes,
   isDragging,
   isTouchDevice,
-  dragRangeStatus,
+  draggingRangeStatus,
 }: HourTextProps) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const HourTextRef = useRef<SVGTextElement>(null);
@@ -95,7 +95,7 @@ export const HourText = ({
         draggingEndHour === index &&
         createPortal(
           <S.Tooltip
-            $color={TIME_COLOR[dragRangeStatus]}
+            $color={TIME_COLOR[draggingRangeStatus]}
             $top={position.top}
             $left={position.left}
           >

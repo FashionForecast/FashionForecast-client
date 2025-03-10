@@ -20,7 +20,7 @@ type HourSectionsProps = {
   draggingStartHour: number | null;
   draggingEndHour: number | null;
   isDragging: boolean;
-  dragRangeStatus: DraggingRangeStatus;
+  draggingRangeStatus: DraggingRangeStatus;
   onPointerDown: (index: number) => void;
   onPointerMove: (index: number) => void;
   onDeleteRange: () => void;
@@ -32,7 +32,7 @@ export const HourSections = ({
   draggingStartHour,
   draggingEndHour,
   isDragging,
-  dragRangeStatus,
+  draggingRangeStatus,
   onPointerDown,
   onPointerMove,
   onDeleteRange,
@@ -92,7 +92,7 @@ export const HourSections = ({
             tomorrowIndexes={tomorrowIndexes}
             isDragging={isDragging}
             isTouchDevice={isTouchDevice}
-            dragRangeStatus={dragRangeStatus}
+            draggingRangeStatus={draggingRangeStatus}
           />
         </Fragment>
       ))}

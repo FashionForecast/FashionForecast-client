@@ -194,7 +194,7 @@ export const TimeSelector = ({
                 fill='none'
                 stroke={
                   draggingRangeStatus === 'impossible'
-                    ? '#FFC8C0'
+                    ? theme.colors.error.light
                     : theme.colors.blueGrey[200]
                 }
                 strokeWidth={4}
@@ -208,16 +208,16 @@ export const TimeSelector = ({
                 isDragging={isDragging}
                 draggingStartHour={draggingStartHour}
                 draggingEndHour={draggingEndHour}
-                dragRangeStatus={draggingRangeStatus}
+                draggingRangeStatus={draggingRangeStatus}
               />
 
               <HourSections
                 times={times}
                 tomorrowTime={tomorrowTime}
+                isDragging={isDragging}
                 draggingStartHour={draggingStartHour}
                 draggingEndHour={draggingEndHour}
-                isDragging={isDragging}
-                dragRangeStatus={draggingRangeStatus}
+                draggingRangeStatus={draggingRangeStatus}
                 onPointerDown={handlePointerDown}
                 onDeleteRange={handleDeleteRangeClick}
                 onPointerMove={handlePointerMove}
