@@ -24,19 +24,21 @@ export const TimeRanges = ({
 
   return (
     <>
-      {!isDefaultTime && <HourHand />}
-
-      {!isDefaultTime &&
-        times.map(
-          (time, i) =>
-            time.endTime && (
-              <TimeRange
-                key={i}
-                startHour={time.ranges[0]}
-                endHour={time.ranges[time.ranges.length - 1]}
-              />
-            )
-        )}
+      {!isDefaultTime && (
+        <>
+          <HourHand />
+          {times.map(
+            (time) =>
+              time.endTime && (
+                <TimeRange
+                  key={time.startTime}
+                  startHour={time.ranges[0]}
+                  endHour={time.ranges[time.ranges.length - 1]}
+                />
+              )
+          )}
+        </>
+      )}
 
       {isDefaultTime && (
         <>
@@ -49,7 +51,6 @@ export const TimeRanges = ({
         </>
       )}
 
-      {/* 드래그 중인 TimeRange */}
       {isDraggingRange && (
         <TimeRange
           startHour={draggingStartHour}
