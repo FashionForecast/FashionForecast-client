@@ -20,23 +20,17 @@ import { S, C } from './TimeSelector.style';
 
 type TimeSelectorProps = {
   isOpen: boolean;
-  times: Time[];
-  day: Day;
-  updateTimes: (newTimes: Time[] | ((prevTimes: Time[]) => Time[])) => void;
-  updateDay: (newDay: Day | ((prevDay: Day) => Day)) => void;
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (newTimes: Time[], newDay: Day) => void;
 };
 
 export const TimeSelector = ({
   isOpen,
-  times,
-  day,
-  updateTimes,
-  updateDay,
   onClose,
   onSubmit,
 }: TimeSelectorProps) => {
+  const [times, setTimes] = useState(getDefaultTimes);
+  const [day, setDay] = useState<Day>('오늘');
   const [draggingStartHour, setDraggingStartHour] = useState<number | null>(
     null
   );
@@ -75,7 +69,7 @@ export const TimeSelector = ({
       ranges: [pointerHour],
     };
 
-    updateTimes((prev) => (isDefaultTime ? [newTime] : [...prev, newTime]));
+    setTimes((prev) => (isDefaultTime ? [newTime] : [...prev, newTime]));
   };
 
   const handlePointerMove = (pointerHour: number) => {
@@ -101,7 +95,7 @@ export const TimeSelector = ({
       return;
     }
 
-    updateTimes((prev) => {
+    setTimes((prev) => {
       const earliestStartHour = prev[0].ranges[0];
       const newTime = prev[prev.length - 1];
       const startHour = newTime.ranges[0];
@@ -129,7 +123,7 @@ export const TimeSelector = ({
     setDraggingStartHour(null);
     setDraggingEndHour(null);
     setDraggingRangeStatus('currentDay');
-  }, [draggingStartHour, draggingEndHour, draggingRangeStatus, updateTimes]);
+  }, [draggingStartHour, draggingEndHour, draggingRangeStatus]);
 
   const handleDeleteRangeClick = () => {
     if (deleteRange === null) return;
@@ -138,17 +132,16 @@ export const TimeSelector = ({
     const newTimes =
       filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes;
 
-    updateTimes(newTimes);
+    setTimes(newTimes);
     setDeleteRange(null);
   };
 
   const handleDeleteButtonClick = () => {
-    const defaultTimes = getDefaultTimes();
-    updateTimes(defaultTimes);
+    setTimes(getDefaultTimes);
   };
 
   const handleDayButtonClick = (type: Day) => () => {
-    updateDay(type);
+    setDay(type);
   };
 
   useEffect(() => {
@@ -255,7 +248,10 @@ export const TimeSelector = ({
         </S.ClockWrap>
       </S.Content>
 
-      <C.SubmitButton disabled={isDefaultTime} onClick={onSubmit}>
+      <C.SubmitButton
+        disabled={isDefaultTime}
+        onClick={() => onSubmit(times, day)}
+      >
         이 시간대에 맞는 옷차림 찾기
       </C.SubmitButton>
     </S.TimeSelectorWrap>

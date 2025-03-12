@@ -8,8 +8,8 @@ import { Day, Time } from '../../model/types';
 import { S } from './TimeBottomSheet.style';
 
 type TimeBottomSheetProps = {
-  day: Day;
   times: Time[];
+  day: Day;
   onTimeSelectorToggle: () => void;
 };
 

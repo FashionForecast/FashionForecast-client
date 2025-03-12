@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -37,13 +37,13 @@ export type SelectedTime = {
 };
 
 export const HomePage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const queryClient = useQueryClient();
   const geolocation = useAppSelector((state) => state.geolocation.value);
+
   const [tab, setTab] = useState<HomeTab>('clothes');
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
-  const [times, setTimes] = useState<Time[]>(getDefaultTimes);
+  const [times, setTimes] = useState(getDefaultTimes);
   const [day, setDay] = useState<Day>('오늘');
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     data: weatherData,
@@ -51,7 +51,7 @@ export const HomePage = () => {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ['weather', geolocation?.region],
+    queryKey: ['weather', geolocation?.region, times, day],
     queryFn: () => getWeather(times, day, geolocation!.region),
     enabled: !!geolocation,
   });
@@ -64,8 +64,9 @@ export const HomePage = () => {
     setSearchParams(params);
   };
 
-  const handleTimeSubmit = () => {
-    queryClient.invalidateQueries({ queryKey: ['weather'] });
+  const handleTimeSubmit = (newTimes: Time[], newDay: Day) => {
+    setTimes(newTimes);
+    setDay(newDay);
     handleTimeSelectorToggle();
   };
 
@@ -79,14 +80,6 @@ export const HomePage = () => {
     setIsTimeSelectorOpen(isOpen);
     setSearchParams(params);
     document.body.style.overflow = isOpen ? 'hidden' : '';
-  };
-
-  const updateTimes = (newTimes: Time[] | ((prevTimes: Time[]) => Time[])) => {
-    setTimes(newTimes);
-  };
-
-  const updateDay = (newDay: Day | ((prevDay: Day) => Day)) => {
-    setDay(newDay);
   };
 
   /**  tab 쿼리 파라미터가 유효하면 해당 값으로 tab 설정 */
@@ -137,10 +130,6 @@ export const HomePage = () => {
 
         <TimeSelector
           isOpen={isTimeSelectorOpen}
-          times={times}
-          day={day}
-          updateTimes={updateTimes}
-          updateDay={updateDay}
           onClose={handleTimeSelectorToggle}
           onSubmit={handleTimeSubmit}
         />
