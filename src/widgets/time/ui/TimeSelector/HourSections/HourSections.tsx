@@ -16,7 +16,6 @@ import { HourText } from './HourText/HourText';
 
 type HourSectionsProps = {
   times: Time[];
-  tomorrowTime?: Time;
   draggingStartHour: number | null;
   draggingEndHour: number | null;
   isDragging: boolean;
@@ -28,7 +27,6 @@ type HourSectionsProps = {
 
 export const HourSections = ({
   times,
-  tomorrowTime,
   draggingStartHour,
   draggingEndHour,
   isDragging,
@@ -44,20 +42,21 @@ export const HourSections = ({
     draggingEndHour,
   });
 
-  const tomorrowIndexes =
-    tomorrowTime?.ranges.slice(tomorrowTime.ranges.findIndex((i) => i === 0)) ||
-    [];
+  const nextDayTimeRanges =
+    times
+      .find((v) => v.isNextDay)
+      ?.ranges.filter((hour, _, ranges) => ranges[0] > hour) ?? [];
 
-  const handlePointerMoveEvent = (event: React.PointerEvent) => {
-    const { clientX, clientY } = event; // 포인터 위치 가져오기
+  const detectHourOnPointerMove = (event: React.PointerEvent) => {
+    const { clientX, clientY } = event;
     const element = document.elementFromPoint(
       clientX,
       clientY
-    ) as HTMLElement | null; // 현재 포인터 아래 요소 탐지
+    ) as HTMLElement | null;
 
-    if (element && element.dataset.index) {
-      const index = parseInt(element.dataset.index, 10); // `data-index`에서 인덱스 가져오기
-      onPointerMove(index); // 외부로 전달
+    if (element && element.dataset.hour) {
+      const hour = parseInt(element.dataset.hour, 10);
+      onPointerMove(hour);
     }
   };
 
@@ -74,25 +73,25 @@ export const HourSections = ({
       width={CLOCK_RADIUS * 2}
       height={CLOCK_RADIUS * 2}
       viewBox={`0 0 ${CLOCK_RADIUS * 2} ${CLOCK_RADIUS * 2}`}
-      onPointerMove={handlePointerMoveEvent}
+      onPointerMove={detectHourOnPointerMove}
     >
-      {compactTimeList.map((time, i) => (
+      {compactTimeList.map((time, index) => (
         <Fragment key={time}>
           <HourSection
-            index={i}
+            hourIndex={index}
             onPointerDown={onPointerDown}
             onDeleteRange={onDeleteRange}
           />
           <HourText
             time={time}
-            index={i}
-            visibleHoursText={visibleHoursText}
+            hourIndex={index}
+            isDragging={isDragging}
             draggingStartHour={draggingStartHour}
             draggingEndHour={draggingEndHour}
-            tomorrowIndexes={tomorrowIndexes}
-            isDragging={isDragging}
-            isTouchDevice={isTouchDevice}
             draggingRangeStatus={draggingRangeStatus}
+            visibleHoursText={visibleHoursText}
+            nextDayTimeRanges={nextDayTimeRanges}
+            isTouchDevice={isTouchDevice}
           />
         </Fragment>
       ))}
@@ -107,8 +106,8 @@ type getVisibleHoursTextParams = {
 };
 
 /**
- * 시계에 표시될 시간 텍스트를 찾기 위해
- * 기본적으로 보여질 시간과 선택된 시간 범위의 양끝단 시간을 찾음
+ * - 시계에 표시될 시간 텍스트를 표시
+ * - 기본적으로 보여질 시간과 선택된 시간 범위의 양끝단 시간을 찾음
  */
 function getVisibleHoursText({
   times,

@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import { generateTimeRange } from '@/widgets/time/lib/generateTimeRange';
 import {
   CLOCK_INNER_RADIUS,
   CLOCK_RADIUS,
@@ -15,11 +16,11 @@ import { S } from './HourText.style';
 
 type HourTextProps = {
   time: string;
-  index: number;
+  hourIndex: number;
   visibleHoursText: VisibleHoursText;
   draggingStartHour: number | null;
   draggingEndHour: number | null;
-  tomorrowIndexes: number[];
+  nextDayTimeRanges: number[];
   isDragging: boolean;
   isTouchDevice: boolean;
   draggingRangeStatus: DraggingRangeStatus;
@@ -27,50 +28,49 @@ type HourTextProps = {
 
 export const HourText = ({
   time,
-  index,
+  hourIndex,
   visibleHoursText,
   draggingStartHour,
   draggingEndHour,
-  tomorrowIndexes,
+  nextDayTimeRanges,
   isDragging,
   isTouchDevice,
   draggingRangeStatus,
 }: HourTextProps) => {
-  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const HourTextRef = useRef<SVGTextElement>(null);
 
   const [AMPM, hour] = time.split(' ');
-  const angle = -90 + index * 15;
-  const x =
-    CLOCK_RADIUS + CLOCK_INNER_RADIUS * Math.cos((angle * Math.PI) / 180); // 숫자는 원 바깥쪽에
-  const y =
-    CLOCK_RADIUS + CLOCK_INNER_RADIUS * Math.sin((angle * Math.PI) / 180);
+  const { x, y } = polarToCartesian(hourIndex);
   const { alwaysShowHours, selectedBothEnds } = visibleHoursText;
-  const isVisibleText = alwaysShowHours.includes(index);
-  const isBothEnds = selectedBothEnds.includes(index);
-  const isTomorrow = isTomorrowText(
-    draggingStartHour,
-    draggingEndHour,
-    index,
-    tomorrowIndexes
-  );
+  const isVisibleText = alwaysShowHours.includes(hourIndex);
+  const isBothEnds = selectedBothEnds.includes(hourIndex);
+  const isNextDayHour = checkNextDayHour();
 
-  useEffect(() => {
-    const updatePosition = () => {
-      const HourTextEl = HourTextRef.current;
-      if (!HourTextEl) return;
+  function checkNextDayHour() {
+    const draggingRanges =
+      isDragging && draggingStartHour! > draggingEndHour!
+        ? generateTimeRange(0, draggingEndHour!)
+        : [];
 
-      const { top, left } = HourTextEl.getBoundingClientRect();
-      setPosition({ top: top - 52, left: left - 13 });
-    };
+    return (
+      draggingRanges.includes(hourIndex) ||
+      nextDayTimeRanges.includes(hourIndex)
+    );
+  }
 
-    updatePosition();
-    window.addEventListener('resize', updatePosition);
+  /** touch 기기에서 드래깅 중일 때, 툴팁 위치 업데이트 */
+  useLayoutEffect(() => {
+    if (!isTouchDevice || !isDragging) return;
 
-    return () => {
-      window.removeEventListener('resize', updatePosition);
-    };
-  }, []);
+    if (draggingEndHour === hourIndex) {
+      const HourTextElement = HourTextRef.current;
+      if (!HourTextElement) return;
+
+      const { top, left } = HourTextElement.getBoundingClientRect();
+      setTooltipPosition({ top: top - 52, left: left - 8 });
+    }
+  }, [draggingEndHour, hourIndex, isDragging, isTouchDevice]);
 
   return (
     <>
@@ -83,7 +83,7 @@ export const HourText = ({
         ref={HourTextRef}
       >
         <tspan x={x} dy={-2}>
-          {isTomorrow ? '다음날' : AMPM}
+          {isNextDayHour ? '다음날' : AMPM}
         </tspan>
         <tspan x={x} dy={12}>
           {hour}
@@ -91,34 +91,27 @@ export const HourText = ({
       </S.HourText>
 
       {isTouchDevice &&
-        isDragging &&
-        draggingEndHour === index &&
         createPortal(
           <S.Tooltip
             $color={TIME_COLOR[draggingRangeStatus]}
-            $top={position.top}
-            $left={position.left}
+            $top={tooltipPosition.top}
+            $left={tooltipPosition.left}
+            $visible={draggingEndHour === hourIndex}
           >
-            <div>{isTomorrow ? '다음날' : AMPM}</div>
+            <div>{isNextDayHour ? '다음날' : AMPM}</div>
             <div>{hour}</div>
           </S.Tooltip>,
-          document.body
+          document.getElementById('root')!
         )}
     </>
   );
 };
 
-const isTomorrowText = (
-  draggingStartHour: number | null,
-  draggingEndHour: number | null,
-  sectionIndex: number,
-  tomorrowIndexes: number[]
-) => {
-  const isDraggingStatus =
-    draggingStartHour !== null &&
-    draggingEndHour !== null &&
-    draggingStartHour - draggingEndHour > 0 &&
-    draggingEndHour >= sectionIndex;
-
-  return isDraggingStatus || tomorrowIndexes.includes(sectionIndex);
-};
+// 극좌표를 직교 좌표로 변환하는 함수
+function polarToCartesian(angle: number) {
+  const radian = (-90 + angle * 15) * (Math.PI / 180);
+  return {
+    x: CLOCK_RADIUS + CLOCK_INNER_RADIUS * Math.cos(radian),
+    y: CLOCK_RADIUS + CLOCK_INNER_RADIUS * Math.sin(radian),
+  };
+}

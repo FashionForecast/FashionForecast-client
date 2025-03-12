@@ -3,7 +3,7 @@ import { CLOCK_RADIUS } from '@/widgets/time/model/consts';
 import { S } from './HourSection.style';
 
 type SectionAreaProps = {
-  index: number;
+  hourIndex: number;
   onPointerDown: (index: number) => void;
   onDeleteRange: () => void;
 };
@@ -13,11 +13,11 @@ const INNER_RADIUS = 100; // 비어 있는 내부 원의 반지름
 const ANGLE = 15; // 한 영역의 각
 
 export const HourSection = ({
-  index,
+  hourIndex,
   onPointerDown,
   onDeleteRange,
 }: SectionAreaProps) => {
-  const startAngle = index * ANGLE;
+  const startAngle = hourIndex * ANGLE;
   const endAngle = startAngle + ANGLE;
 
   const outerStart = polarToCartesian(RADIUS, startAngle);
@@ -28,8 +28,8 @@ export const HourSection = ({
 
   return (
     <S.Section
-      key={index}
-      data-index={index}
+      key={hourIndex}
+      data-hour={hourIndex}
       d={`
           M ${outerStart.x} ${outerStart.y}
           A ${RADIUS} ${RADIUS} 0 0 1 ${outerEnd.x} ${outerEnd.y}
@@ -41,17 +41,17 @@ export const HourSection = ({
       // fill={`hsl(${(index / 24) * 360}, 70%, 50%)`}
       stroke='none'
       transform={`rotate(-7, ${CLOCK_RADIUS}, ${CLOCK_RADIUS})`}
-      onPointerDown={() => onPointerDown(index)}
+      onPointerDown={() => onPointerDown(hourIndex)}
       onClick={onDeleteRange}
     />
   );
 };
 
 // 극좌표를 직교 좌표로 변환하는 함수
-const polarToCartesian = (radius: number, angle: number) => {
+function polarToCartesian(radius: number, angle: number) {
   const radian = (-90 + angle) * (Math.PI / 180);
   return {
     x: CLOCK_RADIUS + radius * Math.cos(radian),
     y: CLOCK_RADIUS + radius * Math.sin(radian),
   };
-};
+}

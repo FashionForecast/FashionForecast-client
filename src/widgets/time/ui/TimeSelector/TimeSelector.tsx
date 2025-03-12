@@ -46,8 +46,7 @@ export const TimeSelector = ({
   const [draggingRangeStatus, setDraggingRangeStatus] =
     useState<DraggingRangeStatus>('currentDay');
 
-  const isDefaultTime = times[0]?.isDefault ?? false;
-  const tomorrowTime = times.find((v) => v.isNextDay);
+  const isDefaultTime = times[0].isDefault;
   const selectedTimesText = useMemo(
     () => formatSelectedTimesText(times, day),
     [times, day]
@@ -213,7 +212,6 @@ export const TimeSelector = ({
 
               <HourSections
                 times={times}
-                tomorrowTime={tomorrowTime}
                 isDragging={isDragging}
                 draggingStartHour={draggingStartHour}
                 draggingEndHour={draggingEndHour}
