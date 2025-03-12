@@ -138,7 +138,7 @@ const DeleteButton = styled(Button)`
   color: ${({ theme }) => theme.colors.text.primary};
 `;
 
-const SelectedTimeText = styled.div<{ $isDefaultTime: boolean }>`
+const SelectedTimeText = styled.div<{ $isDefaultTime?: boolean }>`
   ${({ theme }) => theme.typo['subtitle-2']};
   margin: 24px 0 8px;
   font-weight: 700;
