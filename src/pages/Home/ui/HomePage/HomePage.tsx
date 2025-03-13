@@ -30,12 +30,6 @@ const HOME_TABS: { title: string; value: HomeTab }[] = [
   { title: '날씨', value: 'weather' },
 ];
 
-export type SelectedTime = {
-  day: '오늘' | '내일';
-  start: string;
-  end: string;
-};
-
 export const HomePage = () => {
   const geolocation = useAppSelector((state) => state.geolocation.value);
 

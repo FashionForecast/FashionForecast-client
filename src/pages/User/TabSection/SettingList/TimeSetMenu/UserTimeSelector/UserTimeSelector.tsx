@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import TimeCarousel from '@/pages/Home/TimeSelector/TimeCarousel/TimeCarousel';
-import { SelectedTime } from '@/pages/Home/ui/HomePage/HomePage';
+import { SelectedTime } from '@/pages/Home/TimeSelector/TimeSelector';
 
 import { paddedTimeList } from '@/shared/consts/timeList';
 
