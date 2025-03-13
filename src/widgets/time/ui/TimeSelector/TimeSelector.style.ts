@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { MAX_WIDTH } from '@/shared/consts';
-import { forwardPropOption } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 const TimeSelectorWrap = styled.section<{ $isOpen: boolean }>`
@@ -49,38 +48,12 @@ const Heading = styled.h6`
 `;
 
 const ButtonWrap = styled.div`
+  display: flex;
+  gap: 8px;
   padding: 8px 0;
 `;
 
-const DayButton = styled(Button, forwardPropOption)<{
-  $isSelected: boolean;
-}>`
-  width: 60px;
-  min-width: 60px;
-  height: 40px;
-  margin-right: 8px;
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.text.primary};
-  background-color: ${({ theme }) => theme.colors.blueGrey[200]};
-  border-radius: 16px;
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  ${({ $isSelected, theme }) =>
-    $isSelected &&
-    css`
-      color: ${theme.colors.white};
-      background-color: ${theme.colors.primary.main};
-    `}
-`;
-
 const ClockWrap = styled.div`
-  /* height: 70%; */
-
-  /* overflow: auto; */
-
   & h6 {
     padding: 8px 16px 0;
   }
@@ -155,10 +128,7 @@ const SubmitButton = styled(Button)`
   position: fixed;
   bottom: 16px;
   width: calc(100% - 32px);
-  height: 40px;
   margin: 0 16px;
-  font-weight: 700;
-  border-radius: 100px;
 `;
 
 export const S = {
@@ -179,6 +149,5 @@ export const S = {
 
 export const C = {
   DeleteButton,
-  DayButton,
   SubmitButton,
 };

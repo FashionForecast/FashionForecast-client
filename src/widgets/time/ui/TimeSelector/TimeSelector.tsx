@@ -2,21 +2,20 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { compactTimeList } from '@/shared/consts/timeList';
 import { theme } from '@/shared/styles';
+import { ToggleButton } from '@/shared/ui';
 
 import { generateTimeRange } from '../../lib/generateTimeRange';
 import { getDefaultTimes } from '../../lib/getDefaultTimes';
 import { getFormattedTimeRanges } from '../../lib/getFormattedTimeRanges';
-import {
-  CLOCK_INNER_RADIUS,
-  CLOCK_RADIUS,
-  DAY_BUTTONS,
-} from '../../model/consts';
+import { CLOCK_INNER_RADIUS, CLOCK_RADIUS } from '../../model/consts';
 import { Day, DraggingRangeStatus, Time } from '../../model/types';
 
 import { HourSections } from './HourSections/HourSections';
 import { TimeHeader } from './TimeHeader/TimeHeader';
 import { TimeRanges } from './TimeRanges/TimeRanges';
 import { S, C } from './TimeSelector.style';
+
+const DAY_BUTTONS: Day[] = ['오늘', '내일', '모레'];
 
 type TimeSelectorProps = {
   isOpen: boolean;
@@ -160,14 +159,17 @@ export const TimeSelector = ({
         <S.DayWrap>
           <S.Heading>날짜</S.Heading>
           <S.ButtonWrap>
-            {DAY_BUTTONS.map((button) => (
-              <C.DayButton
-                key={button.type}
-                $isSelected={day === button.type}
-                onClick={handleDayButtonClick(button.type)}
+            {DAY_BUTTONS.map((value) => (
+              <ToggleButton
+                key={value}
+                color='primary'
+                value={value}
+                size='large'
+                selected={value === day}
+                onClick={handleDayButtonClick(value)}
               >
-                {button.text}
-              </C.DayButton>
+                {value}
+              </ToggleButton>
             ))}
           </S.ButtonWrap>
         </S.DayWrap>
@@ -249,6 +251,7 @@ export const TimeSelector = ({
       </S.Content>
 
       <C.SubmitButton
+        size='large'
         disabled={isDefaultTime}
         onClick={() => onSubmit(times, day)}
       >
