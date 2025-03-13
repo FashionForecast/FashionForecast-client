@@ -13,11 +13,13 @@ export async function getWeather(
   const currentHour = new Date().getHours();
   const nowDateTime = dateToISO(new Date());
   const earliestStartHour = times[0].ranges[0];
+  const nextEarliestStartHour =
+    times.length >= 2 ? times[1].ranges[0] : earliestStartHour;
   const lastTime = times[times.length - 1];
   const latestEndHour = lastTime.ranges[lastTime.ranges.length - 1];
 
   const minStartDateTime = calculateDateTime({
-    hour: Math.max(earliestStartHour, currentHour),
+    hour: Math.max(earliestStartHour, nextEarliestStartHour, currentHour),
     day,
   });
   const maxEndDateTime = calculateDateTime({
