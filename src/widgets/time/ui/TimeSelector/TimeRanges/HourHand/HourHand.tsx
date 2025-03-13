@@ -1,11 +1,11 @@
+import { CLOCK_INNER_RADIUS } from '@/widgets/time/model/consts';
+
 import { theme } from '@/shared/styles';
 
-export const TimeDivider = () => {
+export const HourHand = () => {
   return (
     <circle
-      cx={'0'}
-      cy={'0'}
-      r={'144'}
+      r={CLOCK_INNER_RADIUS}
       fill='none'
       stroke={theme.colors.blueGrey[400]}
       strokeWidth={20}

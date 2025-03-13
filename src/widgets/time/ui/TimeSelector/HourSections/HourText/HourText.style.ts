@@ -16,11 +16,17 @@ const HourText = styled.text<{ $isVisible: boolean; $isHighlight: boolean }>`
     css`
       font-size: 12px;
       font-weight: bold;
+      visibility: visible;
       fill: ${theme.colors.white};
     `}
 `;
 
-const Tooltip = styled.div<{ $color: string; $top: number; $left: number }>`
+const Tooltip = styled.div<{
+  $color: string;
+  $top: number;
+  $left: number;
+  $visible: boolean;
+}>`
   position: fixed;
   top: ${({ $top }) => $top}px;
   left: ${({ $left }) => $left}px;
@@ -38,6 +44,7 @@ const Tooltip = styled.div<{ $color: string; $top: number; $left: number }>`
   color: ${({ theme }) => theme.colors.white};
   pointer-events: none;
   touch-action: none;
+  visibility: ${({ $visible }) => ($visible ? 'visible' : 'hidden')};
   user-select: none;
   background-color: ${({ $color }) => $color};
   border: 4px solid ${({ theme }) => theme.colors.white};

@@ -1,4 +1,4 @@
-import { SelectedTime } from '@/pages/Home/ui/HomePage/HomePage';
+import { SelectedTime } from '@/pages/Home/TimeSelector/TimeSelector';
 import { TimeSetOption } from '@/pages/User/TabSection/SettingList/TimeSetMenu/TimeSetMenu';
 
 import { TemperatureCondition } from '@/entities/weather';

@@ -1,13 +1,18 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { FetchError } from '@/widgets/error';
-import { DayButtonType, Time, TimeSelector } from '@/widgets/TimeSelector/';
+import {
+  Day,
+  getDefaultTimes,
+  Time,
+  TimeBottomSheet,
+  TimeSelector,
+} from '@/widgets/time';
 
 import { getWeather } from '@/entities/weather/api/weather';
 
-import { paddedTimeList } from '@/shared/consts/timeList';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { HeadHelmet, Tabs } from '@/shared/ui';
 
@@ -25,20 +30,14 @@ const HOME_TABS: { title: string; value: HomeTab }[] = [
   { title: '날씨', value: 'weather' },
 ];
 
-export type SelectedTime = {
-  day: '오늘' | '내일';
-  start: string;
-  end: string;
-};
-
 export const HomePage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const queryClient = useQueryClient();
   const geolocation = useAppSelector((state) => state.geolocation.value);
+
   const [tab, setTab] = useState<HomeTab>('clothes');
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
-  const [times, setTimes] = useState<Time[]>(getTimes);
-  const [day, setDay] = useState<DayButtonType>('오늘');
+  const [times, setTimes] = useState(getDefaultTimes);
+  const [day, setDay] = useState<Day>('오늘');
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     data: weatherData,
@@ -46,7 +45,7 @@ export const HomePage = () => {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ['weather', geolocation?.region],
+    queryKey: ['weather', geolocation?.region, times, day],
     queryFn: () => getWeather(times, day, geolocation!.region),
     enabled: !!geolocation,
   });
@@ -59,26 +58,38 @@ export const HomePage = () => {
     setSearchParams(params);
   };
 
-  const handleTimeSubmit = () => {
-    queryClient.invalidateQueries({ queryKey: ['weather'] });
+  const handleTimeSubmit = (newTimes: Time[], newDay: Day) => {
+    setTimes(newTimes);
+    setDay(newDay);
     handleTimeSelectorToggle();
   };
 
   const handleTimeSelectorToggle = () => {
+    const params = new URLSearchParams(searchParams);
     const isOpen = !isTimeSelectorOpen;
-    setIsTimeSelectorOpen(isOpen);
 
+    if (isOpen) params.set('time', 'open');
+    else params.delete('time');
+
+    setIsTimeSelectorOpen(isOpen);
+    setSearchParams(params);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   };
 
   /**  tab 쿼리 파라미터가 유효하면 해당 값으로 tab 설정 */
   useEffect(() => {
     const tabParameter = searchParams.get('tab');
-    const isValidHomeTab = HOME_TABS.find((v) => v.value === tabParameter);
+    const isValidTab =
+      tabParameter && HOME_TABS.some((v) => v.value === tabParameter);
 
-    if (isValidHomeTab) {
+    if (isValidTab) {
       setTab(tabParameter as HomeTab);
     }
+  }, [searchParams]);
+
+  /** time 쿼리 파라미터가 'open'이면, TimeSelector가 열림 */
+  useEffect(() => {
+    setIsTimeSelectorOpen(searchParams.get('time') === 'open');
   }, [searchParams]);
 
   return (
@@ -102,19 +113,17 @@ export const HomePage = () => {
             )}
 
             {tab === 'weather' && <WeatherInformation weather={weatherData} />}
-
-            <button type='button' onClick={handleTimeSelectorToggle}>
-              외출시간 변경하기
-            </button>
           </>
         )}
 
+        <TimeBottomSheet
+          times={times}
+          day={day}
+          onTimeSelectorToggle={handleTimeSelectorToggle}
+        />
+
         <TimeSelector
           isOpen={isTimeSelectorOpen}
-          times={times}
-          setTimes={setTimes}
-          day={day}
-          setDay={setDay}
           onClose={handleTimeSelectorToggle}
           onSubmit={handleTimeSubmit}
         />
@@ -122,19 +131,3 @@ export const HomePage = () => {
     </>
   );
 };
-
-function getTimes() {
-  const now = new Date();
-  const startHour = now.getHours();
-  const endHour = (startHour + 8) % 24;
-  const isTomorrow = endHour < startHour;
-  const newTime = {
-    startTime: paddedTimeList[startHour],
-    endTime: paddedTimeList[endHour],
-    indexes: Array.from({ length: 9 }, (_, i) => (startHour + i) % 24),
-    isTomorrow,
-    isDefault: true,
-  };
-
-  return [newTime];
-}

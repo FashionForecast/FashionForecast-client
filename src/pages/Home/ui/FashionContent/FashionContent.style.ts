@@ -4,7 +4,7 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 8px 0 98px;
+  padding-top: 8px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 

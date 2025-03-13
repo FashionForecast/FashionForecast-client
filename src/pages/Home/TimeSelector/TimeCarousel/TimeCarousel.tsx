@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-import { SelectedTime } from '../../ui/HomePage/HomePage';
+import { SelectedTime } from '../TimeSelector';
 
 import { ITEM_HEIGHT, S } from './TimeCarousel.style';
 

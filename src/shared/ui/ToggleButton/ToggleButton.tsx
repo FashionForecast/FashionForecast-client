@@ -98,7 +98,7 @@ const BaseToggleButton = styled(MuiToggleButton, forwardPropOption)<{
     border: 0;
   }
 
-  &.Mui-selected {
+  &.MuiToggleButton-root.Mui-selected {
     font-weight: 700;
     color: ${({ theme, $color }) =>
       $color === 'neutral' ? theme.colors.primary.dark : theme.colors.white};

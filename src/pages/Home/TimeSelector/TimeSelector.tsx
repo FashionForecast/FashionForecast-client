@@ -6,12 +6,16 @@ import { KSTDate } from '@/shared/lib';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { CheckIcon } from '@/shared/ui';
 
-import { SelectedTime } from '../ui/HomePage/HomePage';
-
 import TimeCarousel from './TimeCarousel/TimeCarousel';
 import { C, S } from './TimeSelector.style';
 
 const DAYS = ['오늘', '내일'];
+
+export type SelectedTime = {
+  day: '오늘' | '내일';
+  start: string;
+  end: string;
+};
 
 type TimeSelectorProps = {
   selectedTime: SelectedTime;
