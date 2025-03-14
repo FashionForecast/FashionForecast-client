@@ -8,6 +8,7 @@ export type {
   WeatherTypeNumber,
   WeatherTypeName,
   WeatherDto,
+  Forecast,
   RainType,
   SkyStatus,
   TemperatureCondition,

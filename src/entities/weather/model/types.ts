@@ -23,17 +23,20 @@ export type WeatherDto = {
   maxMinTmpDiff: number;
   maximumPop: number;
   maximumPcp: number;
-  forecasts: Array<{
-    fcstDate: string;
-    fcstTime: string;
-    tmp: number;
-    reh: number;
-    wsd: number;
-    pop: number;
-    pcp: number;
-    rainType: RainType;
-    skyStatus: SkyStatus;
-    nx: number;
-    ny: number;
-  }>;
+  forecasts: Array<Forecast>;
+};
+
+export type Forecast = {
+  fcstDate: string;
+  fcstTime: string;
+  isSelected: boolean;
+  tmp: number;
+  reh: number;
+  wsd: number;
+  pop: number;
+  pcp: number;
+  rainType: RainType;
+  skyStatus: SkyStatus;
+  nx: number;
+  ny: number;
 };
