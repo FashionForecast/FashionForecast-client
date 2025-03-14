@@ -1,8 +1,6 @@
 export { getWeather } from './api/weather';
 
-export { WEATHER_TYPE } from './consts/weatherType';
-export { WEATHER_LABELS } from './consts/label';
-export { WEATHER_COLORS } from './consts/color';
+export { WEATHER_TYPE, WEATHER_LABELS, WEATHER_COLORS } from './model/consts';
 
 export type {
   WeatherTypeNumber,

@@ -1,4 +1,4 @@
-import { WEATHER_TYPE_NAME_MAP } from './../consts/weatherType';
+import { WEATHER_TYPE_NAME_MAP } from './consts';
 
 export type WeatherTypeName = keyof typeof WEATHER_TYPE_NAME_MAP;
 export type WeatherTypeNumber = (typeof WEATHER_TYPE_NAME_MAP)[WeatherTypeName];
