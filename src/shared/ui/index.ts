@@ -26,7 +26,6 @@ export { PopIcon } from './icon/pop/PopIcon';
 export { GoogleIcon } from './icon/social/GoogleIcon';
 export { KakaoIcon } from './icon/social/KakaoIcon';
 export { TemperatureIcon } from './icon/temperature/TemperatureIcon';
-export { WeatherIcon } from './icon/weather/WeatherIcon';
 
 export { ArrowIcon } from './icon/ArrowIcon';
 export { BookFillIcon } from './icon/BookFillIcon';

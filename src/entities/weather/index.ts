@@ -13,3 +13,5 @@ export type {
   SkyStatus,
   TemperatureCondition,
 } from './model/types';
+
+export { WeatherIcon } from './ui/WeatherIcon';
