@@ -40,22 +40,12 @@ const Temperature = styled.strong`
   position: absolute;
   top: 50%;
   left: 50%;
+  color: ${({ theme }) => theme.colors.text.primary};
   transform: translate(-50%, -50%);
 
   & > span {
-    font-size: 12px;
+    ${({ theme }) => theme.typo.captionBold}
   }
 `;
 
 const S = { IconWarp, Temperature };
-
-// function getFileName(temperature: number) {
-//   if (temperature >= 30) return String(temperature);
-//   if (temperature < 0) {
-//     const absolute = Math.abs(temperature);
-//     if (temperature <= -30) return 'm' + String(absolute);
-//     return 'm' + String(absolute).padStart(2, '0');
-//   }
-
-//   return String(temperature).padStart(2, '0');
-// }
