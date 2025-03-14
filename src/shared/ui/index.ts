@@ -47,3 +47,4 @@ export { XCircleIcon } from './icon/XCircleIcon';
 export { XIcon } from './icon/XIcon';
 export { RegionIcon } from './icon/RegionIcon';
 export { UserIcon } from './icon/UserIcon';
+export { InformationIcon } from './icon/InformationIcon';
