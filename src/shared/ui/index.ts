@@ -21,11 +21,8 @@ export { HeadHelmet } from './HeadHelmet/HeadHelmet';
 
 export { MaleIcon } from './icon/gender/MaleIcon';
 export { FemaleIcon } from './icon/gender/FemaleIcon';
-export { PcpIcon } from './icon/pcp/PcpIcon';
-export { PopIcon } from './icon/pop/PopIcon';
 export { GoogleIcon } from './icon/social/GoogleIcon';
 export { KakaoIcon } from './icon/social/KakaoIcon';
-export { TemperatureIcon } from './icon/temperature/TemperatureIcon';
 
 export { ArrowIcon } from './icon/ArrowIcon';
 export { BookFillIcon } from './icon/BookFillIcon';
