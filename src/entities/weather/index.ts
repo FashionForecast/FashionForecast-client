@@ -14,4 +14,7 @@ export type {
   TemperatureCondition,
 } from './model/types';
 
+export { PcpIcon } from './ui/PcpIcon';
+export { PopIcon } from './ui/PopIcon';
+export { TemperatureIcon } from './ui/TemperatureIcon';
 export { WeatherIcon } from './ui/WeatherIcon';

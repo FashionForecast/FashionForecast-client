@@ -1,6 +1,4 @@
-import { PcpIcon } from '@/entities/weather/ui/PcpIcon';
-import { PopIcon } from '@/entities/weather/ui/PopIcon';
-import { TemperatureIcon } from '@/entities/weather/ui/TemperatureIcon';
+import { PcpIcon, PopIcon, TemperatureIcon } from '@/entities/weather';
 
 import { InformationHeader } from '../InformationHeader/InformationHeader';
 
