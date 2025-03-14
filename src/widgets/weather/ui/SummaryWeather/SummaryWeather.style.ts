@@ -4,17 +4,6 @@ const SummaryWeatherWrap = styled.article`
   padding: 16px 16px 12px;
 `;
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Title = styled.h6`
-  ${({ theme }) => theme.typo['subtitle-1']}
-  color: ${({ theme }) => theme.colors.primary.dark}
-`;
-
 const IconGroup = styled.div`
   display: flex;
   gap: 12px;
@@ -38,7 +27,7 @@ const DialogContentList = styled.ol`
   gap: 16px;
 `;
 
-const Description = styled.p`
+const DialogContentDescription = styled.p`
   display: flex;
 
   &::before {
@@ -51,11 +40,9 @@ const Description = styled.p`
 
 export const S = {
   SummaryWeatherWrap,
-  Header,
-  Title,
   IconGroup,
   WeatherIconWrap,
   IconLabel,
   DialogContentList,
-  Description,
+  DialogContentDescription,
 };

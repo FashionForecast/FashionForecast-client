@@ -1,10 +1,8 @@
-import { useState } from 'react';
-
 import { PcpIcon } from '@/entities/weather/ui/PcpIcon';
 import { PopIcon } from '@/entities/weather/ui/PopIcon';
 import { TemperatureIcon } from '@/entities/weather/ui/TemperatureIcon';
 
-import { Button, Dialog, IconButton, InformationIcon } from '@/shared/ui';
+import { InformationHeader } from '../InformationHeader/InformationHeader';
 
 import { S } from './SummaryWeather.style';
 
@@ -33,8 +31,6 @@ export const SummaryWeather = ({
   pop,
   pcp,
 }: SummaryWeatherProps) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const ICONS = [
     {
       component: <TemperatureIcon temperature={temperature} />,
@@ -47,15 +43,23 @@ export const SummaryWeather = ({
   return (
     <>
       <S.SummaryWeatherWrap>
-        <S.Header>
-          <S.Title>한눈에 보는 외출시간</S.Title>
-          <IconButton
-            size='small'
-            onClick={() => setIsDialogOpen((prev) => !prev)}
-          >
-            <InformationIcon />
-          </IconButton>
-        </S.Header>
+        <InformationHeader
+          title='한눈에 보는 외출시간'
+          dialogContentSlot={
+            <S.DialogContentList>
+              {DIALOG_CONTENTS.map(({ title, descriptions }) => (
+                <li key={title}>
+                  <strong>{title}</strong>
+                  {descriptions.map((desc, index) => (
+                    <S.DialogContentDescription key={index}>
+                      {desc}
+                    </S.DialogContentDescription>
+                  ))}
+                </li>
+              ))}
+            </S.DialogContentList>
+          }
+        />
 
         <S.IconGroup>
           {ICONS.map(({ component, label }) => (
@@ -66,32 +70,6 @@ export const SummaryWeather = ({
           ))}
         </S.IconGroup>
       </S.SummaryWeatherWrap>
-
-      <Dialog
-        open={isDialogOpen}
-        onClose={() => setIsDialogOpen((prev) => !prev)}
-        titleSlot={'한눈에 보는 외출시간'}
-        contentSlot={
-          <S.DialogContentList>
-            {DIALOG_CONTENTS.map(({ title, descriptions }) => (
-              <li key={title}>
-                <strong>{title}</strong>
-                {descriptions.map((desc, index) => (
-                  <S.Description key={index}>{desc}</S.Description>
-                ))}
-              </li>
-            ))}
-          </S.DialogContentList>
-        }
-        actionsSlot={
-          <Button
-            variant='outlined'
-            onClick={() => setIsDialogOpen((prev) => !prev)}
-          >
-            닫기
-          </Button>
-        }
-      />
     </>
   );
 };
