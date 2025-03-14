@@ -25,7 +25,7 @@ export const HomeHeader = memo(() => {
       }
       rightSlot={
         <Link to={member ? '/user' : '/login'}>
-          <IconButton variant='contained' size='small'>
+          <IconButton variant='contained'>
             <UserAvatar />
           </IconButton>
         </Link>
