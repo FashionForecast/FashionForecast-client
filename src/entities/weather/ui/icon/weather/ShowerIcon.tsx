@@ -1,4 +1,4 @@
-const NightShowerIcon = () => {
+const ShowerIcon = () => {
   return (
     <svg
       width='32'
@@ -19,4 +19,4 @@ const NightShowerIcon = () => {
   );
 };
 
-export default NightShowerIcon;
+export default ShowerIcon;

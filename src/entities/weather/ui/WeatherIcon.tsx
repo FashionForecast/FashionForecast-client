@@ -31,37 +31,40 @@ function getMatchingIcon(forecast: Forecast) {
   return iconsMap[rainType === 'NONE' ? skyStatus : rainType];
 }
 
-type ICON_MAP_TYPE = Record<
-  Exclude<RainType, 'NONE'> | SkyStatus,
+type ValidRainType = Exclude<RainType, 'NONE'>;
+
+type COMMON_ICON_MAP = Record<
+  ValidRainType,
   React.LazyExoticComponent<() => JSX.Element>
 >;
+
+type ICON_MAP_TYPE = Record<
+  ValidRainType | SkyStatus,
+  React.LazyExoticComponent<() => JSX.Element>
+>;
+
+const COMMON_ICON_MAP: COMMON_ICON_MAP = {
+  RAIN: lazy(() => import('./icon/weather/RainIcon')),
+  RAIN_DROP: lazy(() => import('./icon/weather/RainDropIcon')),
+  RAIN_AND_SNOW: lazy(() => import('./icon/weather/RainAndSnowIcon')),
+  RAIN_AND_SNOW_FLURRIES: lazy(
+    () => import('./icon/weather/RainAndSnowFlurriesIcon')
+  ),
+  SHOWER: lazy(() => import('./icon/weather/ShowerIcon')),
+  SNOW: lazy(() => import('./icon/weather/SnowIcon')),
+  SNOW_FLURRIES: lazy(() => import('./icon/weather/SnowFlurriesIcon')),
+};
 
 const DAY_ICON_MAP: ICON_MAP_TYPE = {
   CLEAR: lazy(() => import('./icon/weather/DayClearIcon')),
   PARTLY_CLOUDY: lazy(() => import('./icon/weather/DayPartlyCloudyIcon')),
   CLOUDY: lazy(() => import('./icon/weather/DayCloudyIcon')),
-  RAIN: lazy(() => import('./icon/weather/DayRainIcon')),
-  RAIN_DROP: lazy(() => import('./icon/weather/DayRainDropIcon')),
-  RAIN_AND_SNOW: lazy(() => import('./icon/weather/DayRainAndSnowIcon')),
-  RAIN_AND_SNOW_FLURRIES: lazy(
-    () => import('./icon/weather/DayRainAndSnowFlurriesIcon')
-  ),
-  SHOWER: lazy(() => import('./icon/weather/DayShowerIcon')),
-  SNOW: lazy(() => import('./icon/weather/DaySnowIcon')),
-  SNOW_FLURRIES: lazy(() => import('./icon/weather/DaySnowFlurriesIcon')),
+  ...COMMON_ICON_MAP,
 };
 
 const NIGHT_ICON_MAP: ICON_MAP_TYPE = {
   CLEAR: lazy(() => import('./icon/weather/NightClearIcon')),
   PARTLY_CLOUDY: lazy(() => import('./icon/weather/NightPartlyCloudyIcon')),
   CLOUDY: lazy(() => import('./icon/weather/NightCloudyIcon')),
-  RAIN: lazy(() => import('./icon/weather/NightRainIcon')),
-  RAIN_DROP: lazy(() => import('./icon/weather/NightRainDropIcon')),
-  RAIN_AND_SNOW: lazy(() => import('./icon/weather/NightRainAndSnowIcon')),
-  RAIN_AND_SNOW_FLURRIES: lazy(
-    () => import('./icon/weather/NightRainAndSnowFlurriesIcon')
-  ),
-  SHOWER: lazy(() => import('./icon/weather/NightShowerIcon')),
-  SNOW: lazy(() => import('./icon/weather/NightSnowIcon')),
-  SNOW_FLURRIES: lazy(() => import('./icon/weather/NightSnowFlurriesIcon')),
+  ...COMMON_ICON_MAP,
 };

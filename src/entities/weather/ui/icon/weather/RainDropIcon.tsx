@@ -1,4 +1,4 @@
-const NightRainDropIcon = () => {
+const RainDropIcon = () => {
   return (
     <svg
       width='32'
@@ -19,4 +19,4 @@ const NightRainDropIcon = () => {
   );
 };
 
-export default NightRainDropIcon;
+export default RainDropIcon;
