@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 
 const SummaryWeatherWrap = styled.article`
-  padding: 16px 16px 12px;
+  padding: 16px;
 `;
 
 const IconGroup = styled.div`
   display: flex;
   gap: 12px;
   justify-content: center;
+  margin-top: 4px;
 `;
 
 const WeatherIconWrap = styled.div`

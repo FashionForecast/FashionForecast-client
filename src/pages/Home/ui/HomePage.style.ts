@@ -4,7 +4,7 @@ const HomeWrap = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  padding-bottom: 114px;
+  padding-bottom: 98px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
