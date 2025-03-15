@@ -27,8 +27,8 @@ export const Chip = ({ color = 'primary', ...rest }: CustomChipProps) => {
 };
 
 const darkColorMap: Record<string, string> = {
-  black: theme.colors.primary.main,
-  primary: theme.colors.black,
+  black: theme.colors.black,
+  primary: theme.colors.primary.main,
 };
 
 const isDarkColors = (color: CustomColor) => !!darkColorMap[color];
