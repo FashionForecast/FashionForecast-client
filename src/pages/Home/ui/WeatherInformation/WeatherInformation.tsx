@@ -1,10 +1,11 @@
 import { memo } from 'react';
 
+import { Footer } from '@/widgets/Footer';
+import { SummaryWeather, WeatherTimeLine } from '@/widgets/weather';
+
 import { WeatherDto } from '@/entities/weather';
 
-import WeatherCard from './WeatherCard/WeatherCard';
-import { S } from './WeatherInfomation.style';
-import WeatherTimeLine from './WeatherTimeLine/WeatherTimeLine';
+import { S } from './WeatherInformation.style';
 
 type WeatherInfoProps = {
   weather: WeatherDto;
@@ -13,13 +14,15 @@ type WeatherInfoProps = {
 export const WeatherInformation = memo(({ weather }: WeatherInfoProps) => {
   return (
     <S.WeatherInfoWrap>
-      <WeatherCard
-        extremumTmp={weather.extremumTmp}
-        maximumPop={weather.maximumPop}
-        maximumPcp={weather.maximumPcp}
+      <SummaryWeather
+        temperature={weather.extremumTmp}
+        pop={weather.maximumPop}
+        pcp={weather.maximumPcp}
       />
 
       <WeatherTimeLine forecasts={weather.forecasts} />
+
+      <Footer />
     </S.WeatherInfoWrap>
   );
 });
