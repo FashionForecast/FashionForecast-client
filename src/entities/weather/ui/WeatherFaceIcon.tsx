@@ -4,14 +4,14 @@ import { WeatherTypeName } from '@/entities/weather';
 
 import { IconLoading } from '@/shared/ui';
 
-const SwelteringFaceIcon = lazy(() => import('./icon/SwelteringFaceIcon'));
-const HotFaceIcon = lazy(() => import('./icon/HotFaceIcon'));
-const WarmFaceIcon = lazy(() => import('./icon/WarmFaceIcon'));
-const ModerateFaceIcon = lazy(() => import('./icon/ModerateFaceIcon'));
-const CoolFaceIcon = lazy(() => import('./icon/CoolFaceIcon'));
-const ChillyFaceIcon = lazy(() => import('./icon/ChillyFaceIcon'));
-const ColdFaceIcon = lazy(() => import('./icon/ColdFaceIcon'));
-const FrigidFaceIcon = lazy(() => import('./icon/FrigidFaceIcon'));
+const SwelteringFaceIcon = lazy(() => import('./icon/face/SwelteringFaceIcon'));
+const HotFaceIcon = lazy(() => import('./icon/face/HotFaceIcon'));
+const WarmFaceIcon = lazy(() => import('./icon/face/WarmFaceIcon'));
+const ModerateFaceIcon = lazy(() => import('./icon/face/ModerateFaceIcon'));
+const CoolFaceIcon = lazy(() => import('./icon/face/CoolFaceIcon'));
+const ChillyFaceIcon = lazy(() => import('./icon/face/ChillyFaceIcon'));
+const ColdFaceIcon = lazy(() => import('./icon/face/ColdFaceIcon'));
+const FrigidFaceIcon = lazy(() => import('./icon/face/FrigidFaceIcon'));
 
 type WeatherFaceIconProps = {
   weatherName: WeatherTypeName;
