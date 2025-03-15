@@ -19,19 +19,11 @@ export const PopIcon = ({ pop }: PopIconProps) => {
   );
 };
 
-function getFileName(pop: number) {
-  if (pop >= 100) return '100';
-  if (pop >= 90) return '090';
-  if (pop >= 80) return '080';
-  if (pop >= 70) return '070';
-  if (pop >= 60) return '060';
-  if (pop >= 50) return '050';
-  if (pop >= 40) return '040';
-  if (pop >= 30) return '030';
-  if (pop >= 20) return '020';
-  if (pop >= 10) return '010';
+function getFileName(pop: number): string {
+  if (pop < 0) return '000';
 
-  return '000';
+  const adjustedPop = Math.min(Math.floor(pop / 10) * 10, 100);
+  return adjustedPop.toString().padStart(3, '0');
 }
 
 const IconWarp = styled.div`

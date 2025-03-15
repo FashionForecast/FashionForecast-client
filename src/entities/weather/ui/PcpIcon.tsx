@@ -19,19 +19,11 @@ export const PcpIcon = ({ pcp }: PcpIconProps) => {
   );
 };
 
-function getFileName(pcp: number) {
-  if (pcp >= 10) return '10';
-  if (pcp >= 9) return '09';
-  if (pcp >= 8) return '08';
-  if (pcp >= 7) return '07';
-  if (pcp >= 6) return '06';
-  if (pcp >= 5) return '05';
-  if (pcp >= 4) return '04';
-  if (pcp >= 3) return '03';
-  if (pcp >= 2) return '02';
-  if (pcp >= 1) return '01';
+function getFileName(pcp: number): string {
+  if (pcp < 0) return '00';
 
-  return '00';
+  const adjustedPcp = Math.min(Math.floor(pcp), 10);
+  return adjustedPcp.toString().padStart(2, '0');
 }
 
 const IconWarp = styled.div`
