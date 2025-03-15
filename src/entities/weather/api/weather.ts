@@ -12,20 +12,19 @@ export async function getWeather(
 ): Promise<WeatherDto> {
   const currentHour = new Date().getHours();
   const nowDateTime = dateToISO(new Date());
-  const earliestStartHour = times[0].ranges[0];
-  const nextEarliestStartHour =
-    times.length >= 2 ? times[1].ranges[0] : earliestStartHour;
   const lastTime = times[times.length - 1];
   const latestEndHour = lastTime.ranges[lastTime.ranges.length - 1];
+  const minStartHour = calculateMinStartHour(times, day);
+  const minEndHour = lastTime.isNextDay
+    ? latestEndHour
+    : Math.max(latestEndHour, currentHour);
 
   const minStartDateTime = calculateDateTime({
-    hour: Math.max(earliestStartHour, nextEarliestStartHour, currentHour),
+    hour: minStartHour,
     day,
   });
   const maxEndDateTime = calculateDateTime({
-    hour: lastTime.isNextDay
-      ? latestEndHour
-      : Math.max(latestEndHour, currentHour),
+    hour: minEndHour,
     day,
     isNextDay: lastTime.isNextDay,
   });
@@ -55,6 +54,21 @@ export async function getWeather(
   const queryString = params.toString();
 
   return await fetchAPI(`/weather/forecast/group?${queryString}`);
+}
+
+function calculateMinStartHour(times: Time[], day: Day) {
+  if (day !== '오늘') {
+    const earliestStartHour = times[0].ranges[0];
+    return earliestStartHour;
+  }
+
+  const currentHour = new Date().getHours();
+  const startHour = times
+    .filter((time) => !time.isNextDay)
+    .flatMap((time) => time.ranges)
+    .find((hour) => hour >= currentHour);
+
+  return startHour ?? currentHour;
 }
 
 function calculateDateTime({
