@@ -21,12 +21,9 @@ export { HeadHelmet } from './HeadHelmet/HeadHelmet';
 
 export { MaleIcon } from './icon/gender/MaleIcon';
 export { FemaleIcon } from './icon/gender/FemaleIcon';
-export { PcpIcon } from './icon/pcp/PcpIcon';
-export { PopIcon } from './icon/pop/PopIcon';
 export { GoogleIcon } from './icon/social/GoogleIcon';
 export { KakaoIcon } from './icon/social/KakaoIcon';
-export { TemperatureIcon } from './icon/temperature/TemperatureIcon';
-export { WeatherIcon } from './icon/weather/WeatherIcon';
+export { InstagramIcon } from './icon/social/InstagramIcon';
 
 export { ArrowIcon } from './icon/ArrowIcon';
 export { BookFillIcon } from './icon/BookFillIcon';
@@ -47,3 +44,4 @@ export { XCircleIcon } from './icon/XCircleIcon';
 export { XIcon } from './icon/XIcon';
 export { RegionIcon } from './icon/RegionIcon';
 export { UserIcon } from './icon/UserIcon';
+export { InformationIcon } from './icon/InformationIcon';

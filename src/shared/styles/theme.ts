@@ -67,6 +67,7 @@ export const theme = {
     elevation: {
       outlined: colors.blueGrey['300'],
     },
+    divider: colors.blueGrey.A12,
     blueGrey: colors.blueGrey,
     red: colors.red,
     amber: colors.amber,

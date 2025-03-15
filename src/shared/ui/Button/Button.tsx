@@ -77,6 +77,10 @@ const BaseButton = styled(MuiButton)`
     }
   }
 
+  &.MuiButton-text.MuiButton-colorPrimary {
+    color: ${({ theme }) => theme.colors.text.primary};
+  }
+
   & .MuiButton-startIcon {
     margin: 0;
     margin-right: 4px;

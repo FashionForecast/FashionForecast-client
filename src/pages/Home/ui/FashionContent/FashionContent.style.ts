@@ -5,6 +5,7 @@ const Section = styled.section`
   flex-direction: column;
   flex-grow: 1;
   padding-top: 8px;
+  padding-bottom: 16px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 

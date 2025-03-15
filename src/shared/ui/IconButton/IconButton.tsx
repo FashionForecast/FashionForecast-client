@@ -31,6 +31,10 @@ export const IconButton = ({
 const BaseIconButton = styled(MuiIconButton, forwardPropOption)<{
   $variant: CustomVariant;
 }>`
+  & > svg {
+    flex-shrink: 0;
+  }
+
   ${({ $variant, theme }) =>
     $variant === 'contained' &&
     css`
@@ -40,4 +44,19 @@ const BaseIconButton = styled(MuiIconButton, forwardPropOption)<{
         background-color: ${theme.colors.secondary.dark};
       }
     `}
+
+  &.MuiIconButton-sizeMedium {
+    width: 32px;
+    height: 32px;
+  }
+
+  &.MuiIconButton-sizeSmall {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.MuiIconButton-sizeLarge {
+    width: 40px;
+    height: 40px;
+  }
 `;

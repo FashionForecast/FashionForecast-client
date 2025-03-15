@@ -1,4 +1,4 @@
-import { WEATHER_TYPE_NAME_MAP } from './../consts/weatherType';
+import { WEATHER_TYPE_NAME_MAP } from './consts';
 
 export type WeatherTypeName = keyof typeof WEATHER_TYPE_NAME_MAP;
 export type WeatherTypeNumber = (typeof WEATHER_TYPE_NAME_MAP)[WeatherTypeName];
@@ -23,17 +23,20 @@ export type WeatherDto = {
   maxMinTmpDiff: number;
   maximumPop: number;
   maximumPcp: number;
-  forecasts: Array<{
-    fcstDate: string;
-    fcstTime: string;
-    tmp: number;
-    reh: number;
-    wsd: number;
-    pop: number;
-    pcp: number;
-    rainType: RainType;
-    skyStatus: SkyStatus;
-    nx: number;
-    ny: number;
-  }>;
+  forecasts: Array<Forecast>;
+};
+
+export type Forecast = {
+  fcstDate: string;
+  fcstTime: string;
+  isSelected: boolean;
+  tmp: number;
+  reh: number;
+  wsd: number;
+  pop: number;
+  pcp: number;
+  rainType: RainType;
+  skyStatus: SkyStatus;
+  nx: number;
+  ny: number;
 };
