@@ -16,3 +16,6 @@ export { PcpIcon } from './ui/PcpIcon';
 export { PopIcon } from './ui/PopIcon';
 export { TemperatureIcon } from './ui/TemperatureIcon';
 export { WeatherIcon } from './ui/WeatherIcon';
+export { RainIcon } from './ui/icon/weather/RainIcon';
+export { RainDropIcon } from './ui/icon/weather/RainDropIcon';
+export { ShowerIcon } from './ui/icon/weather/ShowerIcon';

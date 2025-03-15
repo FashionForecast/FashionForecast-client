@@ -44,13 +44,25 @@ type ICON_MAP_TYPE = Record<
 >;
 
 const COMMON_ICON_MAP: COMMON_ICON_MAP = {
-  RAIN: lazy(() => import('./icon/weather/RainIcon')),
-  RAIN_DROP: lazy(() => import('./icon/weather/RainDropIcon')),
+  RAIN: lazy(() =>
+    import('./icon/weather/RainIcon').then((module) => ({
+      default: module.RainIcon,
+    }))
+  ),
+  RAIN_DROP: lazy(() =>
+    import('./icon/weather/RainDropIcon').then((module) => ({
+      default: module.RainDropIcon,
+    }))
+  ),
   RAIN_AND_SNOW: lazy(() => import('./icon/weather/RainAndSnowIcon')),
   RAIN_AND_SNOW_FLURRIES: lazy(
     () => import('./icon/weather/RainAndSnowFlurriesIcon')
   ),
-  SHOWER: lazy(() => import('./icon/weather/ShowerIcon')),
+  SHOWER: lazy(() =>
+    import('./icon/weather/ShowerIcon').then((module) => ({
+      default: module.ShowerIcon,
+    }))
+  ),
   SNOW: lazy(() => import('./icon/weather/SnowIcon')),
   SNOW_FLURRIES: lazy(() => import('./icon/weather/SnowFlurriesIcon')),
 };
