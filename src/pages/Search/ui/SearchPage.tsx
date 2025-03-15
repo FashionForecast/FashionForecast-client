@@ -20,8 +20,7 @@ import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { Region } from '@/shared/types/region';
 import { HeadHelmet } from '@/shared/ui';
 
-import SearchHeader from '../../SearchHeader/SearchHeader';
-
+import { SearchHeader } from './SearchHeader/SearchHeader';
 import { C, S } from './SearchPage.style';
 
 export const SearchPage = () => {
@@ -102,11 +101,7 @@ export const SearchPage = () => {
       />
 
       <S.SearchWrapper>
-        <SearchHeader
-          keyword={keyword}
-          onInputChange={handleInputChange}
-          onKeywordResetClick={handleKeywordResetClick}
-        />
+        <SearchHeader />
 
         <CurrentRegionButton />
 
