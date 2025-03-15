@@ -16,13 +16,13 @@ import { getWeather } from '@/entities/weather/api/weather';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { HeadHelmet, Tabs } from '@/shared/ui';
 
-import HomeLoading from '../../HomeLoading';
-import { HomeTab } from '../../model/types';
-import { FashionContent } from '../FashionContent/FashionContent';
-import { HomeHeader } from '../HomeHeader/HomeHeader';
-import { WeatherInformation } from '../WeatherInformation/WeatherInformation';
+import HomeLoading from '../HomeLoading';
+import { HomeTab } from '../model/types';
 
+import { FashionContent } from './FashionContent/FashionContent';
+import { HomeHeader } from './HomeHeader/HomeHeader';
 import { S } from './HomePage.style';
+import { WeatherInformation } from './WeatherInformation/WeatherInformation';
 
 const HOME_TABS: { title: string; value: HomeTab }[] = [
   { title: '옷', value: 'clothes' },
