@@ -23,6 +23,7 @@ export { MaleIcon } from './icon/gender/MaleIcon';
 export { FemaleIcon } from './icon/gender/FemaleIcon';
 export { GoogleIcon } from './icon/social/GoogleIcon';
 export { KakaoIcon } from './icon/social/KakaoIcon';
+export { InstagramIcon } from './icon/social/InstagramIcon';
 
 export { ArrowIcon } from './icon/ArrowIcon';
 export { BookFillIcon } from './icon/BookFillIcon';
