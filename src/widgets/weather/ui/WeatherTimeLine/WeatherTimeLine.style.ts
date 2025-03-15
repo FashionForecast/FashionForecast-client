@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const WeatherTimeLineWrap = styled.div`
+  flex-grow: 1;
   padding: 12px 16px 16px;
 `;
 
@@ -41,7 +42,7 @@ const Line = styled.div`
   width: 100%;
   height: 1px;
   margin: 0 8px;
-  border: 1px solid ${({ theme }) => theme.colors.blueGrey.A12};
+  border: 1px solid ${({ theme }) => theme.colors.divider};
 `;
 
 const Temperature = styled.span`
