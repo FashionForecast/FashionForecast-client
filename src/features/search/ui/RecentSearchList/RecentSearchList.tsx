@@ -6,9 +6,10 @@ import {
   getRecentSearchList,
 } from '@/features/search/api/search';
 
+import { Region } from '@/entities/region';
+
 import { GUEST_UUID } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { Region } from '@/shared/types/region';
 import { XIcon } from '@/shared/ui';
 
 import { RecentSearchRegion } from '../../model/types';

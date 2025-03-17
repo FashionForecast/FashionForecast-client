@@ -9,15 +9,14 @@ import {
 } from '@/features/search';
 import { registerResentSearch } from '@/features/search/api/search';
 
-import { geolocationActions } from '@/entities/geolocation/model/slice';
 import { setMemberDefaultRegion, storeMember } from '@/entities/member';
+import { Region, regionActions } from '@/entities/region';
 import { RegionItem } from '@/entities/search';
 
-import { MY_REGION } from '@/shared/consts';
+import { REGION } from '@/shared/consts';
 import regionList from '@/shared/consts/regionList.json';
 import { useAppDispatch, useAppSelector } from '@/shared/lib';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
-import { Region } from '@/shared/types/region';
 import { HeadHelmet, IconButton, TextField, XCircleIcon } from '@/shared/ui';
 import { SearchIcon } from '@/shared/ui/icon/SearchIcon';
 
@@ -71,10 +70,10 @@ export const SearchPage = () => {
 
   const setCurrntRegionUpdate = (regionData: Region) => {
     if (!user) {
-      localStorage.setItem(MY_REGION, JSON.stringify(regionData));
+      localStorage.setItem(REGION, regionData.region);
     }
 
-    dispatch(geolocationActions.updateGeolocation(regionData));
+    dispatch(regionActions.updateSelectedRegion(regionData));
 
     recentSearchMutate(regionData.region, {
       onSuccess: () => navigate('/'),
@@ -85,7 +84,7 @@ export const SearchPage = () => {
     recentSearchMutate(regionData.region);
     userRegionMutate(regionData.region, {
       onSuccess: async () => {
-        dispatch(geolocationActions.updateGeolocation(regionData));
+        dispatch(regionActions.updateGeolocation(regionData));
         await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },

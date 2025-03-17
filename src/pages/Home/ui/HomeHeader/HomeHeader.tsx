@@ -11,7 +11,7 @@ import {
 } from '@/shared/ui';
 
 export const HomeHeader = memo(() => {
-  const geolocation = useAppSelector((state) => state.geolocation.value);
+  const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
   const member = useAppSelector((state) => state.member.info);
 
   return (
@@ -19,7 +19,7 @@ export const HomeHeader = memo(() => {
       leftSlot={
         <Link to={'/search'}>
           <Button startIcon={<RegionIcon />} color='secondary'>
-            {geolocation?.region}
+            {selectedRegion?.region}
           </Button>
         </Link>
       }

@@ -2,10 +2,10 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useGeolocation } from '@/entities/geolocation';
 import { setMemberDefaultRegion, storeMember } from '@/entities/member';
+import { regionActions } from '@/entities/region';
 
-import { MY_REGION } from '@/shared/consts';
+import { REGION } from '@/shared/consts';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
@@ -17,14 +17,14 @@ import { S } from './CurrentRegionButton.style';
 
 export const CurrentRegionButton = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const {
+    geolocation,
+    selectedRegion,
+    status: geolocationStatus,
+  } = useAppSelector((state) => state.region);
   const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const {
-    geolocation,
-    status: geolocationStatus,
-    updateGPSRegion,
-  } = useGeolocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { state }: SearchLocationState = useLocation();
@@ -49,12 +49,14 @@ export const CurrentRegionButton = () => {
       return;
     }
 
-    setCurrntRegionUpdate();
+    setCurrentRegionUpdate();
   };
 
-  const setCurrntRegionUpdate = () => {
-    updateGPSRegion();
-    localStorage.removeItem(MY_REGION);
+  const setCurrentRegionUpdate = () => {
+    if (!geolocation) return;
+
+    localStorage.setItem(REGION, geolocation.region);
+    dispatch(regionActions.updateSelectedRegion(geolocation));
     navigate('/');
   };
 
@@ -62,7 +64,8 @@ export const CurrentRegionButton = () => {
     setIsLoading(true);
     mutate(undefined, {
       onSuccess: async () => {
-        updateGPSRegion();
+        geolocation &&
+          dispatch(regionActions.updateSelectedRegion(geolocation));
         await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },
@@ -72,7 +75,8 @@ export const CurrentRegionButton = () => {
   };
 
   const isDisabled = () =>
-    isLoading || (state?.mode !== 'set' && geolocation?.isGPS);
+    isLoading ||
+    (state?.mode !== 'set' && selectedRegion?.region === geolocation?.region);
 
   return (
     <>

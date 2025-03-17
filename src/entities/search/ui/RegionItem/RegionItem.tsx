@@ -1,6 +1,7 @@
 import { IconButton } from '@mui/material';
 
-import { Region } from '@/shared/types/region';
+import { Region } from '@/entities/region';
+
 import { CheckIcon } from '@/shared/ui';
 
 import { C } from './RegionItem.style';

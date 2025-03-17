@@ -33,10 +33,17 @@ export const RecommendClothesList = memo(
     adjustWeatherName,
     temperatureCondition,
   }: RecommendClothesProps) => {
-    const geolocation = useAppSelector((state) => state.geolocation.value);
+    const selectedRegion = useAppSelector(
+      (state) => state.region.selectedRegion
+    );
 
     const { data: recommendClothes } = useQuery({
-      queryKey: ['clothes', temperatureCondition, geolocation?.region, weather],
+      queryKey: [
+        'clothes',
+        temperatureCondition,
+        selectedRegion?.region,
+        weather,
+      ],
       queryFn: () => getRecommendClothes(weather, temperatureCondition),
     });
 
