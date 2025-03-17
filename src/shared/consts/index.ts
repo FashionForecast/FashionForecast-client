@@ -1,4 +1,4 @@
-export { GUEST_UUID, LOGIN, MY_REGION } from './localStorageKey';
+export { GUEST_UUID, LOGIN, REGION } from './localStorageKey';
 export { MAX_WIDTH } from './css';
 export { regionCoordinateList } from './regionCoordinateList';
 export {
