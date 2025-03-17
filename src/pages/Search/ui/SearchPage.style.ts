@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import { List } from '@mui/material';
 
-const SearchWrapper = styled.div`
+const SearchPageWrap = styled.div`
   margin-top: 56px;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+`;
 
-  @media (min-width: 600px) {
-    margin-top: 64px;
-  }
+const InputWrap = styled.div`
+  padding: 8px 16px;
 `;
 
 const RegionList = styled(List)`
@@ -14,7 +15,8 @@ const RegionList = styled(List)`
 `;
 
 export const S = {
-  SearchWrapper,
+  SearchPageWrap,
+  InputWrap,
 };
 
 export const C = {

@@ -18,7 +18,8 @@ import regionList from '@/shared/consts/regionList.json';
 import { useAppDispatch, useAppSelector } from '@/shared/lib';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { Region } from '@/shared/types/region';
-import { HeadHelmet } from '@/shared/ui';
+import { HeadHelmet, IconButton, TextField, XCircleIcon } from '@/shared/ui';
+import { SearchIcon } from '@/shared/ui/icon/SearchIcon';
 
 import { SearchHeader } from './SearchHeader/SearchHeader';
 import { C, S } from './SearchPage.style';
@@ -51,7 +52,7 @@ export const SearchPage = () => {
       )
     : [];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
@@ -100,8 +101,24 @@ export const SearchPage = () => {
         urlPath='/search'
       />
 
-      <S.SearchWrapper>
+      <S.SearchPageWrap>
         <SearchHeader />
+
+        <S.InputWrap>
+          <TextField
+            value={keyword}
+            onChange={handleKeywordChange}
+            placeholder='다른 지역을 찾고 싶어요'
+            leftIcon={<SearchIcon />}
+            rightIcon={
+              keyword && (
+                <IconButton onClick={handleKeywordResetClick} size='small'>
+                  <XCircleIcon />
+                </IconButton>
+              )
+            }
+          />
+        </S.InputWrap>
 
         <CurrentRegionButton />
 
@@ -122,7 +139,7 @@ export const SearchPage = () => {
             />
           ))}
         </C.RegionList>
-      </S.SearchWrapper>
+      </S.SearchPageWrap>
     </>
   );
 };
