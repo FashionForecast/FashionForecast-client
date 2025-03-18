@@ -9,7 +9,7 @@ import {
 } from '@/features/search';
 import { registerResentSearch } from '@/features/search/api/search';
 
-import { setMemberDefaultRegion, storeMember } from '@/entities/member';
+import { setMemberRegion, storeMember } from '@/entities/member';
 import { Region, regionActions } from '@/entities/region';
 import { RegionItem } from '@/entities/search';
 
@@ -42,7 +42,7 @@ export const SearchPage = () => {
   });
 
   const { mutate: userRegionMutate } = useMutation({
-    mutationFn: (region: string) => setMemberDefaultRegion(region, accessToken),
+    mutationFn: (region: string) => setMemberRegion(region, accessToken),
   });
 
   const matchItems = keyword

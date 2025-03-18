@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { setMemberDefaultRegion, storeMember } from '@/entities/member';
+import { setMemberRegion, storeMember } from '@/entities/member';
 import { regionActions } from '@/entities/region';
 
 import { REGION } from '@/shared/consts';
@@ -30,7 +30,7 @@ export const GeolocationButton = () => {
   const isSelected = checkSelected();
 
   const { mutate } = useMutation({
-    mutationFn: () => setMemberDefaultRegion('DEFAULT', accessToken),
+    mutationFn: () => setMemberRegion('DEFAULT', accessToken),
   });
 
   const handleGeolocationButtonClick = () => {

@@ -46,8 +46,8 @@ export async function setMemberOutingTime(
   });
 }
 
-export async function setMemberDefaultRegion(
-  region: string,
+export async function setMemberRegion(
+  region: MemberDto['region'],
   accessToken: string | null
 ) {
   if (!accessToken) throw new Error('로그인을 해주세요.');
