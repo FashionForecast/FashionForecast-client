@@ -49,3 +49,4 @@ export { ErrorOutline } from './icon/ErrorOutline';
 export { PhoneIcon } from './icon/PhoneIcon';
 export { BrowserIcon } from './icon/BrowserIcon';
 export { RefreshIcon } from './icon/RefreshIcon';
+export { RecentSearchIcon } from './icon/RecentSearchIcon';
