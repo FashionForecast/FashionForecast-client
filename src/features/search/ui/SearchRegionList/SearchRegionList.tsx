@@ -84,7 +84,7 @@ export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
       {!keyword && (
         <RecentSearchList
           regions={regionList}
-          handleRegionClick={handleRegionClick}
+          onRegionClick={handleRegionClick}
         />
       )}
 

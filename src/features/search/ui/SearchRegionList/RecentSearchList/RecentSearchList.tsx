@@ -1,35 +1,39 @@
-import { IconButton } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import {
-  deleteSearchWord,
+  deleteRecentSearchRegion,
   getRecentSearchList,
 } from '@/features/search/api/search';
+import { RecentSearchRegion } from '@/features/search/model/types';
 
 import { Region } from '@/entities/region';
 
 import { GUEST_UUID } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { XIcon } from '@/shared/ui';
+import {
+  IconButton,
+  ListItemButton,
+  RecentSearchIcon,
+  XIcon,
+} from '@/shared/ui';
 
-import { RecentSearchRegion } from '../../../model/types';
-
-import { C } from './RecentSearchList.style';
+import { S } from './RecentSearchList.style';
 
 type RecentSearchListProps = {
   regions: Region[];
-  handleRegionClick: (regionData: Region) => void;
+  onRegionClick: (regionData: Region) => void;
 };
 
 export const RecentSearchList = ({
   regions,
-  handleRegionClick,
+  onRegionClick,
 }: RecentSearchListProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const user = useAppSelector((state) => state.member.info);
+
   const queryClient = useQueryClient();
 
-  const { data } = useQuery({
+  const { data: recentSearchList } = useQuery({
     queryKey: [
       'recentSearch',
       user?.socialId ? user.socialId : localStorage.getItem(GUEST_UUID),
@@ -38,24 +42,24 @@ export const RecentSearchList = ({
     retry: 1,
   });
 
-  const { mutate } = useMutation({
+  const { mutate: mutateDeleteRecentRegion } = useMutation({
     mutationFn: (region: RecentSearchRegion) =>
-      deleteSearchWord(region, user?.socialId, accessToken),
+      deleteRecentSearchRegion(region, user?.socialId, accessToken),
   });
 
-  const handleClick = (city: string, district: string) => () => {
-    const regionData = regions.find(
-      (region) => region.region === `${city} ${district}`
-    );
-    if (regionData) {
-      handleRegionClick(regionData);
+  const handleRegionClick = (city: string, district: string) => () => {
+    const regionName = `${city} ${district}`;
+    const region = regions.find((region) => region.region === regionName);
+
+    if (region) {
+      onRegionClick(region);
     }
   };
 
-  const handleDeleteClick =
+  const handleDeleteRegionClick =
     (city: string, district: string) => (e: React.MouseEvent) => {
       e.stopPropagation();
-      mutate(
+      mutateDeleteRecentRegion(
         { city, district },
         {
           onSuccess: () =>
@@ -64,23 +68,27 @@ export const RecentSearchList = ({
       );
     };
 
-  if (!data) return;
+  if (!recentSearchList) return;
   return (
-    <section>
-      <C.RecentList>
-        {data.map(({ city, district }) => (
-          <C.Item
-            divider
-            key={`${city} ${district}`}
-            onClick={handleClick(city, district)}
-          >
-            {city} {district}
-            <IconButton onClick={handleDeleteClick(city, district)}>
-              <XIcon />
-            </IconButton>
-          </C.Item>
-        ))}
-      </C.RecentList>
-    </section>
+    <S.RecentListWrap>
+      {recentSearchList.map(({ city, district }) => (
+        <ListItemButton
+          key={city + district}
+          label={`${city} ${district}`}
+          iconPosition={{
+            left: <RecentSearchIcon />,
+            right: (
+              <IconButton
+                size='small'
+                onClick={handleDeleteRegionClick(city, district)}
+              >
+                <XIcon />
+              </IconButton>
+            ),
+          }}
+          onClick={handleRegionClick(city, district)}
+        />
+      ))}
+    </S.RecentListWrap>
   );
 };

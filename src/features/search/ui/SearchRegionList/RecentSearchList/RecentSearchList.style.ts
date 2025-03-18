@@ -1,20 +1,12 @@
 import styled from '@emotion/styled';
-import { List, ListItem } from '@mui/material';
 
-const RecentList = styled(List)`
-  padding: 0;
-`;
-
-export const Item = styled(ListItem)`
+const RecentListWrap = styled.ol`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  padding: 12px 16px;
-  cursor: pointer;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
 `;
 
-export const C = {
-  RecentList,
-  Item,
+export const S = {
+  RecentListWrap,
 };
