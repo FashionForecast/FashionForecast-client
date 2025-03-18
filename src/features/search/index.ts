@@ -4,7 +4,7 @@ export {
   registerResentSearch,
 } from './api/search';
 
-export type { SearchLocationState } from './model/types';
+export type { SearchPageState } from './model/types';
 
 export { RecentSearchList } from './ui/RecentSearchList/RecentSearchList';
-export { CurrentRegionButton } from './ui/CurrentRegionButton/CurrentRegionButton';
+export { GeolocationButton } from './ui/GeolocationButton/GeolocationButton';

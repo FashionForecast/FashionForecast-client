@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
-  CurrentRegionButton,
+  GeolocationButton,
   RecentSearchList,
-  SearchLocationState,
+  SearchPageState,
 } from '@/features/search';
 import { registerResentSearch } from '@/features/search/api/search';
 
@@ -29,7 +29,7 @@ export const SearchPage = () => {
   const [keyword, setKeyword] = useState('');
 
   const dispatch = useAppDispatch();
-  const { state }: SearchLocationState = useLocation();
+  const searchPageState: SearchPageState = useLocation().state;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const snackbar = useSnackbar();
@@ -60,7 +60,7 @@ export const SearchPage = () => {
   };
 
   const handleRegionClick = (regionData: Region) => {
-    if (state?.mode === 'set') {
+    if (searchPageState?.mode === 'memberSetting') {
       updatePersonalRegionSetting(regionData);
       return;
     }
@@ -119,7 +119,7 @@ export const SearchPage = () => {
           />
         </S.InputWrap>
 
-        <CurrentRegionButton />
+        <GeolocationButton />
 
         {!keyword && (
           <RecentSearchList
