@@ -4,20 +4,20 @@ import { Region } from '@/entities/region';
 
 import { CheckIcon } from '@/shared/ui';
 
-import { C } from './RegionItem.style';
+import { C } from './MatchedRegion.style';
 
-type RegionItemProps = Region & {
+type MatchedRegionProps = Region & {
   keyword: string;
   handleRegionClick: (regionData: Region) => void;
 };
 
-export const RegionItem = ({
+export const MatchedRegion = ({
   region,
   keyword,
   nx,
   ny,
   handleRegionClick,
-}: RegionItemProps) => {
+}: MatchedRegionProps) => {
   const parts = splitText(region, keyword);
 
   return (
