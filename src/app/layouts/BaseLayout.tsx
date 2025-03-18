@@ -21,7 +21,9 @@ import * as S from './BaseLayout.style';
 
 export const BaseLayout = () => {
   const { deferredPrompt, installApp } = useA2HS();
-  const { geolocation, status } = useAppSelector((state) => state.region);
+  const { geolocation, geolocationStatus } = useAppSelector(
+    (state) => state.region
+  );
   const member = useAppSelector((state) => state.member.info);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
   const { pathname } = useLocation();
@@ -47,7 +49,7 @@ export const BaseLayout = () => {
     const gpsSuccess = (position: GeolocationPosition) => {
       const { closestRegion, nx, ny } = getClosestRegion(position);
 
-      dispatch(regionActions.updateStatus('available'));
+      dispatch(regionActions.updateStatus('success'));
       dispatch(
         regionActions.updateGeolocation({
           region: closestRegion,
@@ -77,7 +79,7 @@ export const BaseLayout = () => {
    * - 이전에 설정한 값이 없으면 default region으로 업데이트
    */
   useEffect(() => {
-    if (status === 'pending') return;
+    if (geolocationStatus === 'pending') return;
 
     if (!member) {
       const localStorageRegionName = localStorage.getItem(REGION);
@@ -101,7 +103,7 @@ export const BaseLayout = () => {
       DEFAULT_REGION;
 
     dispatch(regionActions.updateSelectedRegion(region));
-  }, [member?.region, status]);
+  }, [member?.region, geolocationStatus]);
 
   // 이전에 로그인 한 사용자의 로그인 처리
   useEffect(() => {

@@ -81,6 +81,7 @@ export const GeolocationButton = () => {
           onClick={handleGeolocationButtonClick}
         />
       )}
+      {/* { && <S.ErrorBanner></S.ErrorBanner>} */}
     </S.GeolocationButtonWrap>
   );
 };

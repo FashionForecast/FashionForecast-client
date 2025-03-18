@@ -6,15 +6,15 @@ import { Region } from './region';
 type RegionState = {
   geolocation: Region | null;
   selectedRegion: Region | null;
-  status: 'pending' | 'available' | 'error';
+  geolocationStatus: 'pending' | 'success' | 'error';
 };
 
 const slice = createSlice({
   name: 'region',
   initialState: {
     geolocation: null,
+    geolocationStatus: 'pending',
     selectedRegion: DEFAULT_REGION,
-    status: 'pending',
   } as RegionState,
   reducers: {
     updateGeolocation: (state, action: PayloadAction<Region>) => {
@@ -23,8 +23,11 @@ const slice = createSlice({
     updateSelectedRegion: (state, action: PayloadAction<Region>) => {
       state.selectedRegion = action.payload;
     },
-    updateStatus: (state, action: PayloadAction<RegionState['status']>) => {
-      state.status = action.payload;
+    updateStatus: (
+      state,
+      action: PayloadAction<RegionState['geolocationStatus']>
+    ) => {
+      state.geolocationStatus = action.payload;
     },
   },
 });
