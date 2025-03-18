@@ -27,7 +27,7 @@ export async function getRecentSearchList(
   }
 }
 
-export async function registerResentSearch(
+export async function updateResentSearch(
   region: string,
   memberId?: string,
   accessToken?: string | null

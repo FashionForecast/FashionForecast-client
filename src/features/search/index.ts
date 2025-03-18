@@ -1,7 +1,7 @@
 export {
   deleteSearchWord,
   getRecentSearchList,
-  registerResentSearch,
+  updateResentSearch,
 } from './api/search';
 
 export type { SearchPageState } from './model/types';
