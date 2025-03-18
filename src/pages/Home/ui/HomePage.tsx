@@ -32,7 +32,6 @@ const HOME_TABS: { title: string; value: HomeTab }[] = [
 
 export const HomePage = () => {
   const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
-  console.log(selectedRegion);
 
   const [tab, setTab] = useState<HomeTab>('clothes');
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
