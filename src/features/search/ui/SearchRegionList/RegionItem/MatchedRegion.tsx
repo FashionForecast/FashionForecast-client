@@ -3,24 +3,24 @@ import { Region } from '@/entities/region';
 import { S } from './MatchedRegion.style';
 
 type MatchedRegionProps = Region & {
-  keyword: string;
+  keywordParts: string[];
   handleRegionClick: (regionData: Region) => void;
 };
 
 export const MatchedRegion = ({
   region,
-  keyword,
   nx,
   ny,
+  keywordParts,
   handleRegionClick,
 }: MatchedRegionProps) => {
-  const parts = splitText(region, keyword);
+  const parts = splitRegionByKeywords(region, keywordParts);
 
   return (
     <S.MatchedRegionItem onClick={() => handleRegionClick({ region, nx, ny })}>
       <span>
         {parts.map((part, index) =>
-          part === keyword ? (
+          keywordParts.includes(part) ? (
             <S.MatchedText key={index}>{part}</S.MatchedText>
           ) : (
             part
@@ -31,32 +31,11 @@ export const MatchedRegion = ({
   );
 };
 
-function splitText(region: string, keyword: string) {
-  const parts = [];
-  let currentIndex = 0;
+/** 지역 이름을 키워드로 분할하여, 하이라이트 부분과 일반 부분으로 나눠 반환 */
+function splitRegionByKeywords(regionName: string, keywordParts: string[]) {
+  // keywordParts = ['종로']이면, regex = /(종로)/g
+  // keywordParts = ['서울', '종로']이면, regex = /(서울|종로)/g
+  const regex = new RegExp(`(${keywordParts.join('|')})`, 'g');
 
-  while (currentIndex < region.length) {
-    const index = region.indexOf(keyword, currentIndex);
-    let isFirstPartOfWord = false;
-
-    if (index === 0 || region[index - 1] === ' ') isFirstPartOfWord = true;
-
-    if (index === -1) {
-      parts.push(region.slice(currentIndex));
-      break;
-    }
-
-    if (index !== currentIndex) {
-      const indexEnd = isFirstPartOfWord ? index : index + 1;
-      parts.push(region.slice(currentIndex, indexEnd));
-    }
-
-    if (isFirstPartOfWord) {
-      parts.push(keyword);
-    }
-
-    currentIndex = index + keyword.length;
-  }
-
-  return parts;
+  return regionName.split(regex).filter(Boolean);
 }

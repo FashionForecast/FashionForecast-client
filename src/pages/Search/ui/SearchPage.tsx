@@ -10,6 +10,7 @@ import { S } from './SearchPage.style';
 
 export const SearchPage = () => {
   const [keyword, setKeyword] = useState('');
+  const trimKeyword = keyword.trim();
 
   const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -37,18 +38,20 @@ export const SearchPage = () => {
             placeholder='다른 지역을 찾고 싶어요'
             leftIcon={<SearchIcon />}
             rightIcon={
-              keyword && (
+              keyword ? (
                 <IconButton onClick={handleKeywordResetClick} size='small'>
                   <XCircleIcon />
                 </IconButton>
+              ) : (
+                <></>
               )
             }
           />
         </S.InputWrap>
 
-        <GeolocationButton />
+        {!trimKeyword && <GeolocationButton />}
 
-        <SearchRegionList keyword={keyword} />
+        <SearchRegionList keyword={trimKeyword} />
       </S.SearchPageWrap>
     </>
   );

@@ -29,11 +29,8 @@ export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
   const snackbar = useSnackbar();
   const searchPageState: SearchPageState = useLocation().state;
 
-  const matchItems = keyword
-    ? regionList.filter((v) =>
-        v.region.split(' ').some((v) => v.startsWith(keyword))
-      )
-    : [];
+  const keywordParts = keyword.split(' ');
+  const matchRegions = keyword ? getMatchedRegions(keywordParts) : [];
 
   const { mutate: mutateRecentSearch } = useMutation({
     mutationFn: (regionName: string) =>
@@ -90,15 +87,28 @@ export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
       )}
 
       <S.MatchedRegionList>
-        {matchItems.map((item) => (
+        {matchRegions.map((region) => (
           <MatchedRegion
-            key={item.region}
-            keyword={keyword}
+            key={region.region}
+            keywordParts={keywordParts}
             handleRegionClick={handleRegionClick}
-            {...item}
+            {...region}
           />
         ))}
       </S.MatchedRegionList>
     </>
   );
 };
+
+/** 주어진 키워드 배열과 일치하는 지역 목록을 반환하는 함수 */
+function getMatchedRegions(keywordParts: string[]) {
+  return regionList.filter((region) =>
+    keywordParts.every((keyword) => someMatchRegionName(region.region, keyword))
+  );
+}
+
+/** 시군구 첫 부분이 키워드와 일치하는지 확인 */
+function someMatchRegionName(regionName: string, keywordPart: string) {
+  const regionNameParts = regionName.split(' ');
+  return regionNameParts.some((part) => part.startsWith(keywordPart));
+}
