@@ -1,10 +1,6 @@
-import { IconButton } from '@mui/material';
-
 import { Region } from '@/entities/region';
 
-import { CheckIcon } from '@/shared/ui';
-
-import { C } from './MatchedRegion.style';
+import { S } from './MatchedRegion.style';
 
 type MatchedRegionProps = Region & {
   keyword: string;
@@ -21,17 +17,17 @@ export const MatchedRegion = ({
   const parts = splitText(region, keyword);
 
   return (
-    <C.Item divider onClick={() => handleRegionClick({ region, nx, ny })}>
+    <S.MatchedRegionItem onClick={() => handleRegionClick({ region, nx, ny })}>
       <span>
         {parts.map((part, index) =>
-          part === keyword ? <strong key={index}>{part}</strong> : part
+          part === keyword ? (
+            <S.MatchedText key={index}>{part}</S.MatchedText>
+          ) : (
+            part
+          )
         )}
       </span>
-
-      <IconButton>
-        <CheckIcon />
-      </IconButton>
-    </C.Item>
+    </S.MatchedRegionItem>
   );
 };
 

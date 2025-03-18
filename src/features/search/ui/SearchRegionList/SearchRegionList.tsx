@@ -13,6 +13,7 @@ import { SearchPageState } from '../../model/types';
 
 import { RecentSearchList } from './RecentSearchList/RecentSearchList';
 import { MatchedRegion } from './RegionItem/MatchedRegion';
+import { S } from './SearchRegionList.style';
 
 type SearchRegionListProps = {
   keyword: string;
@@ -88,7 +89,7 @@ export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
         />
       )}
 
-      <ol>
+      <S.MatchedRegionList>
         {matchItems.map((item) => (
           <MatchedRegion
             key={item.region}
@@ -97,7 +98,7 @@ export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
             {...item}
           />
         ))}
-      </ol>
+      </S.MatchedRegionList>
     </>
   );
 };

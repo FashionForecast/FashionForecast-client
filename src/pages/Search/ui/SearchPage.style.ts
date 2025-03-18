@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 
-const marginTop = '56px';
-
 const SearchPageWrap = styled.div`
-  min-height: calc(100dvh - ${marginTop});
-  margin-top: ${marginTop};
+  min-height: 100dvh;
+  padding-top: 56px;
+  padding-bottom: 16px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
