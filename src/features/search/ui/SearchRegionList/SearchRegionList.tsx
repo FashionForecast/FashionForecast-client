@@ -9,7 +9,7 @@ import { REGION } from '@/shared/consts';
 import regionList from '@/shared/consts/regionList.json';
 import { useAppDispatch, useAppSelector, useSnackbar } from '@/shared/lib';
 
-import { registerResentSearch } from '../../api/search';
+import { updateResentSearch } from '../../api/search';
 import { SearchPageState } from '../../model/types';
 
 import { RecentSearchList } from './RecentSearchList/RecentSearchList';
@@ -20,7 +20,7 @@ type SearchRegionListProps = {
 
 export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
-  const user = useAppSelector((state) => state.member.info);
+  const member = useAppSelector((state) => state.member.info);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -28,49 +28,50 @@ export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
   const snackbar = useSnackbar();
   const searchPageState: SearchPageState = useLocation().state;
 
-  const { mutate: recentSearchMutate } = useMutation({
-    mutationFn: (region: string) =>
-      registerResentSearch(region, user?.socialId, accessToken),
-    onSuccess: async () =>
-      await queryClient.invalidateQueries({ queryKey: ['recentSearch'] }),
-  });
-
-  const { mutate: userRegionMutate } = useMutation({
-    mutationFn: (region: string) => setMemberRegion(region, accessToken),
-  });
-
   const matchItems = keyword
     ? regionList.filter((v) =>
         v.region.split(' ').some((v) => v.startsWith(keyword))
       )
     : [];
 
-  const handleRegionClick = (regionData: Region) => {
+  const { mutate: mutateRecentSearch } = useMutation({
+    mutationFn: (regionName: string) =>
+      updateResentSearch(regionName, member?.socialId, accessToken),
+  });
+
+  const { mutate: mutateMemberRegion } = useMutation({
+    mutationFn: (regionName: string) =>
+      setMemberRegion(regionName, accessToken),
+  });
+
+  const handleRegionClick = (region: Region) => {
     if (searchPageState?.mode === 'memberSetting') {
-      updatePersonalRegionSetting(regionData);
+      updateMemberRegion(region.region);
       return;
     }
 
-    setCurrntRegionUpdate(regionData);
+    updateSelectedRegion(region);
   };
 
-  const setCurrntRegionUpdate = (regionData: Region) => {
-    if (!user) {
-      localStorage.setItem(REGION, regionData.region);
+  const updateSelectedRegion = (region: Region) => {
+    const regionName = region.region;
+
+    if (!member) {
+      localStorage.setItem(REGION, regionName);
     }
 
-    dispatch(regionActions.updateSelectedRegion(regionData));
-
-    recentSearchMutate(regionData.region, {
-      onSuccess: () => navigate('/'),
+    dispatch(regionActions.updateSelectedRegion(region));
+    mutateRecentSearch(regionName, {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['recentSearch'] });
+        navigate('/');
+      },
     });
   };
 
-  const updatePersonalRegionSetting = (regionData: Region) => {
-    recentSearchMutate(regionData.region);
-    userRegionMutate(regionData.region, {
+  const updateMemberRegion = (regionName: string) => {
+    mutateMemberRegion(regionName, {
       onSuccess: async () => {
-        dispatch(regionActions.updateGeolocation(regionData));
         await storeMember(accessToken, dispatch);
         navigate('/user?tab=set');
       },
