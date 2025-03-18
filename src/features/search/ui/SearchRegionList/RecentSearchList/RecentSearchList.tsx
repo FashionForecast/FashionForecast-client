@@ -12,7 +12,7 @@ import { GUEST_UUID } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { XIcon } from '@/shared/ui';
 
-import { RecentSearchRegion } from '../../model/types';
+import { RecentSearchRegion } from '../../../model/types';
 
 import { C } from './RecentSearchList.style';
 

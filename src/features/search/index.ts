@@ -6,5 +6,5 @@ export {
 
 export type { SearchPageState } from './model/types';
 
-export { RecentSearchList } from './ui/RecentSearchList/RecentSearchList';
 export { GeolocationButton } from './ui/GeolocationButton/GeolocationButton';
+export { SearchRegionList } from './ui/SearchRegionList/SearchRegionList';
