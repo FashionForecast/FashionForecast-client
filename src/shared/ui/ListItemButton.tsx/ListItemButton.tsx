@@ -73,7 +73,7 @@ export const ListItemButton = ({
             {left && <ListItemIcon className='left'>{left}</ListItemIcon>}
 
             <S.TextWrap>
-              <strong>{label}</strong>
+              <S.Label>{label}</S.Label>
               {description && (
                 <S.Description $isSelected={rest.selected} $color={color}>
                   {description}
@@ -90,7 +90,7 @@ export const ListItemButton = ({
         <>
           {top && <ListItemIcon className='top'>{top}</ListItemIcon>}
 
-          <strong>{label}</strong>
+          <S.Label>{label}</S.Label>
 
           {bottom && <ListItemIcon className='bottom'>{bottom}</ListItemIcon>}
         </>
@@ -110,6 +110,7 @@ const BaseListItem = styled(MuiListItemButton, forwardPropOption)<{
   justify-content: space-between;
   min-height: 60px;
   padding: 16px;
+  color: ${({ theme }) => theme.colors.text.primary};
   background-color: ${({ $color, theme }) =>
     $color === 'grey' ? theme.colors.blueGrey[100] : theme.colors.white};
   border-radius: ${({ theme }) => theme.borderRadius[2]};
@@ -166,6 +167,10 @@ const TextWrap = styled.div`
   flex-direction: column;
 `;
 
+const Label = styled.strong`
+  ${({ theme }) => theme.typo['subtitle-1']}
+`;
+
 const Description = styled.span<{ $color: CustomColor; $isSelected?: boolean }>`
   ${({ theme }) => theme.typo.caption}
   color: ${({ $isSelected, theme }) =>
@@ -175,5 +180,6 @@ const Description = styled.span<{ $color: CustomColor; $isSelected?: boolean }>`
 const S = {
   HorizontalLeftWrap,
   TextWrap,
+  Label,
   Description,
 };
