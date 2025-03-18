@@ -56,7 +56,7 @@ export async function updateResentSearch(
   }
 }
 
-export async function deleteSearchWord(
+export async function deleteRecentSearchRegion(
   region: RecentSearchRegion,
   memberId?: string,
   accessToken?: string | null

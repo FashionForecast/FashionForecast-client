@@ -1,5 +1,5 @@
 export {
-  deleteSearchWord,
+  deleteRecentSearchRegion,
   getRecentSearchList,
   updateResentSearch,
 } from './api/search';
