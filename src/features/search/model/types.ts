@@ -3,11 +3,11 @@ export type RecentSearchListDto = Array<{
   district: string;
 }>;
 
-export type SearchLocationState = {
-  state?: {
-    mode?: 'set';
-  };
-};
+export type SearchPageState =
+  | {
+      mode?: 'memberSetting';
+    }
+  | undefined;
 
 export type RecentSearchRegion = {
   city: string;

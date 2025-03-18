@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import { SearchPageState } from '@/features/search';
+
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { LocationIcon } from '@/shared/ui';
 
@@ -11,7 +13,7 @@ const RegionSetMenu = () => {
 
   const handleClick = () => {
     navigate('/search', {
-      state: { mode: 'set' },
+      state: { mode: 'memberSetting' } as SearchPageState,
     });
   };
 
