@@ -1,4 +1,10 @@
-export const RegionIcon = () => {
+import { theme } from '@/shared/styles';
+
+type RegionIconProps = {
+  color?: 'primary' | 'white';
+};
+
+export const RegionIcon = ({ color = 'primary' }: RegionIconProps) => {
   return (
     <svg
       width='14'
@@ -9,8 +15,13 @@ export const RegionIcon = () => {
     >
       <path
         d='M7.77083 14L5.66667 8.33333L1.19209e-07 6.22917V5.5L14 -4.76837e-07L8.5 14H7.77083Z'
-        fill='#323941'
+        fill={getColor(color)}
       />
     </svg>
   );
 };
+
+function getColor(color: RegionIconProps['color']) {
+  if (color === 'white') return theme.colors.white;
+  return theme.colors.text.primary;
+}
