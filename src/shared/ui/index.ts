@@ -45,3 +45,7 @@ export { XIcon } from './icon/XIcon';
 export { RegionIcon } from './icon/RegionIcon';
 export { UserIcon } from './icon/UserIcon';
 export { InformationIcon } from './icon/InformationIcon';
+export { ErrorOutline } from './icon/ErrorOutline';
+export { PhoneIcon } from './icon/PhoneIcon';
+export { BrowserIcon } from './icon/BrowserIcon';
+export { RefreshIcon } from './icon/RefreshIcon';
