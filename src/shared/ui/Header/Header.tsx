@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { AppBar as MuiAppBar } from '@mui/material';
 
+import { MAX_WIDTH } from '@/shared/consts';
+
 type AppBarProps = React.ComponentProps<typeof MuiAppBar>;
 
 type CustomHeaderProps = AppBarProps & {
@@ -39,6 +41,12 @@ const BaseAppBar = styled(MuiAppBar)`
   padding: 16px;
   padding-bottom: 8px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+
+  &.MuiAppBar-positionFixed {
+    left: 50%;
+    max-width: ${MAX_WIDTH};
+    transform: translateX(-50%);
+  }
 
   & .centerTitle {
     ${({ theme }) => theme.typo['subtitle-1']}

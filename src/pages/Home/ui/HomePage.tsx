@@ -31,7 +31,7 @@ const HOME_TABS: { title: string; value: HomeTab }[] = [
 ];
 
 export const HomePage = () => {
-  const geolocation = useAppSelector((state) => state.geolocation.value);
+  const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
 
   const [tab, setTab] = useState<HomeTab>('clothes');
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
@@ -45,9 +45,9 @@ export const HomePage = () => {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ['weather', geolocation?.region, times, day],
-    queryFn: () => getWeather(times, day, geolocation!.region),
-    enabled: !!geolocation,
+    queryKey: ['weather', selectedRegion?.region, times, day],
+    queryFn: () => getWeather(times, day, selectedRegion!.region),
+    enabled: !!selectedRegion,
   });
 
   const handleTabChange = (_: React.SyntheticEvent, selectedTab: HomeTab) => {

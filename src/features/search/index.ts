@@ -1,10 +1,4 @@
-export {
-  deleteSearchWord,
-  getRecentSearchList,
-  registerResentSearch,
-} from './api/search';
+export { deleteRecentSearchRegion, updateResentSearch } from './api/search';
 
-export type { SearchLocationState } from './model/types';
-
-export { RecentSearchList } from './ui/RecentSearchList/RecentSearchList';
-export { CurrentRegionButton } from './ui/CurrentRegionButton/CurrentRegionButton';
+export { GeolocationButton } from './ui/GeolocationButton/GeolocationButton';
+export { SearchRegionList } from './ui/SearchRegionList/SearchRegionList';
