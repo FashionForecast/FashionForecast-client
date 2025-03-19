@@ -52,12 +52,12 @@ export const LoginPage = () => {
               ))}
             </S.ClothesGroup>
 
-            <S.Title>나의 옷장을 날씨에 담아보세요</S.Title>
+            <S.Title>나의 옷장에 기온을 담아보세요</S.Title>
 
             <S.Description>
-              오늘 날씨를 고민할 필요 없이
+              옷차림 고민할 필요 없이
               <br />
-              1분만에 오늘의 옷차림을 결정하세요
+              날씨에 맞는 나의 옷장을 확인하세요!
             </S.Description>
           </S.Article>
 
