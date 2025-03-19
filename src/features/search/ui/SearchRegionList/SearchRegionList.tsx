@@ -5,13 +5,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { setMemberRegion, storeMember } from '@/entities/member';
 import { Region, regionActions } from '@/entities/region';
+import { SearchPageState } from '@/entities/search';
 
 import { REGION } from '@/shared/consts';
 import regionList from '@/shared/consts/regionList.json';
 import { useAppDispatch, useAppSelector, useSnackbar } from '@/shared/lib';
 
 import { updateResentSearch } from '../../api/search';
-import { SearchPageState } from '../../model/types';
 
 import { RecentSearchList } from './RecentSearchList/RecentSearchList';
 import { MatchedRegion } from './RegionItem/MatchedRegion';

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { setMemberRegion, storeMember } from '@/entities/member';
 import { regionActions } from '@/entities/region';
+import { SearchPageState } from '@/entities/search';
 
 import { REGION } from '@/shared/consts';
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
@@ -20,8 +21,6 @@ import {
   BrowserIcon,
   RefreshIcon,
 } from '@/shared/ui';
-
-import { SearchPageState } from '../../model/types';
 
 import { S } from './GeolocationButton.style';
 

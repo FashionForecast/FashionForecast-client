@@ -1,12 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import {
-  deleteRecentSearchRegion,
-  getRecentSearchList,
-} from '@/features/search/api/search';
-import { RecentSearchRegion } from '@/features/search/model/types';
+import { deleteRecentSearchRegion } from '@/features/search/api/search';
 
 import { Region } from '@/entities/region';
+import { getRecentSearchList, RecentSearchRegion } from '@/entities/search';
 
 import { GUEST_UUID } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';

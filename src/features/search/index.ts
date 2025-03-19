@@ -1,10 +1,4 @@
-export {
-  deleteRecentSearchRegion,
-  getRecentSearchList,
-  updateResentSearch,
-} from './api/search';
-
-export type { SearchPageState } from './model/types';
+export { deleteRecentSearchRegion, updateResentSearch } from './api/search';
 
 export { GeolocationButton } from './ui/GeolocationButton/GeolocationButton';
 export { SearchRegionList } from './ui/SearchRegionList/SearchRegionList';

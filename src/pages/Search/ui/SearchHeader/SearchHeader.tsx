@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-import { SearchPageState } from '@/features/search';
+import { SearchPageState } from '@/entities/search';
 
 import { GoBackButton, Header } from '@/shared/ui';
 
