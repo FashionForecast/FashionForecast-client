@@ -9,9 +9,7 @@ import { Gender } from '@/entities/member/model/types';
 
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { Button, HeadHelmet, FemaleIcon, MaleIcon } from '@/shared/ui';
-
-import UserGenderHeader from '../../UserGenderHeader/UserGenderHeader';
+import { Button, HeadHelmet, FemaleIcon, MaleIcon, Header } from '@/shared/ui';
 
 import { S } from './UserGenderPage.style';
 
@@ -51,7 +49,7 @@ export const UserGenderPage = () => {
       />
 
       <S.UserGenderWrap>
-        <UserGenderHeader />
+        <Header centerTitle='회원가입' />
 
         <S.SectionWrap>
           <S.ImageWrap>
