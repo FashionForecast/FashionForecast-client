@@ -1,4 +1,4 @@
-import { GoBackButton, Header } from '@/shared/ui';
+import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
 type TimeHeaderProps = {
   onClose: () => void;
@@ -7,7 +7,11 @@ type TimeHeaderProps = {
 export const TimeHeader = ({ onClose }: TimeHeaderProps) => {
   return (
     <Header
-      leftSlot={<GoBackButton onClick={onClose} />}
+      leftSlot={
+        <IconButton size='large' onClick={onClose}>
+          <ArrowIcon />
+        </IconButton>
+      }
       centerTitle='외출시간 고르기'
     />
   );

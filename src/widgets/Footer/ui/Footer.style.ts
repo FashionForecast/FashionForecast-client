@@ -15,6 +15,14 @@ const LinkGroup = styled.div`
   align-items: center;
 `;
 
+const SiteButton = styled(Button)`
+  @media (max-width: 320px) {
+    &.MuiButton-sizeSmall {
+      font-size: 11px;
+    }
+  }
+`;
+
 const DivideLine = styled.div`
   width: 1px;
   height: 24px;
@@ -50,5 +58,6 @@ export const S = {
 };
 
 export const C = {
+  SiteButton,
   InstagramButton,
 };

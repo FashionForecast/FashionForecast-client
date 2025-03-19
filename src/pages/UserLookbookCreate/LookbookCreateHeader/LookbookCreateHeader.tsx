@@ -7,7 +7,7 @@ import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
-import { GoBackButton, Header } from '@/shared/ui';
+import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
 import {
   LocationState,
@@ -77,7 +77,9 @@ const LookbookCreateHeader = ({
       <Header
         leftSlot={
           <Link to={state?.referrer ? state.referrer : '/user'}>
-            <GoBackButton />
+            <IconButton size='large'>
+              <ArrowIcon />
+            </IconButton>
           </Link>
         }
         centerTitle='룩북 만들기'

@@ -1,8 +1,10 @@
+import { ENV_API_BASE_URL } from '../consts';
+
 export async function fetchAPI<T>(
   endpoint: string,
   options?: RequestInit
 ): Promise<T> {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  const baseUrl = ENV_API_BASE_URL;
 
   try {
     const res = await fetch(`${baseUrl}${endpoint}`, options);
