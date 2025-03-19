@@ -1,61 +1,61 @@
 import styled from '@emotion/styled';
 
+import { SocialProvider } from '@/entities/auth';
+
 import { forwardPropOption } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
-import { SocialType } from './LoginPage';
-
-const LoginWrap = styled.div`
+const LoginPageWrap = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
   min-height: 100dvh;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
-const MainWrap = styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  gap: 16px;
   align-items: center;
-  padding: 30px 16px 16px;
+  justify-content: center;
+  padding: 16px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
-
-  & h3 {
-    ${({ theme }) => theme.typo['subtitle-1']}
-    margin: 32px 0 16px;
-  }
-
-  & p {
-    ${({ theme }) => theme.typo['body-2']}
-    margin-bottom: 32px;
-    text-align: center;
-  }
 `;
 
-const ImageSection = styled.div`
+const Article = styled.article`
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 0;
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const ClothesGroup = styled.div`
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 32px;
+  margin-bottom: 16px;
 `;
 
-const ImageWrap = styled.div`
+const ClothesIconWrap = styled.div`
   display: flex;
-
-  & svg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-
-    &:first-of-type {
-      margin-right: 32px;
-    }
-  }
+  align-items: center;
+  justify-content: center;
 `;
 
-const ButtonWrap = styled.div`
+const Title = styled.strong`
+  ${({ theme }) => theme.typo['subtitle-1']};
+`;
+
+const Description = styled.p`
+  ${({ theme }) => theme.typo['body-2']}
+  text-align: center;
+`;
+
+const SocialButtonGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -64,25 +64,28 @@ const ButtonWrap = styled.div`
 `;
 
 const SocialButton = styled(Button, forwardPropOption)<{
-  $provider: SocialType['provider'];
+  $provider: SocialProvider;
 }>`
   width: 100%;
-  max-width: 600px;
+  color: ${({ theme }) => theme.colors.black};
   background-color: ${({ $provider }) =>
     $provider === 'kakao' ? '#FEE500' : '#FFF'};
 
   &:hover {
     background-color: ${({ $provider }) =>
-      $provider === 'kakao' ? '#FEE500' : '#FFF'};
+      $provider === 'kakao' ? '#F2D41B' : '#F9FAFB'};
   }
 `;
 
 export const S = {
-  LoginWrap,
-  MainWrap,
-  ImageSection,
-  ImageWrap,
-  ButtonWrap,
+  LoginPageWrap,
+  Content,
+  Article,
+  ClothesGroup,
+  ClothesIconWrap,
+  Title,
+  Description,
+  SocialButtonGroup,
 };
 
 export const C = {

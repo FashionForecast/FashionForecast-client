@@ -1,28 +1,32 @@
 import { Footer } from '@/widgets/Footer';
 
-import 면바지 from '@/entities/clothes/ui/icons/bottom/면바지';
-import 청바지 from '@/entities/clothes/ui/icons/bottom/청바지';
-import 반팔티 from '@/entities/clothes/ui/icons/top/반팔티';
-import 코트 from '@/entities/clothes/ui/icons/top/코트';
+import { SocialProvider } from '@/entities/auth';
+import { ClothesIconNames } from '@/entities/clothes';
+import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 
 import { HeadHelmet, KakaoIcon, GoogleIcon } from '@/shared/ui';
 
 import LoginHeader from './LoginHeader/LoginHeader';
 import { C, S } from './LoginPage.style';
 
-export type SocialType = {
-  provider: 'kakao' | 'google';
+const LOGIN_BUTTONS: Array<{
+  provider: SocialProvider;
   text: string;
   icon: React.ReactNode;
-};
-
-const SOCIAL_LOGIN: Array<SocialType> = [
+}> = [
   { provider: 'kakao', text: '카카오', icon: <KakaoIcon /> },
   { provider: 'google', text: '구글', icon: <GoogleIcon /> },
 ];
 
+const CLOTHES_ICONS: Array<{ name: ClothesIconNames; color: string }> = [
+  { name: '코트', color: '#53616F' },
+  { name: '반팔티', color: '#FB9FE1' },
+  { name: '면바지', color: '#FFEF9B' },
+  { name: '청바지', color: '#2160A9' },
+];
+
 export const LoginPage = () => {
-  const handleLoginClick = (provider: string) => () => {
+  const handleLoginClick = (provider: SocialProvider) => () => {
     window.location.href = `${
       import.meta.env.VITE_SERVER_URL
     }/oauth2/authorization/${provider}`;
@@ -36,48 +40,45 @@ export const LoginPage = () => {
         urlPath='/login'
       />
 
-      <S.LoginWrap>
+      <S.LoginPageWrap>
         <LoginHeader />
 
-        <S.MainWrap>
-          <S.ImageSection>
-            <S.ImageWrap>
-              <코트 color='#53616F' />
-              <반팔티 color='#FB9FE1' />
-            </S.ImageWrap>
-            <S.ImageWrap>
-              <면바지 color='#FFEF9B' />
-              <청바지 color='#2160A9' />
-            </S.ImageWrap>
-          </S.ImageSection>
+        <S.Content>
+          <S.Article>
+            <S.ClothesGroup>
+              {CLOTHES_ICONS.map(({ name, color }) => (
+                <S.ClothesIconWrap key={name}>
+                  <ClothesIcon name={name} color={color} />
+                </S.ClothesIconWrap>
+              ))}
+            </S.ClothesGroup>
 
-          <h3>나의 옷장을 날씨에 담아보세요</h3>
+            <S.Title>나의 옷장을 날씨에 담아보세요</S.Title>
 
-          <p>
-            오늘 날씨를 고민할 필요 없이
-            <br />
-            1분만에 오늘의 옷차림을 결정하세요
-          </p>
+            <S.Description>
+              오늘 날씨를 고민할 필요 없이
+              <br />
+              1분만에 오늘의 옷차림을 결정하세요
+            </S.Description>
+          </S.Article>
 
-          <S.ButtonWrap>
-            {SOCIAL_LOGIN.map(({ provider, text, icon }) => (
+          <S.SocialButtonGroup>
+            {LOGIN_BUTTONS.map(({ provider, text, icon }) => (
               <C.SocialButton
                 key={provider}
-                $provider={provider}
-                variant='contained'
-                color='inherit'
                 size='large'
                 startIcon={icon}
+                $provider={provider}
                 onClick={handleLoginClick(provider)}
               >
                 {text} 계정으로 계속하기
               </C.SocialButton>
             ))}
-          </S.ButtonWrap>
-        </S.MainWrap>
+          </S.SocialButtonGroup>
+        </S.Content>
 
         <Footer />
-      </S.LoginWrap>
+      </S.LoginPageWrap>
     </>
   );
 };
