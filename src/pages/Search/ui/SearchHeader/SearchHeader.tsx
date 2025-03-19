@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { SearchPageState } from '@/entities/search';
 
-import { GoBackButton, Header } from '@/shared/ui';
+import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
 export const SearchHeader = () => {
   const searchPageState: SearchPageState = useLocation().state;
@@ -14,7 +14,9 @@ export const SearchHeader = () => {
         <Link
           to={searchPageState?.mode === 'memberSetting' ? '/user?tab=set' : '/'}
         >
-          <GoBackButton />
+          <IconButton size='large'>
+            <ArrowIcon />
+          </IconButton>
         </Link>
       }
       centerTitle='지역 고르기'
