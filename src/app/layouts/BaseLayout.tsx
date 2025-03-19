@@ -20,29 +20,61 @@ import { Button, Snackbar } from '@/shared/ui';
 import * as S from './BaseLayout.style';
 
 export const BaseLayout = () => {
-  const { deferredPrompt, installApp } = useA2HS();
+  const member = useAppSelector((state) => state.member.info);
   const { geolocation, geolocationStatus } = useAppSelector(
     (state) => state.region
   );
-  const member = useAppSelector((state) => state.member.info);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
+
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { mutate: guestLoginMutate } = useMutation({
+  const { deferredPrompt, installApp } = useA2HS();
+
+  const { mutate: mutateGuestLogin } = useMutation({
     mutationFn: guestLogin,
-    onSuccess: (data) => localStorage.setItem(GUEST_UUID, data.uuid),
+    onSuccess: (guest) => localStorage.setItem(GUEST_UUID, guest.uuid),
   });
 
-  // 게스트의 uuid를 저장
+  /** 게스트(비회원)의 uuid 저장 */
   useEffect(() => {
     const uuidGuest = localStorage.getItem(GUEST_UUID);
 
     if (!uuidGuest) {
-      guestLoginMutate();
+      mutateGuestLogin();
     }
-  }, [guestLoginMutate]);
+  }, [mutateGuestLogin]);
+
+  /** 자동 로그인 처리 */
+  useEffect(() => {
+    async function handleAutoLogin() {
+      try {
+        const accessToken = await storeAccessToken(dispatch);
+        await storeMember(accessToken, dispatch);
+      } catch {
+        navigate('/login');
+      } finally {
+        setIsLoggingIn(false);
+      }
+    }
+
+    const isPrevLoggedIn = localStorage.getItem(LOGIN);
+
+    if (isPrevLoggedIn) {
+      handleAutoLogin();
+      return;
+    }
+
+    setIsLoggingIn(false);
+  }, []);
+
+  /** 성별이 설정되어 있지 않으면, 성별 설정 페이지로 이동 */
+  useEffect(() => {
+    if (member && !member.gender) {
+      navigate('/user/gender');
+    }
+  }, [pathname, member?.gender]);
 
   /** GPS 이용 가능 상태 및 GPS 상 가장 가까운 지역 정보를 업데이트 */
   useEffect(() => {
@@ -104,37 +136,6 @@ export const BaseLayout = () => {
 
     dispatch(regionActions.updateSelectedRegion(region));
   }, [member?.region, geolocationStatus]);
-
-  // 이전에 로그인 한 사용자의 로그인 처리
-  useEffect(() => {
-    async function handleLogin() {
-      try {
-        const accessToken = await storeAccessToken(dispatch);
-        await storeMember(accessToken, dispatch);
-      } catch (error) {
-        console.error('자동 로그인에 실패했습니다.');
-        navigate('/login');
-      } finally {
-        setIsLoggingIn(false);
-      }
-    }
-
-    const isPrevLoggedIn = localStorage.getItem(LOGIN);
-
-    if (isPrevLoggedIn) {
-      handleLogin();
-      return;
-    }
-
-    setIsLoggingIn(false);
-  }, []);
-
-  // 성별이 설정되어 있지 않으면, 성별 설정 페이지로 이동
-  useEffect(() => {
-    if (member && !member.gender) {
-      navigate('/user/gender');
-    }
-  }, [pathname, member?.gender]);
 
   if (isLoggingIn) return <PageFallback />;
   return (
