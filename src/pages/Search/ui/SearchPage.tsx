@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 import { GeolocationButton, SearchRegionList } from '@/features/search';
 
-import { HeadHelmet, IconButton, TextField, XCircleIcon } from '@/shared/ui';
+import { HeadHelmet, IconButton, XCircleIcon } from '@/shared/ui';
 import { SearchIcon } from '@/shared/ui/icon/SearchIcon';
 
 import { SearchHeader } from './SearchHeader/SearchHeader';
-import { S } from './SearchPage.style';
+import { S, C } from './SearchPage.style';
 
 export const SearchPage = () => {
   const [keyword, setKeyword] = useState('');
@@ -32,7 +32,7 @@ export const SearchPage = () => {
         <SearchHeader />
 
         <S.InputWrap>
-          <TextField
+          <C.SearchInput
             value={keyword}
             onChange={handleKeywordChange}
             placeholder='다른 지역을 찾고 싶어요'
