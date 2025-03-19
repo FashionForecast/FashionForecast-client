@@ -5,9 +5,8 @@ import 코트 from '@/entities/clothes/ui/icons/top/코트';
 
 import { HeadHelmet, KakaoIcon, GoogleIcon } from '@/shared/ui';
 
-import LoginFooter from '../../LoginFooter/LoginFooter';
-import LoginHeader from '../../LoginHeader/LoginHeader';
-
+import LoginFooter from './LoginFooter/LoginFooter';
+import LoginHeader from './LoginHeader/LoginHeader';
 import { C, S } from './LoginPage.style';
 
 export type SocialType = {
