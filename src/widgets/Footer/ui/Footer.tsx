@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, InstagramIcon } from '@/shared/ui';
+import { InstagramIcon } from '@/shared/ui';
 
 import { S, C } from './Footer.style';
 
@@ -20,9 +20,9 @@ export const Footer = () => {
         {SITE_LINKS.map(({ to, title }, index) => (
           <Fragment key={title}>
             <Link to={to}>
-              <Button variant='text' size='small'>
+              <C.SiteButton variant='text' size='small'>
                 {title}
-              </Button>
+              </C.SiteButton>
             </Link>
             {index !== SITE_LINKS.length - 1 && <S.DivideLine />}
           </Fragment>
