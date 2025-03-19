@@ -30,14 +30,13 @@ export const SelectGender = () => {
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
-    mutationFn: (accessToken: string) =>
-      setMemberGender(selectedGender, accessToken),
+    mutationFn: () => setMemberGender(selectedGender, accessToken),
   });
 
   const handleSubmitClick = () => {
-    if (!selectedGender || !accessToken) return;
+    if (!selectedGender) return;
 
-    mutate(accessToken, {
+    mutate(undefined, {
       onSuccess: () => {
         dispatch(memberActions.setGender(selectedGender));
         navigate('/user');
