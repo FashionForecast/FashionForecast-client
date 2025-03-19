@@ -4,6 +4,7 @@ import { SocialProvider } from '@/entities/auth';
 import { ClothesIconNames } from '@/entities/clothes';
 import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 
+import { ENV_SERVER_URL } from '@/shared/consts';
 import { HeadHelmet, KakaoIcon, GoogleIcon } from '@/shared/ui';
 
 import LoginHeader from './LoginHeader/LoginHeader';
@@ -27,9 +28,7 @@ const CLOTHES_ICONS: Array<{ name: ClothesIconNames; color: string }> = [
 
 export const LoginPage = () => {
   const handleLoginClick = (provider: SocialProvider) => () => {
-    window.location.href = `${
-      import.meta.env.VITE_SERVER_URL
-    }/oauth2/authorization/${provider}`;
+    window.location.href = `${ENV_SERVER_URL}/oauth2/authorization/${provider}`;
   };
 
   return (
