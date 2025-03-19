@@ -10,6 +10,7 @@ const LoginWrap = styled.div`
   flex-direction: column;
   height: 100%;
   min-height: 100dvh;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
 const MainWrap = styled.div`

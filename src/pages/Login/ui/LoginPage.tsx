@@ -1,3 +1,5 @@
+import { Footer } from '@/widgets/Footer';
+
 import 면바지 from '@/entities/clothes/ui/icons/bottom/면바지';
 import 청바지 from '@/entities/clothes/ui/icons/bottom/청바지';
 import 반팔티 from '@/entities/clothes/ui/icons/top/반팔티';
@@ -5,7 +7,6 @@ import 코트 from '@/entities/clothes/ui/icons/top/코트';
 
 import { HeadHelmet, KakaoIcon, GoogleIcon } from '@/shared/ui';
 
-import LoginFooter from './LoginFooter/LoginFooter';
 import LoginHeader from './LoginHeader/LoginHeader';
 import { C, S } from './LoginPage.style';
 
@@ -75,7 +76,7 @@ export const LoginPage = () => {
           </S.ButtonWrap>
         </S.MainWrap>
 
-        <LoginFooter />
+        <Footer />
       </S.LoginWrap>
     </>
   );
