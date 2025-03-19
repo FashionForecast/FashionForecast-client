@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { debounce } from 'lodash';
+import { useEffect, useMemo, useState } from 'react';
 
 import { GeolocationButton, SearchRegionList } from '@/features/search';
 
@@ -9,16 +10,30 @@ import { SearchHeader } from './SearchHeader/SearchHeader';
 import { S, C } from './SearchPage.style';
 
 export const SearchPage = () => {
+  const [input, setInput] = useState('');
   const [keyword, setKeyword] = useState('');
-  const trimKeyword = keyword.trim();
 
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
   };
 
-  const handleKeywordResetClick = () => {
+  const handleInputResetClick = () => {
+    setInput('');
     setKeyword('');
   };
+
+  const debouncedKeyword = useMemo(
+    () =>
+      debounce((input: string) => {
+        setKeyword(input.trim());
+      }, 300),
+    []
+  );
+
+  /** input이 변경될 때 debouncedKeyword 실행 */
+  useEffect(() => {
+    debouncedKeyword(input);
+  }, [input, debouncedKeyword]);
 
   return (
     <>
@@ -33,13 +48,13 @@ export const SearchPage = () => {
 
         <S.InputWrap>
           <C.SearchInput
-            value={keyword}
-            onChange={handleKeywordChange}
+            value={input}
+            onChange={handleInputChange}
             placeholder='다른 지역을 찾고 싶어요'
             leftIcon={<SearchIcon />}
             rightIcon={
-              keyword ? (
-                <IconButton onClick={handleKeywordResetClick} size='small'>
+              input ? (
+                <IconButton onClick={handleInputResetClick} size='small'>
                   <XCircleIcon />
                 </IconButton>
               ) : (
@@ -49,9 +64,9 @@ export const SearchPage = () => {
           />
         </S.InputWrap>
 
-        {!trimKeyword && <GeolocationButton />}
+        {!keyword && <GeolocationButton />}
 
-        <SearchRegionList keyword={trimKeyword} />
+        <SearchRegionList keyword={keyword} />
       </S.SearchPageWrap>
     </>
   );

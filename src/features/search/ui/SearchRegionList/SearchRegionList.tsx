@@ -1,6 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { debounce } from 'lodash';
-import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { setMemberRegion, storeMember } from '@/entities/member';
@@ -24,7 +22,6 @@ type SearchRegionListProps = {
 export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const member = useAppSelector((state) => state.member.info);
-  const [matchRegions, setMatchRegions] = useState<Region[]>([]);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -33,6 +30,7 @@ export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
   const searchPageState: SearchPageState = useLocation().state;
 
   const keywordParts = keyword.split(' ');
+  const matchRegions = keyword ? getMatchedRegions(keywordParts) : [];
 
   const { mutate: mutateRecentSearch } = useMutation({
     mutationFn: (regionName: string) =>
@@ -78,20 +76,6 @@ export const SearchRegionList = ({ keyword }: SearchRegionListProps) => {
       onError: () => snackbar.open('위치 설정 변경에 오류가 발생했어요'),
     });
   };
-
-  const debouncedSearch = useMemo(
-    () =>
-      debounce((keyword: string) => {
-        const regions = keyword ? getMatchedRegions(keyword.split(' ')) : [];
-        setMatchRegions(regions);
-      }, 300),
-    []
-  );
-
-  /** keyword가 변경될 때 debouncedSearch 실행 */
-  useEffect(() => {
-    debouncedSearch(keyword);
-  }, [keyword, debouncedSearch]);
 
   return (
     <>
