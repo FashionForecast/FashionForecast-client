@@ -1,7 +1,6 @@
-import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { XIcon, Header } from '@/shared/ui';
+import { Header, IconButton, ArrowIcon } from '@/shared/ui';
 
 const LoginHeader = () => {
   return (
@@ -9,17 +8,11 @@ const LoginHeader = () => {
       leftSlot={
         <Link to={'/'}>
           <IconButton>
-            <img src='/logo.svg' alt='로고 이미지' />
+            <ArrowIcon />
           </IconButton>
         </Link>
       }
-      rightSlot={
-        <Link to={'/'}>
-          <IconButton>
-            <XIcon color='black' />
-          </IconButton>
-        </Link>
-      }
+      centerTitle='로그인'
     />
   );
 };
