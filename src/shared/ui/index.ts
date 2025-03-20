@@ -16,7 +16,6 @@ export { CustomRadio } from './CustomMui/CustomRadio';
 
 export { Header } from './Header/Header';
 export { IconLoading } from './IconLoading/IconLoading';
-export { UserAvatar } from './UserAvatar/UserAvatar';
 
 export { HeadHelmet } from './HeadHelmet/HeadHelmet';
 
