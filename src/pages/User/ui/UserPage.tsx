@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
+
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { HeadHelmet } from '@/shared/ui';
+import { ArrowIcon, Header, HeadHelmet, IconButton } from '@/shared/ui';
 
 import TabSection from './TabSection/TabSection';
-import UserHeader from './UserHeader/UserHeader';
 import { S } from './UserPage.style';
 
 export const UserPage = () => {
@@ -17,7 +18,16 @@ export const UserPage = () => {
       />
 
       <S.UserWrap>
-        <UserHeader />
+        <Header
+          leftSlot={
+            <Link to={'/'}>
+              <IconButton>
+                <ArrowIcon />
+              </IconButton>
+            </Link>
+          }
+          centerTitle='내 정보'
+        />
 
         <S.Heading>안녕하세요 {user?.nickname}님,</S.Heading>
 
