@@ -51,13 +51,6 @@ const AddCard = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius[2]};
 `;
 
-const TopClothes = styled.div`
-  position: relative;
-  top: 10px;
-  display: flex;
-  align-items: flex-end;
-`;
-
 const ChipWrap = styled.div`
   position: absolute;
   bottom: 0;
@@ -148,7 +141,6 @@ export const S = {
   AddCard,
   AddContent,
   ChipWrap,
-  TopClothes,
   AddText,
   EmptyCard,
   EmptyContent,
