@@ -1,9 +1,4 @@
-export {
-  getAccessToken,
-  guestLogin,
-  logout,
-  withdrawalAccount,
-} from './api/auth';
+export { getAccessToken, guestLogin, logout } from './api/auth';
 
 export { storeAccessToken } from './lib/storeAccessToken';
 

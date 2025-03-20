@@ -66,3 +66,12 @@ export async function setMemberClothesThickness(
     body: JSON.stringify({ tempCondition: option }),
   });
 }
+
+export async function withdrawalAccount(accessToken: string | null) {
+  if (!accessToken) throw new Error('로그인을 해주세요.');
+
+  await fetchAPI('/login/account', {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+}

@@ -3,6 +3,7 @@ export {
   setMemberClothesThickness,
   setMemberRegion,
   setMemberOutingTime,
+  withdrawalAccount,
 } from './api/member';
 
 export { storeMember } from './lib/storeMember';
