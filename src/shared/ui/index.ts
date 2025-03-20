@@ -8,6 +8,8 @@ export { TextField } from './TextField/TextField';
 export { Snackbar } from './Snackbar/Snackbar';
 export { Dialog } from './Dialog/Dialog';
 export { Tabs } from './Tabs/Tabs';
+export { Menu } from './Menu/Menu';
+export { MenuItem } from './MenuItem/MenuItem';
 
 export { CustomFormControlLabel } from './CustomMui/CustomFormControlLabel';
 export { CustomRadio } from './CustomMui/CustomRadio';
@@ -49,3 +51,4 @@ export { PhoneIcon } from './icon/PhoneIcon';
 export { BrowserIcon } from './icon/BrowserIcon';
 export { RefreshIcon } from './icon/RefreshIcon';
 export { RecentSearchIcon } from './icon/RecentSearchIcon';
+export { MoreIcon } from './icon/MoreIcon';
