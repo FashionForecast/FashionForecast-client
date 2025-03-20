@@ -2,59 +2,81 @@ import { Link } from 'react-router-dom';
 
 import { MemberLookbookDto } from '@/widgets/clothes';
 
-import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
-import { WeatherTypeNumber } from '@/entities/weather';
+import { LookbookClothes } from '@/entities/clothes';
+import {
+  WEATHER_COLORS,
+  WEATHER_LABELS,
+  WEATHER_TYPE,
+  WeatherTypeNumber,
+} from '@/entities/weather';
 
-import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
-import { PlusIcon } from '@/shared/ui';
+import { IconButton, PlusIcon } from '@/shared/ui';
 
 import { S, C } from './LookbookCard.style';
 
 type LookbookCardProps = {
-  type: WeatherTypeNumber;
+  temperatureStage: number;
   outfits: MemberLookbookDto[];
 };
 
-export const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
-  const { title, subtitle } = LOOKBOOK_WEATHER_TYPE[type];
+export const LookbookCard = ({
+  temperatureStage,
+  outfits,
+}: LookbookCardProps) => {
+  const weatherNumber = String(temperatureStage) as WeatherTypeNumber;
+  const weatherName = WEATHER_TYPE.numberToName[weatherNumber];
+
+  const { light, main, deep } = WEATHER_COLORS[weatherName];
+  const { temperature, summary } = WEATHER_LABELS[weatherName];
 
   return (
-    <S.LookbookCardWrap $color={type}>
+    <S.LookbookCardWrap $color={main}>
       <S.CardHeader>
-        <S.TitleWrap>
-          <h6>{title}</h6>
-          <span>{subtitle}</span>
-        </S.TitleWrap>
-        {outfits.length < 4 && (
-          <Link to={`/user/lookbook/create?type=${type}`}>
-            <C.IconBtn>
-              <PlusIcon />
-            </C.IconBtn>
+        <S.LABELS $color={deep}>
+          <S.Temperature>{temperature}</S.Temperature>
+          <S.Summary>{summary}</S.Summary>
+        </S.LABELS>
+
+        {outfits.length <= 3 && (
+          <Link to={`/user/lookbook/create?type=${temperatureStage}`}>
+            <IconButton>
+              <PlusIcon width={14} height={14} />
+            </IconButton>
           </Link>
         )}
       </S.CardHeader>
 
-      {outfits.length > 0 && (
-        <S.ClothesList>
-          {outfits.map((outfit) => (
-            <C.LookbookLink
-              to={`/user/lookbook/create?type=${type}`}
-              state={{ outfit }}
-              key={outfit.memberOutfitId}
-            >
-              <S.ClothesItem key={outfit.memberOutfitId}>
-                <S.Top data-top={outfit.topType}>
-                  <ClothesIcon name={outfit.topType} color={outfit.topColor} />
-                </S.Top>
-                <ClothesIcon
-                  name={outfit.bottomType}
-                  color={outfit.bottomColor}
-                />
-              </S.ClothesItem>
-            </C.LookbookLink>
-          ))}
-        </S.ClothesList>
-      )}
+      <S.ClothesList>
+        {outfits.map((outfit) => (
+          <C.LookbookLink
+            to={`/user/lookbook/create?type=${temperatureStage}`}
+            state={{ outfit }}
+            key={outfit.memberOutfitId}
+          >
+            <S.ClothesItem>
+              <LookbookClothes
+                topName={outfit.topType}
+                topColor={outfit.topColor}
+                bottomName={outfit.bottomType}
+                bottomColor={outfit.bottomColor}
+              />
+            </S.ClothesItem>
+
+            <S.ChipWrap>
+              <C.TopNameChip
+                label={outfit.topType}
+                color={light}
+                size='small'
+              />
+              <C.BottomNameChip
+                label={outfit.bottomType}
+                color={light}
+                size='small'
+              />
+            </S.ChipWrap>
+          </C.LookbookLink>
+        ))}
+      </S.ClothesList>
     </S.LookbookCardWrap>
   );
 };

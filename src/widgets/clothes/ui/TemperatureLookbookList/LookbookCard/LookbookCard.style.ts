@@ -1,16 +1,17 @@
 import styled from '@emotion/styled';
-import { IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { WeatherTypeNumber } from '@/entities/weather';
+import { Chip } from '@/shared/ui';
 
-import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
-
-const LookbookCardWrap = styled.li<{ $color: WeatherTypeNumber }>`
+const LookbookCardWrap = styled.li<{ $color: string }>`
   padding: 12px 16px;
-  margin: 0 16px 8px;
-  background-color: ${({ $color }) => LOOKBOOK_WEATHER_TYPE[$color].color};
-  border-radius: 16px;
+  margin: 0 16px 12px;
+  background-color: ${({ $color }) => $color};
+  border-radius: ${({ theme }) => theme.borderRadius[2]};
+
+  &:last-of-type {
+    margin-bottom: 16px;
+  }
 `;
 
 const CardHeader = styled.header`
@@ -19,50 +20,31 @@ const CardHeader = styled.header`
   justify-content: space-between;
 `;
 
-const TitleWrap = styled.div`
-  & h6 {
-    ${({ theme }) => theme.typo['subtitle-1']}
-  }
-
-  & span {
-    ${({ theme }) => theme.typo['body-2']} /* margin-right: 16px; */
-    color: ${({ theme }) => theme.colors.text.secondary};
-  }
+const LABELS = styled.div<{ $color: string }>`
+  display: flex;
+  flex-direction: column;
+  color: ${({ $color }) => $color};
 `;
 
-const IconBtn = styled(IconButton)`
-  width: 34px;
-  height: 34px;
+const Temperature = styled.strong`
+  ${({ theme }) => theme.typo['subtitle-1']}
+`;
+
+const Summary = styled.span`
+  ${({ theme }) => theme.typo['body-2']}
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const ClothesList = styled.ol`
   display: flex;
-  gap: 20px;
-  margin-top: 8px;
-`;
-
-const ClothesItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 64px;
-`;
-
-const Top = styled.div`
-  position: relative;
-  top: 3px;
-  display: flex;
-  align-items: end;
-  justify-content: center;
-  height: 64px;
-
-  &[data-top*='코트'] {
-    top: 10px;
-  }
+  gap: 10px;
 `;
 
 const LookbookLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 64px;
   transition: transform 0.2s ease-in-out;
 
   &:hover {
@@ -70,13 +52,39 @@ const LookbookLink = styled(Link)`
   }
 `;
 
+const ClothesItem = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ChipWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+`;
+
+const TopNameChip = styled(Chip)`
+  height: 20px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+`;
+
+const BottomNameChip = styled(Chip)`
+  height: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+`;
+
 export const S = {
   LookbookCardWrap,
   CardHeader,
-  TitleWrap,
+  LABELS,
+  Temperature,
+  Summary,
   ClothesList,
   ClothesItem,
-  Top,
+  ChipWrap,
 };
 
-export const C = { IconBtn, LookbookLink };
+export const C = { LookbookLink, TopNameChip, BottomNameChip };
