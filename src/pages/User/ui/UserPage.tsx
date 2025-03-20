@@ -16,7 +16,7 @@ export const UserPage = () => {
         urlPath='/user'
       />
 
-      <S.UserWrap>
+      <S.UserPageWrap>
         <Header
           leftSlot={
             <Link to={'/'}>
@@ -31,7 +31,7 @@ export const UserPage = () => {
         <MemberInformationBar />
 
         <TabSection />
-      </S.UserWrap>
+      </S.UserPageWrap>
     </>
   );
 };
