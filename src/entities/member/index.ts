@@ -2,7 +2,6 @@ export {
   getMember,
   setMemberClothesThickness,
   setMemberRegion,
-  setMemberGender,
   setMemberOutingTime,
 } from './api/member';
 

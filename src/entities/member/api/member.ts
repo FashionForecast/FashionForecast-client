@@ -13,17 +13,6 @@ export async function getMember(accessToken: string) {
   });
 }
 
-export async function setMemberGender(gender: string, accessToken: string) {
-  await fetchAPI('/member/gender', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ gender }),
-  });
-}
-
 export async function setMemberOutingTime(
   select: SelectedTime,
   option: TimeSetOption,

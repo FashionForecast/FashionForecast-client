@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { Header, IconButton, ArrowIcon } from '@/shared/ui';
 
-const LoginHeader = () => {
+export const LoginHeader = () => {
   return (
     <Header
       leftSlot={
@@ -16,5 +16,3 @@ const LoginHeader = () => {
     />
   );
 };
-
-export default LoginHeader;

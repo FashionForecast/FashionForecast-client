@@ -7,7 +7,7 @@ import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 import { ENV_SERVER_URL } from '@/shared/consts';
 import { HeadHelmet, KakaoIcon, GoogleIcon } from '@/shared/ui';
 
-import LoginHeader from './LoginHeader/LoginHeader';
+import { LoginHeader } from './LoginHeader/LoginHeader';
 import { C, S } from './LoginPage.style';
 
 const LOGIN_BUTTONS: Array<{
