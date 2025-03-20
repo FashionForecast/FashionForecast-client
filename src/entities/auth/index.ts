@@ -2,7 +2,7 @@ export {
   getAccessToken,
   guestLogin,
   logout,
-  withdrawlAccount,
+  withdrawalAccount,
 } from './api/auth';
 
 export { storeAccessToken } from './lib/storeAccessToken';

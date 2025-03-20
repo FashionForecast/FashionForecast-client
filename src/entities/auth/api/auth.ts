@@ -26,7 +26,7 @@ export async function logout(accessToken: string | null) {
   });
 }
 
-export async function withdrawlAccount(accessToken: string | null) {
+export async function withdrawalAccount(accessToken: string | null) {
   if (!accessToken) throw new Error('로그인을 해주세요.');
 
   await fetchAPI('/login/account', {

@@ -9,7 +9,7 @@ import RegionSetMenu from './RegionSetMenu/RegionSetMenu';
 import { S } from './SettingList.style';
 import ThicknessSetMenu from './ThicknessSetMenu/ThicknessSetMenu';
 import TimeSetMenu from './TimeSetMenu/TimeSetMenu';
-import WithdrawlButton from './WithdrawlButton/WithdrawlButton';
+import WithdrawalButton from './WithdrawalButton/WithdrawalButton';
 
 const SettingList = () => {
   return (
@@ -31,7 +31,7 @@ const SettingList = () => {
       </S.ContentWrap>
 
       <S.Footer>
-        <WithdrawlButton />
+        <WithdrawalButton />
         <S.Divider />
         <Link to={'/terms-of-service'}>
           <Button color='inherit'>이용약관</Button>

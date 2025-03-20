@@ -2,14 +2,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { withdrawlAccount } from '@/entities/auth/api/auth';
+import { withdrawalAccount } from '@/entities/auth/api/auth';
 
 import { LOGIN } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { Dialog, Button } from '@/shared/ui';
 
-const WithdrawlButton = () => {
+const WithdrawalButton = () => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +18,7 @@ const WithdrawlButton = () => {
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
-    mutationFn: () => withdrawlAccount(accessToken),
+    mutationFn: () => withdrawalAccount(accessToken),
   });
 
   const handleClickOpen = () => {
@@ -29,7 +29,7 @@ const WithdrawlButton = () => {
     setOpen(false);
   };
 
-  const handleWithdrawlButtonClick = () => {
+  const handleWithdrawalButtonClick = () => {
     setIsLoading(true);
 
     mutate(undefined, {
@@ -68,7 +68,7 @@ const WithdrawlButton = () => {
               color='error'
               variant='contained'
               disabled={isLoading}
-              onClick={handleWithdrawlButtonClick}
+              onClick={handleWithdrawalButtonClick}
             >
               탈퇴
             </Button>
@@ -79,4 +79,4 @@ const WithdrawlButton = () => {
   );
 };
 
-export default WithdrawlButton;
+export default WithdrawalButton;
