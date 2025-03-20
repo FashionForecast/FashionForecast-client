@@ -13,7 +13,7 @@ type HeadlineProps = {
 
 export const Headline = ({ weatherName }: HeadlineProps) => {
   return (
-    <S.HeadlineWrap $color={WEATHER_COLORS[weatherName]}>
+    <S.HeadlineWrap $color={WEATHER_COLORS[weatherName].light}>
       <WeatherFaceIcon weatherName={weatherName} />
 
       <h6>{WEATHER_LABELS[weatherName].summary}</h6>

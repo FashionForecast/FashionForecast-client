@@ -91,7 +91,7 @@ function getChipColor(outfitType: OutfitType, weatherName: WeatherTypeName) {
 
 const CHIP_COLOR: Record<OutfitType, (weatherName: WeatherTypeName) => string> =
   {
-    TOP: (weatherName) => WEATHER_COLORS[weatherName],
+    TOP: (weatherName) => WEATHER_COLORS[weatherName].light,
     BOTTOM: () => theme.colors.blueGrey[100],
     ETC: (weatherName) => ETC_CHIP_COLORS_MAP[weatherName],
   };
