@@ -15,7 +15,7 @@ type LookbookCardProps = {
   outfits: MemberLookbookDto[];
 };
 
-const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
+export const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
   const { title, subtitle } = LOOKBOOK_WEATHER_TYPE[type];
 
   return (
@@ -58,5 +58,3 @@ const LookbookCard = ({ type, outfits }: LookbookCardProps) => {
     </S.LookbookCardWrap>
   );
 };
-
-export default LookbookCard;

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import { TemperatureLookbookList } from '@/widgets/clothes';
+
 import { Tabs } from '@/shared/ui';
 
-import LookbookList from './LookbookList/LookbookList';
 import SettingList from './SettingList/SettingList';
 import { S } from './TabSection.style';
 
@@ -29,7 +30,7 @@ const TabSection = () => {
         <Tabs items={MEMBER_TAB} value={tab} onChange={handleTabChange} />
       </S.TabsWrap>
 
-      {tab === 'lookbook' && <LookbookList />}
+      {tab === 'lookbook' && <TemperatureLookbookList />}
       {tab === 'set' && <SettingList />}
     </S.TabSectionWrap>
   );

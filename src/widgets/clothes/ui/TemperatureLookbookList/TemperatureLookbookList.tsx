@@ -5,9 +5,9 @@ import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 
-import LookbookCard from './LookbookCard/LookbookCard';
+import { LookbookCard } from './LookbookCard/LookbookCard';
 
-const LookbookList = () => {
+export const TemperatureLookbookList = () => {
   const user = useAppSelector((state) => state.member.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const { data } = useQuery({
@@ -29,5 +29,3 @@ const LookbookList = () => {
     )
   );
 };
-
-export default LookbookList;
