@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
 
-const SectionWrap = styled.section`
+const TabSectionWrap = styled.section`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 `;
 
-const ContentWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+const TabsWrap = styled.div`
+  padding: 0 16px;
+  margin-bottom: 8px;
 `;
 
-export const S = { SectionWrap, ContentWrap };
+export const S = { TabSectionWrap, TabsWrap };

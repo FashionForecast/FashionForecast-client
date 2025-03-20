@@ -29,6 +29,7 @@ export const UserPage = () => {
         />
 
         <MemberInformationBar />
+        <S.DivideLine />
 
         <TabSection />
       </S.UserPageWrap>

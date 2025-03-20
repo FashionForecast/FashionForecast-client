@@ -24,14 +24,14 @@ const TabSection = () => {
   };
 
   return (
-    <S.SectionWrap>
-      <Tabs items={MEMBER_TAB} value={tab} onChange={handleTabChange} />
+    <S.TabSectionWrap>
+      <S.TabsWrap>
+        <Tabs items={MEMBER_TAB} value={tab} onChange={handleTabChange} />
+      </S.TabsWrap>
 
-      <S.ContentWrap>
-        {tab === 'lookbook' && <LookbookList />}
-        {tab === 'set' && <SettingList />}
-      </S.ContentWrap>
-    </S.SectionWrap>
+      {tab === 'lookbook' && <LookbookList />}
+      {tab === 'set' && <SettingList />}
+    </S.TabSectionWrap>
   );
 };
 
