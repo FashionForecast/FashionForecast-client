@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import TimeCarousel from '@/pages/Home/TimeSelector/TimeCarousel/TimeCarousel';
-import { SelectedTime } from '@/pages/Home/TimeSelector/TimeSelector';
+import DeprecatedTimeCarousel from '@/widgets/time/ui/DeprecatedTimeSelector/DeprecatedTimeCarousel/DeprecatedTimeCarousel';
+import { SelectedTime } from '@/widgets/time/ui/DeprecatedTimeSelector/DeprecatedTimeSelector';
 
 import { paddedTimeList } from '@/shared/consts/timeList';
 
@@ -30,14 +30,14 @@ const UserTimeSelector = ({
 
   return (
     <S.TimeSelector $disabled={disabled}>
-      <TimeCarousel
+      <DeprecatedTimeCarousel
         times={DAYS}
         type='day'
         selectedTime={selectedTime.day}
         updateSelectedTime={updateSelectedTime}
       />
 
-      <TimeCarousel
+      <DeprecatedTimeCarousel
         times={paddedTimeList}
         type='start'
         selectedTime={selectedTime.start}
@@ -46,7 +46,7 @@ const UserTimeSelector = ({
 
       <S.Hypen />
 
-      <TimeCarousel
+      <DeprecatedTimeCarousel
         times={endTimes}
         type='end'
         selectedTime={selectedTime.end}

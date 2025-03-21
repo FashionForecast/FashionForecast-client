@@ -1,5 +1,5 @@
-import { SelectedTime } from '@/pages/Home/TimeSelector/TimeSelector';
-import { TimeSetOption } from '@/pages/User/TabSection/SettingList/TimeSetMenu/TimeSetMenu';
+import { TimeSetOption } from '@/widgets/member/ui/SettingList/TimeSetMenu/TimeSetMenu';
+import { SelectedTime } from '@/widgets/time/ui/DeprecatedTimeSelector/DeprecatedTimeSelector';
 
 import { TemperatureCondition } from '@/entities/weather';
 

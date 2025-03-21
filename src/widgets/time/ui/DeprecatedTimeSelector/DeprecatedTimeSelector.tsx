@@ -6,8 +6,8 @@ import { KSTDate } from '@/shared/lib';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { CheckIcon } from '@/shared/ui';
 
-import TimeCarousel from './TimeCarousel/TimeCarousel';
-import { C, S } from './TimeSelector.style';
+import DeprecatedTimeCarousel from './DeprecatedTimeCarousel/DeprecatedTimeCarousel';
+import { C, S } from './DeprecatedTimeSelector.style';
 
 const DAYS = ['오늘', '내일'];
 
@@ -25,7 +25,10 @@ type TimeSelectorProps = {
   ) => void;
 };
 
-function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
+function DeprecatedTimeSelector({
+  selectedTime,
+  updateSelectedTime,
+}: TimeSelectorProps) {
   const [isChange, setIsChange] = useState(false);
   const initialTime = useRef(selectedTime);
   const queryClient = useQueryClient();
@@ -64,14 +67,14 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
   return (
     <S.TimeSelector>
       <S.TimeRange>
-        <TimeCarousel
+        <DeprecatedTimeCarousel
           times={DAYS}
           type='day'
           selectedTime={selectedTime.day}
           updateSelectedTime={updateSelectedTime}
         />
 
-        <TimeCarousel
+        <DeprecatedTimeCarousel
           times={startTimes}
           type='start'
           selectedTime={selectedTime.start}
@@ -80,7 +83,7 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
 
         <S.Hypen />
 
-        <TimeCarousel
+        <DeprecatedTimeCarousel
           times={endTimes}
           type='end'
           selectedTime={selectedTime.end}
@@ -100,4 +103,4 @@ function TimeSelector({ selectedTime, updateSelectedTime }: TimeSelectorProps) {
   );
 }
 
-export default TimeSelector;
+export default DeprecatedTimeSelector;

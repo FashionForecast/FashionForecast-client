@@ -1,8 +1,8 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-import { SelectedTime } from '../TimeSelector';
+import { SelectedTime } from '../DeprecatedTimeSelector';
 
-import { ITEM_HEIGHT, S } from './TimeCarousel.style';
+import { ITEM_HEIGHT, S } from './DeprecatedTimeCarousel.style';
 
 type TimeCarouselProps = {
   times: string[];
@@ -15,7 +15,7 @@ type TimeCarouselProps = {
   ) => void;
 };
 
-const TimeCarousel = ({
+const DeprecatedTimeCarousel = ({
   times,
   type,
   selectedTime,
@@ -112,7 +112,7 @@ const TimeCarousel = ({
   );
 };
 
-export default memo(TimeCarousel);
+export default memo(DeprecatedTimeCarousel);
 
 function getInitialIndex(times: string[], selectedTime: string) {
   return times.findIndex((time) => time === selectedTime);
