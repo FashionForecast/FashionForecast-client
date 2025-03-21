@@ -51,3 +51,4 @@ export { BrowserIcon } from './icon/BrowserIcon';
 export { RefreshIcon } from './icon/RefreshIcon';
 export { RecentSearchIcon } from './icon/RecentSearchIcon';
 export { MoreIcon } from './icon/MoreIcon';
+export { ChevronIcon } from './icon/ChevronIcon';
