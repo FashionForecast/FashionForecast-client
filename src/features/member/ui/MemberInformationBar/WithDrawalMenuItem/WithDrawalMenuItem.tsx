@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { withdrawalAccount } from '@/entities/member';
+import { withdrawalAccount } from '@/features/member/api/member';
 
 import { LOGIN } from '@/shared/consts';
 import { useAppSelector, useSnackbar } from '@/shared/lib';

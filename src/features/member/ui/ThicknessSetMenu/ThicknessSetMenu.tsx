@@ -1,11 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import {
-  SetCard,
-  setMemberClothesThickness,
-  storeMember,
-} from '@/entities/member';
+import { SetCard, storeMember } from '@/entities/member';
 import { TemperatureCondition } from '@/entities/weather';
 
 import { useAppDispatch } from '@/shared/lib/useAppDispatch';
@@ -18,6 +14,8 @@ import {
   ListItemButton,
   CheckCircleIcon,
 } from '@/shared/ui';
+
+import { setMemberClothesThickness } from '../../api/member';
 
 import { S } from './ThicknessSetMenu.style';
 
