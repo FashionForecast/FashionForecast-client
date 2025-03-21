@@ -1,30 +1,22 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+import { SetCard } from '@/entities/member';
 import { SearchPageState } from '@/entities/search';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { LocationIcon } from '@/shared/ui';
+import { RegionPinIcon } from '@/shared/ui';
 
-import MenuItem from '../components/MenuItem/MenuItem';
+export const RegionSetMenu = () => {
+  const member = useAppSelector((state) => state.member.info);
 
-const RegionSetMenu = () => {
-  const user = useAppSelector((state) => state.member.info);
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/search', {
-      state: { mode: 'memberSetting' } as SearchPageState,
-    });
-  };
-
+  if (!member) return <></>;
   return (
-    <MenuItem
-      title='기본 위치'
-      value={user?.region === 'DEFAULT' ? '현재 위치' : user?.region}
-      icon={<LocationIcon />}
-      handleClick={handleClick}
-    />
+    <Link to={'/search'} state={{ mode: 'memberSetting' } as SearchPageState}>
+      <SetCard
+        icon={<RegionPinIcon />}
+        title='기본 위치'
+        value={member.region === 'DEFAULT' ? '현재 위치' : member.region}
+      />
+    </Link>
   );
 };
-
-export default RegionSetMenu;
