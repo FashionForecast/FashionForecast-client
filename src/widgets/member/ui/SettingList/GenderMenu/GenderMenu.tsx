@@ -1,20 +1,20 @@
+import { SetCard } from '@/entities/member';
 import { MemberDto } from '@/entities/member/model/types';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { UserFillIcon } from '@/shared/ui';
-
-import MenuItem from '../components/MenuItem/MenuItem';
+import { PeopleIcon } from '@/shared/ui';
 
 const GenderMenu = () => {
-  const user = useAppSelector((state) => state.member.info);
-  const gender = getGender(user?.gender);
+  const member = useAppSelector((state) => state.member.info);
+  const gender = getGender(member?.gender);
 
   return (
-    <MenuItem
+    <SetCard
+      icon={<PeopleIcon />}
       title='성별'
       value={gender}
-      icon={<UserFillIcon />}
-      dividerThick
+      disabled
+      bottomBorder={false}
     />
   );
 };
@@ -22,8 +22,8 @@ const GenderMenu = () => {
 export default GenderMenu;
 
 function getGender(gender?: MemberDto['gender']) {
-  if (!gender) return '-';
-
   if (gender === 'MALE') return '남성';
-  else return '여성';
+  else if (gender === 'FEMALE') return '여성';
+
+  return '-';
 }
