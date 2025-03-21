@@ -1,45 +1,27 @@
 import styled from '@emotion/styled';
 
-const MySettingWrap = styled.div`
+const SettingSection = styled.section`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  height: 100%;
   padding: 0 16px 16px;
 `;
 
-const ContentWrap = styled.div`
+const ListWrap = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 `;
 
-const Ul = styled.ul`
+const List = styled.ol`
+  overflow: hidden;
   background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 16px;
-
-  &:first-of-type {
-    margin-bottom: 32px;
-  }
-`;
-
-const Footer = styled.footer`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 16px;
-`;
-
-const Divider = styled.div`
-  width: 1px;
-  height: 24px;
-  margin: 0 12px;
-  background-color: ${({ theme }) => theme.colors.blueGrey[300]};
+  border-radius: ${({ theme }) => theme.borderRadius[2]};
 `;
 
 export const S = {
-  MySettingWrap,
-  ContentWrap,
-  Ul,
-  Footer,
-  Divider,
+  SettingSection,
+  ListWrap,
+  List,
 };
