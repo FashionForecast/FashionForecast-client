@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { TemperatureLookbookList } from '@/widgets/clothes';
+import { SettingList } from '@/widgets/member';
 
 import { Tabs } from '@/shared/ui';
 
-import SettingList from './SettingList/SettingList';
 import { S } from './TabSection.style';
 
 type MemberTab = 'lookbook' | 'set';

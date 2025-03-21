@@ -11,7 +11,7 @@ import ThicknessSetMenu from './ThicknessSetMenu/ThicknessSetMenu';
 import TimeSetMenu from './TimeSetMenu/TimeSetMenu';
 import WithdrawalButton from './WithdrawalButton/WithdrawalButton';
 
-const SettingList = () => {
+export const SettingList = () => {
   return (
     <S.MySettingWrap>
       <S.ContentWrap>
@@ -44,5 +44,3 @@ const SettingList = () => {
     </S.MySettingWrap>
   );
 };
-
-export default SettingList;
