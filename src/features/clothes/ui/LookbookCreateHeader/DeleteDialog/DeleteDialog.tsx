@@ -15,7 +15,7 @@ type DeleteDialogProps = {
   onClose: () => void;
 };
 
-const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
+export const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,7 +29,7 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
       deleteLookbookItem(pageState?.clickedOutfit?.memberOutfitId, accessToken),
   });
 
-  const handleClick = () => {
+  const handleDeleteButtonClick = () => {
     setIsLoading(true);
 
     mutate(undefined, {
@@ -56,7 +56,7 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
             color='error'
             variant='contained'
             disabled={isLoading}
-            onClick={handleClick}
+            onClick={handleDeleteButtonClick}
           >
             삭제
           </Button>
@@ -65,5 +65,3 @@ const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
     />
   );
 };
-
-export default DeleteDialog;

@@ -12,7 +12,7 @@ import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 import { LookbookSelect } from '../../../../pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 import { saveLookbook } from '../../lib/saveLookbook';
 
-import DeleteDialog from './DeleteDialog/DeleteDialog';
+import { DeleteDialog } from './DeleteDialog/DeleteDialog';
 import { C, S } from './LookbookCreateHeader.style';
 
 type LookbookCreateHeaderProps = {
@@ -25,6 +25,7 @@ export const LookbookCreateHeader = ({
   select,
 }: LookbookCreateHeaderProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -34,24 +35,27 @@ export const LookbookCreateHeader = ({
   const navigate = useNavigate();
   const snackbar = useSnackbar();
 
+  const pageStateOutfit = pageState?.clickedOutfit;
+  const pageReferrer = pageState?.referrer;
+
   const { mutate } = useMutation({
     mutationFn: () =>
       saveLookbook(
         weatherTypeNumber,
         select,
         accessToken,
-        pageState?.clickedOutfit?.memberOutfitId
+        pageStateOutfit?.memberOutfitId
       ),
-    onSuccess: async () =>
-      await queryClient.invalidateQueries({ queryKey: ['user'] }),
   });
 
   const handleSaveButtonClick = () => {
     setIsLoading(true);
 
     mutate(undefined, {
-      onSuccess: () =>
-        navigate(pageState?.referrer ? pageState.referrer : '/user'),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['user'] });
+        navigate(pageReferrer ? pageReferrer : '/user');
+      },
       onError: (error) => {
         if (error.message.includes('M003')) {
           snackbar.open('5개 이상 저장할 수 없습니다.');
@@ -72,16 +76,16 @@ export const LookbookCreateHeader = ({
     <>
       <Header
         leftSlot={
-          <Link to={pageState?.referrer ? pageState.referrer : '/user'}>
+          <Link to={pageReferrer ? pageReferrer : '/user'}>
             <IconButton size='large'>
               <ArrowIcon />
             </IconButton>
           </Link>
         }
-        centerTitle={pageState?.clickedOutfit ? '룩북 수정하기' : '룩북 만들기'}
+        centerTitle={pageStateOutfit ? '룩북 수정하기' : '룩북 만들기'}
         rightSlot={
           <S.ButtonGroup>
-            {pageState?.clickedOutfit && (
+            {pageStateOutfit && (
               <C.ActionButton
                 variant='text'
                 color='error'
