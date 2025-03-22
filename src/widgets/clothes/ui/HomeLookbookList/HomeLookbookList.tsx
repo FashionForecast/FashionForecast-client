@@ -2,7 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LookbookClothes, LookbookCreatePageState } from '@/entities/clothes';
+import {
+  LookbookClothes,
+  LookbookCreatePageState,
+  LookbookItem,
+} from '@/entities/clothes';
 import {
   TemperatureCondition,
   WEATHER_TYPE,
@@ -14,7 +18,6 @@ import { Button, Chip, PlusIcon } from '@/shared/ui';
 
 import { getMemberLookbook } from '../../api/lookbook';
 import { CLOTHES_THUMBNAIL } from '../../model/consts';
-import { MemberLookbookDto } from '../../model/types';
 
 import { S } from './HomeLookbookList.style';
 
@@ -51,7 +54,7 @@ export const HomeLookbookList = memo(
 
     const navigate = useNavigate();
 
-    const handleLookbookItemClick = (outfit?: MemberLookbookDto) => () => {
+    const handleLookbookItemClick = (outfit?: LookbookItem) => () => {
       const weatherNumber = WEATHER_TYPE.nameToNumber[adjustedWeatherName];
       navigate(`/user/lookbook/create?type=${weatherNumber}`, {
         state: {

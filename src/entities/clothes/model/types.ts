@@ -1,9 +1,15 @@
-import { MemberLookbookDto } from '@/widgets/clothes';
-
 import { TemperatureCondition } from '@/entities/weather';
 
+export type LookbookItem = {
+  memberOutfitId: number;
+  topType: ClothesIconNames;
+  topColor: string;
+  bottomType: ClothesIconNames;
+  bottomColor: string;
+};
+
 export type LookbookCreatePageState = {
-  clickedOutfit?: MemberLookbookDto;
+  clickedOutfit?: LookbookItem;
   referrer?: string;
   temperatureCondition?: TemperatureCondition;
 } | null;
@@ -17,7 +23,7 @@ export type LookbookItemData = {
 };
 
 export type AllLookbookListByWeatherDto = Array<{
-  memberOutfits: MemberLookbookDto[];
+  memberOutfits: LookbookItem[];
   tempStageLevel: number;
 }>;
 

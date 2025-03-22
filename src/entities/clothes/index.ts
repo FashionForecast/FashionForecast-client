@@ -1,6 +1,7 @@
 export { getAllLookbookListByWeather } from './api/lookbook';
 
 export type {
+  LookbookItem,
   LookbookCreatePageState,
   ClothesIconNames,
   ClothesType,

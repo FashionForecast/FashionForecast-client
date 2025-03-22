@@ -1,8 +1,7 @@
+import { LookbookItem } from '@/entities/clothes';
 import { TemperatureCondition } from '@/entities/weather';
 
 import { fetchAPI } from '@/shared/lib';
-
-import { MemberLookbookDto } from '../model/types';
 
 export async function getMemberLookbook(
   extremumTemperature: number,
@@ -15,7 +14,7 @@ export async function getMemberLookbook(
   };
   const queryString = new URLSearchParams(params).toString();
 
-  return await fetchAPI<MemberLookbookDto[]>(
+  return await fetchAPI<LookbookItem[]>(
     `/member/outfits/temp-stage?${queryString}`,
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );

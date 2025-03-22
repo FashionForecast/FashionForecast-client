@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { MemberLookbookDto } from '@/widgets/clothes';
-
-import { LookbookClothes, LookbookCreatePageState } from '@/entities/clothes';
+import {
+  LookbookClothes,
+  LookbookCreatePageState,
+  LookbookItem,
+} from '@/entities/clothes';
 import {
   WEATHER_COLORS,
   WEATHER_LABELS,
@@ -16,7 +18,7 @@ import { S, C } from './LookbookCard.style';
 
 type LookbookCardProps = {
   temperatureStage: number;
-  outfits: MemberLookbookDto[];
+  outfits: LookbookItem[];
 };
 
 export const LookbookCard = ({

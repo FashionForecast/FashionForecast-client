@@ -1,11 +1,9 @@
 import { useCallback, useState } from 'react';
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
-import { MemberLookbookDto } from '@/widgets/clothes';
-
 import { LookbookCreateHeader } from '@/features/clothes';
 
-import { LookbookCreatePageState } from '@/entities/clothes';
+import { LookbookCreatePageState, LookbookItem } from '@/entities/clothes';
 import { WEATHER_TYPE, WeatherTypeNumber } from '@/entities/weather';
 
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
@@ -84,7 +82,7 @@ function validateWeatherType(weatherTypeParam: string | null) {
 
 function defaultSelect(
   weatherTypeNumber: WeatherTypeNumber | null,
-  userOutfit: MemberLookbookDto | undefined
+  userOutfit: LookbookItem | undefined
 ) {
   const { top: defaultTop, bottom: defaultBottom } =
     DEFAULT_CLOTHES_BY_WEATHER[weatherTypeNumber ?? '1'];

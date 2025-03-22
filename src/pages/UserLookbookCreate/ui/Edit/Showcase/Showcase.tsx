@@ -3,12 +3,11 @@ import { useLocation } from 'react-router-dom';
 
 import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 
-import { MemberLookbookDto } from '@/widgets/clothes';
-
 import {
   ClothesType,
   LookbookCreatePageState,
-} from '@/entities/clothes/model/types';
+  LookbookItem,
+} from '@/entities/clothes';
 import { MemberDto } from '@/entities/member/model/types';
 import { WeatherTypeNumber } from '@/entities/weather';
 
@@ -121,7 +120,7 @@ export default Showcase;
 function getInitialIndex(
   type: WeatherTypeNumber,
   slider: Exclude<SliderType, null>,
-  userOutfit?: MemberLookbookDto,
+  userOutfit?: LookbookItem,
   gender?: MemberDto['gender']
 ) {
   const list = {
