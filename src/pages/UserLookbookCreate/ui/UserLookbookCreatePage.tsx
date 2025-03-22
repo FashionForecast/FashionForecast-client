@@ -3,13 +3,17 @@ import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { MemberLookbookDto } from '@/widgets/clothes';
 
-import { TemperatureCondition, WeatherTypeNumber } from '@/entities/weather';
+import {
+  TemperatureCondition,
+  WEATHER_TYPE,
+  WeatherTypeNumber,
+} from '@/entities/weather';
 
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { HeadHelmet } from '@/shared/ui';
 
 import EditSection from './Edit/EditSection';
-import LookbookCreateHeader from './LookbookCreateHeader/LookbookCreateHeader';
+import { LookbookCreateHeader } from './LookbookCreateHeader/LookbookCreateHeader';
 import { S } from './UserLookbookCreatePage.style';
 import WeatherHeadline from './WeatherHeadline/WeatherHeadline';
 
@@ -33,9 +37,11 @@ export const UserLookbookCreatePage = () => {
   const [searchParams] = useSearchParams();
   const { state }: LocationState = useLocation();
   const userOutfit = state?.outfit;
-  const typeParam = searchParams.get('type');
+  const weatherTypeNumber = validateWeatherType(searchParams.get('type'));
+  const weatherType = WEATHER_TYPE.numberToName[weatherTypeNumber ?? '1'];
+
   const [select, setSelect] = useState<LookbookSelect>(
-    defaultSelect(typeParam, userOutfit)
+    defaultSelect(weatherTypeNumber, userOutfit)
   );
 
   const updateSelect = useCallback(
@@ -45,7 +51,7 @@ export const UserLookbookCreatePage = () => {
     []
   );
 
-  if (isInvalidParam(typeParam)) return <Navigate to={'/user'} />;
+  if (!weatherTypeNumber) return <Navigate to={'/user'} />;
   return (
     <>
       <HeadHelmet
@@ -55,15 +61,12 @@ export const UserLookbookCreatePage = () => {
       />
 
       <S.PageWrap>
-        <LookbookCreateHeader
-          weatherType={typeParam as WeatherTypeNumber}
-          select={select}
-        />
+        <LookbookCreateHeader weatherType={weatherTypeNumber} select={select} />
 
-        <WeatherHeadline weatherType={typeParam as WeatherTypeNumber} />
+        <WeatherHeadline weatherType={weatherTypeNumber} />
 
         <EditSection
-          weatherType={typeParam as WeatherTypeNumber}
+          weatherType={weatherTypeNumber}
           select={select}
           updateSelect={updateSelect}
         />
@@ -72,27 +75,27 @@ export const UserLookbookCreatePage = () => {
   );
 };
 
-// type이 1~8 사이가 아니면, 유효하지 않은 parameter
-function isInvalidParam(typeParam: string | null) {
-  const typeNumber = Number(typeParam);
+/** 유효한 weather type number 인지 검증하고 반환 */
+function validateWeatherType(weatherTypeParam: string | null) {
+  const numberType = Number(weatherTypeParam);
 
-  return (
-    !typeParam ||
-    !Number.isInteger(typeNumber) ||
-    typeNumber <= 0 ||
-    typeNumber >= 9
-  );
+  if (Number.isNaN(numberType)) {
+    return null;
+  }
+
+  if (numberType <= 0 || numberType >= 9) {
+    return null;
+  }
+
+  return String(numberType) as WeatherTypeNumber;
 }
 
 function defaultSelect(
-  typeParam: string | null,
+  weatherTypeNumber: WeatherTypeNumber | null,
   userOutfit: MemberLookbookDto | undefined
 ) {
-  const type = (
-    isInvalidParam(typeParam) ? '1' : typeParam
-  ) as WeatherTypeNumber;
   const { top: defaultTop, bottom: defaultBottom } =
-    DEFAULT_CLOTHES_BY_WEATHER[type];
+    DEFAULT_CLOTHES_BY_WEATHER[weatherTypeNumber ?? '1'];
 
   const topName = userOutfit ? userOutfit.topType : defaultTop;
   const topColor = userOutfit ? userOutfit.topColor : '#F9FAFB';
