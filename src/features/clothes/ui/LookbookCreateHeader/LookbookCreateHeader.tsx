@@ -2,16 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+import { LookbookCreatePageState } from '@/entities/clothes';
 import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
-import {
-  LocationState,
-  LookbookSelect,
-} from '../../../../pages/UserLookbookCreate/ui/UserLookbookCreatePage';
+import { LookbookSelect } from '../../../../pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 import { saveLookbook } from '../../lib/saveLookbook';
 
 import DeleteDialog from './DeleteDialog/DeleteDialog';
@@ -30,7 +28,8 @@ export const LookbookCreateHeader = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { state }: LocationState = useLocation();
+  const pageState: LookbookCreatePageState = useLocation().state;
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const snackbar = useSnackbar();
@@ -41,7 +40,7 @@ export const LookbookCreateHeader = ({
         weatherTypeNumber,
         select,
         accessToken,
-        state?.outfit?.memberOutfitId
+        pageState?.clickedOutfit?.memberOutfitId
       ),
     onSuccess: async () =>
       await queryClient.invalidateQueries({ queryKey: ['user'] }),
@@ -51,7 +50,8 @@ export const LookbookCreateHeader = ({
     setIsLoading(true);
 
     mutate(undefined, {
-      onSuccess: () => navigate(state?.referrer ? state.referrer : '/user'),
+      onSuccess: () =>
+        navigate(pageState?.referrer ? pageState.referrer : '/user'),
       onError: (error) => {
         if (error.message.includes('M003')) {
           snackbar.open('5개 이상 저장할 수 없습니다.');
@@ -72,16 +72,16 @@ export const LookbookCreateHeader = ({
     <>
       <Header
         leftSlot={
-          <Link to={state?.referrer ? state.referrer : '/user'}>
+          <Link to={pageState?.referrer ? pageState.referrer : '/user'}>
             <IconButton size='large'>
               <ArrowIcon />
             </IconButton>
           </Link>
         }
-        centerTitle={state?.outfit ? '룩북 수정하기' : '룩북 만들기'}
+        centerTitle={pageState?.clickedOutfit ? '룩북 수정하기' : '룩북 만들기'}
         rightSlot={
           <S.ButtonGroup>
-            {state?.outfit && (
+            {pageState?.clickedOutfit && (
               <C.ActionButton
                 variant='text'
                 color='error'

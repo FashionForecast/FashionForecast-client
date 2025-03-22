@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { MemberLookbookDto } from '@/widgets/clothes';
 
-import { LookbookClothes } from '@/entities/clothes';
+import { LookbookClothes, LookbookCreatePageState } from '@/entities/clothes';
 import {
   WEATHER_COLORS,
   WEATHER_LABELS,
@@ -50,7 +50,7 @@ export const LookbookCard = ({
         {outfits.map((outfit) => (
           <C.LookbookLink
             to={`/user/lookbook/create?type=${temperatureStage}`}
-            state={{ outfit }}
+            state={{ clickedOutfit: outfit } as LookbookCreatePageState}
             key={outfit.memberOutfitId}
           >
             <S.ClothesItem>

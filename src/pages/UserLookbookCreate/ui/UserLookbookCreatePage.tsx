@@ -5,11 +5,8 @@ import { MemberLookbookDto } from '@/widgets/clothes';
 
 import { LookbookCreateHeader } from '@/features/clothes';
 
-import {
-  TemperatureCondition,
-  WEATHER_TYPE,
-  WeatherTypeNumber,
-} from '@/entities/weather';
+import { LookbookCreatePageState } from '@/entities/clothes';
+import { WEATHER_TYPE, WeatherTypeNumber } from '@/entities/weather';
 
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { HeadHelmet } from '@/shared/ui';
@@ -26,23 +23,14 @@ export type LookbookSelect = {
   };
 };
 
-export type LocationState = {
-  state?: {
-    outfit?: MemberLookbookDto;
-    referrer?: string;
-    tempOption?: TemperatureCondition;
-  };
-};
-
 export const UserLookbookCreatePage = () => {
   const [searchParams] = useSearchParams();
-  const { state }: LocationState = useLocation();
-  const userOutfit = state?.outfit;
+  const pageState: LookbookCreatePageState = useLocation().state;
   const weatherTypeNumber = validateWeatherType(searchParams.get('type'));
   const weatherType = WEATHER_TYPE.numberToName[weatherTypeNumber ?? '1'];
 
   const [select, setSelect] = useState<LookbookSelect>(
-    defaultSelect(weatherTypeNumber, userOutfit)
+    defaultSelect(weatherTypeNumber, pageState?.clickedOutfit)
   );
 
   const updateSelect = useCallback(

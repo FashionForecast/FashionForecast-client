@@ -1,14 +1,14 @@
 import { useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import {
-  LocationState,
-  LookbookSelect,
-} from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
+import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 
 import { MemberLookbookDto } from '@/widgets/clothes';
 
-import { ClothesType } from '@/entities/clothes/model/types';
+import {
+  ClothesType,
+  LookbookCreatePageState,
+} from '@/entities/clothes/model/types';
 import { MemberDto } from '@/entities/member/model/types';
 import { WeatherTypeNumber } from '@/entities/weather';
 
@@ -43,14 +43,26 @@ const Showcase = ({
   changeClothesName,
 }: ShowcaseProps) => {
   const user = useAppSelector((state) => state.member.info);
-  const { state }: LocationState = useLocation();
+  const pageState: LookbookCreatePageState = useLocation().state;
   const showcaseRef = useRef<HTMLElement>(null);
   const topSliderInitial = useMemo(
-    () => getInitialIndex(weatherType, 'top', state?.outfit, user?.gender),
+    () =>
+      getInitialIndex(
+        weatherType,
+        'top',
+        pageState?.clickedOutfit,
+        user?.gender
+      ),
     []
   );
   const bottomSliderInitial = useMemo(
-    () => getInitialIndex(weatherType, 'bottom', state?.outfit, user?.gender),
+    () =>
+      getInitialIndex(
+        weatherType,
+        'bottom',
+        pageState?.clickedOutfit,
+        user?.gender
+      ),
     []
   );
 

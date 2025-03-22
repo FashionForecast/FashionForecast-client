@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LookbookClothes } from '@/entities/clothes';
+import { LookbookClothes, LookbookCreatePageState } from '@/entities/clothes';
 import {
   TemperatureCondition,
   WEATHER_TYPE,
@@ -55,10 +55,10 @@ export const HomeLookbookList = memo(
       const weatherNumber = WEATHER_TYPE.nameToNumber[adjustedWeatherName];
       navigate(`/user/lookbook/create?type=${weatherNumber}`, {
         state: {
-          outfit,
+          clickedOutfit: outfit,
           referrer: `/?tab=lookbook&temperatureCondition=${temperatureCondition}`,
           tempOption: temperatureCondition,
-        },
+        } as LookbookCreatePageState,
       });
     };
 

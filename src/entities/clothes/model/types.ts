@@ -1,5 +1,13 @@
 import { MemberLookbookDto } from '@/widgets/clothes';
 
+import { TemperatureCondition } from '@/entities/weather';
+
+export type LookbookCreatePageState = {
+  clickedOutfit?: MemberLookbookDto;
+  referrer?: string;
+  temperatureCondition?: TemperatureCondition;
+} | null;
+
 export type LookbookItemData = {
   topType: string;
   topColor: string;
