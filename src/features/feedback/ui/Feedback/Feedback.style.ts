@@ -1,15 +1,23 @@
 import styled from '@emotion/styled';
 
-const Section = styled.section`
+const FeedbackSection = styled.section`
   ${({ theme }) => theme.typo['body-2']}
   flex-grow: 1;
-  padding: 16px 0;
+  padding: 0 16px;
+`;
 
-  p {
-    margin-bottom: 16px;
-  }
+const Description = styled.p`
+  padding: 8px 0 16px;
+  margin-bottom: 8px;
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+const ButtonWrap = styled.div`
+  padding: 0 16px;
 `;
 
 export const S = {
-  Section,
+  FeedbackSection,
+  Description,
+  ButtonWrap,
 };
