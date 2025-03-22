@@ -19,7 +19,7 @@ export const FeedbackPage = () => {
         <Header
           leftSlot={
             <Link to={'/'}>
-              <IconButton>
+              <IconButton size='large'>
                 <ArrowIcon />
               </IconButton>
             </Link>
