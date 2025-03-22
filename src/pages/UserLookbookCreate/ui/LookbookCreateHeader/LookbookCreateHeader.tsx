@@ -9,10 +9,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
-import {
-  LocationState,
-  LookbookSelect,
-} from '../ui/Page/UserLookbookCreatePage';
+import { LocationState, LookbookSelect } from '../UserLookbookCreatePage';
 
 import DeleteDialog from './DeleteDialog/DeleteDialog';
 import { C } from './LookbookCreateHeader.style';

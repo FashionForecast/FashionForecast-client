@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import {
   LocationState,
   LookbookSelect,
-} from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
+} from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 
 import { MemberLookbookDto } from '@/widgets/clothes';
 

@@ -8,11 +8,10 @@ import { TemperatureCondition, WeatherTypeNumber } from '@/entities/weather';
 import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { HeadHelmet } from '@/shared/ui';
 
-import EditSection from '../../Edit/EditSection';
-import LookbookCreateHeader from '../../LookbookCreateHeader/LookbookCreateHeader';
-import WeatherHeadline from '../../WeatherHeadline/WeatherHeadline';
-
+import EditSection from './Edit/EditSection';
+import LookbookCreateHeader from './LookbookCreateHeader/LookbookCreateHeader';
 import { S } from './UserLookbookCreatePage.style';
+import WeatherHeadline from './WeatherHeadline/WeatherHeadline';
 
 export type LookbookSelect = {
   top: { name: string; color: string };

@@ -1,1 +1,1 @@
-export { UserLookbookCreatePage } from './ui/Page/UserLookbookCreatePage';
+export { UserLookbookCreatePage } from './ui/UserLookbookCreatePage';

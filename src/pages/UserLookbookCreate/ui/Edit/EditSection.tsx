@@ -3,7 +3,7 @@ import { memo, useCallback, useState } from 'react';
 import { ClothesType } from '@/entities/clothes';
 import { WeatherTypeNumber } from '@/entities/weather';
 
-import { LookbookSelect } from '../ui/Page/UserLookbookCreatePage';
+import { LookbookSelect } from '../UserLookbookCreatePage';
 
 import ColorPalette from './ColorPalette/ColorPalette';
 import Showcase, { SliderType } from './Showcase/Showcase';

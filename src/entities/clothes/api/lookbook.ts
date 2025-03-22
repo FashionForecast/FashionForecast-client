@@ -1,4 +1,4 @@
-import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
+import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 
 import { WeatherTypeNumber } from '@/entities/weather';
 

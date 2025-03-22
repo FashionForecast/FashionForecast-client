@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { LocationState } from '@/pages/UserLookbookCreate/ui/Page/UserLookbookCreatePage';
+import { LocationState } from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 
 import { deleteLookbookItem } from '@/entities/clothes';
 

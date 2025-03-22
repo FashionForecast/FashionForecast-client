@@ -5,7 +5,7 @@ import { TemperatureCondition, WeatherTypeNumber } from '@/entities/weather';
 
 import { LOOKBOOK_WEATHER_TYPE } from '@/shared/consts';
 
-import { LocationState } from '../ui/Page/UserLookbookCreatePage';
+import { LocationState } from '../ui/UserLookbookCreatePage';
 
 import { S } from './WeatherHeadline.style';
 
