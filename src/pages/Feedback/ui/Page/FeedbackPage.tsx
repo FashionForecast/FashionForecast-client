@@ -18,7 +18,7 @@ export const FeedbackPage = () => {
       <S.FeedbackPageWrap>
         <Header
           leftSlot={
-            <Link to={'/user?tab=set'}>
+            <Link to={'/'}>
               <IconButton>
                 <ArrowIcon />
               </IconButton>

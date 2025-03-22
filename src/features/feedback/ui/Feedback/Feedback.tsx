@@ -29,7 +29,7 @@ export const Feedback = () => {
     mutate(undefined, {
       onSuccess: () => {
         snackbar.open('피드백을 성공적으로 남겼어요');
-        navigate('/user?tab=set');
+        navigate('/');
       },
     });
   };
