@@ -117,7 +117,7 @@ const ColorPalette = ({
                 {focussingSlider === 'bottom' ? (
                   <BottomClothesIcon />
                 ) : (
-                  <TopClothesIcon color='white' />
+                  <TopClothesIcon />
                 )}
               </S.Icon>
               <span>{`${getTitleText(focussingSlider)} 색상`}</span>

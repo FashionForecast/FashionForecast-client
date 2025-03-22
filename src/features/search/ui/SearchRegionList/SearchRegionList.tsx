@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { setMemberRegion, storeMember } from '@/entities/member';
+import { setMemberRegion } from '@/features/member';
+
+import { storeMember } from '@/entities/member';
 import { Region, regionActions } from '@/entities/region';
 import { SearchPageState } from '@/entities/search';
 

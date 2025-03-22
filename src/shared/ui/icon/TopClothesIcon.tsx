@@ -1,19 +1,15 @@
-type IconProps = {
-  color?: string;
-};
-
-export const TopClothesIcon = ({ color = '#0000008F' }: IconProps) => {
+export const TopClothesIcon = () => {
   return (
     <svg
-      width='22'
-      height='19'
-      viewBox='0 0 22 19'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
       <path
-        d='M5 8.45L3.125 9.475L0.15 4.275L6.75 0.499999H9V1.5C9 2.05 9.19167 2.525 9.575 2.925C9.975 3.30833 10.45 3.5 11 3.5C11.55 3.5 12.0167 3.30833 12.4 2.925C12.8 2.525 13 2.05 13 1.5V0.499999H15.25L21.85 4.275L18.9 9.425L17 8.475V18.5H5V8.45Z'
-        fill={color}
+        d='M6 10.95L4.125 11.975L1.15 6.775L7.75 3H10V4C10 4.55 10.1917 5.025 10.575 5.425C10.975 5.80833 11.45 6 12 6C12.55 6 13.0167 5.80833 13.4 5.425C13.8 5.025 14 4.55 14 4V3H16.25L22.85 6.775L19.9 11.925L18 10.975V21H6V10.95Z'
+        fill='#627384'
       />
     </svg>
   );

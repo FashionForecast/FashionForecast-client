@@ -2,15 +2,50 @@ import { theme } from '@/shared/styles';
 
 import { WeatherTypeName, WeatherTypeNumber } from './types';
 
-export const WEATHER_COLORS: Record<WeatherTypeName, string> = {
-  sweltering: theme.colors.red[100],
-  hot: theme.colors.orange[100],
-  warm: theme.colors.yellow[100],
-  moderate: theme.colors.lime[100],
-  cool: theme.colors.green[100],
-  chilly: theme.colors.cyan[100],
-  cold: theme.colors.blue[100],
-  frigid: theme.colors.deepPurple[100],
+export const WEATHER_COLORS: Record<
+  WeatherTypeName,
+  { light: string; main: string; deep: string }
+> = {
+  sweltering: {
+    light: theme.colors.red[100],
+    main: theme.colors.red[200],
+    deep: theme.colors.red[700],
+  },
+  hot: {
+    light: theme.colors.orange[100],
+    main: theme.colors.orange[200],
+    deep: theme.colors.orange[700],
+  },
+  warm: {
+    light: theme.colors.yellow[100],
+    main: theme.colors.yellow[200],
+    deep: theme.colors.yellow[700],
+  },
+  moderate: {
+    light: theme.colors.lime[100],
+    main: theme.colors.lime[200],
+    deep: theme.colors.lime[700],
+  },
+  cool: {
+    light: theme.colors.green[100],
+    main: theme.colors.green[200],
+    deep: theme.colors.green[700],
+  },
+  chilly: {
+    light: theme.colors.cyan[100],
+    main: theme.colors.cyan[200],
+    deep: theme.colors.cyan[700],
+  },
+  cold: {
+    light: theme.colors.blue[100],
+    main: theme.colors.blue[200],
+    deep: theme.colors.blue[700],
+  },
+  frigid: {
+    light: theme.colors.deepPurple[100],
+    main: theme.colors.deepPurple[200],
+    deep: theme.colors.deepPurple[700],
+  },
 };
 
 export const WEATHER_LABELS: Record<

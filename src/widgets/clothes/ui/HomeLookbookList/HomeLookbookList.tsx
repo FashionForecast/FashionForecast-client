@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
+import { LookbookClothes } from '@/entities/clothes';
 import {
   TemperatureCondition,
   WEATHER_TYPE,
@@ -62,26 +62,21 @@ export const HomeLookbookList = memo(
       });
     };
 
-    if (!lookbook) return <></>;
     return (
       <S.LookbookListWrap>
-        {lookbook.length >= 1 && (
+        {lookbook && lookbook.length >= 1 && (
           <S.LookbookList>
-            {lookbook?.map((outfit) => (
+            {lookbook.map((outfit) => (
               <S.LookbookCard
                 key={outfit.memberOutfitId}
                 onClick={handleLookbookItemClick(outfit)}
               >
                 <S.LookbookContent>
-                  <S.TopClothes>
-                    <ClothesIcon
-                      name={outfit.topType}
-                      color={outfit.topColor}
-                    />
-                  </S.TopClothes>
-                  <ClothesIcon
-                    name={outfit.bottomType}
-                    color={outfit.bottomColor}
+                  <LookbookClothes
+                    topName={outfit.topType}
+                    topColor={outfit.topColor}
+                    bottomName={outfit.bottomType}
+                    bottomColor={outfit.bottomColor}
                   />
 
                   <S.ChipWrap>
@@ -103,7 +98,7 @@ export const HomeLookbookList = memo(
           </S.LookbookList>
         )}
 
-        {lookbook.length === 0 && (
+        {lookbook && lookbook.length === 0 && (
           <S.EmptyCard>
             <S.EmptyContent>
               <S.TextWrap>
@@ -114,15 +109,11 @@ export const HomeLookbookList = memo(
                 </p>
 
                 <S.BackgroundClothes>
-                  <S.TopClothes>
-                    <ClothesIcon
-                      name={CLOTHES_THUMBNAIL[adjustedWeatherName].TOP}
-                      color={'#F9FAFB'}
-                    />
-                  </S.TopClothes>
-                  <ClothesIcon
-                    name={CLOTHES_THUMBNAIL[adjustedWeatherName].BOTTOM}
-                    color={'#F9FAFB'}
+                  <LookbookClothes
+                    topName={CLOTHES_THUMBNAIL[adjustedWeatherName].TOP}
+                    topColor={'#F9FAFB'}
+                    bottomName={CLOTHES_THUMBNAIL[adjustedWeatherName].BOTTOM}
+                    bottomColor={'#F9FAFB'}
                   />
                 </S.BackgroundClothes>
               </S.TextWrap>

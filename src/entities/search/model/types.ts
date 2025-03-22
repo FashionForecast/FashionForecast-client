@@ -5,8 +5,6 @@ export type RecentSearchRegion = {
 
 export type RecentSearchListDto = Array<RecentSearchRegion>;
 
-export type SearchPageState =
-  | {
-      mode?: 'memberSetting';
-    }
-  | undefined;
+export type SearchPageState = {
+  mode?: 'memberSetting';
+} | null;

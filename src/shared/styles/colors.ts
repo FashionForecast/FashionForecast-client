@@ -42,6 +42,7 @@ export const colors = {
   },
   orange: {
     100: '#FFEAD6',
+    200: '#FFCA98',
     300: '#FEAA5C',
     600: '#A85E1A',
     700: '#8E501A',
@@ -53,11 +54,13 @@ export const colors = {
     100: '#FFEF9B',
     200: '#F2D41B',
     300: '#D7BD1D',
+    700: '#6D5F1B',
   },
   lime: {
     100: '#EFF2B0',
     200: '#CAE02A',
     300: '#B3C725',
+    700: '#5C641D',
   },
   lightBlue: {
     100: '#D6F2FF',
@@ -81,20 +84,25 @@ export const colors = {
   },
   green: {
     100: '#CFF8D2',
+    200: '#7FEB90',
     300: '#45D769',
     600: '#328042',
     700: '#2C6C39',
   },
   cyan: {
     100: '#CAF6F6',
+    200: '#68E7E8',
     300: '#0FD2D3',
+    700: '#21696A',
   },
   purple: {
     100: '#F4EAFC',
   },
   deepPurple: {
     100: '#EEECFE',
+    200: '#D4D0FD',
     300: '#BAB5FB',
+    700: '#4654C0',
   },
   pink: {
     100: '#FFE7F9',
