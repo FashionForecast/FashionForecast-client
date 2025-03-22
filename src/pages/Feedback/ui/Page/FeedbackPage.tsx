@@ -15,11 +15,11 @@ export const FeedbackPage = () => {
         urlPath='/feedback'
       />
 
-      <S.FeedbackWrap>
+      <S.FeedbackPageWrap>
         <Header
           leftSlot={
-            <Link to={'/user?tab=set'}>
-              <IconButton size='large'>
+            <Link to={'/'}>
+              <IconButton>
                 <ArrowIcon />
               </IconButton>
             </Link>
@@ -28,7 +28,7 @@ export const FeedbackPage = () => {
         />
 
         <Feedback />
-      </S.FeedbackWrap>
+      </S.FeedbackPageWrap>
     </>
   );
 };

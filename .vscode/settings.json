@@ -14,5 +14,13 @@
     "source.fixAll.stylelint": "explicit",
     "source.fixAll.eslint": "explicit"
   },
-  "cSpell.words": ["lookbook"]
+  "cSpell.words": [
+    "AMPM",
+    "dotlottie",
+    "fcst",
+    "Kakao",
+    "lookbook",
+    "lottiefiles",
+    "ootc"
+  ]
 }

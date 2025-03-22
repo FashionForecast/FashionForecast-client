@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 
-const FeedbackWrap = styled.div`
+const FeedbackPageWrap = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 100dvh;
-  padding: 0 16px 16px;
+  padding-bottom: 16px;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
 const Header = styled.header`
@@ -20,6 +21,6 @@ const Header = styled.header`
 `;
 
 export const S = {
-  FeedbackWrap,
+  FeedbackPageWrap,
   Header,
 };
