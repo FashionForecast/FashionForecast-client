@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { LocationState } from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 
-import { deleteLookbookItem } from '@/entities/clothes';
+import { deleteLookbookItem } from '@/features/clothes/api/lookbook';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';

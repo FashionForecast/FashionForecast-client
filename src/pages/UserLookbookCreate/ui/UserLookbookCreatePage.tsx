@@ -3,6 +3,8 @@ import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { MemberLookbookDto } from '@/widgets/clothes';
 
+import { LookbookCreateHeader } from '@/features/clothes';
+
 import {
   TemperatureCondition,
   WEATHER_TYPE,
@@ -13,7 +15,6 @@ import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { HeadHelmet } from '@/shared/ui';
 
 import EditSection from './Edit/EditSection';
-import { LookbookCreateHeader } from './LookbookCreateHeader/LookbookCreateHeader';
 import { S } from './UserLookbookCreatePage.style';
 import WeatherHeadline from './WeatherHeadline/WeatherHeadline';
 
@@ -61,7 +62,10 @@ export const UserLookbookCreatePage = () => {
       />
 
       <S.PageWrap>
-        <LookbookCreateHeader weatherType={weatherTypeNumber} select={select} />
+        <LookbookCreateHeader
+          weatherTypeNumber={weatherTypeNumber}
+          select={select}
+        />
 
         <WeatherHeadline weatherType={weatherTypeNumber} />
 

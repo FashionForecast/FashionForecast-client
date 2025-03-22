@@ -2,25 +2,28 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { saveLookbook } from '@/entities/clothes';
 import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
-import { LocationState, LookbookSelect } from '../UserLookbookCreatePage';
+import {
+  LocationState,
+  LookbookSelect,
+} from '../../../../pages/UserLookbookCreate/ui/UserLookbookCreatePage';
+import { saveLookbook } from '../../lib/saveLookbook';
 
 import DeleteDialog from './DeleteDialog/DeleteDialog';
-import { C } from './LookbookCreateHeader.style';
+import { C, S } from './LookbookCreateHeader.style';
 
 type LookbookCreateHeaderProps = {
-  weatherType: WeatherTypeNumber;
+  weatherTypeNumber: WeatherTypeNumber;
   select: LookbookSelect;
 };
 
-const LookbookCreateHeader = ({
-  weatherType,
+export const LookbookCreateHeader = ({
+  weatherTypeNumber,
   select,
 }: LookbookCreateHeaderProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
@@ -35,7 +38,7 @@ const LookbookCreateHeader = ({
   const { mutate } = useMutation({
     mutationFn: () =>
       saveLookbook(
-        weatherType,
+        weatherTypeNumber,
         select,
         accessToken,
         state?.outfit?.memberOutfitId
@@ -61,12 +64,8 @@ const LookbookCreateHeader = ({
     });
   };
 
-  const handleDeleteButtonClick = () => {
-    setIsDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setIsDialogOpen(false);
+  const handleDialogToggle = () => {
+    setIsDialogOpen((prev) => !prev);
   };
 
   return (
@@ -79,32 +78,33 @@ const LookbookCreateHeader = ({
             </IconButton>
           </Link>
         }
-        centerTitle='룩북 만들기'
+        centerTitle={state?.outfit ? '룩북 수정하기' : '룩북 만들기'}
         rightSlot={
-          <div>
+          <S.ButtonGroup>
             {state?.outfit && (
               <C.ActionButton
+                variant='text'
                 color='error'
-                onClick={handleDeleteButtonClick}
+                size='large'
+                onClick={handleDialogToggle}
                 disabled={isLoading}
               >
                 삭제
               </C.ActionButton>
             )}
             <C.ActionButton
-              color='inherit'
+              variant='text'
+              size='large'
               onClick={handleSaveButtonClick}
               disabled={isLoading}
             >
               저장
             </C.ActionButton>
-          </div>
+          </S.ButtonGroup>
         }
       />
 
-      <DeleteDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
+      <DeleteDialog isOpen={isDialogOpen} onClose={handleDialogToggle} />
     </>
   );
 };
-
-export default LookbookCreateHeader;
