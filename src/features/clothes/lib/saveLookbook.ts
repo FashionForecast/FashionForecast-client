@@ -12,7 +12,7 @@ export async function saveLookbook(
 ) {
   try {
     const { top, bottom } = select;
-    const data = {
+    const newLookbook = {
       topType: top.name,
       topColor: top.color,
       bottomType: bottom.name,
@@ -21,7 +21,7 @@ export async function saveLookbook(
     };
 
     const handler = outfitId ? updateLookbookItem : createLookbookItem;
-    await handler(data, token, outfitId);
+    await handler(newLookbook, token, outfitId);
   } catch (error) {
     throw new Error(error as string);
   }

@@ -14,14 +14,6 @@ export type LookbookCreatePageState = {
   temperatureCondition?: TemperatureCondition;
 } | null;
 
-export type LookbookItemData = {
-  topType: string;
-  topColor: string;
-  bottomType: string;
-  bottomColor: string;
-  tempStageLevel: number;
-};
-
 export type AllLookbookListByWeatherDto = Array<{
   memberOutfits: LookbookItem[];
   tempStageLevel: number;

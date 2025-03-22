@@ -1,9 +1,9 @@
-import { LookbookItemData } from '@/entities/clothes/model/types';
-
 import { fetchAPI } from '@/shared/lib';
 
+import { NewLookbookItem } from '../model/types';
+
 export async function createLookbookItem(
-  data: LookbookItemData,
+  data: NewLookbookItem,
   token: string | null
 ) {
   await fetchAPI('/member/outfit', {
@@ -17,7 +17,7 @@ export async function createLookbookItem(
 }
 
 export async function updateLookbookItem(
-  data: LookbookItemData,
+  data: NewLookbookItem,
   token: string | null,
   outfitId?: number
 ) {
