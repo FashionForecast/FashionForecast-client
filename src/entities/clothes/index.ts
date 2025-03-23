@@ -4,6 +4,8 @@ export type {
   LookbookItem,
   LookbookCreatePageState,
   ClothesIconNames,
+  TopClothesName,
+  BottomClothesName,
   ClothesType,
 } from './model/types';
 

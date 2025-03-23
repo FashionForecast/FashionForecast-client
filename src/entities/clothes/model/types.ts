@@ -21,7 +21,7 @@ export type ClothesIconNames =
   | BottomClothesName
   | ETCClothesName;
 
-type TopClothesName =
+export type TopClothesName =
   | '민소매'
   | '반팔티'
   | '반팔 폴로'
@@ -39,7 +39,7 @@ type TopClothesName =
   | '필드 재킷'
   | '패딩';
 
-type BottomClothesName =
+export type BottomClothesName =
   | '반바지'
   | '치마'
   | '면바지'
