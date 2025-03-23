@@ -11,7 +11,7 @@ import { HeadHelmet } from '@/shared/ui';
 
 import EditSection from './Edit/EditSection';
 import { S } from './UserLookbookCreatePage.style';
-import WeatherHeadline from './WeatherHeadline/WeatherHeadline';
+import { WeatherHeadline } from './WeatherHeadline/WeatherHeadline';
 
 export type LookbookSelect = {
   top: { name: string; color: string };
@@ -53,7 +53,7 @@ export const UserLookbookCreatePage = () => {
           select={select}
         />
 
-        <WeatherHeadline weatherType={weatherTypeNumber} />
+        <WeatherHeadline weatherType={weatherType} />
 
         <EditSection
           weatherType={weatherTypeNumber}
