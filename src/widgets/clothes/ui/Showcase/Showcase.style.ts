@@ -1,25 +1,16 @@
 import styled from '@emotion/styled';
 
-import { SliderType } from './Showcase';
-
-const TOP = '31px';
-
-const ShowcaseWrap = styled.section<{ $isFocussing: SliderType }>`
+const ShowcaseWrap = styled.section`
   position: relative;
-  padding: calc(46px - ${TOP}) 0 46px;
-  margin: 0 16px;
-  overflow: hidden;
-  background-color: ${({ $isFocussing, theme }) =>
-    $isFocussing ? theme.colors.blueGrey.A23 : theme.colors.white};
-  border-radius: 12px;
+  padding-bottom: 22px;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
 `;
 
-const SliderWrap = styled.div<{ $zIndex?: number | boolean }>`
+const SliderWrap = styled.div`
   position: relative;
 
-  &.top {
-    top: ${TOP};
-    z-index: ${({ $zIndex }) => $zIndex};
+  &:first-of-type {
+    top: 42px;
   }
 `;
 

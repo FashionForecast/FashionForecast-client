@@ -1,113 +1,68 @@
-import { useMemo, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
-
-import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '@/pages/UserLookbookCreate/model/consts';
+import { useMemo } from 'react';
 
 import {
-  ClothesType,
-  LookbookCreatePageState,
-  LookbookItem,
+  BottomClothesName,
+  ClothesSlider,
+  ClothesSliderType,
   OutfitSelection,
+  TopClothesName,
 } from '@/entities/clothes';
-import { MemberDto } from '@/entities/member/model/types';
-import { WeatherTypeName } from '@/entities/weather';
+import { Gender } from '@/entities/member/model/types';
+
+import { useAppSelector } from '@/shared/lib/useAppSelector';
 
 import {
   MAN_BOTTOM_CLOTHES,
-  MAN_TOP_COLTHES,
+  MAN_TOP_CLOTHES,
   WOMAN_BOTTOM_CLOTHES,
-} from '@/shared/consts';
-import { useAppSelector } from '@/shared/lib/useAppSelector';
+} from '../../model/consts';
 
-import { FocussingSliderType } from '../../../../pages/UserLookbookCreate/ui/EditSection/EditSection';
-
-import ClothesSlider from './components/ClothesSlider/ClothesSlider';
 import { S } from './Showcase.style';
 
-export type SliderType = ClothesType | null;
-
 type ShowcaseProps = {
-  weatherType: WeatherTypeName;
   selection: OutfitSelection;
-  focussingSlider: FocussingSliderType;
-  updateFocussingSlider: (sliderType: FocussingSliderType) => void;
-  changeClothesName: (type: ClothesType, name: string) => void;
+  focussingSlider: ClothesSliderType;
+  updateFocussingSlider: (
+    sliderType: React.SetStateAction<ClothesSliderType>
+  ) => void;
+  changeClothesName: (type: ClothesSliderType, name: string) => void;
 };
 
 export const Showcase = ({
-  weatherType,
   selection,
   focussingSlider,
   updateFocussingSlider,
   changeClothesName,
 }: ShowcaseProps) => {
-  const user = useAppSelector((state) => state.member.info);
-  const pageState: LookbookCreatePageState = useLocation().state;
-  const showcaseRef = useRef<HTMLElement>(null);
-  const topSliderInitial = useMemo(
-    () =>
-      getInitialIndex(
-        weatherType,
-        'top',
-        pageState?.clickedOutfit,
-        user?.gender
-      ),
+  const member = useAppSelector((state) => state.member.info);
+  const clothesLists = getClothesList(member?.gender);
+  const { topClothesList, bottomClothesList } = clothesLists;
+
+  const { topInitialIndex, bottomInitialIndex } = useMemo(
+    () => getInitialSliderIndex(selection, clothesLists),
     []
   );
-  const bottomSliderInitial = useMemo(
-    () =>
-      getInitialIndex(
-        weatherType,
-        'bottom',
-        pageState?.clickedOutfit,
-        user?.gender
-      ),
-    []
-  );
-
-  const bottomClothesList =
-    user?.gender === 'FEMALE' ? WOMAN_BOTTOM_CLOTHES : MAN_BOTTOM_CLOTHES;
-
-  const detectSliderClick =
-    (sliderType: SliderType) => (e: React.MouseEvent) => {
-      e.stopPropagation();
-      updateFocussingSlider(sliderType);
-    };
-
-  const cancleFocusingClick = () => (e: React.MouseEvent) => {
-    if (showcaseRef.current && showcaseRef.current === e.target) {
-      updateFocussingSlider(null);
-    }
-  };
 
   return (
-    <S.ShowcaseWrap
-      ref={showcaseRef}
-      $isFocussing={focussingSlider}
-      onClick={cancleFocusingClick()}
-    >
-      <S.SliderWrap
-        className='top'
-        $zIndex={!focussingSlider && 50}
-        onClick={detectSliderClick('top')}
-      >
+    <S.ShowcaseWrap>
+      <S.SliderWrap onClick={() => updateFocussingSlider('top')}>
         <ClothesSlider
-          type={'top'}
-          items={MAN_TOP_COLTHES}
-          initial={topSliderInitial}
+          sliderType='top'
+          focussingSliderType={focussingSlider}
+          clothesList={topClothesList}
+          initialIndex={topInitialIndex}
           clothesColor={selection.top.color}
-          $isFocussingSlider={focussingSlider === 'top'}
           changeClothesName={changeClothesName}
         />
       </S.SliderWrap>
 
-      <S.SliderWrap onClick={detectSliderClick('bottom')}>
+      <S.SliderWrap onClick={() => updateFocussingSlider('bottom')}>
         <ClothesSlider
-          type={'bottom'}
-          items={bottomClothesList}
-          initial={bottomSliderInitial}
+          sliderType='bottom'
+          focussingSliderType={focussingSlider}
+          clothesList={bottomClothesList}
+          initialIndex={bottomInitialIndex}
           clothesColor={selection.bottom.color}
-          $isFocussingSlider={focussingSlider === 'bottom'}
           changeClothesName={changeClothesName}
         />
       </S.SliderWrap>
@@ -115,25 +70,44 @@ export const Showcase = ({
   );
 };
 
-function getInitialIndex(
-  weatherType: WeatherTypeName,
-  slider: Exclude<SliderType, null>,
-  userOutfit?: LookbookItem,
-  gender?: MemberDto['gender']
+function getInitialSliderIndex(
+  selection: OutfitSelection,
+  clothesLists: ClothesLists
 ) {
-  const list = {
-    top: MAN_TOP_COLTHES,
-    bottom: gender === 'FEMALE' ? WOMAN_BOTTOM_CLOTHES : MAN_BOTTOM_CLOTHES,
+  const { topClothesList, bottomClothesList } = clothesLists;
+
+  const topIndex = topClothesList.findIndex(
+    (name) => name === selection.top.name
+  );
+  const bottomIndex = bottomClothesList.findIndex(
+    (name) => name === selection.bottom.name
+  );
+
+  const topInitialIndex = topIndex === -1 ? 0 : topIndex;
+  const bottomInitialIndex = bottomIndex === -1 ? 0 : bottomIndex;
+
+  return {
+    topInitialIndex,
+    bottomInitialIndex,
   };
+}
 
-  const { top: defaultTop, bottom: defaultBottom } =
-    REPRESENTATIVE_CLOTHES_BY_WEATHER[weatherType];
+type ClothesLists = {
+  topClothesList: TopClothesName[];
+  bottomClothesList: BottomClothesName[];
+};
 
-  const topName = userOutfit ? userOutfit.topType : defaultTop;
-  const bottomName = userOutfit ? userOutfit.bottomType : defaultBottom;
+/**
+ * 남성 또는 비회원은 남성 상하의 옷 리스트 반환
+ * 여성은 남성 상의, 여성 하의 옷 리스트 반환
+ * */
+function getClothesList(gender?: Gender | null): ClothesLists {
+  const topClothesList = MAN_TOP_CLOTHES;
+  const bottomClothesList =
+    gender === 'FEMALE' ? WOMAN_BOTTOM_CLOTHES : MAN_BOTTOM_CLOTHES;
 
-  const clothesList = list[slider];
-  const clothesName = slider === 'top' ? topName : bottomName;
-
-  return clothesList.findIndex((name) => name === clothesName);
+  return {
+    topClothesList,
+    bottomClothesList,
+  };
 }

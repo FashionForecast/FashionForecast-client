@@ -1,30 +1,37 @@
 import { useKeenSlider } from 'keen-slider/react';
 import { memo, useState } from 'react';
 
-import { ClothesIconNames, ClothesType } from '@/entities/clothes';
+import {
+  BottomClothesName,
+  ClothesSliderType,
+  TopClothesName,
+} from '@/entities/clothes';
 import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
 
 import { S, C } from './ClothesSlider.style';
 
 type ClothesSliderProps = {
-  type: 'top' | 'bottom';
-  items: ClothesIconNames[];
-  initial: number;
+  sliderType: ClothesSliderType;
+  focussingSliderType: ClothesSliderType;
+  clothesList: TopClothesName[] | BottomClothesName[];
+  initialIndex: number;
   clothesColor: string;
-  $isFocussingSlider: boolean;
-  changeClothesName: (type: ClothesType, name: string) => void;
+  changeClothesName: (type: ClothesSliderType, name: string) => void;
 };
 
 export const ClothesSlider = memo(
   ({
-    type,
-    items,
+    sliderType,
+    focussingSliderType,
+    clothesList,
     clothesColor,
-    $isFocussingSlider,
-    initial = 0,
+    initialIndex,
     changeClothesName,
   }: ClothesSliderProps) => {
-    const [currentItem, setCurrentItem] = useState(initial);
+    const [focussingClothes, setFocussingClothes] = useState(
+      clothesList[initialIndex]
+    );
+
     const [sliderRef] = useKeenSlider({
       mode: 'snap',
       slides: {
@@ -32,37 +39,40 @@ export const ClothesSlider = memo(
         perView: 'auto',
         spacing: -32,
       },
-      initial: initial,
+      initial: initialIndex,
       slideChanged(slider) {
-        const index = slider.track.details.rel;
+        const focussingIndex = slider.track.details.rel;
 
-        setCurrentItem(index);
-        changeClothesName(type, items[index]);
+        setFocussingClothes(clothesList[focussingIndex]);
+        changeClothesName(sliderType, clothesList[focussingIndex]);
       },
     });
 
     return (
       <>
         <S.SliderList
-          ref={sliderRef}
-          $zIndex={type === 'top' && 100}
           className='keen-slider'
+          ref={sliderRef}
+          $zIndex={sliderType === 'top' && 100}
         >
-          {items.map((name, i) => (
+          {clothesList.map((name) => (
             <S.SliderItem
               key={name}
               className='keen-slider__slide'
-              $isSelected={currentItem === i}
+              $isSelected={focussingClothes === name}
             >
               <ClothesIcon
                 name={name}
-                color={currentItem === i ? clothesColor : 'transparent'}
+                color={focussingClothes === name ? clothesColor : 'transparent'}
               />
-              {currentItem === i && <C.NameChip color='black' label={name} />}
+              {focussingClothes === name && (
+                <C.NameChip color='black' label={name} />
+              )}
             </S.SliderItem>
           ))}
         </S.SliderList>
-        {$isFocussingSlider && <S.FocussingCircle />}
+
+        {focussingSliderType === sliderType && <S.FocussingCircle />}
       </>
     );
   }
