@@ -8,4 +8,4 @@ export {
   WOMAN_BOTTOM_CLOTHES,
 } from './clothes';
 export { COLOR_PALETTES } from './colorPalettes';
-export { LOOKBOOK_WEATHER_TYPE, DEFAULT_CLOTHES_BY_WEATHER } from './lookbook';
+export { DEFAULT_CLOTHES_BY_WEATHER } from './lookbook';
