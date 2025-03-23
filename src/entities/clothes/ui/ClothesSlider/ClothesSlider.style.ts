@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const SliderList = styled.ol<{ $isFocussingSlider: boolean }>`
+import { Chip } from '@/shared/ui';
+
+const SliderList = styled.ol<{ $zIndex?: number | boolean }>`
   position: relative;
-  z-index: ${({ $isFocussingSlider }) => ($isFocussingSlider ? 50 : 30)};
-  align-items: center;
+  z-index: ${({ $zIndex }) => $zIndex};
 `;
 
 const SliderItem = styled.li<{
@@ -17,6 +18,7 @@ const SliderItem = styled.li<{
   justify-content: center;
   min-width: 128px;
   height: 128px;
+  cursor: grab;
   opacity: 0.4;
   transition: opacity 0.3s ease;
 
@@ -39,10 +41,17 @@ const FocussingCircle = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 128px;
-  height: 128px;
-  background-color: ${({ theme }) => theme.colors.white};
+  width: 140px;
+  height: 140px;
+  background-color: ${({ theme }) => theme.colors.blueGrey[300]};
   border-radius: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const NameChip = styled(Chip)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
 `;
 
@@ -50,4 +59,8 @@ export const S = {
   SliderList,
   SliderItem,
   FocussingCircle,
+};
+
+export const C = {
+  NameChip,
 };

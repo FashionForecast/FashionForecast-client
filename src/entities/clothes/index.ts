@@ -12,3 +12,4 @@ export type {
 
 export { ClothesIcon } from './ui/ClothesIcon/ClothesIcon';
 export { LookbookClothes } from './ui/LookbookClothes/LookbookClothes';
+export { ClothesSlider } from './ui/ClothesSlider/ClothesSlider';
