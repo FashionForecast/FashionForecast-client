@@ -4,10 +4,16 @@ import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import { LookbookCreateHeader } from '@/features/clothes';
 
 import { LookbookCreatePageState, LookbookItem } from '@/entities/clothes';
-import { WEATHER_TYPE, WeatherTypeNumber } from '@/entities/weather';
+import {
+  WEATHER_TYPE,
+  WeatherTypeName,
+  WeatherTypeNumber,
+} from '@/entities/weather';
 
-import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
+import { theme } from '@/shared/styles';
 import { HeadHelmet } from '@/shared/ui';
+
+import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '../model/consts';
 
 import EditSection from './Edit/EditSection';
 import { S } from './UserLookbookCreatePage.style';
@@ -28,7 +34,7 @@ export const UserLookbookCreatePage = () => {
   const weatherType = WEATHER_TYPE.numberToName[weatherTypeNumber ?? '1'];
 
   const [select, setSelect] = useState<LookbookSelect>(
-    defaultSelect(weatherTypeNumber, pageState?.clickedOutfit)
+    defaultSelect(weatherType, pageState?.clickedOutfit)
   );
 
   const updateSelect = useCallback(
@@ -56,7 +62,7 @@ export const UserLookbookCreatePage = () => {
         <WeatherHeadline weatherType={weatherType} />
 
         <EditSection
-          weatherType={weatherTypeNumber}
+          weatherType={weatherType}
           select={select}
           updateSelect={updateSelect}
         />
@@ -81,17 +87,18 @@ function validateWeatherType(weatherTypeParam: string | null) {
 }
 
 function defaultSelect(
-  weatherTypeNumber: WeatherTypeNumber | null,
+  weatherType: WeatherTypeName | null,
   userOutfit: LookbookItem | undefined
 ) {
   const { top: defaultTop, bottom: defaultBottom } =
-    DEFAULT_CLOTHES_BY_WEATHER[weatherTypeNumber ?? '1'];
+    REPRESENTATIVE_CLOTHES_BY_WEATHER[weatherType ?? 'sweltering'];
+  const defaultColor = theme.colors.blueGrey[50];
 
   const topName = userOutfit ? userOutfit.topType : defaultTop;
-  const topColor = userOutfit ? userOutfit.topColor : '#F9FAFB';
+  const topColor = userOutfit ? userOutfit.topColor : defaultColor;
 
   const bottomName = userOutfit ? userOutfit.bottomType : defaultBottom;
-  const bottomColor = userOutfit ? userOutfit.bottomColor : '#F9FAFB';
+  const bottomColor = userOutfit ? userOutfit.bottomColor : defaultColor;
 
   return {
     top: {

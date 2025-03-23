@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 
 import { ClothesType } from '@/entities/clothes';
-import { WeatherTypeNumber } from '@/entities/weather';
+import { WeatherTypeName } from '@/entities/weather';
 
 import { LookbookSelect } from '../UserLookbookCreatePage';
 
@@ -11,7 +11,7 @@ import Showcase, { SliderType } from './Showcase/Showcase';
 export type FocussingSliderType = SliderType | null;
 
 type EditSectionProps = {
-  weatherType: WeatherTypeNumber;
+  weatherType: WeatherTypeName;
   select: LookbookSelect;
   updateSelect: (
     select: LookbookSelect | ((prev: LookbookSelect) => LookbookSelect)

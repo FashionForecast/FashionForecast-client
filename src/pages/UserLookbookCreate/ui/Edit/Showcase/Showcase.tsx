@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '@/pages/UserLookbookCreate/model/consts';
 import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 
 import {
@@ -9,14 +10,13 @@ import {
   LookbookItem,
 } from '@/entities/clothes';
 import { MemberDto } from '@/entities/member/model/types';
-import { WeatherTypeNumber } from '@/entities/weather';
+import { WeatherTypeName } from '@/entities/weather';
 
 import {
   MAN_BOTTOM_CLOTHES,
   MAN_TOP_COLTHES,
   WOMAN_BOTTOM_CLOTHES,
 } from '@/shared/consts';
-import { DEFAULT_CLOTHES_BY_WEATHER } from '@/shared/consts/lookbook';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 
 import { FocussingSliderType } from '../EditSection';
@@ -27,7 +27,7 @@ import { S } from './Showcase.style';
 export type SliderType = ClothesType | null;
 
 type ShowcaseProps = {
-  weatherType: WeatherTypeNumber;
+  weatherType: WeatherTypeName;
   select: LookbookSelect;
   focussingSlider: FocussingSliderType;
   updateFocussingSlider: (sliderType: FocussingSliderType) => void;
@@ -118,7 +118,7 @@ const Showcase = ({
 export default Showcase;
 
 function getInitialIndex(
-  type: WeatherTypeNumber,
+  weatherType: WeatherTypeName,
   slider: Exclude<SliderType, null>,
   userOutfit?: LookbookItem,
   gender?: MemberDto['gender']
@@ -128,11 +128,11 @@ function getInitialIndex(
     bottom: gender === 'FEMALE' ? WOMAN_BOTTOM_CLOTHES : MAN_BOTTOM_CLOTHES,
   };
 
-  const { top: defaultTopName, bottom: defaultBottomName } =
-    DEFAULT_CLOTHES_BY_WEATHER[type];
+  const { top: defaultTop, bottom: defaultBottom } =
+    REPRESENTATIVE_CLOTHES_BY_WEATHER[weatherType];
 
-  const topName = userOutfit ? userOutfit.topType : defaultTopName;
-  const bottomName = userOutfit ? userOutfit.bottomType : defaultBottomName;
+  const topName = userOutfit ? userOutfit.topType : defaultTop;
+  const bottomName = userOutfit ? userOutfit.bottomType : defaultBottom;
 
   const clothesList = list[slider];
   const clothesName = slider === 'top' ? topName : bottomName;
