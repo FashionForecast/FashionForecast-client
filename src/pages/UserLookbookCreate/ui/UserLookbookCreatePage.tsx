@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { LookbookCreateHeader } from '@/features/clothes';
@@ -19,7 +19,7 @@ import { HeadHelmet } from '@/shared/ui';
 
 import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '../model/consts';
 
-import EditSection from './EditSection/EditSection';
+import { EditSection } from './EditSection/EditSection';
 import { S } from './UserLookbookCreatePage.style';
 import { WeatherHeadline } from './WeatherHeadline/WeatherHeadline';
 
@@ -33,12 +33,9 @@ export const UserLookbookCreatePage = () => {
     initializeSelection(weatherType, pageState?.clickedOutfit)
   );
 
-  const updateSelect = useCallback(
-    (select: React.SetStateAction<OutfitSelection>) => {
-      setSelection(select);
-    },
-    []
-  );
+  const updateSelection = (select: React.SetStateAction<OutfitSelection>) => {
+    setSelection(select);
+  };
 
   if (!weatherTypeNumber) return <Navigate to={'/user'} />;
   return (
@@ -57,11 +54,7 @@ export const UserLookbookCreatePage = () => {
 
         <WeatherHeadline weatherType={weatherType} />
 
-        <EditSection
-          weatherType={weatherType}
-          selection={selection}
-          updateSelect={updateSelect}
-        />
+        <EditSection selection={selection} updateSelection={updateSelection} />
       </S.PageWrap>
     </>
   );
