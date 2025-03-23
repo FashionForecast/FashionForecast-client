@@ -1,5 +1,4 @@
-import { SetCard } from '@/entities/member';
-import { MemberDto } from '@/entities/member/model/types';
+import { MemberDto, SetCard } from '@/entities/member';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { PeopleIcon } from '@/shared/ui';

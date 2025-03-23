@@ -7,7 +7,7 @@ import {
   OutfitSelection,
   TopClothesName,
 } from '@/entities/clothes';
-import { Gender } from '@/entities/member/model/types';
+import { Gender } from '@/entities/member';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 

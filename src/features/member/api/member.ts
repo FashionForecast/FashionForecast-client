@@ -1,7 +1,7 @@
 import { TimeSetOption } from '@/widgets/member/ui/SettingList/TimeSetMenu/TimeSetMenu';
 import { SelectedTime } from '@/widgets/time/ui/DeprecatedTimeSelector/DeprecatedTimeSelector';
 
-import { MemberDto } from '@/entities/member/model/types';
+import { MemberDto } from '@/entities/member';
 import { TemperatureCondition } from '@/entities/weather';
 
 import { fetchAPI } from '@/shared/lib';
