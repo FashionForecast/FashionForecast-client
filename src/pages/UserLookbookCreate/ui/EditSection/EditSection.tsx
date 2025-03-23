@@ -1,10 +1,14 @@
 import { memo, useCallback, useState } from 'react';
 
+import { ColorPalette } from '@/widgets/clothes/ui/ColorPalette/ColorPalette';
+
 import { ClothesType, OutfitSelection } from '@/entities/clothes';
 import { WeatherTypeName } from '@/entities/weather';
 
-import ColorPalette from './ColorPalette/ColorPalette';
-import Showcase, { SliderType } from './Showcase/Showcase';
+import {
+  Showcase,
+  SliderType,
+} from '../../../../widgets/clothes/ui/Showcase/Showcase';
 
 export type FocussingSliderType = SliderType | null;
 

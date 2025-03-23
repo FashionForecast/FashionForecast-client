@@ -19,7 +19,7 @@ import {
 } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 
-import { FocussingSliderType } from '../EditSection';
+import { FocussingSliderType } from '../../../../pages/UserLookbookCreate/ui/EditSection/EditSection';
 
 import ClothesSlider from './components/ClothesSlider/ClothesSlider';
 import { S } from './Showcase.style';
@@ -34,7 +34,7 @@ type ShowcaseProps = {
   changeClothesName: (type: ClothesType, name: string) => void;
 };
 
-const Showcase = ({
+export const Showcase = ({
   weatherType,
   selection,
   focussingSlider,
@@ -114,8 +114,6 @@ const Showcase = ({
     </S.ShowcaseWrap>
   );
 };
-
-export default Showcase;
 
 function getInitialIndex(
   weatherType: WeatherTypeName,

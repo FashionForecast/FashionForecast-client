@@ -19,7 +19,7 @@ import { HeadHelmet } from '@/shared/ui';
 
 import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '../model/consts';
 
-import EditSection from './Edit/EditSection';
+import EditSection from './EditSection/EditSection';
 import { S } from './UserLookbookCreatePage.style';
 import { WeatherHeadline } from './WeatherHeadline/WeatherHeadline';
 
