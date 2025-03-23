@@ -1,21 +1,23 @@
-import { memo, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { ColorPalette } from '@/widgets/clothes/ui/ColorPalette/ColorPalette';
 import { Showcase } from '@/widgets/clothes/ui/Showcase/Showcase';
 
-import { ClothesSliderType, OutfitSelection } from '@/entities/clothes';
-import { WeatherTypeName } from '@/entities/weather';
+import {
+  BottomClothesName,
+  ClothesSliderType,
+  OutfitSelection,
+  TopClothesName,
+} from '@/entities/clothes';
 
 type EditSectionProps = {
-  weatherType: WeatherTypeName;
   selection: OutfitSelection;
-  updateSelect: (selection: React.SetStateAction<OutfitSelection>) => void;
+  updateSelection: (selection: React.SetStateAction<OutfitSelection>) => void;
 };
 
-const EditSection = ({
-  weatherType,
+export const EditSection = ({
   selection,
-  updateSelect,
+  updateSelection,
 }: EditSectionProps) => {
   const [focussingSlider, setFocussingSlider] =
     useState<ClothesSliderType>('top');
@@ -23,48 +25,49 @@ const EditSection = ({
   const choicedClothesColor =
     focussingSlider === 'top' ? selection.top.color : selection.bottom.color;
 
-  const updateFocussingSlider = useCallback((sliderType: ClothesSliderType) => {
+  const updateFocussingSlider = (
+    sliderType: React.SetStateAction<ClothesSliderType>
+  ) => {
     setFocussingSlider(sliderType);
-  }, []);
+  };
 
-  const changeClothesColor = useCallback(
+  const updateClothesColor = useCallback(
     (color: string) => () => {
-      if (!focussingSlider) return;
-
-      updateSelect((prev) => ({
+      updateSelection((prev) => ({
         ...prev,
         [focussingSlider]: { ...prev[focussingSlider], color },
       }));
     },
-    [focussingSlider, updateSelect]
+    [focussingSlider]
   );
 
-  const changeClothesName = useCallback(
-    (type: ClothesSliderType, name: string) => {
-      updateSelect((prev) => ({
+  const updateClothesName = useCallback(
+    (
+      sliderType: ClothesSliderType,
+      clothesName: TopClothesName | BottomClothesName
+    ) => {
+      updateSelection((prev) => ({
         ...prev,
-        [type]: { ...prev[type], name },
+        [sliderType]: { ...prev[sliderType], name: clothesName },
       }));
     },
-    [updateSelect]
+    []
   );
 
   return (
     <>
       <Showcase
-        weatherType={weatherType}
         selection={selection}
         focussingSlider={focussingSlider}
         updateFocussingSlider={updateFocussingSlider}
-        changeClothesName={changeClothesName}
+        updateClothesName={updateClothesName}
       />
+
       <ColorPalette
         focussingSlider={focussingSlider}
         clothesColor={choicedClothesColor}
-        changeClothesColor={changeClothesColor}
+        changeClothesColor={updateClothesColor}
       />
     </>
   );
 };
-
-export default memo(EditSection);

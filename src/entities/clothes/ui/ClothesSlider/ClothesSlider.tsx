@@ -16,7 +16,10 @@ type ClothesSliderProps = {
   clothesList: TopClothesName[] | BottomClothesName[];
   initialIndex: number;
   clothesColor: string;
-  changeClothesName: (type: ClothesSliderType, name: string) => void;
+  updateClothesName: (
+    sliderType: ClothesSliderType,
+    clothesName: TopClothesName | BottomClothesName
+  ) => void;
 };
 
 export const ClothesSlider = memo(
@@ -26,7 +29,7 @@ export const ClothesSlider = memo(
     clothesList,
     clothesColor,
     initialIndex,
-    changeClothesName,
+    updateClothesName,
   }: ClothesSliderProps) => {
     const [focussingClothes, setFocussingClothes] = useState(
       clothesList[initialIndex]
@@ -42,9 +45,10 @@ export const ClothesSlider = memo(
       initial: initialIndex,
       slideChanged(slider) {
         const focussingIndex = slider.track.details.rel;
+        const clothesName = clothesList[focussingIndex];
 
-        setFocussingClothes(clothesList[focussingIndex]);
-        changeClothesName(sliderType, clothesList[focussingIndex]);
+        setFocussingClothes(clothesName);
+        updateClothesName(sliderType, clothesName);
       },
     });
 

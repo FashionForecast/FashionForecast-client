@@ -25,14 +25,17 @@ type ShowcaseProps = {
   updateFocussingSlider: (
     sliderType: React.SetStateAction<ClothesSliderType>
   ) => void;
-  changeClothesName: (type: ClothesSliderType, name: string) => void;
+  updateClothesName: (
+    sliderType: ClothesSliderType,
+    clothesName: TopClothesName | BottomClothesName
+  ) => void;
 };
 
 export const Showcase = ({
   selection,
   focussingSlider,
   updateFocussingSlider,
-  changeClothesName,
+  updateClothesName,
 }: ShowcaseProps) => {
   const member = useAppSelector((state) => state.member.info);
   const clothesLists = getClothesList(member?.gender);
@@ -52,7 +55,7 @@ export const Showcase = ({
           clothesList={topClothesList}
           initialIndex={topInitialIndex}
           clothesColor={selection.top.color}
-          changeClothesName={changeClothesName}
+          updateClothesName={updateClothesName}
         />
       </S.SliderWrap>
 
@@ -63,7 +66,7 @@ export const Showcase = ({
           clothesList={bottomClothesList}
           initialIndex={bottomInitialIndex}
           clothesColor={selection.bottom.color}
-          changeClothesName={changeClothesName}
+          updateClothesName={updateClothesName}
         />
       </S.SliderWrap>
     </S.ShowcaseWrap>
