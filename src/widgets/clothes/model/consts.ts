@@ -1,4 +1,8 @@
-import { ClothesIconNames } from '@/entities/clothes';
+import {
+  BottomClothesName,
+  ClothesIconNames,
+  TopClothesName,
+} from '@/entities/clothes';
 import { WeatherTypeName } from '@/entities/weather';
 
 import { OutfitType } from './types';
@@ -40,3 +44,44 @@ export const CLOTHES_THUMBNAIL: Record<
     BOTTOM: '기모 바지',
   },
 };
+
+export const MAN_TOP_CLOTHES: TopClothesName[] = [
+  '민소매',
+  '반팔티',
+  '반팔 폴로',
+  '반팔 셔츠',
+  '긴팔티',
+  '긴팔 폴로',
+  '긴팔 셔츠',
+  '스웨트',
+  '후드티',
+  '니트',
+  '재킷',
+  '블레이저',
+  '트렌치 코트',
+  '코트',
+  '필드 재킷',
+  '패딩',
+];
+
+export const MAN_BOTTOM_CLOTHES: BottomClothesName[] = [
+  '반바지',
+  '면바지',
+  '슬랙스',
+  '청바지',
+  '트레이닝 바지',
+  '기모 바지',
+];
+
+export const WOMAN_BOTTOM_CLOTHES: ClothesIconNames[] = [
+  '반바지',
+  '치마',
+  '면바지',
+  '슬랙스',
+  '청바지',
+  '트레이닝 바지',
+  '스커트 스타킹',
+  '긴치마',
+  '기모 바지',
+  '스커트 레깅스',
+];
