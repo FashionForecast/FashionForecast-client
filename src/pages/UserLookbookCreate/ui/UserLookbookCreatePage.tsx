@@ -3,7 +3,11 @@ import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { LookbookCreateHeader } from '@/features/clothes';
 
-import { LookbookCreatePageState, LookbookItem } from '@/entities/clothes';
+import {
+  LookbookCreatePageState,
+  LookbookItem,
+  OutfitSelection,
+} from '@/entities/clothes';
 import {
   WEATHER_TYPE,
   WeatherTypeName,
@@ -19,27 +23,19 @@ import EditSection from './Edit/EditSection';
 import { S } from './UserLookbookCreatePage.style';
 import { WeatherHeadline } from './WeatherHeadline/WeatherHeadline';
 
-export type LookbookSelect = {
-  top: { name: string; color: string };
-  bottom: {
-    name: string;
-    color: string;
-  };
-};
-
 export const UserLookbookCreatePage = () => {
   const [searchParams] = useSearchParams();
   const pageState: LookbookCreatePageState = useLocation().state;
   const weatherTypeNumber = validateWeatherType(searchParams.get('type'));
   const weatherType = WEATHER_TYPE.numberToName[weatherTypeNumber ?? '1'];
 
-  const [select, setSelect] = useState<LookbookSelect>(
-    defaultSelect(weatherType, pageState?.clickedOutfit)
+  const [selection, setSelection] = useState<OutfitSelection>(
+    initializeSelection(weatherType, pageState?.clickedOutfit)
   );
 
   const updateSelect = useCallback(
-    (select: LookbookSelect | ((prev: LookbookSelect) => LookbookSelect)) => {
-      setSelect(select);
+    (select: React.SetStateAction<OutfitSelection>) => {
+      setSelection(select);
     },
     []
   );
@@ -56,14 +52,14 @@ export const UserLookbookCreatePage = () => {
       <S.PageWrap>
         <LookbookCreateHeader
           weatherTypeNumber={weatherTypeNumber}
-          select={select}
+          selection={selection}
         />
 
         <WeatherHeadline weatherType={weatherType} />
 
         <EditSection
           weatherType={weatherType}
-          select={select}
+          selection={selection}
           updateSelect={updateSelect}
         />
       </S.PageWrap>
@@ -86,7 +82,7 @@ function validateWeatherType(weatherTypeParam: string | null) {
   return String(numberType) as WeatherTypeNumber;
 }
 
-function defaultSelect(
+function initializeSelection(
   weatherType: WeatherTypeName | null,
   userOutfit: LookbookItem | undefined
 ) {

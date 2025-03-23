@@ -2,14 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { LookbookCreatePageState } from '@/entities/clothes';
+import { LookbookCreatePageState, OutfitSelection } from '@/entities/clothes';
 import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
-import { LookbookSelect } from '../../../../pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 import { saveLookbook } from '../../lib/saveLookbook';
 
 import { DeleteDialog } from './DeleteDialog/DeleteDialog';
@@ -17,12 +16,12 @@ import { C, S } from './LookbookCreateHeader.style';
 
 type LookbookCreateHeaderProps = {
   weatherTypeNumber: WeatherTypeNumber;
-  select: LookbookSelect;
+  selection: OutfitSelection;
 };
 
 export const LookbookCreateHeader = ({
   weatherTypeNumber,
-  select,
+  selection,
 }: LookbookCreateHeaderProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
 
@@ -42,7 +41,7 @@ export const LookbookCreateHeader = ({
     mutationFn: () =>
       saveLookbook(
         weatherTypeNumber,
-        select,
+        selection,
         accessToken,
         pageStateOutfit?.memberOutfitId
       ),

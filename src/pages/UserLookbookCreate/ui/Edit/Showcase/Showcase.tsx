@@ -2,12 +2,12 @@ import { useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '@/pages/UserLookbookCreate/model/consts';
-import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
 
 import {
   ClothesType,
   LookbookCreatePageState,
   LookbookItem,
+  OutfitSelection,
 } from '@/entities/clothes';
 import { MemberDto } from '@/entities/member/model/types';
 import { WeatherTypeName } from '@/entities/weather';
@@ -28,7 +28,7 @@ export type SliderType = ClothesType | null;
 
 type ShowcaseProps = {
   weatherType: WeatherTypeName;
-  select: LookbookSelect;
+  selection: OutfitSelection;
   focussingSlider: FocussingSliderType;
   updateFocussingSlider: (sliderType: FocussingSliderType) => void;
   changeClothesName: (type: ClothesType, name: string) => void;
@@ -36,7 +36,7 @@ type ShowcaseProps = {
 
 const Showcase = ({
   weatherType,
-  select,
+  selection,
   focussingSlider,
   updateFocussingSlider,
   changeClothesName,
@@ -95,7 +95,7 @@ const Showcase = ({
           type={'top'}
           items={MAN_TOP_COLTHES}
           initial={topSliderInitial}
-          clothesColor={select.top.color}
+          clothesColor={selection.top.color}
           $isFocussingSlider={focussingSlider === 'top'}
           changeClothesName={changeClothesName}
         />
@@ -106,7 +106,7 @@ const Showcase = ({
           type={'bottom'}
           items={bottomClothesList}
           initial={bottomSliderInitial}
-          clothesColor={select.bottom.color}
+          clothesColor={selection.bottom.color}
           $isFocussingSlider={focussingSlider === 'bottom'}
           changeClothesName={changeClothesName}
         />

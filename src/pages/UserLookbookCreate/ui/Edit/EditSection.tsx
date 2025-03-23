@@ -1,9 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 
-import { ClothesType } from '@/entities/clothes';
+import { ClothesType, OutfitSelection } from '@/entities/clothes';
 import { WeatherTypeName } from '@/entities/weather';
-
-import { LookbookSelect } from '../UserLookbookCreatePage';
 
 import ColorPalette from './ColorPalette/ColorPalette';
 import Showcase, { SliderType } from './Showcase/Showcase';
@@ -12,22 +10,20 @@ export type FocussingSliderType = SliderType | null;
 
 type EditSectionProps = {
   weatherType: WeatherTypeName;
-  select: LookbookSelect;
-  updateSelect: (
-    select: LookbookSelect | ((prev: LookbookSelect) => LookbookSelect)
-  ) => void;
+  selection: OutfitSelection;
+  updateSelect: (selection: React.SetStateAction<OutfitSelection>) => void;
 };
 
 const EditSection = ({
   weatherType,
-  select,
+  selection,
   updateSelect,
 }: EditSectionProps) => {
   const [focussingSlider, setFocussingSlider] =
     useState<FocussingSliderType>(null);
 
   const choicedClothesColor =
-    focussingSlider === 'top' ? select.top.color : select.bottom.color;
+    focussingSlider === 'top' ? selection.top.color : selection.bottom.color;
 
   const updateFocussingSlider = useCallback(
     (sliderType: FocussingSliderType) => {
@@ -62,7 +58,7 @@ const EditSection = ({
     <>
       <Showcase
         weatherType={weatherType}
-        select={select}
+        selection={selection}
         focussingSlider={focussingSlider}
         updateFocussingSlider={updateFocussingSlider}
         changeClothesName={changeClothesName}

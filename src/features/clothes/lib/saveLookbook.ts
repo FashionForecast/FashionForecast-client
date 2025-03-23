@@ -1,12 +1,11 @@
-import { LookbookSelect } from '@/pages/UserLookbookCreate/ui/UserLookbookCreatePage';
-
+import { OutfitSelection } from '@/entities/clothes';
 import { WeatherTypeNumber } from '@/entities/weather';
 
 import { createLookbookItem, updateLookbookItem } from '../api/lookbook';
 
 export async function saveLookbook(
   weatherType: WeatherTypeNumber,
-  select: LookbookSelect,
+  select: OutfitSelection,
   token: string | null,
   outfitId?: number
 ) {
