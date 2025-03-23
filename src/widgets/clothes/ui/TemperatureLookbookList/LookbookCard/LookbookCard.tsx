@@ -31,6 +31,10 @@ export const LookbookCard = ({
   const { light, main, deep } = WEATHER_COLORS[weatherName];
   const { temperature, summary } = WEATHER_LABELS[weatherName];
 
+  const setLinkState = (outfit: LookbookItem): LookbookCreatePageState => {
+    return { clickedOutfit: outfit };
+  };
+
   return (
     <S.LookbookCardWrap $color={main}>
       <S.CardHeader>
@@ -52,7 +56,7 @@ export const LookbookCard = ({
         {outfits.map((outfit) => (
           <C.LookbookLink
             to={`/user/lookbook/create?type=${temperatureStage}`}
-            state={{ clickedOutfit: outfit } as LookbookCreatePageState}
+            state={setLinkState(outfit)}
             key={outfit.memberOutfitId}
           >
             <S.ClothesItem>

@@ -56,12 +56,13 @@ export const HomeLookbookList = memo(
 
     const handleLookbookItemClick = (outfit?: LookbookItem) => () => {
       const weatherNumber = WEATHER_TYPE.nameToNumber[adjustedWeatherName];
+      const linkState: LookbookCreatePageState = {
+        clickedOutfit: outfit,
+        referrer: `/?tab=lookbook&temperatureCondition=${temperatureCondition}`,
+      };
+
       navigate(`/user/lookbook/create?type=${weatherNumber}`, {
-        state: {
-          clickedOutfit: outfit,
-          referrer: `/?tab=lookbook&temperatureCondition=${temperatureCondition}`,
-          tempOption: temperatureCondition,
-        } as LookbookCreatePageState,
+        state: linkState,
       });
     };
 

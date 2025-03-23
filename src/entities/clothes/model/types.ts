@@ -1,5 +1,3 @@
-import { TemperatureCondition } from '@/entities/weather';
-
 export type LookbookItem = {
   memberOutfitId: number;
   topType: ClothesIconNames;
@@ -11,7 +9,6 @@ export type LookbookItem = {
 export type LookbookCreatePageState = {
   clickedOutfit?: LookbookItem;
   referrer?: string;
-  temperatureCondition?: TemperatureCondition;
 } | null;
 
 export type AllLookbookListByWeatherDto = Array<{

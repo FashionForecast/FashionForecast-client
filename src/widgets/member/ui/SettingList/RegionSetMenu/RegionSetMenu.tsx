@@ -8,10 +8,11 @@ import { RegionPinIcon } from '@/shared/ui';
 
 export const RegionSetMenu = () => {
   const member = useAppSelector((state) => state.member.info);
+  const linkState: SearchPageState = { mode: 'memberSetting' };
 
   if (!member) return <></>;
   return (
-    <Link to={'/search'} state={{ mode: 'memberSetting' } as SearchPageState}>
+    <Link to={'/search'} state={linkState}>
       <SetCard
         icon={<RegionPinIcon />}
         title='기본 위치'
