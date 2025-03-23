@@ -64,12 +64,12 @@ type ETCClothesName =
   | '접이식 우산'
   | '장우산';
 
-export type ClothesType = 'top' | 'bottom';
+export type ClothesSliderType = 'top' | 'bottom';
+
+type ClothesSelection<T extends ClothesSliderType> = T extends 'top'
+  ? { name: TopClothesName; color: string }
+  : { name: BottomClothesName; color: string };
 
 export type OutfitSelection = {
-  top: { name: TopClothesName; color: string };
-  bottom: {
-    name: BottomClothesName;
-    color: string;
-  };
+  [K in ClothesSliderType]: ClothesSelection<K>;
 };

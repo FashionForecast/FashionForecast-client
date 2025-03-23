@@ -6,7 +6,7 @@ export type {
   ClothesIconNames,
   TopClothesName,
   BottomClothesName,
-  ClothesType,
+  ClothesSliderType,
   OutfitSelection,
 } from './model/types';
 

@@ -1,14 +1,14 @@
 import { memo, useEffect, useRef, useState } from 'react';
 
-import { TopClothesIcon, Button, BottomClothesIcon } from '@/shared/ui';
+import { ClothesSliderType } from '@/entities/clothes';
 
-import { FocussingSliderType } from '../EditSection';
+import { TopClothesIcon, Button, BottomClothesIcon } from '@/shared/ui';
 
 import ColorButtons from './ColorButtons/ColorButtons';
 import { S } from './ColorPalette.style';
 
 type ColorPaletteProps = {
-  focussingSlider: FocussingSliderType;
+  focussingSlider: ClothesSliderType;
   clothesColor: string;
   changeClothesColor: (color: string) => () => void;
 };
@@ -150,7 +150,7 @@ export const ColorPalette = memo(
   }
 );
 
-function getTitleText(focussingSlider: FocussingSliderType) {
+function getTitleText(focussingSlider: ClothesSliderType) {
   if (focussingSlider === 'top') return '상의';
   else if (focussingSlider === 'bottom') return '하의';
   return '옷';
