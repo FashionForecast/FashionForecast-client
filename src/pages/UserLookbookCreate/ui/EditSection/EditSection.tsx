@@ -38,7 +38,7 @@ export const EditSection = ({
         [focussingSlider]: { ...prev[focussingSlider], color },
       }));
     },
-    [focussingSlider]
+    [focussingSlider, updateSelection]
   );
 
   const updateClothesName = useCallback(
@@ -51,7 +51,7 @@ export const EditSection = ({
         [sliderType]: { ...prev[sliderType], name: clothesName },
       }));
     },
-    []
+    [updateSelection]
   );
 
   return (

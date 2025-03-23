@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { LookbookCreateHeader } from '@/features/clothes';
@@ -33,9 +33,12 @@ export const UserLookbookCreatePage = () => {
     initializeSelection(weatherType, pageState?.clickedOutfit)
   );
 
-  const updateSelection = (select: React.SetStateAction<OutfitSelection>) => {
-    setSelection(select);
-  };
+  const updateSelection = useCallback(
+    (select: React.SetStateAction<OutfitSelection>) => {
+      setSelection(select);
+    },
+    []
+  );
 
   if (!weatherTypeNumber) return <Navigate to={'/user'} />;
   return (
