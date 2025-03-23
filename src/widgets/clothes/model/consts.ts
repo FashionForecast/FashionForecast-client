@@ -73,7 +73,7 @@ export const MAN_BOTTOM_CLOTHES: BottomClothesName[] = [
   '기모 바지',
 ];
 
-export const WOMAN_BOTTOM_CLOTHES: ClothesIconNames[] = [
+export const WOMAN_BOTTOM_CLOTHES: BottomClothesName[] = [
   '반바지',
   '치마',
   '면바지',
