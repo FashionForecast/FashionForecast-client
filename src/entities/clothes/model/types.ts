@@ -1,8 +1,8 @@
 export type LookbookItem = {
   memberOutfitId: number;
-  topType: ClothesIconNames;
+  topType: TopClothesName;
   topColor: string;
-  bottomType: ClothesIconNames;
+  bottomType: BottomClothesName;
   bottomColor: string;
 };
 
@@ -65,3 +65,11 @@ type ETCClothesName =
   | '장우산';
 
 export type ClothesType = 'top' | 'bottom';
+
+export type OutfitSelection = {
+  top: { name: TopClothesName; color: string };
+  bottom: {
+    name: BottomClothesName;
+    color: string;
+  };
+};

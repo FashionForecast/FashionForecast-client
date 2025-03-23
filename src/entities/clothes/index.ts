@@ -7,6 +7,7 @@ export type {
   TopClothesName,
   BottomClothesName,
   ClothesType,
+  OutfitSelection,
 } from './model/types';
 
 export { ClothesIcon } from './ui/ClothesIcon/ClothesIcon';
