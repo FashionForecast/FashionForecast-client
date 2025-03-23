@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { COLOR_PALETTES } from '@/shared/consts';
 import { CheckCircleIcon } from '@/shared/ui';
 
-import { C, S } from './ColorButtons.style';
+import { S } from './ColorButtons.style';
 
 type ColorButtonsProps = {
   clothesColor: string;
@@ -17,18 +17,17 @@ const ColorButtons = ({
   return (
     <>
       {COLOR_PALETTES.map((color) => (
-        <C.ColorButton
+        <S.ColorButton
           key={color}
-          variant='contained'
           $color={color}
           onClick={changeClothesColor(color)}
         >
           {clothesColor === color && (
-            <S.Mark>
+            <S.IconWrap>
               <CheckCircleIcon color={color == '#F9FAFB' ? 'dark' : 'white'} />
-            </S.Mark>
+            </S.IconWrap>
           )}
-        </C.ColorButton>
+        </S.ColorButton>
       ))}
     </>
   );

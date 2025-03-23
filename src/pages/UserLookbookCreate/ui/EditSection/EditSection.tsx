@@ -66,6 +66,7 @@ export const EditSection = ({
       <ColorPalette
         focussingSlider={focussingSlider}
         clothesColor={choicedClothesColor}
+        updateFocussingSlider={updateFocussingSlider}
         changeClothesColor={updateClothesColor}
       />
     </>

@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { MAX_WIDTH } from '@/shared/consts';
+import { ToggleButton } from '@/shared/ui';
 
 const Drawer = styled.div<{ $isDragging: boolean }>`
   position: fixed;
@@ -18,7 +19,11 @@ const Drawer = styled.div<{ $isDragging: boolean }>`
   font-size: 18px;
   touch-action: none;
   user-select: none;
-  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+  background-color: ${({ theme }) => theme.colors.white};
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+    0 3px 14px 2px rgb(0 0 0 / 12%);
   transition: height 0.6s ease-out;
   transform: translateX(-50%);
 
@@ -33,85 +38,59 @@ const ColorPaletteWrap = styled.section`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow: hidden;
 `;
 
 const DraggableArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   touch-action: none;
   cursor: grab;
   user-select: none;
 `;
 
 const HandleBar = styled.div<{ $isDraggable: boolean }>`
+  width: 30px;
+  height: 6px;
+  margin: 8px 0 4px;
+  background-color: ${({ theme }) => theme.colors.blueGrey[300]};
+  border-radius: 100px;
+`;
+
+const ButtonGroup = styled.div`
   display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 38px;
-
-  &::after {
-    display: block;
-    width: 30px;
-    height: 6px;
-    content: '';
-    background-color: ${({ theme }) => theme.colors.blueGrey[400]};
-    border-radius: 12px;
-    opacity: ${({ $isDraggable }) => ($isDraggable ? 1 : 0.4)};
-    transition: opacity 0.2s ease;
-  }
 `;
 
-const InfoBar = styled.div`
-  ${({ theme }) => theme.typo['subtitle-1']}
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px 4px;
+const SliderButton = styled(ToggleButton)`
+  width: 100%;
+  color: ${({ theme }) => theme.colors.primary.main};
+  border-radius: 0;
 `;
 
-const Info = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Icon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  margin-right: 16px;
-  background-color: ${({ theme }) => theme.colors.blueGrey[600]};
-  border-radius: 50%;
-`;
-
-const PaletteWrap = styled.div<{ $isColor: boolean }>`
-  ${({ theme }) => theme.typo['body-2']}
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 12px 8px 16px;
+const PaletteWrap = styled.div`
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  padding: 8px 8px 16px;
   overflow-y: auto;
-  color: ${({ theme }) => theme.colors.text.secondary};
 
-  ${({ $isColor }) =>
-    $isColor &&
-    css`
-      display: inline-block;
-      flex-basis: 0;
-    `}
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(6, 52px);
+    justify-content: center;
+  }
 `;
 
 export const S = {
   ColorPaletteWrap,
   HandleBar,
   DraggableArea,
-  InfoBar,
-  Info,
-  Icon,
+  ButtonGroup,
   PaletteWrap,
   Drawer,
+};
+
+export const C = {
+  SliderButton,
 };

@@ -2,21 +2,28 @@ import { memo, useEffect, useRef, useState } from 'react';
 
 import { ClothesSliderType } from '@/entities/clothes';
 
-import { TopClothesIcon, Button, BottomClothesIcon } from '@/shared/ui';
-
 import ColorButtons from './ColorButtons/ColorButtons';
-import { S } from './ColorPalette.style';
+import { S, C } from './ColorPalette.style';
 
 type ColorPaletteProps = {
   focussingSlider: ClothesSliderType;
   clothesColor: string;
+  updateFocussingSlider: (
+    sliderType: React.SetStateAction<ClothesSliderType>
+  ) => void;
   changeClothesColor: (color: string) => () => void;
 };
+
+const SLIDER_BUTTONS: Array<{ slider: ClothesSliderType; label: string }> = [
+  { slider: 'top', label: '상의 색상' },
+  { slider: 'bottom', label: '하의 색상' },
+];
 
 export const ColorPalette = memo(
   ({
     focussingSlider,
     clothesColor,
+    updateFocussingSlider,
     changeClothesColor,
   }: ColorPaletteProps) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -112,46 +119,29 @@ export const ColorPalette = memo(
             onPointerMove={handleDragging}
           >
             <S.HandleBar $isDraggable={isDraggable} />
-            <S.InfoBar>
-              <S.Info>
-                <S.Icon>
-                  {focussingSlider === 'bottom' ? (
-                    <BottomClothesIcon />
-                  ) : (
-                    <TopClothesIcon />
-                  )}
-                </S.Icon>
-                <span>{`${getTitleText(focussingSlider)} 색상`}</span>
-              </S.Info>
-
-              {isOpen && (
-                <Button onClick={handleChooseButtonClick}>옷 고르기</Button>
-              )}
-            </S.InfoBar>
+            <S.ButtonGroup>
+              {SLIDER_BUTTONS.map(({ label, slider }) => (
+                <C.SliderButton
+                  key={slider}
+                  value={slider}
+                  size='large'
+                  selected={focussingSlider === slider}
+                  onClick={() => updateFocussingSlider(slider)}
+                >
+                  {label}
+                </C.SliderButton>
+              ))}
+            </S.ButtonGroup>
           </S.DraggableArea>
 
-          <S.PaletteWrap
-            ref={palleteRef}
-            $isColor={focussingSlider ? true : false}
-          >
-            {!focussingSlider && (
-              <span>상의 또는 하의를 먼저 선택해 주세요</span>
-            )}
-            {focussingSlider && (
-              <ColorButtons
-                clothesColor={clothesColor}
-                changeClothesColor={changeClothesColor}
-              />
-            )}
+          <S.PaletteWrap ref={palleteRef}>
+            <ColorButtons
+              clothesColor={clothesColor}
+              changeClothesColor={changeClothesColor}
+            />
           </S.PaletteWrap>
         </S.ColorPaletteWrap>
       </S.Drawer>
     );
   }
 );
-
-function getTitleText(focussingSlider: ClothesSliderType) {
-  if (focussingSlider === 'top') return '상의';
-  else if (focussingSlider === 'bottom') return '하의';
-  return '옷';
-}
