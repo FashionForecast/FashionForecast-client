@@ -110,8 +110,9 @@ const ContentWrap = styled.div`
 const PaletteWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 45px;
   gap: 16px;
-  align-items: start;
+  align-items: center;
   justify-content: center;
   height: 100%;
 
