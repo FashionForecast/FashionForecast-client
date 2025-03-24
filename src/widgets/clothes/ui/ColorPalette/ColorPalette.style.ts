@@ -4,18 +4,15 @@ import styled from '@emotion/styled';
 import { MAX_WIDTH } from '@/shared/consts';
 import { ToggleButton } from '@/shared/ui';
 
-const Drawer = styled.div<{ $isDragging: boolean }>`
+const Drawer = styled.div<{ $isDragging: boolean; $dragDistance: number }>`
   position: fixed;
-  bottom: 0;
-  left: 50%;
+  top: calc(56px + 80px + 278px);
   z-index: 300;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   width: 100%;
   max-width: ${MAX_WIDTH};
-  height: calc(100dvh - 56px - 72px - 8px - 320px);
-  min-height: calc(100dvh - 56px - 72px - 8px - 320px);
-  max-height: calc(100dvh - 56px - 72px - 8px);
   font-size: 18px;
   touch-action: none;
   user-select: none;
@@ -24,8 +21,8 @@ const Drawer = styled.div<{ $isDragging: boolean }>`
   border-top-right-radius: 16px;
   box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
     0 3px 14px 2px rgb(0 0 0 / 12%);
-  transition: height 0.6s ease-out;
-  transform: translateX(-50%);
+  transition: transform 0.2s ease-out;
+  transform: translateY(${({ $dragDistance }) => `${$dragDistance}px`});
 
   ${({ $isDragging }) =>
     $isDragging &&
@@ -34,11 +31,35 @@ const Drawer = styled.div<{ $isDragging: boolean }>`
     `}
 `;
 
-const ColorPaletteWrap = styled.section`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: hidden;
+const SelectClothesButtonWrap = styled.div<{ $isVisible: boolean }>`
+  position: absolute;
+  top: -64px;
+  width: 100%;
+  height: 64px;
+  padding: 8px 16px 0;
+  visibility: hidden;
+  background-color: ${({ theme }) => theme.colors.blueGrey[100]};
+  opacity: 0;
+  transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+
+  ${({ $isVisible }) =>
+    $isVisible &&
+    css`
+      visibility: visible;
+      opacity: 1;
+    `}
+`;
+
+const ColorPaletteWrap = styled.section<{ $isDragging: boolean }>`
+  position: relative;
+  transition: 0.3s ease;
+  transform: translateY(0);
+
+  ${({ $isDragging }) =>
+    $isDragging &&
+    css`
+      transition: none;
+    `}
 `;
 
 const DraggableArea = styled.div`
@@ -50,7 +71,7 @@ const DraggableArea = styled.div`
   user-select: none;
 `;
 
-const HandleBar = styled.div<{ $isDraggable: boolean }>`
+const HandleBar = styled.div`
   width: 30px;
   height: 6px;
   margin: 8px 0 4px;
@@ -69,24 +90,34 @@ const SliderButton = styled(ToggleButton)`
   border-radius: 0;
 `;
 
+const ContentWrap = styled.div`
+  width: 100%;
+  height: calc(100dvh - 56px - 80px - 278px - 58px);
+  padding: 8px 16px;
+  overflow-y: auto;
+`;
+
 const PaletteWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 16px;
-  padding: 8px 8px 16px;
-  overflow-y: auto;
+  align-items: start;
+  justify-content: center;
+  height: 100%;
 
   @media (min-width: 480px) {
-    grid-template-columns: repeat(6, 52px);
+    grid-template-columns: repeat(6, 50px);
     justify-content: center;
   }
 `;
 
 export const S = {
   ColorPaletteWrap,
+  SelectClothesButtonWrap,
   HandleBar,
   DraggableArea,
   ButtonGroup,
+  ContentWrap,
   PaletteWrap,
   Drawer,
 };

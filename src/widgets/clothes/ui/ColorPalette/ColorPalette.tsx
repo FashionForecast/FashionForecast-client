@@ -1,9 +1,18 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { ClothesSliderType } from '@/entities/clothes';
 
+import { Button } from '@/shared/ui';
+
 import ColorButtons from './ColorButtons/ColorButtons';
 import { S, C } from './ColorPalette.style';
+
+const DRAWER_MAX_TRANSLATE_Y = -216;
+
+const SLIDER_BUTTONS: Array<{ slider: ClothesSliderType; label: string }> = [
+  { slider: 'top', label: '상의 색상' },
+  { slider: 'bottom', label: '하의 색상' },
+];
 
 type ColorPaletteProps = {
   focussingSlider: ClothesSliderType;
@@ -14,11 +23,6 @@ type ColorPaletteProps = {
   changeClothesColor: (color: string) => () => void;
 };
 
-const SLIDER_BUTTONS: Array<{ slider: ClothesSliderType; label: string }> = [
-  { slider: 'top', label: '상의 색상' },
-  { slider: 'bottom', label: '하의 색상' },
-];
-
 export const ColorPalette = memo(
   ({
     focussingSlider,
@@ -26,99 +30,151 @@ export const ColorPalette = memo(
     updateFocussingSlider,
     changeClothesColor,
   }: ColorPaletteProps) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isDraggable, setIsDraggable] = useState(false);
+    const [canUpdateSlider, setCanUpdateSlider] = useState(true);
+    const [isExpendedDrawer, setIsExpendedDrawer] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
-    const drawerRef = useRef<HTMLDivElement>(null);
-    const palleteRef = useRef<HTMLDivElement>(null);
-    const startYRef = useRef(0);
-    const startHeight = useRef(0);
+    const [dragDistance, setDragDistance] = useState(0);
+    const [dragStartPositionY, setDragStartPositionY] = useState<number | null>(
+      null
+    );
+
+    const contentRef = useRef<HTMLDivElement>(null);
 
     const handleDragStart = (e: React.PointerEvent) => {
       setIsDragging(true);
+      setDragStartPositionY(e.clientY);
 
-      startYRef.current = e.clientY;
-      startHeight.current = parseInt(String(drawerRef.current?.clientHeight));
+      const contentElement = contentRef.current;
+      if (contentElement) {
+        contentElement.style.height = `calc(100dvh - 56px - 72px)`;
+      }
     };
 
-    const handleDragging = (e: React.PointerEvent) => {
-      if (!isDraggable || !isDragging) return;
+    const handleDragMove = useCallback(
+      (e: PointerEvent) => {
+        if (!isDragging || dragStartPositionY === null) {
+          return;
+        }
 
-      const delta = startYRef.current - e.clientY;
-      const newHeight = startHeight.current + delta;
+        const dragDistance = e.clientY - dragStartPositionY;
+        const absDistance = Math.abs(dragDistance);
 
-      updateHeight(newHeight);
-    };
+        // drawer가 확장된 상태가 아닌 경우, 위로 확장 가능
+        if (!isExpendedDrawer) {
+          if (dragDistance > 0 || dragDistance < DRAWER_MAX_TRANSLATE_Y) {
+            return;
+          }
 
-    const handleDragEnd = () => {
+          if (absDistance >= 1) {
+            setCanUpdateSlider(false);
+          }
+
+          setDragDistance(dragDistance);
+        }
+
+        // drawer가 확장된 상태인 경우, 아래로 축소 가능
+        if (isExpendedDrawer) {
+          const MAX_DRAG_DOWN = -DRAWER_MAX_TRANSLATE_Y;
+          if (dragDistance < 0 || dragDistance > MAX_DRAG_DOWN) {
+            return;
+          }
+
+          if (absDistance >= 1) {
+            setCanUpdateSlider(false);
+          }
+
+          setDragDistance(DRAWER_MAX_TRANSLATE_Y + dragDistance);
+        }
+      },
+      [dragStartPositionY, isDragging, isExpendedDrawer]
+    );
+
+    const handleDragEnd = useCallback(() => {
       setIsDragging(false);
-      if (startHeight.current === 0) return;
+      setDragStartPositionY(null);
 
-      const drawerHeight = drawerRef.current?.clientHeight || 0;
-      const distance = Math.abs(drawerHeight - startHeight.current);
+      const THRESHOLD = 60;
+      let isNewExpended = isExpendedDrawer;
 
-      if (drawerHeight === startHeight.current) return;
+      // drawer의 확장 상태와 임계값으로 drawer의 확장 또는 축소 상태를 결정
+      if (!isExpendedDrawer) {
+        const absDistance = Math.abs(dragDistance);
 
-      // drawer를 위로 드래그 했을 때
-      if (drawerHeight > startHeight.current) {
-        if (distance >= 100) updateHeight('max');
-        else updateHeight('min');
-        return;
+        if (absDistance <= THRESHOLD) {
+          setDragDistance(0);
+          isNewExpended = false;
+        } else {
+          setDragDistance(DRAWER_MAX_TRANSLATE_Y);
+          isNewExpended = true;
+        }
       }
 
-      // drawer를 밑으로 드래그 했을 때
-      if (distance >= 100) updateHeight('min');
-      else updateHeight('max');
-    };
-
-    const updateHeight = (height: number | 'max' | 'min') => {
-      if (!drawerRef.current) return;
-
-      const drawerElment = drawerRef.current;
-
-      if (height === 'max' || height === 'min') {
-        drawerElment.style.height = `${height === 'max' ? 9999 : 0}px`;
-        setIsOpen(height === 'max' ? true : false);
-        return;
+      if (isExpendedDrawer) {
+        if (dragDistance <= DRAWER_MAX_TRANSLATE_Y + THRESHOLD) {
+          setDragDistance(DRAWER_MAX_TRANSLATE_Y);
+          isNewExpended = true;
+        } else {
+          setDragDistance(0);
+          isNewExpended = false;
+        }
       }
 
-      drawerElment.style.height = `${height}px`;
+      setIsExpendedDrawer(isNewExpended);
+
+      const contentElement = contentRef.current;
+      if (contentElement) {
+        const height = isNewExpended
+          ? 'calc(100dvh - 56px - 80px - 64px - 58px)'
+          : 'calc(100dvh - 56px - 80px - 278px - 58px)';
+
+        setTimeout(() => {
+          contentElement.style.height = height;
+        }, 200);
+      }
+    }, [dragDistance, isExpendedDrawer]);
+
+    const handleSelectClothesButtonClick = () => {
+      setIsDragging(false);
+      setIsExpendedDrawer(false);
+      setDragDistance(0);
     };
 
-    const handleChooseButtonClick = (e: React.MouseEvent) => {
+    const handleSliderButtonClick = (
+      e: React.MouseEvent,
+      slider: ClothesSliderType
+    ) => {
       e.stopPropagation();
-      setIsDragging(true);
-      updateHeight('min');
-      setTimeout(() => setIsDragging(false), 100);
+      updateFocussingSlider(canUpdateSlider ? slider : focussingSlider);
+      setCanUpdateSlider(true);
     };
 
+    /** pointerup, pointermove 이벤트 등록 */
     useEffect(() => {
       window.addEventListener('pointerup', handleDragEnd);
-      return () => window.removeEventListener('pointerup', handleDragEnd);
-    }, []);
+      window.addEventListener('pointermove', handleDragMove);
 
-    useEffect(() => {
-      const palleteElment = palleteRef.current;
-      if (!palleteElment) return;
-
-      const { clientHeight, scrollHeight } = palleteElment;
-
-      if (clientHeight < scrollHeight) {
-        setIsDraggable(true);
-        return;
-      }
-
-      setIsDraggable(false);
-    }, [focussingSlider]);
+      return () => {
+        window.removeEventListener('pointerup', handleDragEnd);
+        window.removeEventListener('pointermove', handleDragMove);
+      };
+    }, [handleDragEnd, handleDragMove]);
 
     return (
-      <S.Drawer ref={drawerRef} $isDragging={isDragging}>
-        <S.ColorPaletteWrap>
-          <S.DraggableArea
-            onPointerDown={handleDragStart}
-            onPointerMove={handleDragging}
+      <S.Drawer $isDragging={isDragging} $dragDistance={dragDistance}>
+        <S.SelectClothesButtonWrap $isVisible={isExpendedDrawer}>
+          <Button
+            variant='outlined'
+            size='large'
+            fullWidth
+            onClick={handleSelectClothesButtonClick}
           >
-            <S.HandleBar $isDraggable={isDraggable} />
+            옷 고르기
+          </Button>
+        </S.SelectClothesButtonWrap>
+
+        <S.ColorPaletteWrap $isDragging={isDragging}>
+          <S.DraggableArea onPointerDown={handleDragStart}>
+            <S.HandleBar />
             <S.ButtonGroup>
               {SLIDER_BUTTONS.map(({ label, slider }) => (
                 <C.SliderButton
@@ -126,7 +182,7 @@ export const ColorPalette = memo(
                   value={slider}
                   size='large'
                   selected={focussingSlider === slider}
-                  onClick={() => updateFocussingSlider(slider)}
+                  onClick={(e) => handleSliderButtonClick(e, slider)}
                 >
                   {label}
                 </C.SliderButton>
@@ -134,12 +190,14 @@ export const ColorPalette = memo(
             </S.ButtonGroup>
           </S.DraggableArea>
 
-          <S.PaletteWrap ref={palleteRef}>
-            <ColorButtons
-              clothesColor={clothesColor}
-              changeClothesColor={changeClothesColor}
-            />
-          </S.PaletteWrap>
+          <S.ContentWrap ref={contentRef}>
+            <S.PaletteWrap>
+              <ColorButtons
+                clothesColor={clothesColor}
+                changeClothesColor={changeClothesColor}
+              />
+            </S.PaletteWrap>
+          </S.ContentWrap>
         </S.ColorPaletteWrap>
       </S.Drawer>
     );
