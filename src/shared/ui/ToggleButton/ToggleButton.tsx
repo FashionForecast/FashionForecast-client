@@ -1,21 +1,19 @@
 import styled from '@emotion/styled';
-import {
-  css,
-  ToggleButton as MuiToggleButton,
-  ToggleButtonOwnProps,
-} from '@mui/material';
+import { css, ToggleButton as MuiToggleButton } from '@mui/material';
 
 import { forwardPropOption } from '@/shared/lib';
 import { theme } from '@/shared/styles';
 
+type ToggleButtonProps = React.ComponentProps<typeof MuiToggleButton>;
+
 type ExcludedColor = Exclude<
-  ToggleButtonOwnProps['color'],
+  ToggleButtonProps['color'],
   'secondary' | 'error' | 'info' | 'success' | 'warning' | 'standard'
 >;
 
 type CustomColor = 'neutral' | 'primary' | 'blue' | 'red';
 
-type CustomToggleButtonProps = Omit<ToggleButtonOwnProps, 'color'> & {
+type CustomToggleButtonProps = Omit<ToggleButtonProps, 'color'> & {
   color?: CustomColor | ExcludedColor;
   clickableDisabled?: boolean;
 };
