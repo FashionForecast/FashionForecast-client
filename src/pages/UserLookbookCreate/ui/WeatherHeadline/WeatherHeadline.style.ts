@@ -1,10 +1,16 @@
 import styled from '@emotion/styled';
 
+import { HEADLINE_HEIGHT } from '../../model/consts';
+
+const HeadlineWrap = styled.div`
+  height: ${HEADLINE_HEIGHT};
+  padding: 8px 16px;
+`;
+
 const Headline = styled.div<{ $color: string }>`
   display: flex;
   flex-direction: column;
   padding: 8px 16px;
-  margin: 8px 16px;
   background-color: ${({ $color }) => $color};
   border-radius: 12px;
 `;
@@ -20,6 +26,7 @@ const Summary = styled.div`
 `;
 
 export const S = {
+  HeadlineWrap,
   Headline,
   Temperature,
   Summary,

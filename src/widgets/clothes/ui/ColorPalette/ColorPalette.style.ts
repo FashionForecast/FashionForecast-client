@@ -1,12 +1,20 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { MAX_WIDTH } from '@/shared/consts';
+import { HEADLINE_HEIGHT } from '@/pages/UserLookbookCreate';
+
+import { HEADER_HEIGHT, MAX_WIDTH } from '@/shared/consts';
 import { ToggleButton } from '@/shared/ui';
+
+import {
+  DRAGGABLE_AREA_HEIGHT,
+  SELECT_CLOTHES_BUTTON_WRAP_HEIGHT,
+  SHOWCASE_HEIGHT,
+} from '../../model/consts';
 
 const Drawer = styled.div<{ $isDragging: boolean; $dragDistance: number }>`
   position: fixed;
-  top: calc(56px + 80px + 278px);
+  top: calc(${HEADER_HEIGHT} + ${HEADLINE_HEIGHT} + ${SHOWCASE_HEIGHT});
   z-index: 300;
   display: flex;
   flex-direction: column;
@@ -35,7 +43,7 @@ const SelectClothesButtonWrap = styled.div<{ $isVisible: boolean }>`
   position: absolute;
   top: -64px;
   width: 100%;
-  height: 64px;
+  height: ${SELECT_CLOTHES_BUTTON_WRAP_HEIGHT};
   padding: 8px 16px 0;
   visibility: hidden;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
@@ -66,6 +74,7 @@ const DraggableArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: ${DRAGGABLE_AREA_HEIGHT};
   touch-action: none;
   cursor: grab;
   user-select: none;
@@ -90,9 +99,10 @@ const SliderButton = styled(ToggleButton)`
   border-radius: 0;
 `;
 
+const INITIAL_HEIGHT = `100dvh - ${HEADER_HEIGHT} - ${HEADLINE_HEIGHT} - ${SHOWCASE_HEIGHT} - ${DRAGGABLE_AREA_HEIGHT}`;
 const ContentWrap = styled.div`
   width: 100%;
-  height: calc(100dvh - 56px - 80px - 278px - 58px);
+  height: calc(${INITIAL_HEIGHT});
   padding: 8px 16px;
   overflow-y: auto;
 `;

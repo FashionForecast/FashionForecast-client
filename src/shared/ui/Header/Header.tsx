@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { AppBar as MuiAppBar } from '@mui/material';
 
-import { MAX_WIDTH } from '@/shared/consts';
+import { HEADER_HEIGHT, MAX_WIDTH } from '@/shared/consts';
 
 type AppBarProps = React.ComponentProps<typeof MuiAppBar>;
 
@@ -37,7 +37,7 @@ const BaseAppBar = styled(MuiAppBar)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
+  height: ${HEADER_HEIGHT};
   padding: 16px;
   padding-bottom: 8px;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};

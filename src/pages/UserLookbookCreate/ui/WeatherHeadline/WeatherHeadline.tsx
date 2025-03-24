@@ -15,9 +15,11 @@ export const WeatherHeadline = ({ weatherType }: WeatherHeadlineProps) => {
   const { deep, main } = WEATHER_COLORS[weatherType];
 
   return (
-    <S.Headline $color={main}>
-      <S.Temperature $color={deep}>{temperature}</S.Temperature>
-      <S.Summary>{summary}</S.Summary>
-    </S.Headline>
+    <S.HeadlineWrap>
+      <S.Headline $color={main}>
+        <S.Temperature $color={deep}>{temperature}</S.Temperature>
+        <S.Summary>{summary}</S.Summary>
+      </S.Headline>
+    </S.HeadlineWrap>
   );
 };

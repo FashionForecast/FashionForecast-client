@@ -7,6 +7,10 @@ import { WeatherTypeName } from '@/entities/weather';
 
 import { OutfitType } from './types';
 
+export const SHOWCASE_HEIGHT = '278px';
+export const DRAGGABLE_AREA_HEIGHT = '58px';
+export const SELECT_CLOTHES_BUTTON_WRAP_HEIGHT = '64px';
+
 export const CLOTHES_THUMBNAIL: Record<
   WeatherTypeName,
   Record<Extract<OutfitType, 'TOP' | 'BOTTOM'>, ClothesIconNames>

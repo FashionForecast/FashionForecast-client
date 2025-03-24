@@ -1,13 +1,22 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
+import { HEADLINE_HEIGHT } from '@/pages/UserLookbookCreate';
+
 import { ClothesSliderType } from '@/entities/clothes';
 
+import { HEADER_HEIGHT } from '@/shared/consts';
 import { Button } from '@/shared/ui';
+
+import {
+  DRAGGABLE_AREA_HEIGHT,
+  SELECT_CLOTHES_BUTTON_WRAP_HEIGHT,
+  SHOWCASE_HEIGHT,
+} from '../../model/consts';
 
 import ColorButtons from './ColorButtons/ColorButtons';
 import { S, C } from './ColorPalette.style';
 
-const DRAWER_MAX_TRANSLATE_Y = -216;
+const DRAWER_MAX_TRANSLATE_Y = -214;
 
 const SLIDER_BUTTONS: Array<{ slider: ClothesSliderType; label: string }> = [
   { slider: 'top', label: '상의 색상' },
@@ -46,7 +55,8 @@ export const ColorPalette = memo(
 
       const contentElement = contentRef.current;
       if (contentElement) {
-        contentElement.style.height = `calc(100dvh - 56px - 72px)`;
+        const height = `calc(100dvh - ${HEADER_HEIGHT} - ${HEADER_HEIGHT})`;
+        contentElement.style.height = height;
       }
     };
 
@@ -123,9 +133,10 @@ export const ColorPalette = memo(
 
       const contentElement = contentRef.current;
       if (contentElement) {
-        const height = isNewExpended
-          ? 'calc(100dvh - 56px - 80px - 64px - 58px)'
-          : 'calc(100dvh - 56px - 80px - 278px - 58px)';
+        const MIDDLE_HEIGHT = isNewExpended
+          ? SELECT_CLOTHES_BUTTON_WRAP_HEIGHT
+          : SHOWCASE_HEIGHT;
+        const height = `calc(100dvh - ${HEADER_HEIGHT} - ${HEADLINE_HEIGHT} - ${MIDDLE_HEIGHT} - ${DRAGGABLE_AREA_HEIGHT})`;
 
         setTimeout(() => {
           contentElement.style.height = height;
@@ -137,6 +148,7 @@ export const ColorPalette = memo(
       setIsDragging(false);
       setIsExpendedDrawer(false);
       setDragDistance(0);
+      setCanUpdateSlider(true);
     };
 
     const handleSliderButtonClick = (

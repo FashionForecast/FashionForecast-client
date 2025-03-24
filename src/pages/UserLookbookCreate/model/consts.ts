@@ -1,6 +1,8 @@
 import { BottomClothesName, TopClothesName } from '@/entities/clothes';
 import { WeatherTypeName } from '@/entities/weather';
 
+export const HEADLINE_HEIGHT = '84px';
+
 export const REPRESENTATIVE_CLOTHES_BY_WEATHER: Record<
   WeatherTypeName,
   { top: TopClothesName; bottom: BottomClothesName }
