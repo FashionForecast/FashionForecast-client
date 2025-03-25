@@ -46,6 +46,7 @@ export const ColorPalette = memo(
     const [dragStartPositionY, setDragStartPositionY] = useState<number | null>(
       null
     );
+    const [isFirstMove, setIsFirstMove] = useState(false);
     const contentRef = useRef<HTMLDivElement>(null);
 
     const handleDragStart = (e: React.PointerEvent) => {
@@ -67,7 +68,8 @@ export const ColorPalette = memo(
         }
 
         const contentElement = contentRef.current;
-        if (contentElement) {
+        if (!isFirstMove && contentElement) {
+          setIsFirstMove(true);
           const height = `calc(100dvh - ${HEADER_HEIGHT} - ${HEADER_HEIGHT})`;
           contentElement.style.height = height;
         }
@@ -82,12 +84,13 @@ export const ColorPalette = memo(
 
         setDragDistance(validDistance);
       },
-      [dragStartPositionY, isDragging, isExpandedDrawer]
+      [dragStartPositionY, isDragging, isExpandedDrawer, isFirstMove]
     );
 
     const handleDragEnd = useCallback(() => {
       setIsDragging(false);
       setDragStartPositionY(null);
+      setIsFirstMove(false);
 
       const { nextDistance, isNextExpanded } = calculateNextDrawerState(
         dragDistance,
