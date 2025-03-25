@@ -5,6 +5,8 @@ import {
 } from '@/entities/clothes';
 import { WeatherTypeName } from '@/entities/weather';
 
+import { theme } from '@/shared/styles';
+
 import { OutfitType } from './types';
 
 export const SHOWCASE_HEIGHT = '278px';
@@ -88,4 +90,105 @@ export const WOMAN_BOTTOM_CLOTHES: BottomClothesName[] = [
   '긴치마',
   '기모 바지',
   '스커트 레깅스',
+];
+
+const {
+  blueGrey,
+  red,
+  deepOrange,
+  orange,
+  amber,
+  yellow,
+  lime,
+  lightGreen,
+  green,
+  teal,
+  cyan,
+  lightBlue,
+  blue,
+  indigo,
+  deepPurple,
+  purple,
+  pink,
+} = theme.colors;
+
+export const COLOR_PALETTES = [
+  blueGrey[50],
+  blueGrey[100],
+  blueGrey[300],
+  blueGrey[500],
+  blueGrey[700],
+  blueGrey[900], //
+  red[700],
+  deepOrange[700],
+  orange[700],
+  amber[700],
+  yellow[700],
+  lime[700], //
+  red[500],
+  deepOrange[500],
+  orange[500],
+  amber[500],
+  yellow[500],
+  lime[500], //
+  red[300],
+  deepOrange[300],
+  orange[300],
+  amber[300],
+  yellow[200],
+  lime[200], //
+  red[100],
+  deepOrange[100],
+  orange[100],
+  amber[100],
+  yellow[100],
+  lime[100], //
+  lightGreen[700],
+  green[700],
+  teal[700],
+  cyan[700],
+  lightBlue[700],
+  blue[700], //
+  lightGreen[500],
+  green[500],
+  teal[500],
+  cyan[500],
+  lightBlue[500],
+  blue[500], //
+  lightGreen[300],
+  green[300],
+  teal[300],
+  cyan[300],
+  lightBlue[300],
+  blue[300], //
+  lightGreen[100],
+  green[100],
+  teal[100],
+  cyan[100],
+  lightBlue[100],
+  blue[100], //
+  indigo[700],
+  deepPurple[700],
+  purple[700],
+  pink[700],
+  null,
+  null, //
+  indigo[500],
+  deepPurple[500],
+  purple[500],
+  pink[500],
+  null,
+  null, //
+  indigo[300],
+  deepPurple[300],
+  purple[300],
+  pink[300],
+  null,
+  null, //
+  indigo[100],
+  deepPurple[100],
+  purple[100],
+  pink[100],
+  null,
+  null, //
 ];
