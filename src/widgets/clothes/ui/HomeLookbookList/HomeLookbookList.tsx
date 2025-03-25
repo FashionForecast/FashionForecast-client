@@ -17,7 +17,10 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Button, Chip, PlusIcon } from '@/shared/ui';
 
 import { getMemberLookbook } from '../../api/lookbook';
-import { CLOTHES_THUMBNAIL } from '../../model/consts';
+import {
+  CLOTHES_THUMBNAIL,
+  CLOTHES_TO_CHIP_COLOR_MAP,
+} from '../../model/consts';
 
 import { S } from './HomeLookbookList.style';
 
@@ -89,8 +92,16 @@ export const HomeLookbookList = memo(
                   />
 
                   <S.ChipWrap>
-                    <Chip label={outfit.topType} size='small' />
-                    <Chip label={outfit.bottomType} size='small' />
+                    <Chip
+                      label={outfit.topType}
+                      size='small'
+                      color={CLOTHES_TO_CHIP_COLOR_MAP.get(outfit.topColor)}
+                    />
+                    <Chip
+                      label={outfit.bottomType}
+                      size='small'
+                      color={CLOTHES_TO_CHIP_COLOR_MAP.get(outfit.bottomColor)}
+                    />
                   </S.ChipWrap>
                 </S.LookbookContent>
               </S.LookbookCard>
