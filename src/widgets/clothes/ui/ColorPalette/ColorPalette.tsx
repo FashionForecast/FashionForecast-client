@@ -40,13 +40,12 @@ export const ColorPalette = memo(
     updateClothesColor,
   }: ColorPaletteProps) => {
     const [canUpdateSlider, setCanUpdateSlider] = useState(true);
-    const [isExpendedDrawer, setIsExpendedDrawer] = useState(false);
+    const [isExpandedDrawer, setIsExpandedDrawer] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [dragDistance, setDragDistance] = useState(0);
     const [dragStartPositionY, setDragStartPositionY] = useState<number | null>(
       null
     );
-
     const contentRef = useRef<HTMLDivElement>(null);
 
     const handleDragStart = (e: React.PointerEvent) => {
@@ -60,80 +59,47 @@ export const ColorPalette = memo(
           return;
         }
 
+        const dragDistance = e.clientY - dragStartPositionY;
+        const absDistance = Math.abs(dragDistance);
+
+        if (isUnableToMove(dragDistance, isExpandedDrawer)) {
+          return;
+        }
+
         const contentElement = contentRef.current;
         if (contentElement) {
           const height = `calc(100dvh - ${HEADER_HEIGHT} - ${HEADER_HEIGHT})`;
           contentElement.style.height = height;
         }
 
-        const dragDistance = e.clientY - dragStartPositionY;
-        const absDistance = Math.abs(dragDistance);
-
-        // drawer가 확장된 상태가 아닌 경우, 위로 확장 가능
-        if (!isExpendedDrawer) {
-          if (dragDistance > 0 || dragDistance < DRAWER_MAX_TRANSLATE_Y) {
-            return;
-          }
-
-          if (absDistance >= 1) {
-            setCanUpdateSlider(false);
-          }
-
-          setDragDistance(dragDistance);
+        if (absDistance >= 1) {
+          setCanUpdateSlider(false);
         }
 
-        // drawer가 확장된 상태인 경우, 아래로 축소 가능
-        if (isExpendedDrawer) {
-          const MAX_DRAG_DOWN = -DRAWER_MAX_TRANSLATE_Y;
-          if (dragDistance < 0 || dragDistance > MAX_DRAG_DOWN) {
-            return;
-          }
+        let validDistance;
+        if (!isExpandedDrawer) validDistance = dragDistance;
+        else validDistance = DRAWER_MAX_TRANSLATE_Y + dragDistance;
 
-          if (absDistance >= 1) {
-            setCanUpdateSlider(false);
-          }
-
-          setDragDistance(DRAWER_MAX_TRANSLATE_Y + dragDistance);
-        }
+        setDragDistance(validDistance);
       },
-      [dragStartPositionY, isDragging, isExpendedDrawer]
+      [dragStartPositionY, isDragging, isExpandedDrawer]
     );
 
     const handleDragEnd = useCallback(() => {
       setIsDragging(false);
       setDragStartPositionY(null);
 
-      const THRESHOLD = 60;
-      let isNewExpended = isExpendedDrawer;
+      const { nextDistance, isNextExpanded } = calculateNextDrawerState(
+        dragDistance,
+        isExpandedDrawer
+      );
 
-      // drawer의 확장 상태와 임계값으로 drawer의 확장 또는 축소 상태를 결정
-      if (!isExpendedDrawer) {
-        const absDistance = Math.abs(dragDistance);
-
-        if (absDistance <= THRESHOLD) {
-          setDragDistance(0);
-          isNewExpended = false;
-        } else {
-          setDragDistance(DRAWER_MAX_TRANSLATE_Y);
-          isNewExpended = true;
-        }
-      }
-
-      if (isExpendedDrawer) {
-        if (dragDistance <= DRAWER_MAX_TRANSLATE_Y + THRESHOLD) {
-          setDragDistance(DRAWER_MAX_TRANSLATE_Y);
-          isNewExpended = true;
-        } else {
-          setDragDistance(0);
-          isNewExpended = false;
-        }
-      }
-
-      setIsExpendedDrawer(isNewExpended);
+      setDragDistance(nextDistance);
+      setIsExpandedDrawer(isNextExpanded);
 
       const contentElement = contentRef.current;
       if (contentElement) {
-        const MIDDLE_HEIGHT = isNewExpended
+        const MIDDLE_HEIGHT = isNextExpanded
           ? SELECT_CLOTHES_BUTTON_WRAP_HEIGHT
           : SHOWCASE_HEIGHT;
         const height = `calc(100dvh - ${HEADER_HEIGHT} - ${HEADLINE_HEIGHT} - ${MIDDLE_HEIGHT} - ${DRAGGABLE_AREA_HEIGHT})`;
@@ -142,11 +108,11 @@ export const ColorPalette = memo(
           contentElement.style.height = height;
         }, 200);
       }
-    }, [dragDistance, isExpendedDrawer]);
+    }, [dragDistance, isExpandedDrawer]);
 
     const handleSelectClothesButtonClick = () => {
       setIsDragging(false);
-      setIsExpendedDrawer(false);
+      setIsExpandedDrawer(false);
       setDragDistance(0);
       setCanUpdateSlider(true);
     };
@@ -162,18 +128,20 @@ export const ColorPalette = memo(
 
     /** pointerup, pointermove 이벤트 등록 */
     useEffect(() => {
-      window.addEventListener('pointerup', handleDragEnd);
-      window.addEventListener('pointermove', handleDragMove);
+      if (isDragging) {
+        window.addEventListener('pointerup', handleDragEnd);
+        window.addEventListener('pointermove', handleDragMove);
+      }
 
       return () => {
         window.removeEventListener('pointerup', handleDragEnd);
         window.removeEventListener('pointermove', handleDragMove);
       };
-    }, [handleDragEnd, handleDragMove]);
+    }, [isDragging, handleDragEnd, handleDragMove]);
 
     return (
       <S.DrawerWrap $isDragging={isDragging} $dragDistance={dragDistance}>
-        <S.SelectClothesButtonWrap $isVisible={isExpendedDrawer}>
+        <S.SelectClothesButtonWrap $isVisible={isExpandedDrawer}>
           <Button
             variant='outlined'
             size='large'
@@ -216,3 +184,54 @@ export const ColorPalette = memo(
     );
   }
 );
+
+/** drawer의 이동 가능 여부 판별 */
+function isUnableToMove(dragDistance: number, isExpandedDrawer: boolean) {
+  // 드래그 시작 시, drawer가 축소된 상태
+  if (!isExpandedDrawer) {
+    return dragDistance > 0 || dragDistance < DRAWER_MAX_TRANSLATE_Y;
+  }
+
+  // 드래그 시작 시, drawer가 확장된 상태
+  const MAX_DRAG_DOWN = -DRAWER_MAX_TRANSLATE_Y;
+  return dragDistance < 0 || dragDistance > MAX_DRAG_DOWN;
+}
+
+/** 드래그 거리와 임계점을 비교하여, drawer의 다음 상태를 계산 */
+function calculateNextDrawerState(
+  dragDistance: number,
+  isExpandedDrawer: boolean
+) {
+  const THRESHOLD = 60;
+  let nextDistance = dragDistance;
+  let isNextExpanded = isExpandedDrawer;
+
+  // 드래그 시작 시, drawer가 축소된 상태
+  if (!isExpandedDrawer) {
+    const absDistance = Math.abs(dragDistance);
+
+    if (absDistance <= THRESHOLD) {
+      nextDistance = 0;
+      isNextExpanded = false;
+    } else {
+      nextDistance = DRAWER_MAX_TRANSLATE_Y;
+      isNextExpanded = true;
+    }
+  }
+
+  // 드래그 시작 시, drawer가 확장된 상태
+  if (isExpandedDrawer) {
+    if (dragDistance <= DRAWER_MAX_TRANSLATE_Y + THRESHOLD) {
+      nextDistance = DRAWER_MAX_TRANSLATE_Y;
+      isNextExpanded = true;
+    } else {
+      nextDistance = 0;
+      isNextExpanded = false;
+    }
+  }
+
+  return {
+    nextDistance,
+    isNextExpanded,
+  };
+}
