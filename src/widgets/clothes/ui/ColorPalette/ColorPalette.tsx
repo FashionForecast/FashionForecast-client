@@ -172,7 +172,7 @@ export const ColorPalette = memo(
     }, [handleDragEnd, handleDragMove]);
 
     return (
-      <S.Drawer $isDragging={isDragging} $dragDistance={dragDistance}>
+      <S.DrawerWrap $isDragging={isDragging} $dragDistance={dragDistance}>
         <S.SelectClothesButtonWrap $isVisible={isExpendedDrawer}>
           <Button
             variant='outlined'
@@ -184,7 +184,7 @@ export const ColorPalette = memo(
           </Button>
         </S.SelectClothesButtonWrap>
 
-        <S.ColorPaletteWrap $isDragging={isDragging}>
+        <S.Drawer>
           <S.DraggableArea onPointerDown={handleDragStart}>
             <S.HandleBar />
             <S.ButtonGroup>
@@ -211,8 +211,8 @@ export const ColorPalette = memo(
               />
             </S.PaletteWrap>
           </S.ContentWrap>
-        </S.ColorPaletteWrap>
-      </S.Drawer>
+        </S.Drawer>
+      </S.DrawerWrap>
     );
   }
 );

@@ -12,23 +12,19 @@ import {
   SHOWCASE_HEIGHT,
 } from '../../model/consts';
 
-const Drawer = styled.div<{ $isDragging: boolean; $dragDistance: number }>`
+const DrawerWrap = styled.aside<{
+  $isDragging: boolean;
+  $dragDistance: number;
+}>`
   position: fixed;
   top: calc(${HEADER_HEIGHT} + ${HEADLINE_HEIGHT} + ${SHOWCASE_HEIGHT});
   z-index: 300;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   width: 100%;
   max-width: ${MAX_WIDTH};
-  font-size: 18px;
   touch-action: none;
   user-select: none;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
-    0 3px 14px 2px rgb(0 0 0 / 12%);
   transition: transform 0.2s ease-out;
   transform: translateY(${({ $dragDistance }) => `${$dragDistance}px`});
 
@@ -58,16 +54,13 @@ const SelectClothesButtonWrap = styled.div<{ $isVisible: boolean }>`
     `}
 `;
 
-const ColorPaletteWrap = styled.section<{ $isDragging: boolean }>`
+const Drawer = styled.section`
   position: relative;
-  transition: 0.3s ease;
-  transform: translateY(0);
-
-  ${({ $isDragging }) =>
-    $isDragging &&
-    css`
-      transition: none;
-    `}
+  background-color: ${({ theme }) => theme.colors.white};
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+    0 3px 14px 2px rgb(0 0 0 / 12%);
 `;
 
 const DraggableArea = styled.div`
@@ -123,14 +116,14 @@ const PaletteWrap = styled.div`
 `;
 
 export const S = {
-  ColorPaletteWrap,
+  DrawerWrap,
   SelectClothesButtonWrap,
-  HandleBar,
+  Drawer,
   DraggableArea,
+  HandleBar,
   ButtonGroup,
   ContentWrap,
   PaletteWrap,
-  Drawer,
 };
 
 export const C = {
