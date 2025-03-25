@@ -1,6 +1,6 @@
 import { Fragment, memo } from 'react';
 
-import { COLOR_PALETTES } from '@/widgets/clothes/model/consts';
+import { PALETTE_COLORS, PALETTE_COLORS_TYPE } from '@/entities/clothes';
 
 import { theme } from '@/shared/styles';
 import { CheckCircleIcon } from '@/shared/ui';
@@ -13,7 +13,7 @@ type ColorButtonsProps = {
 };
 
 const { blueGrey } = theme.colors;
-const CHECK_DARK = new Set<string>([
+const CHECK_DARK = new Set<PALETTE_COLORS_TYPE>([
   blueGrey[50],
   blueGrey[100],
   blueGrey[300],
@@ -23,7 +23,7 @@ export const ColorButtons = memo(
   ({ selectedSliderClothesColor, updateClothesColor }: ColorButtonsProps) => {
     return (
       <>
-        {COLOR_PALETTES.map((color, index) => (
+        {PALETTE_COLORS.map((color, index) => (
           <Fragment key={index}>
             {color === null && <div />}
 

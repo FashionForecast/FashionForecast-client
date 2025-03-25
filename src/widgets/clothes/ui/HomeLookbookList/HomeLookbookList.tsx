@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
+  CLOTHES_TO_CHIP_COLOR_MAP,
   LookbookClothes,
   LookbookCreatePageState,
   LookbookItem,
@@ -17,10 +18,7 @@ import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Button, Chip, PlusIcon } from '@/shared/ui';
 
 import { getMemberLookbook } from '../../api/lookbook';
-import {
-  CLOTHES_THUMBNAIL,
-  CLOTHES_TO_CHIP_COLOR_MAP,
-} from '../../model/consts';
+import { CLOTHES_THUMBNAIL } from '../../model/consts';
 
 import { S } from './HomeLookbookList.style';
 

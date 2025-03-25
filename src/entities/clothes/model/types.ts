@@ -1,9 +1,11 @@
+import { PALETTE_COLORS } from './consts';
+
 export type LookbookItem = {
   memberOutfitId: number;
   topType: TopClothesName;
-  topColor: string;
+  topColor: PALETTE_COLORS_TYPE;
   bottomType: BottomClothesName;
-  bottomColor: string;
+  bottomColor: PALETTE_COLORS_TYPE;
 };
 
 export type LookbookCreatePageState = {
@@ -73,3 +75,8 @@ type ClothesSelection<T extends ClothesSliderType> = T extends 'top'
 export type OutfitSelection = {
   [K in ClothesSliderType]: ClothesSelection<K>;
 };
+
+export type PALETTE_COLORS_TYPE = Exclude<
+  (typeof PALETTE_COLORS)[number],
+  null
+>;
