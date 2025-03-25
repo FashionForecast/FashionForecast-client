@@ -22,7 +22,7 @@ export const EditSection = ({
   const [focussingSlider, setFocussingSlider] =
     useState<ClothesSliderType>('top');
 
-  const choicedClothesColor =
+  const selectedSliderClothesColor =
     focussingSlider === 'top' ? selection.top.color : selection.bottom.color;
 
   const updateFocussingSlider = (
@@ -65,9 +65,9 @@ export const EditSection = ({
 
       <ColorPalette
         focussingSlider={focussingSlider}
-        clothesColor={choicedClothesColor}
+        selectedSliderClothesColor={selectedSliderClothesColor}
         updateFocussingSlider={updateFocussingSlider}
-        changeClothesColor={updateClothesColor}
+        updateClothesColor={updateClothesColor}
       />
     </>
   );

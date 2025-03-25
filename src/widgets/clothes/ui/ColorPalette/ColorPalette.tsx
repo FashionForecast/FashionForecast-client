@@ -13,7 +13,7 @@ import {
   SHOWCASE_HEIGHT,
 } from '../../model/consts';
 
-import ColorButtons from './ColorButtons/ColorButtons';
+import { ColorButtons } from './ColorButtons/ColorButtons';
 import { S, C } from './ColorPalette.style';
 
 const DRAWER_MAX_TRANSLATE_Y = -214;
@@ -25,19 +25,19 @@ const SLIDER_BUTTONS: Array<{ slider: ClothesSliderType; label: string }> = [
 
 type ColorPaletteProps = {
   focussingSlider: ClothesSliderType;
-  clothesColor: string;
+  selectedSliderClothesColor: string;
   updateFocussingSlider: (
     sliderType: React.SetStateAction<ClothesSliderType>
   ) => void;
-  changeClothesColor: (color: string) => () => void;
+  updateClothesColor: (color: string) => () => void;
 };
 
 export const ColorPalette = memo(
   ({
     focussingSlider,
-    clothesColor,
+    selectedSliderClothesColor,
     updateFocussingSlider,
-    changeClothesColor,
+    updateClothesColor,
   }: ColorPaletteProps) => {
     const [canUpdateSlider, setCanUpdateSlider] = useState(true);
     const [isExpendedDrawer, setIsExpendedDrawer] = useState(false);
@@ -206,8 +206,8 @@ export const ColorPalette = memo(
           <S.ContentWrap ref={contentRef}>
             <S.PaletteWrap>
               <ColorButtons
-                clothesColor={clothesColor}
-                changeClothesColor={changeClothesColor}
+                selectedSliderClothesColor={selectedSliderClothesColor}
+                updateClothesColor={updateClothesColor}
               />
             </S.PaletteWrap>
           </S.ContentWrap>
