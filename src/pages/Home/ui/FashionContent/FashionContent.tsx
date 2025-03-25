@@ -91,7 +91,7 @@ export const FashionContent = memo(({ tab, weather }: FashionContentProps) => {
         />
       )}
 
-      {tab === 'lookbook' && member && (
+      {tab === 'lookbook' && (
         <>
           <HomeLookbookList
             extremumTemperature={weather.extremumTmp}

@@ -34,11 +34,11 @@ export const HomeLookbookList = memo(
     temperatureCondition,
   }: HomeLookbookListProps) => {
     const accessToken = useAppSelector((state) => state.auth.accessToken);
-    const user = useAppSelector((state) => state.member.info);
+    const member = useAppSelector((state) => state.member.info);
     const { data: lookbook } = useQuery({
       queryKey: [
         'user',
-        user?.socialId,
+        member?.socialId,
         'lookbook',
         extremumTemperature,
         temperatureCondition,
@@ -49,12 +49,17 @@ export const HomeLookbookList = memo(
           temperatureCondition,
           accessToken
         ),
-      enabled: !!user,
+      enabled: !!member,
     });
 
     const navigate = useNavigate();
 
     const handleLookbookItemClick = (outfit?: LookbookItem) => () => {
+      if (!member) {
+        navigate('/login');
+        return;
+      }
+
       const weatherNumber = WEATHER_TYPE.nameToNumber[adjustedWeatherName];
       const linkState: LookbookCreatePageState = {
         clickedOutfit: outfit,
@@ -102,7 +107,7 @@ export const HomeLookbookList = memo(
           </S.LookbookList>
         )}
 
-        {lookbook && lookbook.length === 0 && (
+        {(!member || (lookbook && lookbook.length === 0)) && (
           <S.EmptyCard>
             <S.EmptyContent>
               <S.TextWrap>
