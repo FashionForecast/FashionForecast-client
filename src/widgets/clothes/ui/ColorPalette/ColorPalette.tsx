@@ -52,18 +52,18 @@ export const ColorPalette = memo(
     const handleDragStart = (e: React.PointerEvent) => {
       setIsDragging(true);
       setDragStartPositionY(e.clientY);
-
-      const contentElement = contentRef.current;
-      if (contentElement) {
-        const height = `calc(100dvh - ${HEADER_HEIGHT} - ${HEADER_HEIGHT})`;
-        contentElement.style.height = height;
-      }
     };
 
     const handleDragMove = useCallback(
       (e: PointerEvent) => {
         if (!isDragging || dragStartPositionY === null) {
           return;
+        }
+
+        const contentElement = contentRef.current;
+        if (contentElement) {
+          const height = `calc(100dvh - ${HEADER_HEIGHT} - ${HEADER_HEIGHT})`;
+          contentElement.style.height = height;
         }
 
         const dragDistance = e.clientY - dragStartPositionY;
@@ -152,11 +152,11 @@ export const ColorPalette = memo(
     };
 
     const handleSliderButtonClick = (
-      e: React.MouseEvent,
-      slider: ClothesSliderType
+      e: React.MouseEvent | React.TouchEvent,
+      newSlider: ClothesSliderType
     ) => {
       e.stopPropagation();
-      updateFocussingSlider(canUpdateSlider ? slider : focussingSlider);
+      updateFocussingSlider(canUpdateSlider ? newSlider : focussingSlider);
       setCanUpdateSlider(true);
     };
 
@@ -194,7 +194,8 @@ export const ColorPalette = memo(
                   value={slider}
                   size='large'
                   selected={focussingSlider === slider}
-                  onClick={(e) => handleSliderButtonClick(e, slider)}
+                  onMouseUp={(e) => handleSliderButtonClick(e, slider)}
+                  onTouchEnd={(e) => handleSliderButtonClick(e, slider)}
                 >
                   {label}
                 </C.SliderButton>
