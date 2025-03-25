@@ -17,7 +17,11 @@ const ColorButton = styled.button<{
     width: 100%;
     height: 100%;
     content: '';
-    border: 2px solid ${({ theme }) => theme.colors.blueGrey[900]};
+    border: 2px solid
+      ${({ $color, theme }) =>
+        $color === theme.colors.blueGrey[900]
+          ? theme.colors.blueGrey[700]
+          : theme.colors.blueGrey[900]};
     border-radius: 40%;
   }
 `;
