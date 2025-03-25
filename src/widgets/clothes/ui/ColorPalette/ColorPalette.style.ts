@@ -37,9 +37,9 @@ const DrawerWrap = styled.aside<{
 
 const SelectClothesButtonWrap = styled.div<{ $isVisible: boolean }>`
   position: absolute;
-  top: -64px;
+  top: calc(-${SELECT_CLOTHES_BUTTON_WRAP_HEIGHT} + 6px);
   width: 100%;
-  height: ${SELECT_CLOTHES_BUTTON_WRAP_HEIGHT};
+  height: calc(${SELECT_CLOTHES_BUTTON_WRAP_HEIGHT} + 6px);
   padding: 8px 16px 0;
   visibility: hidden;
   background-color: ${({ theme }) => theme.colors.blueGrey[100]};
@@ -97,17 +97,18 @@ const ContentWrap = styled.div`
   width: 100%;
   height: calc(${INITIAL_HEIGHT});
   padding: 8px 16px;
-  overflow-y: auto;
+  overflow-y: scroll;
 `;
 
 const PaletteWrap = styled.div`
   display: grid;
+  flex-grow: 1;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: 45px;
   gap: 16px;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  padding: 8px 0;
 
   @media (min-width: 480px) {
     grid-template-columns: repeat(6, 50px);
