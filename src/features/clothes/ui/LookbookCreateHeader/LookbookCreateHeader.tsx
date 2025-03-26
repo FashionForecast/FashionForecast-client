@@ -2,56 +2,59 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { saveLookbook } from '@/entities/clothes';
+import { LookbookCreatePageState, OutfitSelection } from '@/entities/clothes';
 import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
 import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
-import {
-  LocationState,
-  LookbookSelect,
-} from '../ui/Page/UserLookbookCreatePage';
+import { saveLookbook } from '../../lib/saveLookbook';
 
-import DeleteDialog from './DeleteDialog/DeleteDialog';
-import { C } from './LookbookCreateHeader.style';
+import { DeleteDialog } from './DeleteDialog/DeleteDialog';
+import { C, S } from './LookbookCreateHeader.style';
 
 type LookbookCreateHeaderProps = {
-  weatherType: WeatherTypeNumber;
-  select: LookbookSelect;
+  weatherTypeNumber: WeatherTypeNumber;
+  selection: OutfitSelection;
 };
 
-const LookbookCreateHeader = ({
-  weatherType,
-  select,
+export const LookbookCreateHeader = ({
+  weatherTypeNumber,
+  selection,
 }: LookbookCreateHeaderProps) => {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { state }: LocationState = useLocation();
+  const pageState: LookbookCreatePageState = useLocation().state;
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const snackbar = useSnackbar();
 
+  const pageStateOutfit = pageState?.clickedOutfit;
+  const pageReferrer = pageState?.referrer;
+
   const { mutate } = useMutation({
     mutationFn: () =>
-      saveLookbook(
-        weatherType,
-        select,
+      saveLookbook({
+        weatherTypeNumber,
+        outfitSelection: selection,
         accessToken,
-        state?.outfit?.memberOutfitId
-      ),
-    onSuccess: async () =>
-      await queryClient.invalidateQueries({ queryKey: ['user'] }),
+        outfitId: pageStateOutfit?.memberOutfitId,
+      }),
   });
 
   const handleSaveButtonClick = () => {
     setIsLoading(true);
 
     mutate(undefined, {
-      onSuccess: () => navigate(state?.referrer ? state.referrer : '/user'),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['user'] });
+        navigate(pageReferrer ? pageReferrer : '/user');
+      },
       onError: (error) => {
         if (error.message.includes('M003')) {
           snackbar.open('5개 이상 저장할 수 없습니다.');
@@ -64,50 +67,47 @@ const LookbookCreateHeader = ({
     });
   };
 
-  const handleDeleteButtonClick = () => {
-    setIsDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setIsDialogOpen(false);
+  const handleDialogToggle = () => {
+    setIsDialogOpen((prev) => !prev);
   };
 
   return (
     <>
       <Header
         leftSlot={
-          <Link to={state?.referrer ? state.referrer : '/user'}>
+          <Link to={pageReferrer ? pageReferrer : '/user'}>
             <IconButton size='large'>
               <ArrowIcon />
             </IconButton>
           </Link>
         }
-        centerTitle='룩북 만들기'
+        centerTitle={pageStateOutfit ? '룩북 수정하기' : '룩북 만들기'}
         rightSlot={
-          <div>
-            {state?.outfit && (
+          <S.ButtonGroup>
+            {pageStateOutfit && (
               <C.ActionButton
+                variant='text'
                 color='error'
-                onClick={handleDeleteButtonClick}
+                size='large'
+                onClick={handleDialogToggle}
                 disabled={isLoading}
               >
                 삭제
               </C.ActionButton>
             )}
             <C.ActionButton
-              color='inherit'
+              variant='text'
+              size='large'
               onClick={handleSaveButtonClick}
               disabled={isLoading}
             >
               저장
             </C.ActionButton>
-          </div>
+          </S.ButtonGroup>
         }
       />
 
-      <DeleteDialog isOpen={isDialogOpen} onClose={handleDialogClose} />
+      <DeleteDialog isOpen={isDialogOpen} onClose={handleDialogToggle} />
     </>
   );
 };
-
-export default LookbookCreateHeader;

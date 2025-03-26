@@ -2,7 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LookbookClothes } from '@/entities/clothes';
+import {
+  CLOTHES_TO_CHIP_COLOR_MAP,
+  LookbookClothes,
+  LookbookCreatePageState,
+  LookbookItem,
+} from '@/entities/clothes';
 import {
   TemperatureCondition,
   WEATHER_TYPE,
@@ -14,7 +19,6 @@ import { Button, Chip, PlusIcon } from '@/shared/ui';
 
 import { getMemberLookbook } from '../../api/lookbook';
 import { CLOTHES_THUMBNAIL } from '../../model/consts';
-import { MemberLookbookDto } from '../../model/types';
 
 import { S } from './HomeLookbookList.style';
 
@@ -31,11 +35,11 @@ export const HomeLookbookList = memo(
     temperatureCondition,
   }: HomeLookbookListProps) => {
     const accessToken = useAppSelector((state) => state.auth.accessToken);
-    const user = useAppSelector((state) => state.member.info);
+    const member = useAppSelector((state) => state.member.info);
     const { data: lookbook } = useQuery({
       queryKey: [
         'user',
-        user?.socialId,
+        member?.socialId,
         'lookbook',
         extremumTemperature,
         temperatureCondition,
@@ -46,19 +50,25 @@ export const HomeLookbookList = memo(
           temperatureCondition,
           accessToken
         ),
-      enabled: !!user,
+      enabled: !!member,
     });
 
     const navigate = useNavigate();
 
-    const handleLookbookItemClick = (outfit?: MemberLookbookDto) => () => {
+    const handleLookbookItemClick = (outfit?: LookbookItem) => () => {
+      if (!member) {
+        navigate('/login');
+        return;
+      }
+
       const weatherNumber = WEATHER_TYPE.nameToNumber[adjustedWeatherName];
+      const linkState: LookbookCreatePageState = {
+        clickedOutfit: outfit,
+        referrer: `/?tab=lookbook&temperatureCondition=${temperatureCondition}`,
+      };
+
       navigate(`/user/lookbook/create?type=${weatherNumber}`, {
-        state: {
-          outfit,
-          referrer: `/?tab=lookbook&temperatureCondition=${temperatureCondition}`,
-          tempOption: temperatureCondition,
-        },
+        state: linkState,
       });
     };
 
@@ -80,8 +90,16 @@ export const HomeLookbookList = memo(
                   />
 
                   <S.ChipWrap>
-                    <Chip label={outfit.topType} size='small' />
-                    <Chip label={outfit.bottomType} size='small' />
+                    <Chip
+                      label={outfit.topType}
+                      size='small'
+                      color={CLOTHES_TO_CHIP_COLOR_MAP.get(outfit.topColor)}
+                    />
+                    <Chip
+                      label={outfit.bottomType}
+                      size='small'
+                      color={CLOTHES_TO_CHIP_COLOR_MAP.get(outfit.bottomColor)}
+                    />
                   </S.ChipWrap>
                 </S.LookbookContent>
               </S.LookbookCard>
@@ -98,7 +116,7 @@ export const HomeLookbookList = memo(
           </S.LookbookList>
         )}
 
-        {lookbook && lookbook.length === 0 && (
+        {(!member || (lookbook && lookbook.length === 0)) && (
           <S.EmptyCard>
             <S.EmptyContent>
               <S.TextWrap>

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { MemberLookbookDto } from '@/widgets/clothes';
-
-import { LookbookClothes } from '@/entities/clothes';
+import {
+  LookbookClothes,
+  LookbookCreatePageState,
+  LookbookItem,
+} from '@/entities/clothes';
 import {
   WEATHER_COLORS,
   WEATHER_LABELS,
@@ -16,7 +18,7 @@ import { S, C } from './LookbookCard.style';
 
 type LookbookCardProps = {
   temperatureStage: number;
-  outfits: MemberLookbookDto[];
+  outfits: LookbookItem[];
 };
 
 export const LookbookCard = ({
@@ -28,6 +30,10 @@ export const LookbookCard = ({
 
   const { light, main, deep } = WEATHER_COLORS[weatherName];
   const { temperature, summary } = WEATHER_LABELS[weatherName];
+
+  const setLinkState = (outfit: LookbookItem): LookbookCreatePageState => {
+    return { clickedOutfit: outfit };
+  };
 
   return (
     <S.LookbookCardWrap $color={main}>
@@ -50,7 +56,7 @@ export const LookbookCard = ({
         {outfits.map((outfit) => (
           <C.LookbookLink
             to={`/user/lookbook/create?type=${temperatureStage}`}
-            state={{ outfit }}
+            state={setLinkState(outfit)}
             key={outfit.memberOutfitId}
           >
             <S.ClothesItem>

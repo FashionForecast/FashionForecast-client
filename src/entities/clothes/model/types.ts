@@ -1,15 +1,20 @@
-import { MemberLookbookDto } from '@/widgets/clothes';
+import { PALETTE_COLORS } from './consts';
 
-export type LookbookItemData = {
-  topType: string;
-  topColor: string;
-  bottomType: string;
-  bottomColor: string;
-  tempStageLevel: number;
+export type LookbookItem = {
+  memberOutfitId: number;
+  topType: TopClothesName;
+  topColor: PALETTE_COLORS_TYPE;
+  bottomType: BottomClothesName;
+  bottomColor: PALETTE_COLORS_TYPE;
 };
 
+export type LookbookCreatePageState = {
+  clickedOutfit?: LookbookItem;
+  referrer?: string;
+} | null;
+
 export type AllLookbookListByWeatherDto = Array<{
-  memberOutfits: MemberLookbookDto[];
+  memberOutfits: LookbookItem[];
   tempStageLevel: number;
 }>;
 
@@ -18,7 +23,7 @@ export type ClothesIconNames =
   | BottomClothesName
   | ETCClothesName;
 
-type TopClothesName =
+export type TopClothesName =
   | '민소매'
   | '반팔티'
   | '반팔 폴로'
@@ -36,7 +41,7 @@ type TopClothesName =
   | '필드 재킷'
   | '패딩';
 
-type BottomClothesName =
+export type BottomClothesName =
   | '반바지'
   | '치마'
   | '면바지'
@@ -61,4 +66,17 @@ type ETCClothesName =
   | '접이식 우산'
   | '장우산';
 
-export type ClothesType = 'top' | 'bottom';
+export type ClothesSliderType = 'top' | 'bottom';
+
+type ClothesSelection<T extends ClothesSliderType> = T extends 'top'
+  ? { name: TopClothesName; color: string }
+  : { name: BottomClothesName; color: string };
+
+export type OutfitSelection = {
+  [K in ClothesSliderType]: ClothesSelection<K>;
+};
+
+export type PALETTE_COLORS_TYPE = Exclude<
+  (typeof PALETTE_COLORS)[number],
+  null
+>;

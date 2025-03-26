@@ -7,7 +7,7 @@ export const LoginHeader = () => {
     <Header
       leftSlot={
         <Link to={'/'}>
-          <IconButton>
+          <IconButton size='large'>
             <ArrowIcon />
           </IconButton>
         </Link>

@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ClothesIcon } from '@/entities/clothes/ui/ClothesIcon/ClothesIcon';
+import { Gender } from '@/entities/member';
 import { memberActions } from '@/entities/member/model/slice';
-import { Gender } from '@/entities/member/model/types';
 
 import { useAppDispatch, useAppSelector } from '@/shared/lib';
 import { Button, FemaleIcon, MaleIcon } from '@/shared/ui';
