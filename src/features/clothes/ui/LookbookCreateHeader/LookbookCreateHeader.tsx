@@ -39,12 +39,12 @@ export const LookbookCreateHeader = ({
 
   const { mutate } = useMutation({
     mutationFn: () =>
-      saveLookbook(
+      saveLookbook({
         weatherTypeNumber,
-        selection,
+        outfitSelection: selection,
         accessToken,
-        pageStateOutfit?.memberOutfitId
-      ),
+        outfitId: pageStateOutfit?.memberOutfitId,
+      }),
   });
 
   const handleSaveButtonClick = () => {

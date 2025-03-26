@@ -3,7 +3,7 @@ import { fetchAPI } from '@/shared/lib';
 import { NewLookbookItem } from '../model/types';
 
 export async function createLookbookItem(
-  data: NewLookbookItem,
+  lookbookItem: NewLookbookItem,
   token: string | null
 ) {
   await fetchAPI('/member/outfit', {
@@ -12,22 +12,26 @@ export async function createLookbookItem(
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(lookbookItem),
   });
 }
 
-export async function updateLookbookItem(
-  data: NewLookbookItem,
-  token: string | null,
-  outfitId?: number
-) {
+export async function updateLookbookItem({
+  lookbookItem,
+  accessToken,
+  outfitId,
+}: {
+  lookbookItem: NewLookbookItem;
+  accessToken: string | null;
+  outfitId: number;
+}) {
   await fetchAPI(`/member/outfits/${outfitId}`, {
     method: 'PATCH',
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(lookbookItem),
   });
 }
 
