@@ -1,9 +1,9 @@
-import { keyframes } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { MAX_WIDTH } from '@/shared/consts';
 
-const Wrap = styled.div`
+const PageFallbackWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,8 +21,18 @@ const rotation = keyframes`
     }
 `;
 
-const Logo = styled.img`
+const Logo = styled.img<{ $isVisible: boolean }>`
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
   animation: ${rotation} 1s ease infinite;
+
+  ${({ $isVisible }) =>
+    $isVisible &&
+    css`
+      visibility: visible;
+      opacity: 1;
+    `};
 `;
 
-export const S = { Wrap, Logo };
+export const S = { PageFallbackWrap, Logo };
