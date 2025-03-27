@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { FetchError } from '@/widgets/error';
 import {
   Day,
   getDefaultTimes,
@@ -14,7 +13,7 @@ import {
 import { getWeather } from '@/entities/weather/api/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
-import { HeadHelmet, Tabs } from '@/shared/ui';
+import { FetchError, HeadHelmet, Tabs } from '@/shared/ui';
 
 import { HomeTab } from '../model/types';
 
@@ -43,7 +42,6 @@ export const HomePage = () => {
     data: weatherData,
     isLoading,
     isError,
-    refetch,
   } = useQuery({
     queryKey: ['weather', selectedRegion?.region, times, day],
     queryFn: () => getWeather(times, day, selectedRegion!.region),
@@ -92,6 +90,7 @@ export const HomePage = () => {
     setIsTimeSelectorOpen(searchParams.get('time') === 'open');
   }, [searchParams]);
 
+  if (isError) return <FetchError />;
   return (
     <>
       <HeadHelmet />
@@ -100,7 +99,6 @@ export const HomePage = () => {
         <HomeHeader />
 
         {isLoading && <WeatherLoading />}
-        {isError && <FetchError handleRefetch={refetch} />}
 
         {weatherData && (
           <>
