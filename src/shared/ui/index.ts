@@ -16,6 +16,7 @@ export { CustomRadio } from './CustomMui/CustomRadio';
 
 export { Header } from './Header/Header';
 export { IconLoading } from './IconLoading/IconLoading';
+export { FetchError } from './FetchError/FetchError';
 
 export { HeadHelmet } from './HeadHelmet/HeadHelmet';
 
@@ -52,3 +53,4 @@ export { RefreshIcon } from './icon/RefreshIcon';
 export { RecentSearchIcon } from './icon/RecentSearchIcon';
 export { MoreIcon } from './icon/MoreIcon';
 export { ChevronIcon } from './icon/ChevronIcon';
+export { SunIcon } from './icon/SunIcon';
