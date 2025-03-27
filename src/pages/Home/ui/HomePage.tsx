@@ -16,13 +16,13 @@ import { getWeather } from '@/entities/weather/api/weather';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { HeadHelmet, Tabs } from '@/shared/ui';
 
-import HomeLoading from '../HomeLoading';
 import { HomeTab } from '../model/types';
 
 import { FashionContent } from './FashionContent/FashionContent';
 import { HomeHeader } from './HomeHeader/HomeHeader';
 import { S } from './HomePage.style';
 import { WeatherInformation } from './WeatherInformation/WeatherInformation';
+import { WeatherLoading } from './WeatherLoading/WeatherLoading';
 
 const HOME_TABS: { title: string; value: HomeTab }[] = [
   { title: '옷', value: 'clothes' },
@@ -99,8 +99,8 @@ export const HomePage = () => {
       <S.HomeWrap>
         <HomeHeader />
 
+        {isLoading && <WeatherLoading />}
         {isError && <FetchError handleRefetch={refetch} />}
-        {isLoading && <HomeLoading />}
 
         {weatherData && (
           <>
