@@ -1,6 +1,6 @@
-name: "✨ Feature"
-description: "새로운 기능 또는 명세가 있나요?"
-labels: "✨ Feature"
+name: '✨ feature'
+description: '새로운 기능 작업'
+labels: 'feature'
 body:
   - type: textarea
     attributes:
@@ -9,6 +9,7 @@ body:
       placeholder: 자세히 적을수록 좋습니다!
     validations:
       required: true
+
   - type: textarea
     attributes:
       label: ✅ Tasks
@@ -16,7 +17,9 @@ body:
       placeholder: 최대한 세분화 해서 적어주세요!
     validations:
       required: true
+
   - type: textarea
     attributes:
       label: 🙋🏻 More
       description: 더 하고 싶은 말이 있다면 작성해 주세요.
+      placeholder: 📌브랜치 생성 시 ${issue타입}/${issue번호}-${이름} 형식으로 지정해주세요!

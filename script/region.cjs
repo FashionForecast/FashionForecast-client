@@ -39,25 +39,30 @@ console.log('regionList.json 파일 생성중...');
 
 const regionListFile = JSON.stringify(regionList, null, 2);
 
-fs.writeFile('./src/assets/regionList.json', regionListFile, 'utf-8', (err) => {
-  if (err) {
-    console.error('파일 생성 중 오류 발생: ', err);
-    return;
-  }
+fs.writeFile(
+  './src/shared/consts/regionList.json',
+  regionListFile,
+  'utf-8',
+  (err) => {
+    if (err) {
+      console.error('파일 생성 중 오류 발생: ', err);
+      return;
+    }
 
-  console.log('regionList.json 파일이 생성되었습니다.');
-});
+    console.log('regionList.json 파일이 생성되었습니다.');
+  }
+);
 
 console.log('regionCoordinateList.ts 파일 생성중...');
 
 const listJson = JSON.stringify(regionCoordinateList, null, 2);
-const listContent = `const regionCoordinateList: Record<
+const listContent = `export const regionCoordinateList: Record<
   string,
   { nx: number; ny: number }
-> = ${listJson}\n export default regionCoordinateList`;
+> = ${listJson}\n`;
 
 fs.writeFile(
-  './src/assets/regionCoordinateList.ts',
+  './src/shared/consts/regionCoordinateList.ts',
   listContent,
   'utf-8',
   (err) => {

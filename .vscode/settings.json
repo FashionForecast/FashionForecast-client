@@ -11,6 +11,16 @@
     "js"
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": "explicit"
-  }
+    "source.fixAll.stylelint": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
+  "cSpell.words": [
+    "AMPM",
+    "dotlottie",
+    "fcst",
+    "Kakao",
+    "lookbook",
+    "lottiefiles",
+    "ootc"
+  ]
 }

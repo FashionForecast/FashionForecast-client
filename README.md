@@ -1,3 +1,224 @@
+<div align="center">
+
+## [OOTC 바로가기](https://ootc.life)
+
+![Group 18](https://github.com/user-attachments/assets/12afbd94-361e-48f9-bcc3-fae42617fa0f)
+
+</div>
+
+## ✅ Infrastructure
+
+![image](https://github.com/user-attachments/assets/db40845c-a8e3-45a7-b9c6-b3d25ea25a30)
+
+## ✅ Tech
+
+### ✔️ back-end
+
+![Group 57](https://github.com/user-attachments/assets/416add11-3e3b-4786-b35a-5f5b0cc00ff6)
+
+### ✔️ front-end
+
+![image](https://github.com/user-attachments/assets/c3144027-5350-4936-a8c2-15dd3d5adc7c)
+
+### ✔️ infra
+
+![Group 58](https://github.com/user-attachments/assets/e7ac81d5-9697-4b3e-948b-db758bfc7c13)
+
+<div align="center">
+
+## Phase 1 비회원 + 회원 공통 기능
+
+![Group 25](https://github.com/user-attachments/assets/6bbf9868-3793-4fdf-b0de-1f651e7e9f55)
+
+</div>
+
+## ✅ CI/CD Flow
+
+### ✔️ front-end
+
+![image](https://github.com/user-attachments/assets/f142e01a-e68a-4c7b-a61b-14fcfa1dfbe0)
+
+### ✔️ back-end
+
+![Group 26](https://github.com/user-attachments/assets/adeb544b-84fb-479f-873b-6ebcb1533e9d)
+
+#### Script
+
+```yml
+name: Java CI/CD with Gradle
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+env:
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: 레포지토리 체크아웃
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+          submodules: true
+
+      - name: JDK 17 설치
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: gradlew 권한 부여
+        run: chmod +x gradlew
+
+      - name: Gradle 통해 빌드
+        run: ./gradlew clean build
+
+      - name: DockerHub 로그인
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Docker 이미지 이름 및 환경 설정
+        run: |
+          if [[ "${{ github.event.pull_request.base.ref }}" == "main" ]]; then
+            echo "IMAGE_NAME=fashion-forecast-prod" >> $GITHUB_ENV
+          elif [[ "${{ github.event.pull_request.base.ref }}" == "develop" ]]; then
+            echo "IMAGE_NAME=fashion-forecast-dev" >> $GITHUB_ENV
+          fi
+
+      - name: 도커 빌드 & 푸시
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 배포 타겟 설정
+        run: |
+          if [[ "${{ github.event.pull_request.base.ref }}" == "main" ]]; then
+            echo "DEPLOY_ENV=prod" >> $GITHUB_ENV
+          elif [[ "${{ github.event.pull_request.base.ref }}" == "develop" ]]; then
+            echo "DEPLOY_ENV=dev" >> $GITHUB_ENV
+          fi
+      - name: EC2 원격 접속 및 Docker compose
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.EC2_DEV_USERNAME }}
+          host: ${{ secrets.EC2_DEV_HOST }}
+          key: ${{ secrets.EC2_DEV_PRIVATE_KEY }}
+          script_stop: true
+          script: |
+            sudo docker pull ${{ env.DOCKERHUB_USERNAME }}/fashion-forecast-${{ env.DEPLOY_ENV }}:latest
+            sudo docker compose -f docker-compose-${{ env.DEPLOY_ENV }}.yml down
+            sudo docker compose -f docker-compose-${{ env.DEPLOY_ENV }}.yml up -d
+            sudo docker image prune -f
+```
+
+## ✅ Works
+
+### ✔️ Phase 1
+
+#### ✨김현재 (front-end)
+
+| No  | Work               | Description                                 |
+| --- | ------------------ | ------------------------------------------- |
+| 1   | 개발 환경 세팅     | 라이브러리, prettier, stylelint 등 세팅     |
+| 2   | 좌표 스크립트 작성 | 지역별 좌표 및 기상청 지역 좌표 데이터 생성 |
+| 3   | 메인 페이지        | 메인 페이지(/) UI 및 기능 개발              |
+| 4   | 검색 페이지        | 검색 페이지(/search) UI 및 기능 개발        |
+| 5   | 피드백 페이지      | 피드백 페이지(/feedback) UI 및 기능 개발    |
+
+#### 🍒 최이주 (back-end)
+
+| No  | Work                    | Description                                                                             |
+| --- | ----------------------- | --------------------------------------------------------------------------------------- |
+| 1   | API 응답 포맷           | 정상 및 오류 응답 포맷 개발                                                             |
+| 2   | 예외 처리 핸들러 적용   | 전역적으로 예외를 처리할 수 있게 핸들러 개발                                            |
+| 3   | 디폴트 옷 추천 조회 API | 온도 단계(날씨)에 따라 알맞은 옷차림 조회 기능 개발                                     |
+| 4   | 옷 추가 API             | 운영용으로 사용할 디폴트 옷 추가 기능 개발                                              |
+| 5   | 고객의 소리 API         | 고객의 피드백 추가, 상세 조회, 리스트 조회 기능 개발, 리스트 조회에서 페이지네이션 적용 |
+
+#### 🤖 박형균 (back-end)
+
+| No  | Work                         | Description                                                                                                                                              |
+| --- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | 날씨 조회 API                | 기상청 단기예보 API를 활용하여 위도, 경도, 시간을 기준으로 날씨 조회                                                                                     |
+| 2   | 최근 검색어 API              | Redis를 이용한 사용자 최근 검색어 조회, 삭제                                                                                                             |
+| 3   | 게스트 로그인 API            | 비회원을 위한 uuid 발급                                                                                                                                  |
+| 4   | 날씨 데이터 스케쥴러 작업    | 매일 새벽 5시 과거 날씨 데이터 삭제 스케쥴러, QueryDsl를 이용한 벌크 연산                                                                                |
+| 5   | 날씨 제공 지역 초기화 작업   | 애플리케이션 실행 시 날씨 제공 지역 csv파일을 읽어 DB에 저장, JdbcTemplate를 이용한 벌크 연산                                                            |
+| 6   | 백엔드 도커라이징 작업       | docker-compose를 이용한 애플리케이션 도커라이징                                                                                                          |
+| 7   | 이니셜 데이터 마이그레이션   | Flyway를 이용한 이니셜 데이터 마이그레이션                                                                                                               |
+| 8   | github 협업 환경 세팅        | PR Template, Issue Template 작성                                                                                                                         |
+| 9   | restDoc 적용                 | 테스트 코드 작성 강제를 위한 RestDocs 적용, adocsTemplate 작성                                                                                           |
+| 10  | AWS 개발 및 배포 환경 구축   | EC2, RDS를 사용하여 dev & prod 환경 구축                                                                                                                 |
+| 11  | 백엔드 CI/CD 파이프라인 구축 | CI/CD 스크립트 작성 및 github actions를 이용한 자동화                                                                                                    |
+| 12  | 백엔드 배포 작업             | certbot 및 Let's Encrypt 를 사용하여 백엔드 도메인 https 인증서 발급, nginx를 이용하여 백엔드 도메인에 접근 시 스프링부트 애플리케이션으로 reverse proxy |
+
+### ✔️ Phase 2
+
+#### ✨김현재 (front-end)
+
+#### 🍒 최이주 (back-end)
+
+| No  | Work            | Description                                                                            |
+| --- | --------------- | -------------------------------------------------------------------------------------- |
+| 1   | 소셜 로그인 API | 권한이 필요한 페이지에서 사용자 인증 및 예외 처리, 액세스 토큰 만료시 토큰 재발급 기능 |
+
+#### 🤖 박형균 (back-end)
+
+| No  | Work            | Description                                                                                                   |
+| --- | --------------- | ------------------------------------------------------------------------------------------------------------- |
+| 1   | 소셜 로그인 API | Oauth2를 이용한 카카오, 구글 소셜 로그인 구현, 로그인 성공 시 리프레시 토큰(Cookie) 및 액세스 토큰(body) 발급 |
+
+## ✅ API 명세서
+
+> [API 명세서](https://api.forecast-test.shop/docs/docs.html)
+
+## 👍 Collaborators
+
+### PM
+
+| <img alt="스크린샷 2024-10-02 오후 9 32 55" src="https://github.com/user-attachments/assets/8ce52231-5083-480d-b1ee-0d7e15ed1c01" width="130" height="130"> |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                               조현아                                                                                |
+
+### UX/UI
+
+| <img alt="stuff-xp" src="https://github.com/user-attachments/assets/05c10544-1971-48b3-bdd9-740e09a805d0" width="130" height="130"> |
+| :---------------------------------------------------------------------------------------------------------------------------------: |
+|                                                               최태식                                                                |
+
+### front-end
+
+| <img src="https://avatars.githubusercontent.com/u/115006670?v=4" width="130" height="130"> |
+| :----------------------------------------------------------------------------------------: | --- |
+|                          [김현재](https://github.com/presentKey)                           |     |
+
+### back-end
+
+| <img src="https://avatars.githubusercontent.com/u/122284322?v=4" width="130" height="130"> | <img src="https://avatars.githubusercontent.com/u/143402486?v=4" width="130" height="130"> |
+| :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |
+|                        [박형균 [팀장]](https://github.com/phk1128)                         |                         [최이주](https://github.com/cherryiJuice)                          |
+
+---
+
 ### 브랜치 네이밍 규칙
 
 브랜치 종류/이슈넘버-기능이름
@@ -14,97 +235,12 @@ develop : 개발 단계 브랜치 (디폴트)
 
 ### 커밋 메세지 컨벤션
 
-| 타입     | 설명                                      |
-| -------- | ----------------------------------------- |
-| feat     | 새로운 기능을 추가                        |
-| fix      | 버그를 수정                               |
-| design   | css 수정 작업                             |
-| docs     | 문서와 관련된 변경 사항을 기록            |
-| style    | 코드 포맷팅                               |
-| refactor | 리팩토링 작업을 기록                      |
-| test     | 테스트 코드를 추가하거나 수정             |
-| chore    | 초기세팅 및 코드에 영향을 주지 않는 작업  |
-| rename   | 파일 혹은 폴더명을 수정하거나 옮기는 작업 |
-| remove   | 파일을 삭제하는 작업 수행                 |
-
-### 폴더 구조
-
-```
-script/  # 스크립트 파일
-  │
-  │
-src/
-  │  main.tsx
-  │  routes.tsx
-  │
-  │
-  ├─ assets/  # 이미지, json 파일 등
-  │   └─ svg/
-  │
-  ├─ components/  # 전역으로 재사용 가능한 컴포넌트
-  │   ├─ CustomMui/
-  │   │    └─  CustomButton.tsx
-  │   └─ layout/
-  │        └─  RootLayout/
-  │
-  ├─ layout/  # 레이아웃
-  │
-  ├─ constants/  # 상수
-  │
-  │
-  ├─ contexts/  # react context 및 라이브러리 provider
-  │   ├─  ReduxProvider.tsx
-  │   └─  TanstackQueryProvider.tsx
-  │
-  ├─ hooks/  # 전역으로 재사용 가능한 hooks
-  │   ├─  useAppDispatch.ts
-  │   └─  useAppSelector.ts
-  │
-  ├─ pages/  # 각 라우트에 해당하는 페이지 컴포넌트
-  │   ├─ Home/
-  │   │   ├─ ClothesSection/
-  │   │   │    └─ ClothesSection.tsx
-  │   │   └─ HomePage.tsx
-  │   │
-  │   └─ NotFound/
-  │        └─ NotFound.tsx
-  │
-  ├─ store/  # 전역 상태 관리
-  │   ├─ slice/
-  │   │   └─ currentRegionSlice.ts
-  │   └─ store.ts
-  │
-  ├─ service/  # api 호출 등 서비스 로직
-  |   └─  weather.ts
-  |
-  ├─ types/  # typescript 타입 정의
-  │   └─  emotion.d.ts
-  |
-  ├─ utils/  # 유틸리티 함수
-  │
-  └─ styles/  # 스타일 파일
-       ├─  normalize.css
-       └─  reset.css
-```
-
-### emotion style 컴포넌트
-
-```tsx
-import { C, S } from './style';
-
-const SomeComponent = () => {
-  return (
-    <S.Contents>
-      <Header />
-      <S.Title>제목</S.Title>
-      <C.Button>설명</C.Button>
-    </S.Contents>
-  );
-};
-
-export default SomeComponent;
-```
-
-- style 컴포넌트는 S 또는 C 네임스페이스를 통해 일반 컴포넌트와 구분한다.
-  - S는 html 태그에 적용한 styled 컴포넌트이다. `styled.div`
-  - C는 기존 컴포넌트의 스타일을 재정의 한 styled 컴포넌트이다. `styled(CustomButton)`
+| 타입     | 설명                                     |
+| -------- | ---------------------------------------- |
+| feat     | 새로운 기능을 추가                       |
+| fix      | 버그를 수정                              |
+| docs     | 문서와 관련된 변경 사항을 기록           |
+| style    | 코드 포맷팅                              |
+| refactor | 리팩토링 작업을 기록                     |
+| test     | 테스트 코드를 추가하거나 수정            |
+| chore    | 초기세팅 및 코드에 영향을 주지 않는 작업 |

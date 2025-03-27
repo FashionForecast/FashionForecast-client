@@ -1,0 +1,34 @@
+name: '🐞 fix'
+description: '버그 발생 및 수정 작업'
+labels: 'fix'
+body:
+  - type: textarea
+    attributes:
+      label: 🐞 버그 설명
+      description: 버그에 대한 설명을 작성해 주세요.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: ✅ Tasks
+      description: 해야 하는 일에 대한 Tasks를 작성해 주세요.
+      placeholder: 최대한 세분화 해서 적어주세요!
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 🌏 환경
+      description: 버그가 발생한 환경에 대해 작성해 주세요.
+      placeholder: |
+        기기: 모바일
+        브라우저: 크롬
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: 🙋🏻 More
+      description: 더 하고 싶은 말이 있다면 작성해 주세요.
+      placeholder: 📌브랜치 생성 시 ${issue타입}/${issue번호}-${이름} 형식으로 지정해주세요!
