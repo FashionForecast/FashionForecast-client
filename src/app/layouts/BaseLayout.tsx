@@ -154,7 +154,7 @@ export const BaseLayout = () => {
   );
 };
 
-/** 사용자의 위치를 특정하는 함수 */
+/** 사용자의 위치를 기준으로 가장 가까운 지역을 찾는 함수 */
 function getClosestRegion(position: GeolocationPosition) {
   let closestRegion = '';
   let minDistance = Number.MAX_SAFE_INTEGER;
@@ -162,12 +162,13 @@ function getClosestRegion(position: GeolocationPosition) {
   let ny = 0;
 
   regionList.forEach((region) => {
-    const distance = getDistance(
+    const distance = calculateDistance(
       position.coords.latitude,
       position.coords.longitude,
       region.nx,
       region.ny
     );
+
     if (distance < minDistance) {
       minDistance = distance;
       closestRegion = region.region;
@@ -179,21 +180,27 @@ function getClosestRegion(position: GeolocationPosition) {
   return { closestRegion, nx, ny };
 }
 
-/** 위도, 경도를 이용한 두 지점 사이의 거리 계산 함수 (Haversine formula) */
-function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
-  const R = 6371; // 지구의 반지름(km)
-  const dLat = ((lat2 - lat1) * Math.PI) / 180;
-  const dLon = ((lon2 - lon1) * Math.PI) / 180;
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c;
+/** 위도, 경도를 이용해 두 지점 간의 거리를 계산 (Haversine formula) */
+function calculateDistance(
+  latitude1: number,
+  longitude1: number,
+  latitude2: number,
+  longitude2: number
+) {
+  const EARTH_RADIUS_KM = 6371;
+  const deltaLat = ((latitude2 - latitude1) * Math.PI) / 180;
+  const deltaLon = ((longitude2 - longitude1) * Math.PI) / 180;
 
-  return distance;
+  const a =
+    Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+    Math.cos((latitude1 * Math.PI) / 180) *
+      Math.cos((latitude2 * Math.PI) / 180) *
+      Math.sin(deltaLon / 2) *
+      Math.sin(deltaLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return EARTH_RADIUS_KM * c;
 }
 
 function findRegionByName(regionName: string | null) {
