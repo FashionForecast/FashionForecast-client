@@ -115,9 +115,13 @@ export const BaseLayout = () => {
 
     if (!member) {
       const localStorageRegionName = localStorage.getItem(REGION);
-      const region =
-        regionList.find((region) => region.region === localStorageRegionName) ??
-        DEFAULT_REGION;
+
+      if (!localStorageRegionName && geolocation) {
+        dispatch(regionActions.updateSelectedRegion(geolocation));
+        return;
+      }
+
+      const region = findRegionByName(localStorageRegionName);
       dispatch(regionActions.updateSelectedRegion(region));
 
       return;
@@ -126,16 +130,13 @@ export const BaseLayout = () => {
     const memberRegionName = member.region;
     if (memberRegionName === 'DEFAULT' && geolocation) {
       dispatch(regionActions.updateSelectedRegion(geolocation));
-
       return;
     }
 
-    const region =
-      regionList.find((region) => region.region === memberRegionName) ??
-      DEFAULT_REGION;
+    const region = findRegionByName(memberRegionName);
 
     dispatch(regionActions.updateSelectedRegion(region));
-  }, [member?.region, geolocationStatus]);
+  }, [member?.socialId, member?.region, geolocation, geolocationStatus]);
 
   if (isLoggingIn) return <PageFallback />;
   return (
@@ -193,4 +194,12 @@ function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   const distance = R * c;
 
   return distance;
+}
+
+function findRegionByName(regionName: string | null) {
+  if (!regionName) return DEFAULT_REGION;
+
+  return (
+    regionList.find((region) => region.region === regionName) ?? DEFAULT_REGION
+  );
 }
