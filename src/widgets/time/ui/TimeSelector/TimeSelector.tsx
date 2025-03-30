@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { compactTimeList } from '@/shared/consts/timeList';
 import { theme } from '@/shared/styles';
@@ -23,243 +23,241 @@ type TimeSelectorProps = {
   onSubmit: (newTimes: Time[], newDay: Day) => void;
 };
 
-export const TimeSelector = ({
-  isOpen,
-  onClose,
-  onSubmit,
-}: TimeSelectorProps) => {
-  const [times, setTimes] = useState(getDefaultTimes);
-  const [day, setDay] = useState<Day>('오늘');
-  const [draggingStartHour, setDraggingStartHour] = useState<number | null>(
-    null
-  );
-  const [draggingEndHour, setDraggingEndHour] = useState<number | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [deleteRange, setDeleteRange] = useState<null | number>(null);
-  const [draggingRangeStatus, setDraggingRangeStatus] =
-    useState<DraggingRangeStatus>('currentDay');
+export const TimeSelector = memo(
+  ({ isOpen, onClose, onSubmit }: TimeSelectorProps) => {
+    const [times, setTimes] = useState(getDefaultTimes);
+    const [day, setDay] = useState<Day>('오늘');
+    const [draggingStartHour, setDraggingStartHour] = useState<number | null>(
+      null
+    );
+    const [draggingEndHour, setDraggingEndHour] = useState<number | null>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [deleteRange, setDeleteRange] = useState<null | number>(null);
+    const [draggingRangeStatus, setDraggingRangeStatus] =
+      useState<DraggingRangeStatus>('currentDay');
 
-  const isDefaultTime = times[0].isDefault;
-  const selectedTimesText = useMemo(
-    () => formatSelectedTimesText(times, day),
-    [times, day]
-  );
+    const isDefaultTime = times[0].isDefault;
+    const selectedTimesText = useMemo(
+      () => formatSelectedTimesText(times, day),
+      [times, day]
+    );
 
-  const handlePointerDown = (pointerHour: number) => {
-    if (!isDefaultTime) {
-      const deleteTarget = times.findIndex((time) =>
-        time.ranges.includes(pointerHour)
-      );
+    const handlePointerDown = (pointerHour: number) => {
+      if (!isDefaultTime) {
+        const deleteTarget = times.findIndex((time) =>
+          time.ranges.includes(pointerHour)
+        );
 
-      if (deleteTarget >= 0) {
-        setDeleteRange(deleteTarget);
-        return;
+        if (deleteTarget >= 0) {
+          setDeleteRange(deleteTarget);
+          return;
+        }
       }
-    }
 
-    setIsDragging(true);
-    setDeleteRange(null);
-    setDraggingStartHour(pointerHour);
-    setDraggingEndHour(pointerHour);
-
-    const newTime = {
-      startTime: compactTimeList[pointerHour],
-      endTime: null,
-      ranges: [pointerHour],
-    };
-
-    setTimes((prev) => (isDefaultTime ? [newTime] : [...prev, newTime]));
-  };
-
-  const handlePointerMove = (pointerHour: number) => {
-    if (!isDragging || draggingStartHour === null) return;
-
-    const isNextDay = draggingStartHour > pointerHour;
-    const earliestStartHour = times[0].ranges[0];
-    let draggingRangeStatus: DraggingRangeStatus = 'currentDay';
-
-    if (isNextDay) {
-      setDraggingEndHour(Math.min(pointerHour, earliestStartHour));
-      draggingRangeStatus =
-        pointerHour >= earliestStartHour ? 'impossible' : 'nextDay';
-    } else {
+      setIsDragging(true);
+      setDeleteRange(null);
+      setDraggingStartHour(pointerHour);
       setDraggingEndHour(pointerHour);
-    }
 
-    setDraggingRangeStatus(draggingRangeStatus);
-  };
-
-  const handlePointerUp = useCallback(() => {
-    if (draggingStartHour === null || draggingEndHour === null) {
-      return;
-    }
-
-    setTimes((prev) => {
-      const earliestStartHour = prev[0].ranges[0];
-      const newTime = prev[prev.length - 1];
-      const startHour = newTime.ranges[0];
-      let endHour =
-        draggingRangeStatus !== 'impossible'
-          ? draggingEndHour
-          : earliestStartHour - 1;
-
-      if (endHour < 0) endHour = 23;
-
-      const updatedNewTime: Time = {
-        ...newTime,
-        endTime: compactTimeList[endHour],
-        ranges: generateTimeRange(startHour, endHour),
-        isNextDay: startHour > endHour,
+      const newTime = {
+        startTime: compactTimeList[pointerHour],
+        endTime: null,
+        ranges: [pointerHour],
       };
 
-      const addedTimes = [...prev.slice(0, -1), updatedNewTime] //
-        .sort((a, b) => a.ranges[0] - b.ranges[0]);
-
-      return mergeOverlappingTimes(addedTimes);
-    });
-
-    setIsDragging(false);
-    setDraggingStartHour(null);
-    setDraggingEndHour(null);
-    setDraggingRangeStatus('currentDay');
-  }, [draggingStartHour, draggingEndHour, draggingRangeStatus]);
-
-  const handleDeleteRangeClick = () => {
-    if (deleteRange === null) return;
-
-    const filteredTimes = times.filter((_, index) => index !== deleteRange);
-    const newTimes =
-      filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes;
-
-    setTimes(newTimes);
-    setDeleteRange(null);
-  };
-
-  const handleDeleteButtonClick = () => {
-    setTimes(getDefaultTimes);
-  };
-
-  const handleDayButtonClick = (type: Day) => () => {
-    setDay(type);
-  };
-
-  useEffect(() => {
-    window.addEventListener('pointerup', handlePointerUp);
-
-    return () => {
-      window.removeEventListener('pointerup', handlePointerUp);
+      setTimes((prev) => (isDefaultTime ? [newTime] : [...prev, newTime]));
     };
-  }, [handlePointerUp]);
 
-  return (
-    <S.TimeSelectorWrap $isOpen={isOpen}>
-      <TimeHeader onClose={onClose} />
+    const handlePointerMove = (pointerHour: number) => {
+      if (!isDragging || draggingStartHour === null) return;
 
-      <S.Content>
-        <S.DayWrap>
-          <S.Heading>날짜</S.Heading>
-          <S.ButtonWrap>
-            {DAY_BUTTONS.map((value) => (
-              <ToggleButton
-                key={value}
-                color='primary'
-                value={value}
-                size='large'
-                selected={value === day}
-                onClick={handleDayButtonClick(value)}
-              >
-                {value}
-              </ToggleButton>
-            ))}
-          </S.ButtonWrap>
-        </S.DayWrap>
-        <S.ClockWrap>
-          <S.Heading>외출시간</S.Heading>
+      const isNextDay = draggingStartHour > pointerHour;
+      const earliestStartHour = times[0].ranges[0];
+      let draggingRangeStatus: DraggingRangeStatus = 'currentDay';
 
-          <S.Clock>
-            <S.ClockFace
-              width={CLOCK_RADIUS * 2}
-              height={CLOCK_RADIUS * 2}
-              viewBox={`-${CLOCK_RADIUS} -${CLOCK_RADIUS} 
+      if (isNextDay) {
+        setDraggingEndHour(Math.min(pointerHour, earliestStartHour));
+        draggingRangeStatus =
+          pointerHour >= earliestStartHour ? 'impossible' : 'nextDay';
+      } else {
+        setDraggingEndHour(pointerHour);
+      }
+
+      setDraggingRangeStatus(draggingRangeStatus);
+    };
+
+    const handlePointerUp = useCallback(() => {
+      if (draggingStartHour === null || draggingEndHour === null) {
+        return;
+      }
+
+      setTimes((prev) => {
+        const earliestStartHour = prev[0].ranges[0];
+        const newTime = prev[prev.length - 1];
+        const startHour = newTime.ranges[0];
+        let endHour =
+          draggingRangeStatus !== 'impossible'
+            ? draggingEndHour
+            : earliestStartHour - 1;
+
+        if (endHour < 0) endHour = 23;
+
+        const updatedNewTime: Time = {
+          ...newTime,
+          endTime: compactTimeList[endHour],
+          ranges: generateTimeRange(startHour, endHour),
+          isNextDay: startHour > endHour,
+        };
+
+        const addedTimes = [...prev.slice(0, -1), updatedNewTime] //
+          .sort((a, b) => a.ranges[0] - b.ranges[0]);
+
+        return mergeOverlappingTimes(addedTimes);
+      });
+
+      setIsDragging(false);
+      setDraggingStartHour(null);
+      setDraggingEndHour(null);
+      setDraggingRangeStatus('currentDay');
+    }, [draggingStartHour, draggingEndHour, draggingRangeStatus]);
+
+    const handleDeleteRangeClick = () => {
+      if (deleteRange === null) return;
+
+      const filteredTimes = times.filter((_, index) => index !== deleteRange);
+      const newTimes =
+        filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes;
+
+      setTimes(newTimes);
+      setDeleteRange(null);
+    };
+
+    const handleDeleteButtonClick = () => {
+      setTimes(getDefaultTimes);
+    };
+
+    const handleDayButtonClick = (type: Day) => () => {
+      setDay(type);
+    };
+
+    useEffect(() => {
+      window.addEventListener('pointerup', handlePointerUp);
+
+      return () => {
+        window.removeEventListener('pointerup', handlePointerUp);
+      };
+    }, [handlePointerUp]);
+
+    return (
+      <S.TimeSelectorWrap $isOpen={isOpen}>
+        <TimeHeader onClose={onClose} />
+
+        <S.Content>
+          <S.DayWrap>
+            <S.Heading>날짜</S.Heading>
+            <S.ButtonWrap>
+              {DAY_BUTTONS.map((value) => (
+                <ToggleButton
+                  key={value}
+                  color='primary'
+                  value={value}
+                  size='large'
+                  selected={value === day}
+                  onClick={handleDayButtonClick(value)}
+                >
+                  {value}
+                </ToggleButton>
+              ))}
+            </S.ButtonWrap>
+          </S.DayWrap>
+          <S.ClockWrap>
+            <S.Heading>외출시간</S.Heading>
+
+            <S.Clock>
+              <S.ClockFace
+                width={CLOCK_RADIUS * 2}
+                height={CLOCK_RADIUS * 2}
+                viewBox={`-${CLOCK_RADIUS} -${CLOCK_RADIUS} 
               ${CLOCK_RADIUS * 2} ${CLOCK_RADIUS * 2}`}
-            >
-              <circle
-                r={CLOCK_INNER_RADIUS}
-                fill='none'
-                stroke={
-                  draggingRangeStatus === 'impossible'
-                    ? theme.colors.error.light
-                    : theme.colors.blueGrey[200]
-                }
-                strokeWidth={4}
-                pathLength={8}
-                strokeDasharray={'0.7 0.3'}
-                strokeDashoffset={0.85}
-              />
+              >
+                <circle
+                  r={CLOCK_INNER_RADIUS}
+                  fill='none'
+                  stroke={
+                    draggingRangeStatus === 'impossible'
+                      ? theme.colors.error.light
+                      : theme.colors.blueGrey[200]
+                  }
+                  strokeWidth={4}
+                  pathLength={8}
+                  strokeDasharray={'0.7 0.3'}
+                  strokeDashoffset={0.85}
+                />
 
-              <TimeRanges
-                times={times}
-                isDragging={isDragging}
-                draggingStartHour={draggingStartHour}
-                draggingEndHour={draggingEndHour}
-                draggingRangeStatus={draggingRangeStatus}
-              />
+                <TimeRanges
+                  times={times}
+                  isDragging={isDragging}
+                  draggingStartHour={draggingStartHour}
+                  draggingEndHour={draggingEndHour}
+                  draggingRangeStatus={draggingRangeStatus}
+                />
 
-              <HourSections
-                times={times}
-                isDragging={isDragging}
-                draggingStartHour={draggingStartHour}
-                draggingEndHour={draggingEndHour}
-                draggingRangeStatus={draggingRangeStatus}
-                onPointerDown={handlePointerDown}
-                onDeleteRange={handleDeleteRangeClick}
-                onPointerMove={handlePointerMove}
-              />
-            </S.ClockFace>
+                <HourSections
+                  times={times}
+                  isDragging={isDragging}
+                  draggingStartHour={draggingStartHour}
+                  draggingEndHour={draggingEndHour}
+                  draggingRangeStatus={draggingRangeStatus}
+                  onPointerDown={handlePointerDown}
+                  onDeleteRange={handleDeleteRangeClick}
+                  onPointerMove={handlePointerMove}
+                />
+              </S.ClockFace>
 
-            <S.PhraseWrap>
-              {isDefaultTime && (
-                <div>
-                  <S.DefaultPhrase>
-                    가장 먼저 외출하는 <br />
-                    시간부터 지정하세요.
-                  </S.DefaultPhrase>
-                </div>
-              )}
+              <S.PhraseWrap>
+                {isDefaultTime && (
+                  <div>
+                    <S.DefaultPhrase>
+                      가장 먼저 외출하는 <br />
+                      시간부터 지정하세요.
+                    </S.DefaultPhrase>
+                  </div>
+                )}
 
-              {!isDefaultTime && (
-                <S.CountingPhraseWrap>
-                  <p>개수 상관없이 마음껏 지정하세요.</p>
-                  <C.DeleteButton
-                    variant='outlined'
-                    size='large'
-                    onClick={handleDeleteButtonClick}
-                  >
-                    모두 지우기
-                  </C.DeleteButton>
-                </S.CountingPhraseWrap>
-              )}
-            </S.PhraseWrap>
-          </S.Clock>
+                {!isDefaultTime && (
+                  <S.CountingPhraseWrap>
+                    <p>개수 상관없이 마음껏 지정하세요.</p>
+                    <C.DeleteButton
+                      variant='outlined'
+                      size='large'
+                      onClick={handleDeleteButtonClick}
+                    >
+                      모두 지우기
+                    </C.DeleteButton>
+                  </S.CountingPhraseWrap>
+                )}
+              </S.PhraseWrap>
+            </S.Clock>
 
-          {times.length > 0 && (
-            <S.SelectedTimeText $isDefaultTime={isDefaultTime}>
-              <span>{selectedTimesText}</span>
-            </S.SelectedTimeText>
-          )}
-        </S.ClockWrap>
-      </S.Content>
+            {times.length > 0 && (
+              <S.SelectedTimeText $isDefaultTime={isDefaultTime}>
+                <span>{selectedTimesText}</span>
+              </S.SelectedTimeText>
+            )}
+          </S.ClockWrap>
+        </S.Content>
 
-      <C.SubmitButton
-        size='large'
-        disabled={isDefaultTime}
-        onClick={() => onSubmit(times, day)}
-      >
-        이 시간대에 맞는 옷차림 찾기
-      </C.SubmitButton>
-    </S.TimeSelectorWrap>
-  );
-};
+        <C.SubmitButton
+          size='large'
+          disabled={isDefaultTime}
+          onClick={() => onSubmit(times, day)}
+        >
+          이 시간대에 맞는 옷차림 찾기
+        </C.SubmitButton>
+      </S.TimeSelectorWrap>
+    );
+  }
+);
 
 /** 겹치는 시간대가 존재하면 하나의 시간대로 병합 */
 function mergeOverlappingTimes(times: Time[]) {
