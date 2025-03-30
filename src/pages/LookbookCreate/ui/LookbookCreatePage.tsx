@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { LookbookCreateHeader } from '@/features/clothes';
 
@@ -14,8 +14,9 @@ import {
   WeatherTypeNumber,
 } from '@/entities/weather';
 
+import { useAppSelector } from '@/shared/lib';
 import { theme } from '@/shared/styles';
-import { HeadHelmet } from '@/shared/ui';
+import { Button, HeadHelmet, Snackbar } from '@/shared/ui';
 
 import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '../model/consts';
 
@@ -24,6 +25,7 @@ import { S } from './LookbookCreatePage.style';
 import { WeatherHeadline } from './WeatherHeadline/WeatherHeadline';
 
 export const LookbookCreatePage = () => {
+  const member = useAppSelector((state) => state.member.info);
   const [searchParams] = useSearchParams();
   const pageState: LookbookCreatePageState = useLocation().state;
   const weatherTypeNumber = validateWeatherType(searchParams.get('type'));
@@ -59,6 +61,19 @@ export const LookbookCreatePage = () => {
 
         <EditSection selection={selection} updateSelection={updateSelection} />
       </S.PageWrap>
+
+      {!member && (
+        <Snackbar
+          open={true}
+          message='나만의 룩북은 로그인이 필요해요.'
+          bottomPosition={160}
+          action={
+            <Link to={'/login'}>
+              <Button>로그인</Button>
+            </Link>
+          }
+        />
+      )}
     </>
   );
 };
