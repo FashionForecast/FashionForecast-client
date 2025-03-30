@@ -44,7 +44,7 @@ export const LookbookCard = ({
         </S.LABELS>
 
         {outfits.length <= 3 && (
-          <Link to={`/user/lookbook/create?type=${temperatureStage}`}>
+          <Link to={`/lookbook/create?type=${temperatureStage}`}>
             <IconButton>
               <PlusIcon width={14} height={14} />
             </IconButton>
@@ -55,7 +55,7 @@ export const LookbookCard = ({
       <S.ClothesList>
         {outfits.map((outfit) => (
           <C.LookbookLink
-            to={`/user/lookbook/create?type=${temperatureStage}`}
+            to={`/lookbook/create?type=${temperatureStage}`}
             state={setLinkState(outfit)}
             key={outfit.memberOutfitId}
           >

@@ -20,10 +20,10 @@ import { HeadHelmet } from '@/shared/ui';
 import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '../model/consts';
 
 import { EditSection } from './EditSection/EditSection';
-import { S } from './UserLookbookCreatePage.style';
+import { S } from './LookbookCreatePage.style';
 import { WeatherHeadline } from './WeatherHeadline/WeatherHeadline';
 
-export const UserLookbookCreatePage = () => {
+export const LookbookCreatePage = () => {
   const [searchParams] = useSearchParams();
   const pageState: LookbookCreatePageState = useLocation().state;
   const weatherTypeNumber = validateWeatherType(searchParams.get('type'));
@@ -46,7 +46,7 @@ export const UserLookbookCreatePage = () => {
       <HeadHelmet
         title='룩북 만들기'
         description='나만의 계절별 룩북을 만들어보세요.'
-        urlPath='/user/lookbook/create'
+        urlPath='/lookbook/create'
       />
 
       <S.PageWrap>

@@ -41,9 +41,9 @@ const UserPage = lazy(() =>
     default: module.UserPage,
   }))
 );
-const UserLookbookCreatePage = lazy(() =>
-  import('@/pages/UserLookbookCreate').then((module) => ({
-    default: module.UserLookbookCreatePage,
+const LookbookCreatePage = lazy(() =>
+  import('@/pages/LookbookCreate').then((module) => ({
+    default: module.LookbookCreatePage,
   }))
 );
 const TermsOfServicePage = lazy(() =>
@@ -81,8 +81,11 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <UserPage /> },
           { path: 'gender', element: <UserGenderPage /> },
-          { path: 'lookbook/create', element: <UserLookbookCreatePage /> },
         ],
+      },
+      {
+        path: '/lookbook/create',
+        element: <LookbookCreatePage />,
       },
       {
         path: '/not-found',
