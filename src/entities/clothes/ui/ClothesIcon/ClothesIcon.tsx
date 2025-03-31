@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react';
 
+import { theme } from '@/shared/styles';
 import { IconLoading } from '@/shared/ui';
 
-import { ClothesIconNames } from '../../model/types';
+import { ClothesIconNames, ClothesSVGProps } from '../../model/types';
 
 type ClothesIconProps = {
   name: ClothesIconNames | null;
@@ -10,22 +11,20 @@ type ClothesIconProps = {
 };
 
 export const ClothesIcon = ({ name, color }: ClothesIconProps) => {
-  const Icon = name && clothesIconsMap.get(name);
+  const Icon = name && CLOTHES_ICONS_MAP.get(name);
 
   return Icon ? (
     <Suspense fallback={<IconLoading $width={64} $height={64} />}>
-      <Icon color={color} />
+      <Icon color={color} outlineColor={OUTLINE_COLOR_MAP.get(color)} />
     </Suspense>
   ) : (
     <img src='' alt='' />
   );
 };
 
-const clothesIconsMap: Map<
+const CLOTHES_ICONS_MAP: Map<
   ClothesIconNames,
-  React.LazyExoticComponent<
-    ({ color }: React.SVGProps<SVGSVGElement>) => JSX.Element
-  >
+  React.LazyExoticComponent<({ color }: ClothesSVGProps) => JSX.Element>
 > = new Map([
   ['민소매', lazy(() => import('../icons/top/민소매'))],
   ['반팔티', lazy(() => import('../icons/top/반팔티'))],
@@ -66,4 +65,12 @@ const clothesIconsMap: Map<
   ['히트텍접이식우산', lazy(() => import('../icons/etc/히트텍접이식우산'))],
   ['접이식 우산', lazy(() => import('../icons/etc/접이식우산'))],
   ['장우산', lazy(() => import('../icons/etc/장우산'))],
+]);
+
+const { blueGrey } = theme.colors;
+
+const OUTLINE_COLOR_MAP = new Map<string | undefined, string>([
+  [blueGrey[500], blueGrey[900]],
+  [blueGrey[700], blueGrey[900]],
+  [blueGrey[900], blueGrey[700]],
 ]);
