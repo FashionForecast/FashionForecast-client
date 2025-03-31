@@ -14,13 +14,20 @@ import {
   WeatherTypeName,
 } from '@/entities/weather';
 
+import { GUEST_UUID } from '@/shared/consts';
+import { useSnackbar } from '@/shared/lib';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { Button, Chip, PlusIcon } from '@/shared/ui';
 
-import { getMemberLookbook } from '../../api/lookbook';
+import { getLookbook } from '../../lib/getLookbook';
 import { CLOTHES_THUMBNAIL } from '../../model/consts';
 
 import { S } from './HomeLookbookList.style';
+
+type LookbookItemClickParams = {
+  outfit?: LookbookItem;
+  mode?: 'update' | 'add';
+};
 
 type HomeLookbookListProps = {
   extremumTemperature: number;
@@ -39,42 +46,49 @@ export const HomeLookbookList = memo(
     const { data: lookbook } = useQuery({
       queryKey: [
         'user',
-        member?.socialId,
+        member?.socialId ?? localStorage.getItem(GUEST_UUID),
         'lookbook',
         extremumTemperature,
         temperatureCondition,
       ],
       queryFn: () =>
-        getMemberLookbook(
-          extremumTemperature,
-          temperatureCondition,
-          accessToken
-        ),
-      enabled: !!member,
+        getLookbook({ extremumTemperature, temperatureCondition, accessToken }),
     });
 
     const navigate = useNavigate();
+    const snackbar = useSnackbar();
 
-    const handleLookbookItemClick = (outfit?: LookbookItem) => () => {
-      const weatherNumber = WEATHER_TYPE.nameToNumber[adjustedWeatherName];
-      const linkState: LookbookCreatePageState = {
-        clickedOutfit: outfit,
-        referrer: `/?tab=lookbook&temperatureCondition=${temperatureCondition}`,
+    const handleLookbookItemClick =
+      ({ outfit, mode = 'update' }: LookbookItemClickParams) =>
+      () => {
+        if (!member && mode === 'add' && lookbook?.length === 1) {
+          snackbar.open({
+            message: '비회원은 날씨별로 1개만 저장할 수 있어요.',
+            action: <Button onClick={() => navigate('/login')}>로그인</Button>,
+          });
+
+          return;
+        }
+
+        const weatherNumber = WEATHER_TYPE.nameToNumber[adjustedWeatherName];
+        const linkState: LookbookCreatePageState = {
+          clickedOutfit: outfit,
+          referrer: `/?tab=lookbook&temperatureCondition=${temperatureCondition}`,
+        };
+
+        navigate(`/lookbook/create?type=${weatherNumber}`, {
+          state: linkState,
+        });
       };
-
-      navigate(`/lookbook/create?type=${weatherNumber}`, {
-        state: linkState,
-      });
-    };
 
     return (
       <S.LookbookListWrap>
         {lookbook && lookbook.length >= 1 && (
           <S.LookbookList>
-            {lookbook.map((outfit) => (
+            {lookbook.map((outfit, index) => (
               <S.LookbookCard
-                key={outfit.memberOutfitId}
-                onClick={handleLookbookItemClick(outfit)}
+                key={index}
+                onClick={handleLookbookItemClick({ outfit })}
               >
                 <S.LookbookContent>
                   <LookbookClothes
@@ -101,7 +115,7 @@ export const HomeLookbookList = memo(
             ))}
 
             {lookbook.length <= 3 && (
-              <S.AddCard onClick={handleLookbookItemClick()}>
+              <S.AddCard onClick={handleLookbookItemClick({ mode: 'add' })}>
                 <S.AddContent>
                   <PlusIcon />
                   <S.AddText>추가하기</S.AddText>
@@ -111,7 +125,7 @@ export const HomeLookbookList = memo(
           </S.LookbookList>
         )}
 
-        {(!member || (lookbook && lookbook.length === 0)) && (
+        {lookbook && lookbook.length === 0 && (
           <S.EmptyCard>
             <S.EmptyContent>
               <S.TextWrap>
@@ -131,7 +145,9 @@ export const HomeLookbookList = memo(
                 </S.BackgroundClothes>
               </S.TextWrap>
 
-              <Button onClick={handleLookbookItemClick()}>룩북 추가하기</Button>
+              <Button onClick={handleLookbookItemClick({ mode: 'add' })}>
+                룩북 추가하기
+              </Button>
             </S.EmptyContent>
           </S.EmptyCard>
         )}
