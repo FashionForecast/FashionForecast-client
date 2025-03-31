@@ -43,7 +43,7 @@ export const LookbookCreateHeader = ({
         weatherTypeNumber,
         outfitSelection: selection,
         accessToken,
-        outfitId: pageStateOutfit?.memberOutfitId,
+        pageStateOutfit: pageStateOutfit,
       }),
   });
 

@@ -1,22 +1,30 @@
-import { OutfitSelection } from '@/entities/clothes';
+import { LookbookCreatePageState, OutfitSelection } from '@/entities/clothes';
 import { WeatherTypeNumber } from '@/entities/weather';
 
-import { createLookbookItem, updateLookbookItem } from '../api/lookbook';
+import {
+  createGuestLookbookItem,
+  createMemberLookbookItem,
+  updateGuestLookbookItem,
+  updateMemberLookbookItem,
+} from '../api/lookbook';
+import { NewLookbookItem } from '../model/types';
+
+type PageStateOutfit = Exclude<LookbookCreatePageState, null>['clickedOutfit'];
 
 export async function saveLookbook({
   weatherTypeNumber,
   outfitSelection,
   accessToken,
-  outfitId,
+  pageStateOutfit,
 }: {
   weatherTypeNumber: WeatherTypeNumber;
   outfitSelection: OutfitSelection;
   accessToken: string | null;
-  outfitId?: number;
+  pageStateOutfit?: PageStateOutfit;
 }) {
   try {
     const { top, bottom } = outfitSelection;
-    const newLookbook = {
+    const newLookbookItem: NewLookbookItem = {
       topType: top.name,
       topColor: top.color,
       bottomType: bottom.name,
@@ -24,16 +32,53 @@ export async function saveLookbook({
       tempStageLevel: Number(weatherTypeNumber),
     };
 
-    if (outfitId) {
-      await updateLookbookItem({
-        lookbookItem: newLookbook,
+    if (accessToken) {
+      const outfitId = pageStateOutfit?.memberOutfitId;
+
+      await createOrUpdateMemberLookbook({
+        newLookbookItem,
         accessToken,
         outfitId,
       });
-    } else {
-      await createLookbookItem(newLookbook, accessToken);
+
+      return;
     }
+
+    await createOrUpdateGuestLookbook(newLookbookItem, pageStateOutfit);
   } catch (error) {
     throw new Error(error as string);
   }
+}
+
+async function createOrUpdateMemberLookbook({
+  newLookbookItem,
+  accessToken,
+  outfitId,
+}: {
+  newLookbookItem: NewLookbookItem;
+  accessToken: string | null;
+  outfitId?: number;
+}) {
+  if (outfitId) {
+    await updateMemberLookbookItem({
+      newLookbookItem,
+      accessToken,
+      outfitId,
+    });
+    return;
+  }
+
+  await createMemberLookbookItem(newLookbookItem, accessToken);
+}
+
+async function createOrUpdateGuestLookbook(
+  newLookbookItem: NewLookbookItem,
+  pageStateOutfit: PageStateOutfit
+) {
+  if (pageStateOutfit) {
+    await updateGuestLookbookItem(newLookbookItem);
+    return;
+  }
+
+  await createGuestLookbookItem(newLookbookItem);
 }
