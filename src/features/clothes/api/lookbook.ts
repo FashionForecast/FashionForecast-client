@@ -36,12 +36,10 @@ export async function updateMemberLookbookItem({
   });
 }
 
-export async function deleteLookbookItem(
+export async function deleteMemberLookbookItem(
   outfitId: number | undefined,
   accessToken: string | null
 ) {
-  if (!outfitId) throw new Error(`해당 룩북을 찾을 수 없습니다.`);
-
   await fetchAPI(`/member/outfits/${outfitId}`, {
     method: 'DELETE',
     headers: {
@@ -71,5 +69,17 @@ export async function updateGuestLookbookItem(lookbookItem: NewLookbookItem) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ uuid: guestUUID, ...lookbookItem }),
+  });
+}
+
+export async function deleteGuestLookbookItem(tempStageLevel?: number) {
+  const guestUUID = localStorage.getItem(GUEST_UUID);
+
+  await fetchAPI(`/guest/outfit`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ uuid: guestUUID, tempStageLevel }),
   });
 }
