@@ -27,8 +27,9 @@ const TimeLineItem = styled.li<{ $isActive: boolean }>`
 `;
 
 const Time = styled.time`
+  ${({ theme }) => theme.typo['body-2']};
   flex-shrink: 0;
-  min-width: 66px;
+  min-width: 64px;
   margin-right: 4px;
 `;
 
@@ -46,7 +47,8 @@ const Line = styled.div`
 `;
 
 const Temperature = styled.span`
-  ${({ theme }) => theme.colors.text.primary}
+  ${({ theme }) => theme.typo['body-1']};
+  ${({ theme }) => theme.colors.text.primary};
 `;
 
 const DialogContentItem = styled.li`
