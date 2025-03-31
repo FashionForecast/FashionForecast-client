@@ -7,7 +7,7 @@ import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
-import { ArrowIcon, Header, IconButton } from '@/shared/ui';
+import { ArrowIcon, Button, Header, IconButton } from '@/shared/ui';
 
 import { saveLookbook } from '../../lib/saveLookbook';
 
@@ -58,6 +58,14 @@ export const LookbookCreateHeader = ({
       onError: (error) => {
         if (error.message.includes('M003')) {
           snackbar.open('5개 이상 저장할 수 없습니다.');
+          return;
+        }
+
+        if (error.message.includes('G001')) {
+          snackbar.open({
+            message: '비회원은 날씨별로 1개만 저장할 수 있어요.',
+            action: <Button onClick={() => navigate('/login')}>로그인</Button>,
+          });
           return;
         }
 
