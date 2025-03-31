@@ -1,4 +1,4 @@
-import { LookbookCreatePageState, OutfitSelection } from '@/entities/clothes';
+import { OutfitSelection } from '@/entities/clothes';
 import { WeatherTypeNumber } from '@/entities/weather';
 
 import {
@@ -7,9 +7,7 @@ import {
   updateGuestLookbookItem,
   updateMemberLookbookItem,
 } from '../api/lookbook';
-import { NewLookbookItem } from '../model/types';
-
-type PageStateOutfit = Exclude<LookbookCreatePageState, null>['clickedOutfit'];
+import { NewLookbookItem, PageStateOutfit } from '../model/types';
 
 export async function saveLookbook({
   weatherTypeNumber,
