@@ -1,4 +1,4 @@
-const 스웨트 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
+const 맨투맨 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width='56'
@@ -19,4 +19,4 @@ const 스웨트 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export default 스웨트;
+export default 맨투맨;

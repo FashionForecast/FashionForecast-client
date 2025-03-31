@@ -1,4 +1,4 @@
-const 필드재킷 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
+const 야전상의 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width='56'
@@ -19,4 +19,4 @@ const 필드재킷 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export default 필드재킷;
+export default 야전상의;

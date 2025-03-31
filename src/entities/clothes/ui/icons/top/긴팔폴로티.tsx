@@ -1,4 +1,4 @@
-const 긴팔폴로 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
+const 긴팔폴로티 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width='56'
@@ -19,4 +19,4 @@ const 긴팔폴로 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export default 긴팔폴로;
+export default 긴팔폴로티;

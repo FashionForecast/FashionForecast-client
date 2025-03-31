@@ -26,19 +26,19 @@ export type ClothesIconNames =
 export type TopClothesName =
   | '민소매'
   | '반팔티'
-  | '반팔 폴로'
+  | '반팔 폴로티'
   | '반팔 셔츠'
   | '긴팔티'
-  | '긴팔 폴로'
+  | '긴팔 폴로티'
   | '긴팔 셔츠'
-  | '스웨트'
+  | '맨투맨'
   | '후드티'
   | '니트'
   | '재킷'
   | '블레이저'
   | '트렌치 코트'
   | '코트'
-  | '필드 재킷'
+  | '야전상의'
   | '패딩';
 
 export type BottomClothesName =
