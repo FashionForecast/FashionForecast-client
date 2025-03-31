@@ -18,6 +18,10 @@ export type AllLookbookListByWeatherDto = Array<{
   tempStageLevel: number;
 }>;
 
+export type ClothesSVGProps = React.SVGProps<SVGSVGElement> & {
+  outlineColor?: string;
+};
+
 export type ClothesIconNames =
   | TopClothesName
   | BottomClothesName
