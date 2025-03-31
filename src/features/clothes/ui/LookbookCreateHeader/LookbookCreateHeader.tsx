@@ -7,7 +7,7 @@ import { WeatherTypeNumber } from '@/entities/weather';
 
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { useSnackbar } from '@/shared/lib/useSnackbar';
-import { ArrowIcon, Button, Header, IconButton } from '@/shared/ui';
+import { ArrowIcon, Header, IconButton } from '@/shared/ui';
 
 import { saveLookbook } from '../../lib/saveLookbook';
 
@@ -23,7 +23,6 @@ export const LookbookCreateHeader = ({
   weatherTypeNumber,
   selection,
 }: LookbookCreateHeaderProps) => {
-  const member = useAppSelector((state) => state.member.info);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -49,15 +48,6 @@ export const LookbookCreateHeader = ({
   });
 
   const handleSaveButtonClick = () => {
-    if (!member) {
-      snackbar.open({
-        message: '나만의 룩북은 로그인이 필요해요.',
-        action: <Button onClick={() => navigate('/login')}>로그인</Button>,
-      });
-
-      return;
-    }
-
     setIsLoading(true);
 
     mutate(undefined, {

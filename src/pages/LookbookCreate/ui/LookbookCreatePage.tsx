@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Link, Navigate, useLocation, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 
 import { LookbookCreateHeader } from '@/features/clothes';
 
@@ -14,9 +14,8 @@ import {
   WeatherTypeNumber,
 } from '@/entities/weather';
 
-import { useAppSelector } from '@/shared/lib';
 import { theme } from '@/shared/styles';
-import { Button, HeadHelmet, Snackbar } from '@/shared/ui';
+import { HeadHelmet } from '@/shared/ui';
 
 import { REPRESENTATIVE_CLOTHES_BY_WEATHER } from '../model/consts';
 
@@ -25,9 +24,6 @@ import { S } from './LookbookCreatePage.style';
 import { WeatherHeadline } from './WeatherHeadline/WeatherHeadline';
 
 export const LookbookCreatePage = () => {
-  const member = useAppSelector((state) => state.member.info);
-
-  const [isLoginSnackbar, setIsLoginSnackbar] = useState(true);
   const [searchParams] = useSearchParams();
 
   const pageState: LookbookCreatePageState = useLocation().state;
@@ -64,20 +60,6 @@ export const LookbookCreatePage = () => {
 
         <EditSection selection={selection} updateSelection={updateSelection} />
       </S.PageWrap>
-
-      {!member && (
-        <Snackbar
-          open={isLoginSnackbar}
-          message='나만의 룩북은 로그인이 필요해요.'
-          autoHideDuration={5000}
-          onClose={() => setIsLoginSnackbar(false)}
-          action={
-            <Link to={'/login'}>
-              <Button>로그인</Button>
-            </Link>
-          }
-        />
-      )}
     </>
   );
 };
