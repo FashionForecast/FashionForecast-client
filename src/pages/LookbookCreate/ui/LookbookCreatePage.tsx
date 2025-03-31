@@ -26,7 +26,10 @@ import { WeatherHeadline } from './WeatherHeadline/WeatherHeadline';
 
 export const LookbookCreatePage = () => {
   const member = useAppSelector((state) => state.member.info);
+
+  const [isLoginSnackbar, setIsLoginSnackbar] = useState(true);
   const [searchParams] = useSearchParams();
+
   const pageState: LookbookCreatePageState = useLocation().state;
   const weatherTypeNumber = validateWeatherType(searchParams.get('type'));
   const weatherType = WEATHER_TYPE.numberToName[weatherTypeNumber ?? '1'];
@@ -64,9 +67,10 @@ export const LookbookCreatePage = () => {
 
       {!member && (
         <Snackbar
-          open={true}
+          open={isLoginSnackbar}
           message='나만의 룩북은 로그인이 필요해요.'
-          bottomPosition={160}
+          autoHideDuration={5000}
+          onClose={() => setIsLoginSnackbar(false)}
           action={
             <Link to={'/login'}>
               <Button>로그인</Button>
