@@ -1,7 +1,8 @@
 import { PALETTE_COLORS } from './consts';
 
 export type LookbookItem = {
-  memberOutfitId: number;
+  tempStageLevel?: number;
+  memberOutfitId?: number;
   topType: TopClothesName;
   topColor: PALETTE_COLORS_TYPE;
   bottomType: BottomClothesName;

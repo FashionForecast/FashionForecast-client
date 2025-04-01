@@ -1,17 +1,29 @@
 import { PropsWithChildren, useState } from 'react';
 
-import { SnackbarContext } from '@/shared/lib';
+import { SnackbarContext, SnackbarContextType } from '@/shared/lib';
 import { Snackbar } from '@/shared/ui';
 
 export const SnackbarProvider = ({ children }: PropsWithChildren) => {
   const [key, setKey] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [actionSlot, setActionSlot] = useState<React.ReactNode>();
 
-  const open = (message: string) => {
-    setMessage(message);
+  const open = (
+    messageOrOption: Parameters<SnackbarContextType['open']>[0]
+  ) => {
     setIsOpen(true);
     setKey((prev) => prev + 1);
+
+    if (typeof messageOrOption === 'string') {
+      const message = messageOrOption;
+      setMessage(message);
+      return;
+    }
+
+    const { message, action } = messageOrOption;
+    setMessage(message);
+    setActionSlot(action);
   };
 
   const handleClose = () => {
@@ -27,6 +39,7 @@ export const SnackbarProvider = ({ children }: PropsWithChildren) => {
         message={message}
         autoHideDuration={3000}
         onClose={handleClose}
+        action={actionSlot}
       />
     </SnackbarContext.Provider>
   );
