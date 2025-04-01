@@ -49,7 +49,7 @@ export const SelectGender = () => {
       <S.Article>
         <S.ClothesGroup>
           <ClothesIcon name='면바지' color='#80C3FF' />
-          <ClothesIcon name='스커트 스타킹' color='#F2D41B' />
+          <ClothesIcon name='치마+스타킹' color='#F2D41B' />
         </S.ClothesGroup>
 
         <S.Title>거의 다 왔어요!</S.Title>
