@@ -52,21 +52,19 @@ export const LookbookCard = ({
         )}
       </S.CardHeader>
 
-      <S.ClothesList>
+      <S.ClothesGroup>
         {outfits.map((outfit) => (
           <C.LookbookLink
             to={`/user/lookbook/create?type=${temperatureStage}`}
             state={setLinkState(outfit)}
             key={outfit.memberOutfitId}
           >
-            <S.ClothesItem>
-              <LookbookClothes
-                topName={outfit.topType}
-                topColor={outfit.topColor}
-                bottomName={outfit.bottomType}
-                bottomColor={outfit.bottomColor}
-              />
-            </S.ClothesItem>
+            <LookbookClothes
+              topName={outfit.topType}
+              topColor={outfit.topColor}
+              bottomName={outfit.bottomType}
+              bottomColor={outfit.bottomColor}
+            />
 
             <S.ChipWrap>
               <C.TopNameChip
@@ -82,7 +80,7 @@ export const LookbookCard = ({
             </S.ChipWrap>
           </C.LookbookLink>
         ))}
-      </S.ClothesList>
+      </S.ClothesGroup>
     </S.LookbookCardWrap>
   );
 };
