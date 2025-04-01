@@ -29,7 +29,7 @@ const TimeLineItem = styled.li<{ $isActive: boolean }>`
 const Time = styled.time`
   ${({ theme }) => theme.typo['body-2']};
   flex-shrink: 0;
-  min-width: 64px;
+  min-width: 60px;
   margin-right: 4px;
 `;
 
