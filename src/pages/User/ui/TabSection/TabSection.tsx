@@ -4,6 +4,8 @@ import { useSearchParams } from 'react-router-dom';
 import { TemperatureLookbookList } from '@/widgets/clothes';
 import { SettingList } from '@/widgets/member';
 
+import { MigrateLookbookDialog } from '@/features/member';
+
 import { Tabs } from '@/shared/ui';
 
 import { S } from './TabSection.style';
@@ -32,6 +34,8 @@ const TabSection = () => {
 
       {tab === 'lookbook' && <TemperatureLookbookList />}
       {tab === 'set' && <SettingList />}
+
+      <MigrateLookbookDialog />
     </S.TabSectionWrap>
   );
 };
