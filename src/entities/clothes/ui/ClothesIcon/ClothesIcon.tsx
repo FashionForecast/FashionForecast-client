@@ -49,10 +49,10 @@ const CLOTHES_ICONS_MAP: Map<
   ['슬랙스', lazy(() => import('../icons/bottom/슬랙스'))],
   ['청바지', lazy(() => import('../icons/bottom/청바지'))],
   ['트레이닝 바지', lazy(() => import('../icons/bottom/트레이닝바지'))],
-  ['스커트 스타킹', lazy(() => import('../icons/bottom/스커트스타킹'))],
+  ['치마+스타킹', lazy(() => import('../icons/bottom/치마스타킹'))],
   ['긴치마', lazy(() => import('../icons/bottom/긴치마'))],
   ['기모 바지', lazy(() => import('../icons/bottom/기모바지'))],
-  ['스커트 레깅스', lazy(() => import('../icons/bottom/스커트레깅스'))],
+  ['치마+레깅스', lazy(() => import('../icons/bottom/치마레깅스'))],
 
   ['겉옷', lazy(() => import('../icons/etc/겉옷'))],
   ['겉옷장우산', lazy(() => import('../icons/etc/겉옷장우산'))],

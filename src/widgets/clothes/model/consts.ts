@@ -84,8 +84,8 @@ export const WOMAN_BOTTOM_CLOTHES: BottomClothesName[] = [
   '슬랙스',
   '청바지',
   '트레이닝 바지',
-  '스커트 스타킹',
+  '치마+스타킹',
   '긴치마',
   '기모 바지',
-  '스커트 레깅스',
+  '치마+레깅스',
 ];

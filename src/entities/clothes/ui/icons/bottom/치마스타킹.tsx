@@ -1,6 +1,6 @@
 import { ClothesSVGProps } from '@/entities/clothes/model/types';
 
-const 스커트스타킹 = ({
+const 치마스타킹 = ({
   color = '#F8AF20',
   outlineColor = '#434D58',
 }: ClothesSVGProps) => {
@@ -24,4 +24,4 @@ const 스커트스타킹 = ({
   );
 };
 
-export default 스커트스타킹;
+export default 치마스타킹;
