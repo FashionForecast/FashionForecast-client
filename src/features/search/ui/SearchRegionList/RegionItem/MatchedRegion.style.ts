@@ -9,6 +9,7 @@ const MatchedRegionItem = styled.li`
   cursor: pointer;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
+  -webkit-tap-highlight-color: transparent;
 
   &:last-of-type {
     border-bottom: none;

@@ -1,4 +1,9 @@
-const 반팔셔츠 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
+import { ClothesSVGProps } from '@/entities/clothes/model/types';
+
+const 반팔셔츠 = ({
+  color = '#F8AF20',
+  outlineColor = '#434D58',
+}: ClothesSVGProps) => {
   return (
     <svg
       width='58'
@@ -13,13 +18,13 @@ const 반팔셔츠 = ({ color = '#F8AF20' }: React.SVGProps<SVGSVGElement>) => {
       />
       <path
         d='M56.4401 23.31L45.6301 7.71L38.4501 5.66L36.6301 2H21.3901L19.5701 5.66L12.3901 7.71L1.58008 23.31L12.0101 29.57V46H46.0101V29.57L56.4401 23.31ZM36.8201 6.88L33.0201 11.44L30.4401 8.21L35.6301 4.5L36.8201 6.88ZM29.0101 6.77L25.1301 4H32.8901L29.0101 6.77ZM22.3801 4.5L27.5701 8.21L24.9901 11.44L21.1901 6.88L22.3801 4.5ZM44.0101 44H14.0101V19H12.0101V24.9L5.58008 21.04L13.6301 9.43L19.3601 7.79L25.0301 14.59L29.0101 9.59L32.9901 14.59L38.6601 7.79L44.3901 9.43L52.4401 21.04L46.0101 24.9V19H44.0101V44Z'
-        fill='#434D58'
+        fill={outlineColor}
       />
       <path
         fillRule='evenodd'
         clipRule='evenodd'
         d='M28.0096 45V9H30.0096V45H28.0096Z'
-        fill='#434D58'
+        fill={outlineColor}
       />
     </svg>
   );

@@ -12,13 +12,6 @@ type ColorButtonsProps = {
   updateClothesColor: (color: string) => () => void;
 };
 
-const { blueGrey } = theme.colors;
-const CHECK_DARK = new Set<PALETTE_COLORS_TYPE>([
-  blueGrey[50],
-  blueGrey[100],
-  blueGrey[300],
-]);
-
 export const ColorButtons = memo(
   ({ selectedSliderClothesColor, updateClothesColor }: ColorButtonsProps) => {
     return (
@@ -32,7 +25,7 @@ export const ColorButtons = memo(
                 {selectedSliderClothesColor === color && (
                   <S.IconWrap>
                     <CheckCircleIcon
-                      color={CHECK_DARK.has(color) ? 'dark' : 'white'}
+                      color={DARK_CHECK_ICON.has(color) ? 'dark' : 'white'}
                     />
                   </S.IconWrap>
                 )}
@@ -44,3 +37,61 @@ export const ColorButtons = memo(
     );
   }
 );
+
+const {
+  blueGrey,
+  red,
+  deepOrange,
+  orange,
+  amber,
+  yellow,
+  lime,
+  lightGreen,
+  green,
+  teal,
+  cyan,
+  lightBlue,
+  blue,
+  indigo,
+  deepPurple,
+  purple,
+  pink,
+} = theme.colors;
+
+const DARK_CHECK_ICON = new Set<PALETTE_COLORS_TYPE>([
+  blueGrey[50],
+  blueGrey[100],
+  blueGrey[300],
+  red[300],
+  deepOrange[300],
+  orange[300],
+  amber[300],
+  yellow[200],
+  lime[200],
+  red[100],
+  deepOrange[100],
+  orange[100],
+  amber[100],
+  yellow[100],
+  lime[100],
+  lightGreen[300],
+  green[300],
+  teal[300],
+  cyan[300],
+  lightBlue[300],
+  blue[300],
+  lightGreen[100],
+  green[100],
+  teal[100],
+  cyan[100],
+  lightBlue[100],
+  blue[100],
+  indigo[300],
+  deepPurple[300],
+  purple[300],
+  pink[300],
+  indigo[100],
+  deepPurple[100],
+  purple[100],
+  pink[100],
+]);

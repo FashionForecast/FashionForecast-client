@@ -10,14 +10,10 @@ export async function getWeather(
   day: Day,
   region: string
 ): Promise<WeatherDto> {
-  const currentHour = new Date().getHours();
   const nowDateTime = dateToISO(new Date());
   const lastTime = times[times.length - 1];
-  const latestEndHour = lastTime.ranges[lastTime.ranges.length - 1];
   const minStartHour = calculateMinStartHour(times, day);
-  const minEndHour = lastTime.isNextDay
-    ? latestEndHour
-    : Math.max(latestEndHour, currentHour);
+  const minEndHour = calculateMinEndHour(times, day);
 
   const minStartDateTime = calculateDateTime({
     hour: minStartHour,
@@ -69,6 +65,20 @@ function calculateMinStartHour(times: Time[], day: Day) {
     .find((hour) => hour >= currentHour);
 
   return startHour ?? currentHour;
+}
+
+function calculateMinEndHour(times: Time[], day: Day) {
+  const lastTime = times[times.length - 1];
+  const latestEndHour = lastTime.ranges[lastTime.ranges.length - 1];
+
+  if (day !== '오늘') {
+    return latestEndHour;
+  }
+
+  const currentHour = new Date().getHours();
+  return lastTime.isNextDay
+    ? latestEndHour
+    : Math.max(latestEndHour, currentHour);
 }
 
 function calculateDateTime({
