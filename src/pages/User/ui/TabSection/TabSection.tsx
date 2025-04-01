@@ -16,7 +16,7 @@ const MEMBER_TAB = [
   { title: '설정', value: 'set' },
 ];
 
-const TabSection = () => {
+export const TabSection = () => {
   const [searchParams] = useSearchParams();
   const [tab, setTab] = useState<MemberTab>(
     searchParams.get('tab') === 'set' ? 'set' : 'lookbook'
@@ -39,5 +39,3 @@ const TabSection = () => {
     </S.TabSectionWrap>
   );
 };
-
-export default TabSection;
