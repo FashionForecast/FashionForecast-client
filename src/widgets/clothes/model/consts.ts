@@ -1,8 +1,4 @@
-import {
-  BottomClothesName,
-  ClothesIconNames,
-  TopClothesName,
-} from '@/entities/clothes';
+import { BottomClothesName, TopClothesName } from '@/entities/clothes';
 import { WeatherTypeName } from '@/entities/weather';
 
 import { OutfitType } from './types';
@@ -13,7 +9,11 @@ export const SELECT_CLOTHES_BUTTON_WRAP_HEIGHT = '64px';
 
 export const CLOTHES_THUMBNAIL: Record<
   WeatherTypeName,
-  Record<Extract<OutfitType, 'TOP' | 'BOTTOM'>, ClothesIconNames>
+  {
+    [K in Extract<OutfitType, 'TOP' | 'BOTTOM'>]: K extends 'TOP'
+      ? TopClothesName
+      : BottomClothesName;
+  }
 > = {
   sweltering: {
     TOP: '민소매',
