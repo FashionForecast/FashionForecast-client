@@ -1,4 +1,4 @@
-export const RainDropIcon = () => {
+const RainDropIcon = () => {
   return (
     <svg
       width='32'
@@ -18,3 +18,5 @@ export const RainDropIcon = () => {
     </svg>
   );
 };
+
+export default RainDropIcon;

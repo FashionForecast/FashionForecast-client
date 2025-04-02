@@ -1,7 +1,12 @@
 import { createContext, useContext } from 'react';
 
-type SnackbarContextType = {
-  open: (message: string) => void;
+type SnackbarOpenOption = {
+  message: string;
+  action?: React.ReactNode;
+};
+
+export type SnackbarContextType = {
+  open: (messageOrOptions: string | SnackbarOpenOption) => void;
 };
 
 export const SnackbarContext = createContext<SnackbarContextType | null>(null);

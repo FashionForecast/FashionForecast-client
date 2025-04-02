@@ -91,6 +91,7 @@ export const HourText = ({
       </S.HourText>
 
       {isTouchDevice &&
+        isDragging &&
         createPortal(
           <S.Tooltip
             $color={TIME_COLOR[draggingRangeStatus]}

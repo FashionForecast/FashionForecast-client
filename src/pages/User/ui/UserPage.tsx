@@ -4,7 +4,7 @@ import { MemberInformationBar } from '@/features/member';
 
 import { ArrowIcon, Header, HeadHelmet, IconButton } from '@/shared/ui';
 
-import TabSection from './TabSection/TabSection';
+import { TabSection } from './TabSection/TabSection';
 import { S } from './UserPage.style';
 
 export const UserPage = () => {

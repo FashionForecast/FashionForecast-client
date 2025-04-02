@@ -18,6 +18,7 @@ const CardHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 18px;
 `;
 
 const LABELS = styled.div<{ $color: string }>`
@@ -35,7 +36,7 @@ const Summary = styled.span`
   color: ${({ theme }) => theme.colors.text.primary};
 `;
 
-const ClothesList = styled.ol`
+const ClothesGroup = styled.article`
   display: flex;
   gap: 10px;
 `;
@@ -45,23 +46,11 @@ const LookbookLink = styled(Link)`
   flex-direction: column;
   justify-content: space-between;
   min-width: 64px;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-8px);
-  }
-`;
-
-const ClothesItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const ChipWrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 8px;
 `;
 
 const TopNameChip = styled(Chip)`
@@ -82,8 +71,7 @@ export const S = {
   LABELS,
   Temperature,
   Summary,
-  ClothesList,
-  ClothesItem,
+  ClothesGroup,
   ChipWrap,
 };
 

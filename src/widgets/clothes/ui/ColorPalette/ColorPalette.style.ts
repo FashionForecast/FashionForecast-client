@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { HEADLINE_HEIGHT } from '@/pages/UserLookbookCreate';
+import { HEADLINE_HEIGHT } from '@/pages/LookbookCreate';
 
 import { HEADER_HEIGHT, MAX_WIDTH } from '@/shared/consts';
 import { ToggleButton } from '@/shared/ui';

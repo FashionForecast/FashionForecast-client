@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-import { HEADLINE_HEIGHT } from '@/pages/UserLookbookCreate';
+import { HEADLINE_HEIGHT } from '@/pages/LookbookCreate';
 
 import { ClothesSliderType } from '@/entities/clothes';
 

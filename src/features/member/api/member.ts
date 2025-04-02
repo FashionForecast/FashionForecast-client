@@ -4,6 +4,7 @@ import { SelectedTime } from '@/widgets/time/ui/DeprecatedTimeSelector/Deprecate
 import { MemberDto } from '@/entities/member';
 import { TemperatureCondition } from '@/entities/weather';
 
+import { GUEST_UUID } from '@/shared/consts';
 import { fetchAPI } from '@/shared/lib';
 
 export async function setMemberGender(
@@ -84,5 +85,18 @@ export async function withdrawalAccount(accessToken: string | null) {
   await fetchAPI('/login/account', {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${accessToken}` },
+  });
+}
+
+export async function migrateLookbookList(accessToken: string | null) {
+  const guestUUID = localStorage.getItem(GUEST_UUID);
+
+  await fetchAPI('/member/guestOutfits', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ uuid: guestUUID }),
   });
 }

@@ -1,3 +1,4 @@
+import { throttle } from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
 
 import { generateTimeRange } from '@/widgets/time/lib/generateTimeRange';
@@ -47,7 +48,9 @@ export const HourSections = ({
       .find((v) => v.isNextDay)
       ?.ranges.filter((hour, _, ranges) => ranges[0] > hour) ?? [];
 
-  const detectHourOnPointerMove = (event: React.PointerEvent) => {
+  const detectHourOnPointerMove = throttle((event: React.PointerEvent) => {
+    if (!isDragging) return;
+
     const { clientX, clientY } = event;
     const element = document.elementFromPoint(
       clientX,
@@ -58,7 +61,7 @@ export const HourSections = ({
       const hour = parseInt(element.dataset.hour, 10);
       onPointerMove(hour);
     }
-  };
+  }, 50);
 
   useEffect(() => {
     const hasTouchSupport =

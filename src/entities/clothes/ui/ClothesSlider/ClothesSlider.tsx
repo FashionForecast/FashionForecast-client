@@ -3,10 +3,10 @@ import { memo, useState } from 'react';
 
 import {
   BottomClothesName,
-  ClothesIcon,
   ClothesSliderType,
   TopClothesName,
-} from '@/entities/clothes';
+} from '../../model/types';
+import { ClothesIcon } from '../ClothesIcon/ClothesIcon';
 
 import { S, C } from './ClothesSlider.style';
 

@@ -1,8 +1,4 @@
-import {
-  BottomClothesName,
-  ClothesIconNames,
-  TopClothesName,
-} from '@/entities/clothes';
+import { BottomClothesName, TopClothesName } from '@/entities/clothes';
 import { WeatherTypeName } from '@/entities/weather';
 
 import { OutfitType } from './types';
@@ -13,7 +9,11 @@ export const SELECT_CLOTHES_BUTTON_WRAP_HEIGHT = '64px';
 
 export const CLOTHES_THUMBNAIL: Record<
   WeatherTypeName,
-  Record<Extract<OutfitType, 'TOP' | 'BOTTOM'>, ClothesIconNames>
+  {
+    [K in Extract<OutfitType, 'TOP' | 'BOTTOM'>]: K extends 'TOP'
+      ? TopClothesName
+      : BottomClothesName;
+  }
 > = {
   sweltering: {
     TOP: '민소매',
@@ -52,19 +52,19 @@ export const CLOTHES_THUMBNAIL: Record<
 export const MAN_TOP_CLOTHES: TopClothesName[] = [
   '민소매',
   '반팔티',
-  '반팔 폴로',
+  '반팔 폴로티',
   '반팔 셔츠',
   '긴팔티',
-  '긴팔 폴로',
+  '긴팔 폴로티',
   '긴팔 셔츠',
-  '스웨트',
+  '맨투맨',
   '후드티',
   '니트',
   '재킷',
   '블레이저',
   '트렌치 코트',
   '코트',
-  '필드 재킷',
+  '야전상의',
   '패딩',
 ];
 
@@ -84,8 +84,8 @@ export const WOMAN_BOTTOM_CLOTHES: BottomClothesName[] = [
   '슬랙스',
   '청바지',
   '트레이닝 바지',
-  '스커트 스타킹',
+  '치마+스타킹',
   '긴치마',
   '기모 바지',
-  '스커트 레깅스',
+  '치마+레깅스',
 ];

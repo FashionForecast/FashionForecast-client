@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import {
@@ -56,13 +56,7 @@ export const HomePage = () => {
     setSearchParams(params);
   };
 
-  const handleTimeSubmit = (newTimes: Time[], newDay: Day) => {
-    setTimes(newTimes);
-    setDay(newDay);
-    handleTimeSelectorToggle();
-  };
-
-  const handleTimeSelectorToggle = () => {
+  const handleTimeSelectorToggle = useCallback(() => {
     const params = new URLSearchParams(searchParams);
     const isOpen = !isTimeSelectorOpen;
 
@@ -72,7 +66,16 @@ export const HomePage = () => {
     setIsTimeSelectorOpen(isOpen);
     setSearchParams(params);
     document.body.style.overflow = isOpen ? 'hidden' : '';
-  };
+  }, [isTimeSelectorOpen]);
+
+  const handleTimeSubmit = useCallback(
+    (newTimes: Time[], newDay: Day) => {
+      setTimes(newTimes);
+      setDay(newDay);
+      handleTimeSelectorToggle();
+    },
+    [handleTimeSelectorToggle]
+  );
 
   /**  tab 쿼리 파라미터가 유효하면 해당 값으로 tab 설정 */
   useEffect(() => {
