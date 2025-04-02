@@ -124,13 +124,12 @@ const BackgroundClothes = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 50;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0.25;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% + 10px));
 `;
 
 export const S = {
