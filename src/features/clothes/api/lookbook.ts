@@ -1,9 +1,10 @@
+import { GUEST_UUID } from '@/shared/consts';
 import { fetchAPI } from '@/shared/lib';
 
 import { NewLookbookItem } from '../model/types';
 
-export async function createLookbookItem(
-  lookbookItem: NewLookbookItem,
+export async function createMemberLookbookItem(
+  newLookbookItem: NewLookbookItem,
   token: string | null
 ) {
   await fetchAPI('/member/outfit', {
@@ -12,16 +13,16 @@ export async function createLookbookItem(
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(lookbookItem),
+    body: JSON.stringify(newLookbookItem),
   });
 }
 
-export async function updateLookbookItem({
-  lookbookItem,
+export async function updateMemberLookbookItem({
+  newLookbookItem,
   accessToken,
   outfitId,
 }: {
-  lookbookItem: NewLookbookItem;
+  newLookbookItem: NewLookbookItem;
   accessToken: string | null;
   outfitId: number;
 }) {
@@ -31,20 +32,54 @@ export async function updateLookbookItem({
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(lookbookItem),
+    body: JSON.stringify(newLookbookItem),
   });
 }
 
-export async function deleteLookbookItem(
+export async function deleteMemberLookbookItem(
   outfitId: number | undefined,
   accessToken: string | null
 ) {
-  if (!outfitId) throw new Error(`해당 룩북을 찾을 수 없습니다.`);
-
-  fetchAPI(`/member/outfits/${outfitId}`, {
+  await fetchAPI(`/member/outfits/${outfitId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
+  });
+}
+
+export async function createGuestLookbookItem(lookbookItem: NewLookbookItem) {
+  const guestUUID = localStorage.getItem(GUEST_UUID);
+
+  await fetchAPI('/guest/outfit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ uuid: guestUUID, ...lookbookItem }),
+  });
+}
+
+export async function updateGuestLookbookItem(lookbookItem: NewLookbookItem) {
+  const guestUUID = localStorage.getItem(GUEST_UUID);
+
+  await fetchAPI(`/guest/outfit`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ uuid: guestUUID, ...lookbookItem }),
+  });
+}
+
+export async function deleteGuestLookbookItem(tempStageLevel?: number) {
+  const guestUUID = localStorage.getItem(GUEST_UUID);
+
+  await fetchAPI(`/guest/outfit`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ uuid: guestUUID, tempStageLevel }),
   });
 }

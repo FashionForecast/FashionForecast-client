@@ -52,16 +52,11 @@ const IconWrap = styled.div`
   width: 96px;
   height: 96px;
   animation: ${moveDown} 1s ease-in-out infinite;
-`;
 
-const Circle = styled.div<{ $color: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  background-color: ${({ $color }) => $color};
-  border-radius: 50%;
+  & svg {
+    width: 48px;
+    height: 48px;
+  }
 `;
 
 const Text = styled.span`
@@ -72,6 +67,5 @@ export const S = {
   HomeLoadingWrap,
   Frame,
   IconWrap,
-  Circle,
   Text,
 };

@@ -4,6 +4,8 @@ import { useSearchParams } from 'react-router-dom';
 import { TemperatureLookbookList } from '@/widgets/clothes';
 import { SettingList } from '@/widgets/member';
 
+import { MigrateLookbookDialog } from '@/features/member';
+
 import { Tabs } from '@/shared/ui';
 
 import { S } from './TabSection.style';
@@ -14,7 +16,7 @@ const MEMBER_TAB = [
   { title: '설정', value: 'set' },
 ];
 
-const TabSection = () => {
+export const TabSection = () => {
   const [searchParams] = useSearchParams();
   const [tab, setTab] = useState<MemberTab>(
     searchParams.get('tab') === 'set' ? 'set' : 'lookbook'
@@ -32,8 +34,8 @@ const TabSection = () => {
 
       {tab === 'lookbook' && <TemperatureLookbookList />}
       {tab === 'set' && <SettingList />}
+
+      <MigrateLookbookDialog />
     </S.TabSectionWrap>
   );
 };
-
-export default TabSection;

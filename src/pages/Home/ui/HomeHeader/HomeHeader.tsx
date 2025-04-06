@@ -7,14 +7,21 @@ import { useAppSelector } from '@/shared/lib';
 import { Button, Header, RegionIcon, IconButton } from '@/shared/ui';
 
 export const HomeHeader = memo(() => {
-  const selectedRegion = useAppSelector((state) => state.region.selectedRegion);
+  const { geolocation, selectedRegion } = useAppSelector(
+    (state) => state.region
+  );
   const member = useAppSelector((state) => state.member.info);
 
   return (
     <Header
       leftSlot={
         <Link to={'/search'}>
-          <Button startIcon={<RegionIcon />} color='secondary'>
+          <Button
+            startIcon={
+              geolocation?.region === selectedRegion?.region && <RegionIcon />
+            }
+            color='secondary'
+          >
             {selectedRegion?.region}
           </Button>
         </Link>

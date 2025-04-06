@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { deleteLookbookItem } from '@/features/clothes/api/lookbook';
+import { deleteLookbook } from '@/features/clothes/lib/deleteLookbook';
 
 import { LookbookCreatePageState } from '@/entities/clothes';
 
@@ -24,9 +24,10 @@ export const DeleteDialog = ({ isOpen, onClose }: DeleteDialogProps) => {
   const navigate = useNavigate();
   const snackbar = useSnackbar();
 
+  const pageStateOutfit = pageState?.clickedOutfit;
+
   const { mutate } = useMutation({
-    mutationFn: () =>
-      deleteLookbookItem(pageState?.clickedOutfit?.memberOutfitId, accessToken),
+    mutationFn: () => deleteLookbook(pageStateOutfit, accessToken),
   });
 
   const handleDeleteButtonClick = () => {
