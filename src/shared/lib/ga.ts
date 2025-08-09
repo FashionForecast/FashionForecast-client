@@ -6,7 +6,6 @@ type GAEvent = {
 
 export function sendABTestEvent({ eventName, experiment_id, label }: GAEvent) {
   const group = Math.random() < 0.5 ? 'A' : 'B';
-  console.log(group);
 
   window.gtag?.('event', eventName, {
     experiment_id: experiment_id,
