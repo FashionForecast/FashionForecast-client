@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { sendABTestEvent } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import { getFormattedTimeRanges } from '../../lib/getFormattedTimeRanges';
@@ -32,6 +33,11 @@ export const TimeBottomSheet = ({
 
   const handleTimeSelectorToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    sendABTestEvent({
+      eventName: 'time_selector_button_toggle',
+      experiment_id: 'time_selector_button_test',
+      label: 'time_selector',
+    });
     onTimeSelectorToggle();
   };
 

@@ -12,6 +12,7 @@ import {
 
 import { getWeather } from '@/entities/weather/api/weather';
 
+import { sendABTestEvent } from '@/shared/lib';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { FetchError, HeadHelmet, Tabs } from '@/shared/ui';
 
@@ -54,6 +55,11 @@ export const HomePage = () => {
 
     setTab(selectedTab);
     setSearchParams(params);
+    sendABTestEvent({
+      eventName: `HOME_TAB_${selectedTab}_button_click`,
+      experiment_id: `${selectedTab}_button_test`,
+      label: selectedTab,
+    });
   };
 
   const handleTimeSelectorToggle = useCallback(() => {
