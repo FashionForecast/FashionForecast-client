@@ -12,6 +12,14 @@ declare global {
     prompt(): Promise<void>;
   }
 
+  interface Window {
+    gtag?: (
+      command: 'event',
+      eventName: string,
+      params: Record<string, unknown>
+    ) => void;
+  }
+
   /** redux type 정의 */
   declare type RootState = ReturnType<
     typeof import('../../app/stores/index').store.getState

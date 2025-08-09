@@ -9,3 +9,4 @@ export {
 export { fetchAPI } from './fetch';
 export { KSTDate, dateToISO } from './date';
 export { forwardPropOption } from './emotionForwardPropOption';
+export { sendABTestEvent } from './ga';
