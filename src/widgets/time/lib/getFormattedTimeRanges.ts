@@ -1,4 +1,6 @@
-import { Day, Time } from '../model/types';
+import { Time } from '@/entities/time';
+
+import { Day } from '../model/types';
 
 type getFormattedTimeRangesParams = {
   times: Time[] | [];

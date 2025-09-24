@@ -1,4 +1,6 @@
-import { Day, Time } from '@/widgets/time';
+import { Day } from '@/widgets/time';
+
+import { Time } from '@/entities/time';
 
 import { regionCoordinateList } from '@/shared/consts';
 import { dateToISO, fetchAPI } from '@/shared/lib';
