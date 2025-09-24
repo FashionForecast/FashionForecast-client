@@ -1,14 +1,17 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { Time } from '@/entities/time';
+
 import { compactTimeList } from '@/shared/consts/timeList';
+import { useAppSelector } from '@/shared/lib';
 import { theme } from '@/shared/styles';
 import { ToggleButton } from '@/shared/ui';
 
+import { getDefaultTimes } from '../../../../entities/time/lib/getDefaultTimes';
 import { generateTimeRange } from '../../lib/generateTimeRange';
-import { getDefaultTimes } from '../../lib/getDefaultTimes';
 import { getFormattedTimeRanges } from '../../lib/getFormattedTimeRanges';
 import { CLOCK_INNER_RADIUS, CLOCK_RADIUS } from '../../model/consts';
-import { Day, DraggingRangeStatus, Time } from '../../model/types';
+import { Day, DraggingRangeStatus } from '../../model/types';
 
 import { HourSections } from './HourSections/HourSections';
 import { TimeHeader } from './TimeHeader/TimeHeader';
@@ -25,7 +28,9 @@ type TimeSelectorProps = {
 
 export const TimeSelector = memo(
   ({ isOpen, onClose, onSubmit }: TimeSelectorProps) => {
-    const [times, setTimes] = useState(getDefaultTimes);
+    const selectedTimes = useAppSelector((state) => state.times.selected);
+
+    const [clockTimes, setClockTimes] = useState(selectedTimes);
     const [day, setDay] = useState<Day>('오늘');
     const [draggingStartHour, setDraggingStartHour] = useState<number | null>(
       null
@@ -36,15 +41,15 @@ export const TimeSelector = memo(
     const [draggingRangeStatus, setDraggingRangeStatus] =
       useState<DraggingRangeStatus>('currentDay');
 
-    const isDefaultTime = times[0].isDefault;
+    const isDefaultTime = clockTimes[0].isDefault;
     const selectedTimesText = useMemo(
-      () => formatSelectedTimesText(times, day),
-      [times, day]
+      () => formatSelectedTimesText(clockTimes, day),
+      [clockTimes, day]
     );
 
     const handlePointerDown = (pointerHour: number) => {
       if (!isDefaultTime) {
-        const deleteTarget = times.findIndex((time) =>
+        const deleteTarget = clockTimes.findIndex((time) =>
           time.ranges.includes(pointerHour)
         );
 
@@ -65,14 +70,14 @@ export const TimeSelector = memo(
         ranges: [pointerHour],
       };
 
-      setTimes((prev) => (isDefaultTime ? [newTime] : [...prev, newTime]));
+      setClockTimes((prev) => (isDefaultTime ? [newTime] : [...prev, newTime]));
     };
 
     const handlePointerMove = (pointerHour: number) => {
       if (!isDragging || draggingStartHour === null) return;
 
       const isNextDay = draggingStartHour > pointerHour;
-      const earliestStartHour = times[0].ranges[0];
+      const earliestStartHour = clockTimes[0].ranges[0];
       let draggingRangeStatus: DraggingRangeStatus = 'currentDay';
 
       if (isNextDay) {
@@ -91,7 +96,7 @@ export const TimeSelector = memo(
         return;
       }
 
-      setTimes((prev) => {
+      setClockTimes((prev) => {
         const earliestStartHour = prev[0].ranges[0];
         const newTime = prev[prev.length - 1];
         const startHour = newTime.ranges[0];
@@ -124,16 +129,18 @@ export const TimeSelector = memo(
     const handleDeleteRangeClick = () => {
       if (deleteRange === null) return;
 
-      const filteredTimes = times.filter((_, index) => index !== deleteRange);
+      const filteredTimes = clockTimes.filter(
+        (_, index) => index !== deleteRange
+      );
       const newTimes =
         filteredTimes.length === 0 ? getDefaultTimes() : filteredTimes;
 
-      setTimes(newTimes);
+      setClockTimes(newTimes);
       setDeleteRange(null);
     };
 
     const handleDeleteButtonClick = () => {
-      setTimes(getDefaultTimes);
+      setClockTimes(getDefaultTimes);
     };
 
     const handleDayButtonClick = (type: Day) => () => {
@@ -195,7 +202,7 @@ export const TimeSelector = memo(
                 />
 
                 <TimeRanges
-                  times={times}
+                  times={clockTimes}
                   isDragging={isDragging}
                   draggingStartHour={draggingStartHour}
                   draggingEndHour={draggingEndHour}
@@ -203,7 +210,7 @@ export const TimeSelector = memo(
                 />
 
                 <HourSections
-                  times={times}
+                  times={clockTimes}
                   isDragging={isDragging}
                   draggingStartHour={draggingStartHour}
                   draggingEndHour={draggingEndHour}
@@ -239,7 +246,7 @@ export const TimeSelector = memo(
               </S.PhraseWrap>
             </S.Clock>
 
-            {times.length > 0 && (
+            {clockTimes.length > 0 && (
               <S.SelectedTimeText $isDefaultTime={isDefaultTime}>
                 <span>{selectedTimesText}</span>
               </S.SelectedTimeText>
@@ -250,7 +257,7 @@ export const TimeSelector = memo(
         <C.SubmitButton
           size='large'
           disabled={isDefaultTime}
-          onClick={() => onSubmit(times, day)}
+          onClick={() => onSubmit(clockTimes, day)}
         >
           이 시간대에 맞는 옷차림 찾기
         </C.SubmitButton>

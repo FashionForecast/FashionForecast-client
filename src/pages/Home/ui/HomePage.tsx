@@ -2,17 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import {
-  Day,
-  getDefaultTimes,
-  Time,
-  TimeBottomSheet,
-  TimeSelector,
-} from '@/widgets/time';
+import { Day, TimeBottomSheet, TimeSelector } from '@/widgets/time';
 
+import { Time, timesActions } from '@/entities/time';
 import { getWeather } from '@/entities/weather/api/weather';
 
-import { sendABTestEvent } from '@/shared/lib';
+import { sendABTestEvent, useAppDispatch } from '@/shared/lib';
 import { useAppSelector } from '@/shared/lib/useAppSelector';
 import { FetchError, HeadHelmet, Tabs } from '@/shared/ui';
 
@@ -35,9 +30,10 @@ export const HomePage = () => {
 
   const [tab, setTab] = useState<HomeTab>('clothes');
   const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
-  const [times, setTimes] = useState(getDefaultTimes);
+  const times = useAppSelector((state) => state.times.selected);
   const [day, setDay] = useState<Day>('오늘');
   const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
 
   const {
     data: weatherData,
@@ -76,7 +72,7 @@ export const HomePage = () => {
 
   const handleTimeSubmit = useCallback(
     (newTimes: Time[], newDay: Day) => {
-      setTimes(newTimes);
+      dispatch(timesActions.updateTimes(newTimes));
       setDay(newDay);
       handleTimeSelectorToggle();
     },
