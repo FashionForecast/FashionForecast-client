@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
+import { Time } from '@/entities/time';
+
 import { sendABTestEvent } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import { getFormattedTimeRanges } from '../../lib/getFormattedTimeRanges';
-import { Day, Time } from '../../model/types';
+import { Day } from '../../model/types';
 
 import { S } from './TimeBottomSheet.style';
 
