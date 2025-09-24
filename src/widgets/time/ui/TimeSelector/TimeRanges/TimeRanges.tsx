@@ -1,4 +1,6 @@
-import { DraggingRangeStatus, Time } from '../../../model/types';
+import { DraggingRangeStatus } from '@/widgets/time/model/types';
+
+import { Time } from '@/entities/time';
 
 import { HourHand } from './HourHand/HourHand';
 import { TimeRange } from './TimeRange/TimeRange';
