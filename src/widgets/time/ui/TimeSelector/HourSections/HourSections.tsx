@@ -4,13 +4,11 @@ import { Fragment, useEffect, useState } from 'react';
 import { generateTimeRange } from '@/widgets/time/lib/generateTimeRange';
 import { CLOCK_RADIUS } from '@/widgets/time/model/consts';
 
+import { Time } from '@/entities/time';
+
 import { compactTimeList } from '@/shared/consts/timeList';
 
-import {
-  DraggingRangeStatus,
-  Time,
-  VisibleHoursText,
-} from '../../../model/types';
+import { DraggingRangeStatus, VisibleHoursText } from '../../../model/types';
 
 import { HourSection } from './HourSection/HourSection';
 import { HourText } from './HourText/HourText';
