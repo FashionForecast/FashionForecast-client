@@ -78,7 +78,7 @@ https://github.com/user-attachments/assets/4ce24a5e-e95e-403c-9342-93ef1cd82f41
 
 https://github.com/user-attachments/assets/3f8a3b45-f14a-45f9-882a-55c9bd042f50
 
-- 사용자는 소유하고 있는 옷들을 이용해 추천 옷차림 이외의 스타일로 룩북을 만들 수 있습니다.
+- 사용자는 추천 옷차림 이외의 스타일로 룩북을 만들 수 있습니다.
 - 생성된 룩북은 메인 페이지 및 사용자 페이지에서 변경할 수 있습니다.
 
 <br />
