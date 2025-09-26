@@ -64,7 +64,7 @@ https://github.com/user-attachments/assets/f7580585-f765-42e5-8516-e609ed694198
 https://github.com/user-attachments/assets/71d70857-23bc-41a5-a5f4-c6338cc0c7a1
 
 - 시군구 단위로 지역을 검색할 수 있습니다.
-- GPS를 이용하여 현재 위치로 설정할 수 있습니다.
+- 위치 기반 서비스를 이용하여 현재 위치로 설정할 수 있습니다.
 
 <br />
 
