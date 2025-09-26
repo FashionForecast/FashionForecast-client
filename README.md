@@ -89,13 +89,13 @@ https://github.com/user-attachments/assets/beca8206-f56a-4999-a58c-9f4a95c82b95
 
 - 사용자 페이지에서 기본 지역 및 기본 옷차림 두께 설정을 변경할 수 있습니다.
 
+<br />
+
 ### 🚩 웹앱 설치 및 사용
 
 https://github.com/user-attachments/assets/b7a3cbde-20a3-4713-8b27-30fdb74d55d9
 
 - `beforeinstallprompt` 이벤트를 이용하여 웹앱을 설치할 수 있습니다.
-
-
 
 <br />
 
