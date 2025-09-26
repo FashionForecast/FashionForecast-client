@@ -34,11 +34,7 @@
 
 ## ✅ CI/CD Flow
 
-### ✔️ front-end
-
-![image](https://github.com/user-attachments/assets/f142e01a-e68a-4c7b-a61b-14fcfa1dfbe0)
-
-### ✔️ back-end
+### ✔️ Back-end
 
 ![Group 26](https://github.com/user-attachments/assets/adeb544b-84fb-479f-873b-6ebcb1533e9d)
 
