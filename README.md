@@ -2,25 +2,32 @@
 
 ## [OOTC 바로가기](https://ootc.life)
 
-![Group 18](https://github.com/user-attachments/assets/12afbd94-361e-48f9-bcc3-fae42617fa0f)
+<img width="1065" height="641" alt="image" src="https://github.com/user-attachments/assets/9a18efba-b535-40d2-80a0-1000c4d0948a" />
+
+
+<h3> 오늘 몇 도? 날씨에 딱 맞는 옷차림 추천! </h2>
+
+<p>10명 중 7명은 외출복을 고르기 위해 날씨를 확인해요.</p>
+<p>그 중에서 출퇴근 시간 등 실외에 있는 시간대의 옷차림 정보를 제공하여 옷차림 고민 시간을 줄여드려요.</p>
 
 </div>
+
 
 ## ✅ Infrastructure
 
 ![image](https://github.com/user-attachments/assets/db40845c-a8e3-45a7-b9c6-b3d25ea25a30)
 
-## ✅ Tech
+## ✅ Tech Stack
 
-### ✔️ back-end
+### ✔️ Back-end
 
 ![Group 57](https://github.com/user-attachments/assets/416add11-3e3b-4786-b35a-5f5b0cc00ff6)
 
-### ✔️ front-end
+### ✔️ Front-end
 
 ![image](https://github.com/user-attachments/assets/c3144027-5350-4936-a8c2-15dd3d5adc7c)
 
-### ✔️ infra
+### ✔️ Infra
 
 ![Group 58](https://github.com/user-attachments/assets/e7ac81d5-9697-4b3e-948b-db758bfc7c13)
 
@@ -42,95 +49,9 @@
 
 ![Group 26](https://github.com/user-attachments/assets/adeb544b-84fb-479f-873b-6ebcb1533e9d)
 
-#### Script
 
-```yml
-name: Java CI/CD with Gradle
+## ✅ 주요 기능
 
-on:
-  pull_request:
-    branches: [main, develop]
-
-permissions:
-  contents: read
-
-env:
-  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    permissions:
-      pull-requests: write
-
-    steps:
-      - name: 레포지토리 체크아웃
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.SUBMODULE_TOKEN }}
-          submodules: true
-
-      - name: JDK 17 설치
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: gradlew 권한 부여
-        run: chmod +x gradlew
-
-      - name: Gradle 통해 빌드
-        run: ./gradlew clean build
-
-      - name: DockerHub 로그인
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Docker 이미지 이름 및 환경 설정
-        run: |
-          if [[ "${{ github.event.pull_request.base.ref }}" == "main" ]]; then
-            echo "IMAGE_NAME=fashion-forecast-prod" >> $GITHUB_ENV
-          elif [[ "${{ github.event.pull_request.base.ref }}" == "develop" ]]; then
-            echo "IMAGE_NAME=fashion-forecast-dev" >> $GITHUB_ENV
-          fi
-
-      - name: 도커 빌드 & 푸시
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: 배포 타겟 설정
-        run: |
-          if [[ "${{ github.event.pull_request.base.ref }}" == "main" ]]; then
-            echo "DEPLOY_ENV=prod" >> $GITHUB_ENV
-          elif [[ "${{ github.event.pull_request.base.ref }}" == "develop" ]]; then
-            echo "DEPLOY_ENV=dev" >> $GITHUB_ENV
-          fi
-      - name: EC2 원격 접속 및 Docker compose
-        uses: appleboy/ssh-action@master
-        with:
-          username: ${{ secrets.EC2_DEV_USERNAME }}
-          host: ${{ secrets.EC2_DEV_HOST }}
-          key: ${{ secrets.EC2_DEV_PRIVATE_KEY }}
-          script_stop: true
-          script: |
-            sudo docker pull ${{ env.DOCKERHUB_USERNAME }}/fashion-forecast-${{ env.DEPLOY_ENV }}:latest
-            sudo docker compose -f docker-compose-${{ env.DEPLOY_ENV }}.yml down
-            sudo docker compose -f docker-compose-${{ env.DEPLOY_ENV }}.yml up -d
-            sudo docker image prune -f
-```
-
-## ✅ Works
 
 ### ✔️ Phase 1
 
@@ -218,29 +139,3 @@ jobs:
 |                        [박형균 [팀장]](https://github.com/phk1128)                         |                         [최이주](https://github.com/cherryiJuice)                          |
 
 ---
-
-### 브랜치 네이밍 규칙
-
-브랜치 종류/이슈넘버-기능이름
-
-e.g) feature/#5-login
-
-### 브랜치 전략
-
-gitflow 전략을 따르지만, release 브랜치가 없는 형태
-
-main : 최종 배포 브랜치
-
-develop : 개발 단계 브랜치 (디폴트)
-
-### 커밋 메세지 컨벤션
-
-| 타입     | 설명                                     |
-| -------- | ---------------------------------------- |
-| feat     | 새로운 기능을 추가                       |
-| fix      | 버그를 수정                              |
-| docs     | 문서와 관련된 변경 사항을 기록           |
-| style    | 코드 포맷팅                              |
-| refactor | 리팩토링 작업을 기록                     |
-| test     | 테스트 코드를 추가하거나 수정            |
-| chore    | 초기세팅 및 코드에 영향을 주지 않는 작업 |
