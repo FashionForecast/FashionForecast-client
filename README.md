@@ -128,5 +128,5 @@ https://github.com/user-attachments/assets/b7a3cbde-20a3-4713-8b27-30fdb74d55d9
 
 ## ✅ Wiki
 
-[Wiki 바로가기](https://github.com/FashionForecast/FashionForecast-client/wiki/OOTC-Wiki)
+[Wiki 바로가기](https://github.com/FashionForecast/FashionForecast-client/wiki)
 
